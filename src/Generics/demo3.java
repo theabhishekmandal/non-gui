@@ -36,6 +36,7 @@ class Stats<T extends Number>
         double ans=0.0;
         for(T i:nums)
             ans+=i.doubleValue();
+
         return ans/nums.length;
     }
 }
