@@ -10,7 +10,7 @@ public class fileoutput {
        {
           // if(k>10)
             // k=0;
-           brout.write(9+"\n");
+           brout.write("photo de jaldi"+"\n");
        }
 
 

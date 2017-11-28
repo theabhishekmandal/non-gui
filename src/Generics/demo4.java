@@ -1,31 +1,62 @@
 package Generics;
-interface Average
+
+
+/**
+ * In generics we can apply both classes and interfaces as bound types
+ *
+ * For eg: In the below example we have created an interface show , a class A and a class B which extends class A and implements
+ *         the show interface
+ *
+ *         Now We have a generic class gen<T extends A&show>, basically this gen class makes an upper bound and allows those
+ *         classes which are the subclasses of A and also implements the show interface.
+ *
+ *         Now if you try to pass the type parameter of A in the gen object then it will show compile time error because
+ *         A class does not implement the show interface.
+ *
+ */
+interface show
 {
-    double average();
+    void showValue();
+}
+class A
+{
+    public void display()
+    {
+        System.out.println("i am in A class");
+    }
 }
 
-class BoundDemo2<T extends Number &Average>
-{
-    T[] nums;
-    BoundDemo2(T[] ob)
+class B extends A implements show{
+    public void display()
     {
-        this.nums=ob;
-
+        super.display();
+        System.out.println("i am in the subclass of A implementing the show interface");
     }
-   public  double average()
+    public void showValue()
     {
-        double ans=0.0;
-        for(T i:nums)
-            ans+=i.doubleValue();
-
-       return ans/nums.length;
+        this.display();
     }
 }
-public class demo4 {
-    static public void main(String args[])
+
+class gen<T extends A&show>
+{
+    T ob;
+    gen(T ob)
     {
-        Integer[] arr={1,2,3,4,5};
-        BoundDemo2<Integer> iob=new BoundDemo2<>(arr);
-        System.out.println(iob.average());
+        this.ob=ob;
+    }
+    public  void gendisplay()
+    {
+        this.ob.showValue();
+    }
+
+}
+class demo4
+{
+    public static void main(String args[])
+    {
+       // gen<A> arr=new gen<>(new A()); this will not work because it does not implement the show interface
+        gen<B> arr1=new gen<>(new B());
+        arr1.gendisplay();
     }
 }

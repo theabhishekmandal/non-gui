@@ -1,3 +1,6 @@
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.*;
 
 /**
@@ -36,11 +39,13 @@ import java.util.*;
  * so if we see the permutation we would get as such:
  *
  * 4*4
+ *
  * 4*3+3*3
- * 3*3
- * 3*2+2*2
+ *     3*3
+ *
+ *     3*2+2*2
  * 4*2+3*2+2*2
- * 2*2
+ *         2*2
  *
  * we will arrange in such a way that how many times 4 will repeat ,how many times 3 will repeat and so on
  * so we would get something like this
@@ -59,16 +64,24 @@ import java.util.*;
  *
 
  */
+import java.io.*;
 public class test3 {
-    public static long answer=0;
-    public static int longvalue=1000000007;
-    public static void main(String args[])
+    //public static long answer=0;
+    //public static int longvalue=1000000007;
+    public static void main(String args[]) throws IOException
     {
         Scanner s=new Scanner(System.in);
-        int n=s.nextInt();
+        BufferedReader br=new BufferedReader(new FileReader("F:\\non-gui\\src\\hello.txt"));
+
+        int n=Integer.parseInt(br.readLine());
         int a[]=new int[n];
-        for(int i=0;i<n;i++)
-            a[i]=s.nextInt();
+        String k="";
+        int i=0;
+        while((k=br.readLine())!=null)
+        {
+            a[i]=Integer.parseInt(k);
+            i++;
+        }
         long start=System.currentTimeMillis();
         int output=possibleways(a);
         System.out.println(output);
@@ -77,6 +90,8 @@ public class test3 {
     }
     private static int possibleways(int[] input1) {
         long[] arr=new long[input1.length];
+        long answer=0;
+        long longvalue=1000000007;
         arr[0]=input1[0];
         answer=0;
         for(int i=1;i<input1.length;i++)
@@ -91,7 +106,7 @@ public class test3 {
             answer=(answer+temp)%longvalue;
         }
 
-        return (int)answer%longvalue;
+        return (int)(answer%longvalue);
     }
 
 }

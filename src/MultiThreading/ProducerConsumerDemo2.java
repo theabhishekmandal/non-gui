@@ -5,7 +5,7 @@ package MultiThreading;
  * but the consumer could consume the same item twice or many times . So, to avoid this
  * we use Inter-thread communications methods such as wait(),notify(),notifyAll()
  *
- * wait()- tells the calling thread to give up the monitor and got to sleep until some other thread
+ * wait()- tells the calling thread to give up the monitor and go to sleep until some other thread
  *         enters the same monitor and calls the notify() and notifyAll()
  *
  * notify()- wakes up thread that called wait() on the same object.
