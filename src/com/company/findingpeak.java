@@ -2,6 +2,7 @@ package com.company;
 
 /**
  * This program finds a peak using a binary search in a 2d matrix.
+ *
  */
 
 import java.util.*;
