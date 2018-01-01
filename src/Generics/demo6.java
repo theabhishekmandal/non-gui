@@ -21,7 +21,7 @@ package Generics;
     {
         this.ob=ob;
     }
-   double avg()
+   public double avg()
    {
        double sum=0.0;
        for(T i:ob)
@@ -42,7 +42,9 @@ package Generics;
        return this.avg()==ob.avg();
    }
 }
+
 public class demo6 {
+
     public static void main(String args[])
     {
           Integer inums[]={1,2,3,4,5};
@@ -52,4 +54,5 @@ public class demo6 {
           System.out.println(iob.sameAvg(dob));
 
     }
+
 }
