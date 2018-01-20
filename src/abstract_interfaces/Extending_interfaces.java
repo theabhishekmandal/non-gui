@@ -17,7 +17,6 @@ class Myclass implements two{
     {
         System.out.println("Implementing meth1");
 
-
     }
     public void meth2()
     {
