@@ -43,7 +43,8 @@ class C implements A,A.B
 
 
  */
-public class Nested_interface extends C implements C.D{
+public class Nested_interface extends C implements C.D
+{
     public void Dhello()
     {
         System.out.println("hello D");
