@@ -1,5 +1,5 @@
 package abstractpackage;
-/*
+/**
 this code is an example of abstract class
 remember : a abstract class can have abstract method ,non abstract method and data members
          : cannot create object of abstract class
@@ -7,6 +7,7 @@ remember : a abstract class can have abstract method ,non abstract method and da
          : a non abstract class cannot have abstract method because if it were so then we would be able to create
            object of non abstract class and would access that abstract method which is not implemented
  */
+
 abstract class check
 {
     int a;
@@ -16,18 +17,20 @@ abstract class check
     }
     abstract void show();
 }
+
 class checktwo extends check
 {
-void display()
-{
-    super.display();
-    System.out.println("hello from the subclass");
+    void display()
+    {
+        super.display();
+        System.out.println("hello from the subclass");
+    }
+    void show()
+    {
+        System.out.println("hey this method is defined in the subclass");
+    }
 }
-void show()
-{
-    System.out.println("hey this method is defined in the subclass");
-}
-}
+
 public class abstract_one {
     public static void main(String args[])
     {
