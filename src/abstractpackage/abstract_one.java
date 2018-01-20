@@ -1,4 +1,5 @@
 package abstractpackage;
+
 /**
 this code is an example of abstract class
 remember : a abstract class can have abstract method ,non abstract method and data members
