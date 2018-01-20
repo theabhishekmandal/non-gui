@@ -3,6 +3,7 @@ package abstract_interfaces;
 an interface having a default method and as well as a static method
 in it
  */
+
 interface number
 {
     default String getString()
