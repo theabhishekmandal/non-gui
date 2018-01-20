@@ -1,10 +1,11 @@
 package abstract_interfaces;
+
 interface hello
 {
     void helloabhishek();
 
-
 }
+
 abstract class New implements hello
 {
     void instancemethod()
@@ -12,7 +13,6 @@ abstract class New implements hello
         System.out.println("today is 25 of august ");
     }
 }
-
 
 public class test3 extends New{
 
