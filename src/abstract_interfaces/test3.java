@@ -23,6 +23,7 @@ public class test3 extends New{
     public static void main(String args[])
     {
         test3 t=new test3();
+
         t.helloabhishek();
         t.instancemethod();
 
