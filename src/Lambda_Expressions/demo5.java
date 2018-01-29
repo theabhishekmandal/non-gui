@@ -52,9 +52,8 @@ public class demo5 {
      Now passing an lambda expression as an argument
      which checks if a number is even or odd
       */
-     passinglambdaExpressionAsArguments((n) ->{
-         return (n % 2);
-     }, 10);
+
+     passinglambdaExpressionAsArguments((n) -> n % 2, 10);
 
     }
 }
