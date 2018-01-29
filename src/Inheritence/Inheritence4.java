@@ -18,6 +18,7 @@ class Square
     }
      long squareArea()
     {
+        System.out.println("i am in base class");
         return a*a;
     }
     int get_value_of_a()
@@ -33,8 +34,9 @@ class Rectangle extends Square
         super(a);
         this.b=b;
     }
-    long rectArea()
+    long squareArea()
     {
+        System.out.println("I am in child class");
         return b*get_value_of_a();
     }
 }
@@ -44,6 +46,7 @@ public class Inheritence4 {
         Square sq=new Rectangle(10,20);
         Rectangle rec=new Rectangle(10,20);
         System.out.println("Area of square is "+sq.squareArea());
-        System.out.println("Area of rectangle is "+rec.rectArea());
+        System.out.println("Area of rectangle is "+rec.squareArea());
+
     }
 }

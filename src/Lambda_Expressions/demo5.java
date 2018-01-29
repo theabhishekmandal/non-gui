@@ -15,7 +15,7 @@ interface  func<T>
     T func(T t);
 }
 public class demo5 {
-    static void passinglambdaExpressionAsArguments(func<Integer> iseven, int n) {
+     private static void passinglambdaExpressionAsArguments(func<Integer> iseven, int n) {
 
         out.println((iseven.func(n) == 1)? "No":"Yes");
 

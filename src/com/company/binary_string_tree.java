@@ -29,6 +29,5 @@ public class binary_string_tree {
     {
         Scanner s=new Scanner(System.in);
 
-
     }
 }

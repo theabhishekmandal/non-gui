@@ -22,5 +22,6 @@ public class demo5 {
         debug("Abhishek","Mandal");
         debug(new int[]{1,2,3,4,5});
 
+
     }
 }

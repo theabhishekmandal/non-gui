@@ -1,18 +1,24 @@
-interface hello
+import java.util.regex.*;
+import java.util.*;
+import java.io.*;
+import static java.lang.System.*;
+public class Main
 {
-    void demo();
-
-}
-
-
-class Main
-{
-    public static void main(String args[])
+    public static void main(String args[]) throws IOException
     {
-        hello arr;
-        arr=() -> System.out.println("hello world");
-
-        arr.demo();
+        BufferedReader br = new BufferedReader(new InputStreamReader(in));
+        String hel = br.readLine();
+        String save = "";
+        while(hel != null)
+        {
+            save += hel;
+            hel = br.readLine();
+        }
+        Pattern p = Pattern.compile(br.readLine());
+        Matcher m = p.matcher(save);
+        while(m.find())
+        {
+            out.println(m.group());
+        }
     }
 }
-

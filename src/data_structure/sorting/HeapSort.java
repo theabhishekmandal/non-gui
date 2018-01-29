@@ -25,7 +25,7 @@ public class HeapSort {
     }
     private static void buildmaxheap(int[] arr, int length)
     {
-        for(int i = (int)Math.floor(length / 2); i >= 0; i--)
+        for(int i = length / 2; i >= 0; i--)
             heapify(arr, i, length);
     }
     private static void heapify(int[] arr, int i, int length)
