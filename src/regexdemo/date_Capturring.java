@@ -5,6 +5,7 @@ import java.util.regex.*;
 
 /**
  * This program prints the valid date which is in the format dd\mm\yyyy.
+ * Although it has some error which will be removed in further examples/
  *
  * on closely looking at it's particular regex [0-9]{2}\\\\[0-9]{2}\\\\[0-9]{4}.
  *
