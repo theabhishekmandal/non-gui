@@ -8,7 +8,7 @@ import java.io.*;
 public class FileObjectDemo {
     public static void main(String args[]) throws IOException
     {
-        File ob1=new File("F:\\non-gui\\src\\Filehandling");
+        File ob1=new File("F:\\work\\non-gui\\src\\Filehandling");
         File ob2=new File("F:\\non-gui\\src\\Filehandling","hello.txt");
         File ob3=new File(ob1,"hello.txt");
         System.out.println("Name of the file "+ob3.getName());

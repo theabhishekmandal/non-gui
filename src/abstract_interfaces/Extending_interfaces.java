@@ -1,5 +1,9 @@
 package abstract_interfaces;
 
+/**
+ * This program is an implementation of inheritance among interfaces.
+ */
+
 // a interface having two methods definitions
 interface one{
     void meth1();

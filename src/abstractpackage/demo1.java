@@ -1,7 +1,7 @@
-package abstract_interfaces;
+package abstractpackage;
 /**
  * This program is based on abstract class ,abstract inner class and anonymous class.
- * Anonymous class is used when you cannot make object of some classes.
+ * Anonymous class is used when you cannot make object of abstract classes.
  */
 abstract class hello
 {

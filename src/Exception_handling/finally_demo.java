@@ -1,5 +1,9 @@
 package Exception_handling;
 
+/**
+ * This program is an example of finally keyword
+ */
+
 public class finally_demo {
     /*
      this method tells  if a try block throws an exception and there is no

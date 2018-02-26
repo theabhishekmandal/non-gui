@@ -1,12 +1,16 @@
 package abstract_interfaces;
 
-interface hello
+/**
+ * This program is an example of abstract class implementing an interface
+ */
+
+interface myname
 {
     void helloabhishek();
 
 }
 
-abstract class New implements hello
+abstract class New implements myname
 {
     void instancemethod()
     {

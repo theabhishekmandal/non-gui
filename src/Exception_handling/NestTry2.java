@@ -1,9 +1,9 @@
 package Exception_handling;
-/*
-this code is an example of how to explicitly throw your own exception using the throw keyword
-if we throw an exception and it is not caught by it's respective catch block then it will find for other
-matching catch blocks . If not found then the it will be handled by default exception handler
 
+/**
+ * This code is an example of how to explicitly throw your own exception using the throw keyword
+ * if we throw an exception and it is not caught by it's respective catch block then it will find for other
+ * matching catch blocks . If not found then the it will be handled by default exception handler
  */
 
 public class NestTry2 {

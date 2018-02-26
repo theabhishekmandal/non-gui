@@ -1,15 +1,15 @@
 package Exception_handling;
-/*
-remember that exception
-subclasses must come before any of their superclasses. This is because a catch statement
-that uses a superclass will catch exceptions of that type plus any of its subclasses. Thus, a
-subclass would never be reached if it came after its superclass.
+/**
+ *
+ * Remember that exception subclasses must come before any of their superclasses.
+ * This is because a catch statement that uses a superclass will catch exceptions of that type
+ * plus any of its subclasses. Thus, a subclass would never be reached if it came after its superclass.
 
 
-A subclass must come before its superclass in
-a series of catch statements. If not,
-unreachable code will be created and a
-compile-time error will result.
+ * A subclass must come before its superclass in
+ * a series of catch statements. If not,
+ * unreachable code will be created and a
+ * compile-time error will result.
  */
 public class multiple_catch {
     public static void main(String args[])

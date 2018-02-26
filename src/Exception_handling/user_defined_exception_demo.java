@@ -1,14 +1,13 @@
 package Exception_handling;
-/*
-1  to create your exception first you need to inherit the Exception class
-2  remember that if you extend Exception class and create your own exception
-   then it will be checked exception and for checked exception you directly cannot throw the exception
-   you either declare the exception either by using the throws keyword or use try catch block to handle
-   the exception
-3  to override the toString method of the Exception class first you need
-   use public access specifier to define the method
-
- */
+/**
+* 1  to create your exception first you need to inherit the Exception class
+* 2  remember that if you extend Exception class and create your own exception
+*    then it will be checked exception and for checked exception you directly cannot throw the exception
+*    you either declare the exception either by using the throws keyword or use try catch block to handle
+*    the exception
+* 3  to override the toString method of the Exception class first you need
+*    use public access specifier to define the method
+ **/
 
 
 /*

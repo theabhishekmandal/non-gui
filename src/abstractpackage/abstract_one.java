@@ -9,7 +9,7 @@ remember : a abstract class can have abstract method ,non abstract method and da
            object of non abstract class and would access that abstract method which is not implemented
  */
 
-abstract class check
+abstract class checkone
 {
     int a;
     void display()
@@ -19,7 +19,7 @@ abstract class check
     abstract void show();
 }
 
-class checktwo extends check
+class checktwo extends checkone
 {
     void display()
     {

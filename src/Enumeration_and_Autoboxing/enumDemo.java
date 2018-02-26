@@ -1,5 +1,5 @@
 package Enumeration_and_Autoboxing;
-/*
+/**
    This program is an example of enumeration
    In this we use some of the basic things that we can do with enum constants
    we can compare them by using == operator

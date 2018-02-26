@@ -1,7 +1,8 @@
 package abstract_interfaces;
-/*
-this code is example of nested interface
+/**
+This program is an implementation of nested interfaces
  */
+
 /*
 a outer interface having another interface as a memeber
 both the interface having method definitions

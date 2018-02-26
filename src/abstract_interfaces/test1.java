@@ -1,7 +1,7 @@
 package abstract_interfaces;
 
-/*
-this code shows what is an interface and how do we implement it
+/**
+This program shows what is an interface and how do we implement it
  */
 
  interface interfacedemo

@@ -1,4 +1,9 @@
-package abstract_interfaces;
+package abstractpackage;
+
+/**
+ * This program is an example of an abstract class containing another class, abstract class and static abstract
+ * class.
+ */
 
 abstract class check
 {
@@ -53,7 +58,7 @@ public class test2 extends check {
 
         System.out.println(test2.testing2.staticmethod());//static method of static abstract inner class testing2
 
-        System.out.println(new test2.testing2(){}.instancemethod());  //creating object of static abstract inner class using anonymous class
+        System.out.println(new check.testing2(){}.instancemethod());  //creating object of static abstract inner class using anonymous class
 
         System.out.println(ob.new testing3() {}.hellothere());   //creating object of non static inner class using anonymous class
     }

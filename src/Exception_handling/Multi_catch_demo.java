@@ -1,8 +1,8 @@
 package Exception_handling;
 
-/*
-using the multicatch feature
-by using the boolean OR operator we separate the different exception types
+/**
+ * Using the multi catch feature
+ * by using the boolean OR operator we separate the different exception types
  */
 public class Multi_catch_demo {
     public static void main(String args[])

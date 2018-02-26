@@ -1,6 +1,6 @@
 package abstract_interfaces;
-/*
-an interface having a default method and as well as a static method
+/**
+An interface can have a default method and as well as a static method
 in it
  */
 
