@@ -15,6 +15,9 @@ this program has a method of check()
 if a number is greater than 10 then it will throw exception
  */
 public class user_defined_exception_demo extends Exception {
+    user_defined_exception_demo(){
+        super("overriding the constructor for user defined exception");
+    }
     public String toString()
     {
         return "hey your number is not good check again";
@@ -33,9 +36,10 @@ public class user_defined_exception_demo extends Exception {
         }
     }
 
-    public static void main(String args[])
+    public static void main(String args[]) throws user_defined_exception_demo
     {
         check(9);
         check(11);
+        throw new user_defined_exception_demo();
     }
 }
