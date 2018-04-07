@@ -4,7 +4,7 @@ package Generics;
  * The below code is an example of how to create a generic method inside a non-generic class
  * here the isin() method, the type parameter are declared before the return type of the method
  *
- * <T extends Comparable<T>,V extends T> is used if we want to compare the two elements and V extends is
+ * <T extends Comparable<T>,V extends T> is used if we want to compare the two elements and V extends T is
  * used if we want to compare the subclass object of T
  *
  * If the types of the arguments are not similar in the method then it will show compile time error
