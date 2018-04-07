@@ -3,6 +3,9 @@ package Lambda_Expressions;
 /**
  * This program is an example of variable capture in lambda expressions.
  *
+ * Variable Capture means variables defined by the enclosing scope of a lambda expression are accessible
+ * within the lambda expression.
+ *
  * In this, a lambda expression can have access to an instance or static variable and call the method by its
  * enclosing class.
  *
@@ -22,6 +25,7 @@ interface myFunc{
     int func(int n);
 }
 public class demo7 {
+    // an instance variable of the class
     int instance = 23;
     public static void main(String[] args) {
         // a local variable that can be captured.
