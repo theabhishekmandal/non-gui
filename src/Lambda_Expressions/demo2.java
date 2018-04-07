@@ -43,7 +43,7 @@ public class demo2 {
         A lambda expression must be compatible with the method
         defined by the functional interface .Therefore, this won't work.
          */
-        //mynum = () -> "hello world"; //error
+        //mynum = () -> "hello world"; //error cause return type is string but needed double
 
     }
 }
