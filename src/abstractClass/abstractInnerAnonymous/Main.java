@@ -1,65 +1,64 @@
-package abstractpackage;
+package abstractClass.abstractInnerAnonymous;
+
 /**
  * This program is based on abstract class ,abstract inner class and anonymous class.
  * Anonymous class is used when you cannot make object of abstract classes.
  */
-abstract class hello
-{
+
+
+abstract class hello {
     private int a = 0;
 
     //can call the constructor of abstract class by extending it
-    hello()
-    {
+    hello() {
         System.out.println("I am in abstract class constructor");
     }
 
+
     //instance method of abstract class
-    void instance()
-    {
+    void instance() {
         System.out.println("I am inside the instance method of the abstract class with an instance variable a " + a);
     }
+
 
     //making a abstract method inside abstract class
     abstract void abstractdemo();
 
-    //making a static abstract class inside abstract class
-    static abstract class check
-    {
 
-        static void whatisthis()
-        {
+    //making a static abstract class inside abstract class
+    static abstract class check {
+
+        static void whatisthis() {
             System.out.println("I am inside static abstract inner class's static method");
         }
-        void whatisthat()
-        {
+
+        void whatisthat() {
             System.out.println("I am inside static abstract class's instance method");
         }
-
     }
+
+
     //making a non-static abstract class inside abstract class
-    abstract class anotherone
-    {
-        void whatthehell()
-        {
+    abstract class anotherone {
+
+        void whatthehell() {
             System.out.println("I am inside inner abstract class's instance method");
         }
 
     }
 }
 
-public class demo1 extends hello {
+public class Main extends hello {
 
     //overriding the abstract method in the abstract class hello
     @Override
-    void abstractdemo()
-    {
+    void abstractdemo() {
         System.out.println("I am inside the implemented abstract method of abstract class hello ");
     }
 
-    public static void main(String args[])
-    {
+    public static void main(String args[]) {
         //this calls the hello() constructor of the abstract class hello
-        demo1 d = new demo1();
+        Main d = new Main();
 
         //this calls the implemented method of the abstract method of the abstract class hello
         d.abstractdemo();
@@ -82,7 +81,7 @@ public class demo1 extends hello {
             of the abstract class directly so to make an object we
             use anonymous class and then call the instance method whatisthat.
          */
-        new demo1.check(){}.whatisthat();
+        new Main.check(){}.whatisthat();
 
         System.out.println("Hello initialised now calling what the hell");
 
