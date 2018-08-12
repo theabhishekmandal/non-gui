@@ -1,11 +1,10 @@
-package abstract_interfaces;
+package abstract_interfaces.InterfaceDemo1;
 
 /**
 This program shows what is an interface and how do we implement it
  */
 
- interface interfacedemo
-{
+ interface interfacedemo{
     /*
        NOTE: in an interface if you declare a variable then it is final and static implicitly
      */
@@ -13,37 +12,35 @@ This program shows what is an interface and how do we implement it
     void demo();    //method definition inside the interface
 
 }
-interface goit
-{
+
+
+interface goit {
     void whatsup();
 }
 
-interface getString
-{
+
+interface getString {
     default String getString()
     {
         return "i am in getstring method";
     }
 }
 
-public class test1 implements interfacedemo,goit
-{
-     public void whatsup()
-     {
+
+public class Main implements interfacedemo,goit, getString{
+     public void whatsup(){
          System.out.println("hello there abhishek mandal");
      }
 
-    public void demo()
-    {
+    public void demo(){
         System.out.println("hello how are you");
     }
 
-    public static void main(String args[])
-    {
+    public static void main(String args[]){
             System.out.println(a);
-            test1 ob1=new test1();
+            Main ob1=new Main();
             ob1.demo();
-            System.out.println(test1.a);  //as the variable is final and static it can be accessed by the classname
+            System.out.println(Main.a);  //as the variable is final and static it can be accessed by the classname
             ob1.whatsup();
     }
 }
