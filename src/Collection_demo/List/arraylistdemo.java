@@ -1,4 +1,4 @@
-package Collection_demo;
+package Collection_demo.List;
 
 import java.util.*;
 import static java.lang.System.out;
