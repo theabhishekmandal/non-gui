@@ -254,7 +254,7 @@ public class Main{
     }
 
 
-    //Main method which is not to be touched at any case
+    //testing.Main method which is not to be touched at any case
     public static void main(String args[]) throws IOException{
         OutputStream outputStream = System.out;//Declaration of output stream
         InputReader in = new InputReader();//User defined InputReader class initialization
