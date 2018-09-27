@@ -11,6 +11,7 @@ import static java.lang.System.out;
  *  It also allows null values
  *  It preserves the order in which the elements are inserted
  *
+ *  LinkedHashSet extends HashSet and adds no members of its own.
  */
 public class LinkedHashSetDemo {
     public static void main(String[] args) {

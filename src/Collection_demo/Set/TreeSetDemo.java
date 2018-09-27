@@ -12,7 +12,10 @@ import static java.lang.System.out;
  *  order is preserved in non-decreasing order.
  *  TreeSet does not allow null values because sorting operation is performed so adding a null will throw nullpointer
  *  Exception
- *  Treeset Cannot have different types of elements, all the elements passed should be of same type
+ *  Treeset Cannot have different types of elements, all the elements passed should be of same type because the comparison
+ *  is being done. And for comparison all the objects should be of same type.
+ *  TreeSet extends AbstractList and implements the NavigableSet interface.
+ *
  */
 public class TreeSetDemo {
     public static void main(String[] args) {

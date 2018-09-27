@@ -4,9 +4,11 @@ import java.util.*;
 import static java.lang.System.out;
 
 /**
- *  Implementation of Arraylist
+ *  Implementation of Arraylist:
+ *  ArrayList is basically used for dynamic array or variable length array.
+ *  ArrayList extends AbstractList and implements the list interface.
  */
-public class arraylistdemo
+public class ArrayListDemo
 {
     public static void main(String args[])
     {

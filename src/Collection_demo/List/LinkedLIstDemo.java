@@ -7,6 +7,7 @@ import static java.lang.System.out;
 
 /**
  *  Implementation of LinkedList.
+ *  LinkedList class extends AbstractSequentialList and implements the List, Deque and Queue interfaces
  *
  *  Remember that if you make an object using the interface name then you can only access those methods
  *  which are present in the interface. For eg;
@@ -16,7 +17,7 @@ import static java.lang.System.out;
  *   LinkedList<String> arr = new LinkedList(); // this can access those which are present in LinkedList class
  */
 
-public class linkedLIstDemo {
+public class LinkedLIstDemo {
     public static void main(String args[]){
 
         LinkedList<Integer> arr = new LinkedList<>();

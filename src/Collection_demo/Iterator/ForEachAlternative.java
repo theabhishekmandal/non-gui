@@ -6,7 +6,7 @@ import java.util.Set;
 import static java.lang.System.out;
 
 // for each alternative of iterators and listIterators
-public class for_Each_Alternative  {
+public class ForEachAlternative {
     public static void main(String[] args) {
         Set<Object> arr = new HashSet<>();
         arr.add(1);

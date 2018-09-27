@@ -13,6 +13,8 @@ import static java.lang.System.out;
  *  It does not guarantee the order of elements in which they are inserted.
  *  It allows null values to be stored.
  *  It can have different type of values
+ *
+ *  HashSet extends AbstractSet and implements the Set interface.
  */
 public class HashSetDemo {
     public static void main(String[] args) {

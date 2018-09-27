@@ -8,6 +8,7 @@ import static java.lang.System.out;
 /**
  *  ArrayDeque is similar to that of double ended queue
  *  It can also have different types of elements if the type is of Object.
+ *  ArrayDeque class extends AbstractCollection and implements the Deque interface.
  */
 public class ArrayDequeueDemo {
     public static void main(String[] args) {

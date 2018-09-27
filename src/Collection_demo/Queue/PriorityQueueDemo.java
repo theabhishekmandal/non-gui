@@ -11,6 +11,7 @@ import static java.lang.System.out;
  *  It does not permit null values because values are needed to be compared for storing
  *  If no comparator is provided then it stores the values in ascending order
  *  It is similar to TreeSet but it allows duplicates
+ *  PriorityQueue extends AbstractQueue and implements the Queue interface.
  */
 class Student{
     public String name;
