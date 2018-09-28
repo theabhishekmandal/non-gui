@@ -30,6 +30,13 @@ public class HashMapDemo {
 
         // now looping and displaying the keys and values
         for(Map.Entry<String, String> ob : set)
-            System.out.println("Key : " + ob.getKey() + " Value:" + ob.getValue());
+            System.out.println("Key: " + ob.getKey() + " Value:" + ob.getValue());
+        
+        System.out.println(); 
+        
+        // Getting the keyset and printing the values
+        for(String i : arr.keySet()){
+        	System.out.println("Key: "+ i + " " + "Value:" + arr.get(i));
+        }
     }
 }
