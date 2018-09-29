@@ -35,14 +35,15 @@ import static java.lang.System.out;
  *                                          by func is null, the existing key and value are removed from
  *                                          the map and null is returned.
  *
- *  5 boolean containsKey(Object k)     :   returns true if the invoking map contains the given key otherwise returns
- *                                          false
+ *  5 boolean containsKey(Object k)     :   returns true if the invoking map contains the given key
+ *                                          otherwise returns false
  *
- *  6 boolean containsValue(Object k)   :   returns true if the invoking map contains the given value otherwise returns
- *                                          false
+ *  6 boolean containsValue(Object k)   :   returns true if the invoking map contains the given value
+ *                                          otherwise returns false
  *
- *  7 Set<Map.Entry<K, V>> entrySet()   :   returns a Set that contains the entries in the map. The set contains objects
- *                                          of type Map.Entry. Thus, this method provides a set view of the invoking map
+ *  7 Set<Map.Entry<K, V>> entrySet()   :   returns a Set that contains the entries in the map. The
+ *                                          set contains objects of type Map.Entry. Thus, this method
+ *                                          provides a set view of the invoking map
  *
  */
 
