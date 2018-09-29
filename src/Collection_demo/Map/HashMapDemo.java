@@ -74,18 +74,16 @@ public class HashMapDemo {
         out.println();
 
         // implementing compute method and updating the value in key value pair
-        // this key does not exists
+        // this key does not exists so new value is added
         out.println("Key: " + "blah " + "Value : " + arr.compute("blah", (key, value) -> (value == null) ? "Nothing found" : (value += " " + value)));
-        // this key exists
+        // this key exists so new value is added
         out.println("Key: " + "hello " + "Value : " + arr.compute("blah", (key, value) -> (value == null) ? "Nothing found" : (value += " " + value)));
         out.println();
 
         //implenting computeIfAbsent method
-        // it key does not exists then it puts a new value
         // if key exists then nothing is assigned
-        // this key exists
         out.println("Key :" + "Abhishek" + " " + "Value:" + arr.computeIfAbsent("Abhishek", (key) -> "nothing found"));
-        // this key does not exists
+        // it key does not exists then it puts a new value
         out.println("Key :" + "fuuton" + " " + "Value:" + arr.computeIfAbsent("fuuton", (key) -> "nothing found"));
         out.println();
         
