@@ -57,7 +57,7 @@ public class ArrayListDemo
         arr.addAll(Arrays.asList(arg));
         out.println("keeping the common elements \n" + arr.retainAll(Arrays.asList(arg)));
 
-        // convering list to array
+        // converting list to array
         out.println("list to array \n" + Arrays.toString(arr.toArray()));
     }
 }
