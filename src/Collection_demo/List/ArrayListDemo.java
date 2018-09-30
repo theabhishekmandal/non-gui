@@ -59,7 +59,5 @@ public class ArrayListDemo
 
         // convering list to array
         out.println("list to array \n" + Arrays.toString(arr.toArray()));
-
-
     }
 }
