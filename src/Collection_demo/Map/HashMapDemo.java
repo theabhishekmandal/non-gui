@@ -45,6 +45,65 @@ import static java.lang.System.out;
  *                                          set contains objects of type Map.Entry. Thus, this method
  *                                          provides a set view of the invoking map
  *
+ *  8 boolean equals(Object ob)         :   returns true if obj is a Map and contains the same entries.
+ *                                          Otherwise, returns false.
+ *
+ *  9 default void forEach(BiConsumer   :   executes action on each element in the invoking map. A
+ *  <? super K, ? super V> action)          ConcurrentModificationException will be throws if an object
+ *                                          is removed during the process
+ *
+ *  10 V get(Object k)                  :   returns the value associated with the key k. Returns null if
+ *                                          if the key is not found.
+ *
+ *  11 default V getOrDefault(Object k, :   returns the value associated with k if it is in the map.
+ *     V defVal)                            Otherwise defVal is returned.
+ *
+ *  12 int hashCode()                   :   returns the hash code for the invoking map.
+ *
+ *  13 boolean isEmpty()                :   returns true if the invoking map is empty. Otherwise returns
+ *                                          false.
+ *
+ *  14 Set<K> KeySet()                  :   returns a Set that contains the keys in the invoking map.
+ *                                          This method provides a setview of hte keys in the invoking map.
+ *
+ *  15 default V merge(K k, V v,        :   If k is not in the map, the pairing k, v is added to the map.
+ *     BiFunction<? super V, ? super V,     In this case, v is returned. Otherwise, func returns a new value
+ *     ? extends V> func)                   based on the old value, the key is updated to use this value,
+ *                                          and merge() returns this value. If the value returned by func is
+ *                                          null, the existing key and value are removed from the map and
+ *                                          null is returned.
+ *
+ *  17 V put(K k, V v)                  :   puts an entry in the invoking map, overwriting any previous value
+ *                                          associated with the key. The key and value are k and v,
+ *                                          respectively. Returns null if the key did not already exist.
+ *                                          Otherwise, the previous value linked to the key is returned
+ *
+ *  18 void putAll(Map<? extends K, ?   :   puts all the entries from m into this map.
+ *      extends V> m)
+ *
+ *  19 default V putIfAbsent(K k, V v)  :   inserts the key/value, pair into the invoking map if this
+ *                                          pairing is not already present or if hte existing value is
+ *                                          null. Returns the old value. The null value is returned when no
+ *                                          previous mapping exists, or the value is null.
+ *
+ *  20 V remove(Object k)               :   removes the entry whose key equals k.
+ *
+ *  21 default boolean remove(Object k, :   If the key/value pair specified by k and v is in the invoking map,
+ *     Object v)                            it is removed and true is returned. Otherwise, false is returned.
+ *
+ *  22 default boolean replace(K k,     :   if the key/value pair specified by k and oldV is in the invoking
+ *     V oldV, V new V)                     map, the value is replaced by new V and true is returned.
+ *                                          Otherwise, false is returned.
+ *
+ *  23 default V replace(K k, V v)      :   If the key specified by k is in the invoking map, its value is
+ *                                          set to v and the previous value is returned. Otherwise, null is
+ *                                          returned
+ *
+ *  24 default void replaceAll(         :   Executes func on each element of the invoking map,replacing the
+ *  BiFunction<? super K, ? super V,        element with the result returned byfunc. A
+ *  ? extends V> func)                      ConcurrentModificationException will bethrown if an element
+ *                                          is removed during the process.
+ *
  */
 
 public class HashMapDemo {
