@@ -125,7 +125,7 @@ public class HashMapDemo {
         
         out.println(); 
         
-        // Getting the keyset and printing the values
+        // Getting the keyset and printing the values using the foreach loop
         for(String i : arr.keySet()){
         	out.println("Key: "+ i + " " + "Value:" + arr.get(i));
         }
@@ -139,7 +139,7 @@ public class HashMapDemo {
         out.println("Key: " + "hello " + "Value : " + arr.compute("blah", (key, value) -> (value == null) ? "Nothing found" : (value += " " + value)));
         out.println();
 
-        //implenting computeIfAbsent method
+        //implementing computeIfAbsent method
         // if key exists then nothing is assigned
         out.println("Key :" + "Abhishek" + " " + "Value:" + arr.computeIfAbsent("Abhishek", (key) -> "nothing found"));
         // it key does not exists then it puts a new value
@@ -152,5 +152,68 @@ public class HashMapDemo {
         // if the key is not present then null is returned
         out.println("Key :" + "mokton" + " " + "Value:" + arr.computeIfPresent("mokton", (key, value) -> "nothing found"));
         out.println();
+
+        //implementing containsKey method
+        out.println(arr.containsKey("fuuton"));
+
+        //implementing containsValue method
+        out.println(arr.containsValue("Wind style"));
+        out.println();
+
+        //implementing the equals method
+        out.println(arr.equals(new HashMap<>()));
+        out.println();
+
+        //implementing the get method to get the value associated with the key
+        out.println(arr.get("hello"));
+        out.println();
+
+        //implementing the getOrdefault method
+        out.println(arr.getOrDefault("key not present", "defaultValue"));
+        out.println();
+
+        //implementing merge method, it is used to update a specific key value pair
+        out.println(arr.merge("blah", "Nothing found Nothing found", (k,v) ->
+            v.replace("Nothing found Nothing found", "Value update in merge method")));
+        out.println();
+
+        HashMap<String, String> num = new HashMap<>();
+        num.put(1 + "", "one");
+        num.put(2 + "", "two");
+        num.put(3 + "", "three");
+
+        //implementing the putAll method
+        arr.putAll(num);
+
+        //implementing the putIfAbsent method
+        out.println(arr.putIfAbsent("3", "three"));
+        out.println();
+
+        //implementing the remove method
+        out.println(arr.remove("2"));
+        out.println();
+
+        //implementing the remove method of key value pair
+        out.println(arr.remove("3", "three"));
+        out.println(arr.remove("3", "three"));
+        out.println();
+
+        //implementing replace method with old and new value as parameters
+        out.println(arr.replace("1", "one", "ONE"));
+        out.println();
+
+        //implementing replace method with only key value as parameter
+        out.println(arr.replace("Abhishek", "Mandal", "MANDAL"));
+        out.println();
+
+        //implementing replaceAll method
+        arr.replaceAll((k, v) -> {
+            if(v.length() > 3)
+                v = v.substring(0,3);
+            return v;
+        });
+
+        out.println(arr);
+
     }
 }
