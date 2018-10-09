@@ -15,6 +15,17 @@ import static java.lang.System.out;
  *  for  loop
  *  The order of the elements is not stored in hashMap
  *
+ *  The following constructors are defined:
+ *  HashMap()                           :   It constructs a default hashMap.
+ *
+ *  HashMap(Map<? extends K,            :   The second form initializes the hashmap using the elements of m.
+ *  ? extends V>m)
+ *
+ *  HashMap(int capacity)               :   It initializes the capacity of the hashmap to capacity.
+ *
+ *  HashMap(int capacity, float fill    :   It initializes the capacity and fill ratio of the hashmap.
+ *  Ratio)
+ *
  *  It has the following methods:
  *  1 void clear()                      :   Removes all Key/value pairs from the invoking map.
  *
@@ -214,6 +225,5 @@ public class HashMapDemo {
         });
 
         out.println(arr);
-
     }
 }
