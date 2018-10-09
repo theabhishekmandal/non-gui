@@ -2,6 +2,8 @@ package Collection_demo.Map;
 
 import java.util.*;
 
+import static java.lang.System.out;
+
 /**
  * TreeMap class extends AbstractMap and implements the NavigableMap interface.
  * NavigableMap interface extends SortedMap Interface.
@@ -28,6 +30,42 @@ import java.util.*;
  */
 public class TreeMapDemo {
     public static void main(String[] args) {
+        TreeMap<Integer, String> arr = new TreeMap<>();
+        arr.put(1, "Abhishek");
+        arr.put(2, "Mohan");
+        arr.put(3, "Daksh");
+        arr.put(4, "Shivam");
+
+        out.println(arr);
+        out.println();
+
+        //Implementing SortedMap interface methods
+
+        //implementing the comparator method, returns null for natural order
+        out.println(arr.comparator());
+        out.println();
+
+        //implementing the firstKey method
+        out.println(arr.firstKey());
+        out.println();
+
+        //implementing the headMap method
+        out.println(arr.headMap(3, true));
+        out.println();
+
+        //implementing the lastKey method
+        out.println(arr.lastKey());
+        out.println();
+
+        //implementing the subMap method
+        out.println(arr.subMap(2, 4));
+        out.println();
+
+        //implementing the tailMap method
+        out.println(arr.tailMap(1, false));
+        out.println();
+
+        //Implementing NavigableMap methods
 
     }
 }
