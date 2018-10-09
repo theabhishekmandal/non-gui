@@ -15,6 +15,9 @@ import static java.lang.System.out;
  *  for  loop
  *  The order of the elements is not stored in hashMap
  *
+ *  HashMap is a generic class and has the following declaration:
+ *              class HashMap<K, V>   here K specifies the type of keys and V specifies the type of values
+ *
  *  The following constructors are defined:
  *  HashMap()                           :   It constructs a default hashMap.
  *
