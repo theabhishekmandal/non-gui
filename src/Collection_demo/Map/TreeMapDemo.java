@@ -67,5 +67,33 @@ public class TreeMapDemo {
 
         //Implementing NavigableMap methods
 
+        //implementing ceilingEntry method
+        out.println(arr.ceilingEntry(5));
+        out.println();
+
+        //implementing ceilingKey method
+        out.println(arr.ceilingKey(4));
+        out.println();
+
+        //implementing descendingKehSet method
+        for(Integer i : arr.descendingKeySet())
+            out.println(i + " " + arr.get(i));
+        out.println();
+
+        //implementing descendingMap method
+        NavigableMap<Integer, String> reversemap = arr.descendingMap();
+        out.println(reversemap);
+        out.println();
+
+        //implementing firstEntry method
+        Map.Entry<Integer, String> one = arr.firstEntry();
+        out.println(one);
+        out.println();
+
+        //implementing floorEntry method
+        out.println(arr.floorEntry(2));
+        out.println();
+
+
     }
 }
