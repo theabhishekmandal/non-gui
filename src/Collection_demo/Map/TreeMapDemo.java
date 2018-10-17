@@ -32,7 +32,7 @@ import static java.lang.System.out;
  *                                          k >= obj. If such a key is found, its entry is returned.
  *                                          Otherwise, null is returned.
  *
- *   K ceilingKey(K obj)                 :  Searches the map for the smalest key k such
+ *   K ceilingKey(K obj)                 :  Searches the map for the smallest key k such
  *                                          that k >= obj. If such a key is found, it is returned.
  *                                          Otherwise, null is returned.
  *
