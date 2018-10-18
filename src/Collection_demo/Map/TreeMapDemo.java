@@ -36,6 +36,87 @@ import static java.lang.System.out;
  *                                          that k >= obj. If such a key is found, it is returned.
  *                                          Otherwise, null is returned.
  *
+ *   NavigableSet<K> descendingKeySet()  :  Returns a NavigableSet that contains the keys in
+ *                                          the invoking map in reverse order. Thus, it returns
+ *                                          a reverse set-view of the keys. The resulting set is
+ *                                          backed by the map.
+ *
+ *  NavigableMap<K,V> descendingMap()    :  Returns a NavigableMap that is the reverse of the
+ *                                          invoking map. The resulting map is backed by the
+ *                                          invoking map.
+ *
+ *  Map.Entry<K,V> firstEntry()          :  Returns the first entry in the map. This is the entry
+ *                                          with the least key.
+ *
+ *  Map.Entry<K,V> floorEntry(K obj)     :  Searches the map for the largest key k such that
+ *                                          k <= obj. If such a key is found, its entry is returned.
+ *                                          Otherwise, null is returned.
+ *
+ *  K floorKey(K obj)                    :  Searches the map for the largest key k such that
+ *                                          k <= obj. If such a key is found, it is returned.
+ *                                          Otherwise, null is returned.
+ *
+ *  NavigableMap<K,V>
+ *    headMap(K upperBound, boolean incl):  Returns a NavigableMap that includes all entries
+ *                                          from the invoking map that have keys that are less
+ *                                          than upperBound. If incl is true, then an element
+ *                                          equal to upperBound is included. The resulting map
+ *                                          is backed by the invoking map.
+ *
+ *  Map.Entry<K,V> higherEntry(K obj)    :  Searches the set for the largest key k such that
+ *                                          k > obj. If such a key is found, its entry is returned.
+ *                                          Otherwise, null is returned.
+ *
+ *  K higherKey(K obj)                   :  Searches the set for the largest key k such that
+ *                                          k > obj. If such a key is found, it is returned.
+ *                                          Otherwise, null is returned.
+ *
+ *  Map.Entry<K,V> lastEntry()           :  Returns the last entry in the map. This is the entry
+ *                                          with the largest key.
+ *
+ *  Map.Entry<K,V> lowerEntry(K obj)     :  Searches the set for the largest key k such that
+ *                                          k < obj. If such a key is found, its entry is returned.
+ *                                          Otherwise, null is returned.
+ *
+ *  K lowerKey(K obj)                    :  Searches the set for the largest key k such that
+ *                                          k < obj. If such a key is found, it is returned.
+ *                                          Otherwise, null is returned.
+ *
+ *  NavigableSet<K> navigableKeySet()    :  Returns a NavigableSet that contains the keys in the
+ *                                          invoking map. The resulting set is backed by the
+ *                                          invoking map.
+ *
+ *  Map.Entry<K,V> pollFirstEntry()      :  Returns the first entry, removing the entry in the
+ *                                          process. Because the map is sorted, this is the entry
+ *                                          with the least key value. null is returned if the map
+ *                                          is empty.
+ *
+ *  Map.Entry<K,V> pollLastEntry()       :  Returns the last entry, removing the entry in the
+ *                                          process. Because the map is sorted, this is the entry
+ *                                          with the greatest key value. null is returned if the
+ *                                          map is empty.
+ *
+ *  NavigableMap<K,V>
+ *      subMap(K lowerBound,
+ *      boolean lowIncl,
+ *      K upperBound
+ *      boolean highIncl)                :  Returns a NavigableMap that includes all entries
+ *                                          from the invoking map that have keys that are
+ *                                          greater than lowerBound and less than upperBound. If
+ *                                          lowIncl is true, then an element equal to lowerBound
+ *                                          is included. If highIncl is true, then an element equal
+ *                                          to highIncl is included. The resulting map is backed
+ *                                          by the invoking map.
+ *
+ *  NavigableMap<K,V>
+ *      tailMap(K lowerBound, boolean
+ *      incl)                            :  Returns a NavigableMap that includes all entries
+ *                                          from the invoking map that have keys that are
+ *                                          greater than lowerBound. If incl is true, then an
+ *                                          element equal to lowerBound is included. The
+ *                                          resulting map is backed by the invoking map.
+ *
+ *
  *
  *
  *
