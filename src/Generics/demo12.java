@@ -30,7 +30,7 @@ class generic<T> extends nongen{
         return ob;
     }
 }
-public class demo12 {
+public class GenClassExtendingNonGenClass {
     public static void main(String argsp[]) {
         generic<String> arr = new generic<>("hello abhishek",12);
         System.out.println(arr.getob());

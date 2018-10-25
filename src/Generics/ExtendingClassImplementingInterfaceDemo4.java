@@ -51,7 +51,7 @@ class gen<T extends A&show>
     }
 
 }
-class demo4
+class ExtendingClassImplementingInterfaceDemo4
 {
     public static void main(String args[])
     {

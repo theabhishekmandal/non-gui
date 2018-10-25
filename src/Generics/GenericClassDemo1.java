@@ -12,7 +12,7 @@ class hello<t>
         return this.ob;
     }
 }
-public class demo1 {
+public class GenericClassDemo1 {
     public static void main(String args[])
     {
         hello<Integer> ob=new hello<>(10);

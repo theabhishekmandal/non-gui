@@ -40,7 +40,7 @@ class Stats<T extends Number>
         return ans/nums.length;
     }
 }
-public class demo3 {
+public class GenericClassExtendingNumberDemo3 {
     public static void main(String args[])
     {
         Integer arr[]={1,2,3,4,5};

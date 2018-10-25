@@ -7,7 +7,7 @@ import java.util.*;
  * the debug method can take any number of arguments
  * and the type of the arguments can be anything
  */
-public class demo8 {
+public class GenericMethodInNonGenricClassDemo8 {
 
     @SafeVarargs
     static <T> void debug(T... a)

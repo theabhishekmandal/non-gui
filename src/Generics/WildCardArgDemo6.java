@@ -43,7 +43,7 @@ package Generics;
    }
 }
 
-public class demo6 {
+public class WildCardArgDemo6 {
 
     public static void main(String args[])
     {
@@ -52,7 +52,5 @@ public class demo6 {
           Double dnums[]={1.0,2.0,3.0,4.0,5.0};
           Stats1<Double> dob=new Stats1<>(dnums);
           System.out.println(iob.sameAvg(dob));
-
     }
-
 }

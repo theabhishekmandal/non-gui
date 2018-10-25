@@ -7,7 +7,7 @@ package Generics;
  *
  */
 import java.util.*;
-public class demo5 {
+public class GenericMethodDemo5 {
     private static <T> void debug(T... ob)
     {
         System.out.println(Arrays.deepToString(ob));
@@ -21,7 +21,5 @@ public class demo5 {
         debug('a','b');
         debug("Abhishek","Mandal");
         debug(new int[]{1,2,3,4,5});
-
-
     }
 }

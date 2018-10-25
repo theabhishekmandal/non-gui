@@ -25,7 +25,7 @@ class TwoGen<T,V>
         return this.ob1;
     }
 }
-public class demo2 {
+public class GenericClassDemo2 {
     public static void main(String args[])
     {
         TwoGen<Integer,String> arr=new TwoGen<>(10,"hello  i am abhishek");

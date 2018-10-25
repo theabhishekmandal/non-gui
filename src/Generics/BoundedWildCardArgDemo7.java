@@ -70,7 +70,7 @@ class geng<T extends TwoD>
 	}
 }
 
-public class demo7 {
+public class BoundedWildCardArgDemo7 {
     static void showXY(geng<?> c) {
         System.out.println("The x y coordinates are:");
         for (TwoD t : c.coords) {

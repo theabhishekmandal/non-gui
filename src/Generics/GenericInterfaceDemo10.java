@@ -44,7 +44,7 @@ class Myclass <T extends Comparable<T>> implements MinMax<T>
         return v;
     }
 }
-public class demo10 {
+public class GenericInterfaceDemo10 {
     public static void main(String args[]) {
 
         String nums[] = {"hello", "how", "are", "you", ""};

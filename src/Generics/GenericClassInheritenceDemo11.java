@@ -65,7 +65,7 @@ class mandal2<T, V> extends abhishek<T>
         return b;
     }
 }
-public class demo11 {
+public class GenericClassInheritenceDemo11 {
     public static void main (String args[])
     {
         mandal<String> arr = new mandal<String>("hello mandal", 11);

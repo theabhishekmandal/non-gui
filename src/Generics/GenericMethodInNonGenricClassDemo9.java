@@ -11,7 +11,7 @@ package Generics;
  * thus ensuring type safety
  */
 
-public class demo9 {
+public class GenericMethodInNonGenricClassDemo9 {
     /*
     you can also right the below method definition by this:
 
