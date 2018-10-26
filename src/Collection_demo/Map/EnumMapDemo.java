@@ -23,9 +23,7 @@ public class EnumMapDemo {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		EnumMap<GFG, String> arr = new EnumMap<>(GFG.class);
-		
-		
-		
+
 		// adding elements to the map
 		arr.put(GFG.one, "one");
 		arr.put(GFG.two, "two");
