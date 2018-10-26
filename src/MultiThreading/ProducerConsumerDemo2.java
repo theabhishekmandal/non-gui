@@ -58,9 +58,6 @@ class q
     }
 }
 
-
-
-
 class Producer1 implements Runnable{
     q ob;
     Producer1(q ob)
