@@ -1,5 +1,7 @@
 package Collection_demo.Map;
 import java.util.*;
+import java.util.Map.Entry;
+
 import static java.lang.System.*;
 /**
  * LinkedHashMap extends HashMap. It maintains a linked list of the entries in the map, in the order in which they
@@ -36,17 +38,33 @@ import static java.lang.System.*;
  * 
  */
 public class LinkedHashMapDemo {
-	public static void randomOrderAcess(LinkedHashMap<?, ?> arr){
-		//Set<Map.Entry<?, ?>> set = arr.entrySet();
-		int num = (int)Math.random() * (arr.size() + 1);
-	}
-    public static void main(String[] args) {
-    	LinkedHashMap<Integer, String> arr = new LinkedHashMap<>();
+	private static final int max = 6;
+	public static void main(String[] args) {
+		
+		// creating a LinkedHashMap in which access order is preserved
+		// true is used to indicate that access order is used
+		// implementing removeEldestEntry method
+		// in this method if number of elements inserted is greater than 6 
+		// then the last accessed element is removed from the LinkedHashMap
+    	LinkedHashMap<Integer, String> arr = new LinkedHashMap<Integer, String>(16, 0.75f, true){
+    		protected boolean removeEldestEntry(Map.Entry<Integer, String> e){
+    			return size() > max;
+    		}
+    	};	
     	arr.put(1, "one");
     	arr.put(2, "two");
     	arr.put(3, "three");
     	arr.put(4, "four");
     	arr.put(5, "five");
-    	randomOrderAcess(arr);
+    	arr.put(6, "six");
+    	System.out.println(arr);
+    	
+    	// adding another element will remove the last accessed element 
+    	arr.put(7, "seven");
+    	System.out.println(arr);
+    	
+    	// adding another element will remove the last accessed element
+    	arr.put(8, "eight");
+    	System.out.println(arr); 	
     }
 }
