@@ -1,8 +1,8 @@
 package INNER_CLASS;
-/*
-this program shows a inner class inside a method
-generally we don't use it because we cannot create object of this type of inner
-class from other place because this class is local to that method
+/**
+ * this program shows a inner class inside a method
+ * generally we don't use it because we cannot create object of this type of inner
+ * class from other place because this class is local to that method
  */
 class A
 {
@@ -26,8 +26,8 @@ class A
     }
 }
 public class Inside_method_innerclass {
-    public static void main(String args[])
-    {
+    public static void main(String args[]) {
+
         new A().hell();
     }
 }
