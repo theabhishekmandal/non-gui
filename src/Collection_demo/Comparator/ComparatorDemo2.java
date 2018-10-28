@@ -15,7 +15,7 @@ import java.util.TreeSet;
  *
  * 2 static <T> Comparator<T>
  *   nullsLast(Comparator
- *   <? super T> comp)                  :   this returns a comparator that vies null values as greater than
+ *   <? super T> comp)                  :   this returns a comparator that views null values as greater than
  *                                          other values
  */
 
