@@ -6,6 +6,10 @@ import java.util.TreeSet;
 
 /**
  * This is an implementation on how differently a comparator is defined
+ * 1 Using Lambda Expressions
+ * 2 Using without Lambda Expressions
+ * 3 Using Comparator.Comparing
+ *
  * Also, different methods defined in comparator interface
  *
  * 1 static <T> Comparator<T>
