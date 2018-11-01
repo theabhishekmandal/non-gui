@@ -14,8 +14,7 @@ import java.util.*;
  *    getKey)                               :   here it is also same as above but instead of passing the comparator you
  *                                              can pass the function which will act as next key for comparison
  *
- *  3 default <U extends Comparable<?
- *    super U>> Comparator<T> thenComparing
+ *  3 default <U> Comparator<T> thenComparing
  *    (Function<? super T,? extends U>
  *    getKey, Comparator<? super U>keyComp) :
  */
@@ -54,7 +53,7 @@ public class ComparatorDemo3 {
         Comparator<Person> personComparator1 = Comparator.comparing(Person::getNumber).thenComparing(Person::getName);
 
         // implementing the third way of thenComparing Method
-        //Comparator<Person> personComparator2 = Comparator.comparing(Person::getNumber).thenComparing(Comparator.comparing(Person::getNumber),Person::getAge);
+        //Comparator<Person> personComparator2 = Comparator.comparing(Person::getNumber).thenComparing(Person::getAge,Comparator.comparing(Person::getNumber));
 
         ArrayList<Person> arr = new ArrayList<>();
         arr.add(new Person(1, "Abhishek", 10));
