@@ -54,7 +54,7 @@ public class ComparatorDemo3 {
         Comparator<Person> personComparator1 = Comparator.comparing(Person::getNumber).thenComparing(Person::getName);
 
         // implementing the third way of thenComparing Method
-        //Comparator<Person> personComparator2 = Comparator.comparing(Person::getNumber).thenComparing(Person::getAge)
+        //Comparator<Person> personComparator2 = Comparator.comparing(Person::getNumber).thenComparing(Comparator.comparing(Person::getNumber),Person::getAge);
 
         ArrayList<Person> arr = new ArrayList<>();
         arr.add(new Person(1, "Abhishek", 10));
@@ -64,6 +64,7 @@ public class ComparatorDemo3 {
 
         arr.sort(personComparator);
         System.out.println(arr);
+
         arr.sort(personComparator1);
         System.out.println(arr);
     }
