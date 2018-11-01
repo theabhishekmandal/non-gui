@@ -8,13 +8,10 @@ package Generics;
  */
 import java.util.*;
 public class GenericMethodDemo5 {
-    private static <T> void debug(T... ob)
-    {
+    private static <T> void debug(T... ob) {
         System.out.println(Arrays.deepToString(ob));
-
     }
-    public static void main(String args[])
-    {
+    public static void main(String args[]) {
         debug(11);
         debug("hello world");
         debug(233.33);

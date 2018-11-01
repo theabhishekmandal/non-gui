@@ -9,11 +9,11 @@ package Generics;
  *  										  ThreeD (having x, y and z coordinates)
  *  										  FourD (having x, y, z and t coordinates)
  *
- *  2) A generic class is present which is having an uppper bound on TwoD class ,it means
+ *  2) A generic class is present which is having an upper bound on TwoD class ,it means
  *  only TwoD class and it's subclasses are allowed in this generic class. Also the generic class is
  *  containing object array
  *
- *  3) order of inheritence TwoD -> ThreeD -> FourD
+ *  3) order of inheritance TwoD -> ThreeD -> FourD
  *
  *
  *  now we want to display the x and y coordinates of all the classes(geng<ThreeD>, geng<TwoD>, geng<FourD>), which is
@@ -31,41 +31,34 @@ package Generics;
 
 //Two Dimensional Coordinates
 
-class TwoD
-{
+class TwoD {
 	int x, y;
-	TwoD(int a, int b)
-	{
+	TwoD(int a, int b){
 		x = a;
 		y = b;
 	}
 }
+
 //Threee Dimenisonal Coordinates
-class ThreeD extends TwoD
-{
+class ThreeD extends TwoD {
 	int z;
-	ThreeD(int a, int b, int c)
-	{
+	ThreeD(int a, int b, int c) {
 		super(a,b);
 		z = c;
 	}
 }
 
 //Four Dimensional Coordinates
-class FourD extends ThreeD
-{
+class FourD extends ThreeD {
 	int t;
-	FourD(int a, int b, int c, int d)
-	{
+	FourD(int a, int b, int c, int d) {
 		super(a, b, c);
 		t = d;
 	}
 }
-class geng<T extends TwoD>
-{
+class geng<T extends TwoD> {
 	protected T[] coords;
-	geng(T[] ob)
-	{
+	geng(T[] ob) {
 		this.coords  = ob;
 	}
 }
@@ -78,6 +71,7 @@ public class BoundedWildCardArgDemo7 {
         }
     }
 
+    //? extends ThreeD means it can catch any type as long as it is ThreeD, or a class derived from ThreeD.
     static void showXYZ(geng<? extends ThreeD> c) {
         System.out.println("X Y Z coordinates are:");
         for (ThreeD t : c.coords) {
@@ -86,6 +80,7 @@ public class BoundedWildCardArgDemo7 {
         System.out.println();
     }
 
+    //? extends FourD means it can catch any type as long as it is FourD, or a class derived from FourD.
     static void showall(geng<? extends FourD> c) {
         System.out.println("X Y Z T coordinates are:");
         for (FourD t : c.coords) {

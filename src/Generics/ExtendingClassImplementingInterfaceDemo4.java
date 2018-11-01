@@ -14,49 +14,44 @@ package Generics;
  *         A class does not implement the show interface.
  *
  */
-interface show
-{
+interface show {
     void showValue();
 }
-class A
-{
-    public void display()
-    {
-        System.out.println("i am in A class");
+
+class A {
+    public void display() {
+        System.out.println("i am in A class in display method");
     }
 }
 
 class B extends A implements show{
-    public void display()
-    {
+    public void display() {
         super.display();
-        System.out.println("i am in the subclass of A implementing the show interface");
+        System.out.println("i am in subclass of A in display method");
     }
-    public void showValue()
-    {
-        this.display();
+    public void showValue() {
+        System.out.println("Implementing interface showValue");
     }
 }
 
-class gen<T extends A&show>
-{
-    T ob;
-    gen(T ob)
-    {
-        this.ob=ob;
+class gen<T extends A & show> {
+    private T ob;
+    gen(T ob) {
+        this.ob = ob;
     }
-    public  void gendisplay()
-    {
+    public  void gendisplay() {
+        this.ob.display();
+    }
+    public void genshowValue(){
         this.ob.showValue();
     }
-
 }
-class ExtendingClassImplementingInterfaceDemo4
-{
-    public static void main(String args[])
-    {
-       // gen<A> arr=new gen<>(new A()); this will not work because it does not implement the show interface
-        gen<B> arr1=new gen<>(new B());
+
+class ExtendingClassImplementingInterfaceDemo4 {
+    public static void main(String args[]) {
+       // gen<A> arr = new gen<>(new A()); this will not work because it does not implement the show interface
+        gen<B> arr1 = new gen<>(new B());
         arr1.gendisplay();
+        arr1.genshowValue();
     }
 }

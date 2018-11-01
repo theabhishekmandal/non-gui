@@ -23,34 +23,34 @@ package Generics;
  *
  * @param <T>
  */
-//class Stats<T>
-class Stats<T extends Number>
-{
-   private T[] nums;
-    Stats(T[] ob)
-    {
-        this.nums=ob;
-    }
-    double average()
-    {
-        double ans=0.0;
-        for(T i:nums)
-            ans+=i.doubleValue();
 
-        return ans/nums.length;
+//class Stats<T>
+class Stats<T extends Number> {
+
+   private T[] nums;
+
+   Stats(T[] ob){
+        this.nums = ob;
+    }
+
+    double average(){
+        double ans = 0.0;
+        for(T i : nums)
+            ans += i.doubleValue();
+
+        return ans / nums.length;
     }
 }
 public class GenericClassExtendingNumberDemo3 {
-    public static void main(String args[])
-    {
-        Integer arr[]={1,2,3,4,5};
-        Stats<Integer> iob=new Stats<>(arr);
-        double v=iob.average();
+    public static void main(String args[]) {
+        Integer arr[] = {1, 2, 3, 4, 5};
+        Stats<Integer> iob = new Stats<>(arr);
+        double v = iob.average();
         System.out.println(v);
 
-        Double dnums[]={1.1,2.2,3.3,4.4,5.5};
-        Stats<Double> dob=new Stats<>(dnums);
-        double w=dob.average();
+        Double dnums[] = {1.1, 2.2, 3.3, 4.4, 5.5};
+        Stats<Double> dob = new Stats<>(dnums);
+        double w = dob.average();
         System.out.println(w);
 
         /* This will give error because strs is of type String cannot be applied to generic class which extends Number
@@ -59,7 +59,5 @@ public class GenericClassExtendingNumberDemo3 {
         double x=strob.average();
         System.out.println(x);
         */
-
-
     }
 }
