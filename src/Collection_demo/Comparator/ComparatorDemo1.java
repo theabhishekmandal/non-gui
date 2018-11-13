@@ -24,7 +24,12 @@ import java.util.*;
  *
  * 4 static <T extends Comparable
  *   <? super T>> Comparator<T>
-*   reverseOrder()						:	It returns a comparator that reverses the natural ordering of the elements
+ *   reverseOrder()						:	It returns a comparator that reverses the natural ordering of the elements
+ *
+ * 5 static<T, U extends Comparable
+ * 	 <? super U>> Comparator<T>
+ * 	 comparing(Function<? super T,
+ * 	 ? extends U> getkey)				:	it returns a comparator of the given type
  */
 public class ComparatorDemo1 {
 
