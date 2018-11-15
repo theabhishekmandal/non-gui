@@ -30,6 +30,13 @@ import java.util.*;
  * 	 <? super U>> Comparator<T>
  * 	 comparing(Function<? super T,
  * 	 ? extends U> getkey)				:	it returns a comparator of the given type
+ *
+ * 6 static <T,U> Comparator<T> comparing
+ * (Function<? super T,? extends U>
+ *  keyExtractor, Comparator<? super U>
+ *  keyComparator)						:	it returns a comparator of the given type, but allows overriding the
+ *  										natural order of the sort key by providing the comparator that creates
+ *  										custom ordering for the sort key
  */
 public class ComparatorDemo1 {
 
@@ -71,6 +78,7 @@ public class ComparatorDemo1 {
 		helobj.add(new City("Kolkata"));
 		helobj.add(new City("Chennai"));
 
+		// implementing the comparing method of comparator
 		/*
 		 This Comparator type can be replaced by Comparator.comparing
 		 Comparator<City>  cityComparator = (City one, City two) -> {
@@ -80,6 +88,12 @@ public class ComparatorDemo1 {
 		//first getting the comparator using Comparator.comparing and then reversing it with reverseOrder method
 		Comparator<City> cityComparator = Collections.reverseOrder(Comparator.comparing(City::getName));
 		Collections.sort(helobj, cityComparator);
+		System.out.println(helobj);
+
+		// implementing the comparing method and also by providing the keyComp
+		// the above comparison can also be performed by using the below way
+		Comparator<City> cityComparator1 = Comparator.comparing(City::getName, Comparator.reverseOrder());
+		helobj.sort(cityComparator1);
 		System.out.println(helobj);
 	}
 }

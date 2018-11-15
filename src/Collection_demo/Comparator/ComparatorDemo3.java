@@ -16,7 +16,8 @@ import java.util.*;
  *
  *  3 default <U> Comparator<T> thenComparing
  *    (Function<? super T,? extends U>
- *    getKey, Comparator<? super U>keyComp) :
+ *    getKey, Comparator<? super U>keyComp) :   here it is similar to the above method, but here in this we can specify
+ *                                              the ordering of the elements using the keyComp
  */
 
 class Person{
@@ -53,7 +54,12 @@ public class ComparatorDemo3 {
         Comparator<Person> personComparator1 = Comparator.comparing(Person::getNumber).thenComparing(Person::getName);
 
         // implementing the third way of thenComparing Method
-        //Comparator<Person> personComparator2 = Comparator.comparing(Person::getNumber).thenComparing(Person::getAge,Comparator.comparing(Person::getNumber));
+        // here the lambda expression allows to define the ordering of the elements based on
+        // getAge method
+        Comparator<Person> personComparator2 = Comparator.comparing(Person::getNumber)
+                    .thenComparing(Person::getAge, (age1, age2) -> {
+                        return age2.compareTo(age1);
+                    });
 
         ArrayList<Person> arr = new ArrayList<>();
         arr.add(new Person(1, "Abhishek", 10));
@@ -65,6 +71,9 @@ public class ComparatorDemo3 {
         System.out.println(arr);
 
         arr.sort(personComparator1);
+        System.out.println(arr);
+
+        arr.sort(personComparator2);
         System.out.println(arr);
     }
 }
