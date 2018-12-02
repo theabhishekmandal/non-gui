@@ -1,4 +1,4 @@
-package abstractClass.abstractClassDemo;
+package AbstractClass.abstractClassDemo;
 
 /**
     this code is an example of abstract class

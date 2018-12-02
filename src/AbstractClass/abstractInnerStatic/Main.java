@@ -1,4 +1,4 @@
-package abstractClass.abstractInnerStatic;
+package AbstractClass.abstractInnerStatic;
 
 /**
  * This program is an example of an abstract class containing another class, abstract class and static abstract
