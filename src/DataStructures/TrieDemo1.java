@@ -25,7 +25,7 @@ package DataStructures;
 
 import java.util.*;
 import static java.lang.System.*;
-public class TrieTest{
+public class TrieDemo1 {
     // Total words
     private final static int alphabetsize = 26;
     static class Trie{
