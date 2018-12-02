@@ -67,3 +67,4 @@ public class TrieDemo2 {
         System.out.println(search("abcabhi"));
     }
 }
+
