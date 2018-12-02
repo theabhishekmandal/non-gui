@@ -1,4 +1,4 @@
-package abstract_interfaces.InterfaceStaticMethods;
+package AbstractInterfaces.InterfaceStaticMethods;
 /**
 An interface can have a default method and as well as a static method
 in it

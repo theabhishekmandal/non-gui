@@ -1,4 +1,4 @@
-package abstract_interfaces.NestedInterface;
+package AbstractInterfaces.NestedInterface;
 
 /**
  * This program is an implementation of nested interfaces

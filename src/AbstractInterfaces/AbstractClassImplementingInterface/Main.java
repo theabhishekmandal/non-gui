@@ -1,4 +1,4 @@
-package abstract_interfaces.AbstractClassImplementingInterface;
+package AbstractInterfaces.AbstractClassImplementingInterface;
 
 /**
  * This program is an example of abstract class implementing an interface

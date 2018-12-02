@@ -1,4 +1,4 @@
-package abstract_interfaces.ExtendingInterfaces;
+package AbstractInterfaces.ExtendingInterfaces;
 
 /**
  * This program is an implementation of inheritance among interfaces.

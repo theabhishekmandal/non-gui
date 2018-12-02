@@ -1,4 +1,4 @@
-package abstract_interfaces.InterfaceDemo1;
+package AbstractInterfaces.InterfaceDemo1;
 
 /**
 This program shows what is an interface and how do we implement it
