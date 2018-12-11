@@ -30,6 +30,26 @@ import static java.lang.System.out;
  *     checkedList(List<E> c, Class<E> t)           :   returns a run-time type-safe view of a List. An attempt to insert
  *                                                      an incompatible element will cause a ClassCastException.
  *
+ *  5 static <T> void fill(List<? super T> list,
+ *      T obj)                                      :   assigns obj to each element of list.
+ *
+ *  6 static int indexOfSubList(List<?> list,
+ *      List<?> subList)                            :   searches list for the first occurrence of subList. Returns the
+ *                                                      index of the first match, or -1 if no match is found.
+ *
+ *  7 static int lastIndexOfSubList(List<?> list,
+ *      List<?> subList)                            :   searches list for the last occurrence of subList. Returns the
+ *                                                      index of the last match, or -1 if no match is found.
+ *
+ *  8 static <T> List<T> nCopies(int num, T obj)    :   returns num copies of obj contained in an immutable list. num
+ *                                                      must be greater than or equal to zero.
+ *
+ *  9 static <T> boolean replaceAll(List <T> list,
+ *      T old, T new)                               :   replaces all occurrences of old with new in list. Returns true
+ *                                                      if at lest one replacement occurred. Returns false otherwise.
+ *
+ *  10 static void reverse(List<T> list)            :   reverse the sequences in the list.
+ *
  */
 public class CollectionAlgoDemo2 {
     public static void main(String[] args) {
@@ -59,6 +79,58 @@ public class CollectionAlgoDemo2 {
         Collections.copy(arr1,arr2);
         arr1.sort(Comparator.naturalOrder());
         out.println(arr2);
+        out.println();
+
+        // implementing fill method
+        // for this method to work arrayList must contain some values
+        out.println("implementing fill method");
+        ArrayList<String> emptylist = new ArrayList<>();
+        emptylist.add("1");
+        emptylist.add("2");
+        Collections.fill(emptylist, "Nothing");
+        out.println(emptylist);
+        out.println();
+
+        // implementing indexOfSubList method
+        out.println("implementing indexOfSubList method");
+        ArrayList<Integer> intlist = new ArrayList<>();
+        for(int i = 1; i <= 2; i++)
+            for(int j = 1; j <= 5; j++)
+                intlist.add(j);
+        // temp arraylist
+        List<Integer> templist = new ArrayList<>();
+        templist.add(1);
+        templist.add(2);
+        templist.add(3);
+        out.println(Collections.indexOfSubList(intlist, templist));
+        out.println();
+
+        // implementing lastIndexOfSubList method
+        out.println("implementing lastIndexOfSubList method");
+        out.println(Collections.lastIndexOfSubList(intlist, templist));
+        out.println();
+
+        // implementing nCopies method
+        out.println("implementing nCopies method");
+        ArrayList<Integer> ncopylist = new ArrayList<>(Collections.nCopies(10 , 1));
+        out.println(ncopylist);
+        out.println();
+
+        // implementing replaceAll method
+        out.println("implementing replaceAll method");
+        ArrayList<Character> charlist = new ArrayList<>();
+        for(int i = 0; i < 2; i++)
+            for(char ch = 'a'; ch <= 'z'; ch++)
+                charlist.add(ch);
+        // replacing all occurrences of a with 1
+        Collections.replaceAll(charlist, 'a', '1');
+        out.println(charlist);
+        out.println();
+
+        // implementing reverse method
+        out.println("implementing reverse method");
+        Collections.reverse(charlist);
+        out.println(charlist);
         out.println();
     }
 }
