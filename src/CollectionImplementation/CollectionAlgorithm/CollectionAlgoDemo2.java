@@ -3,6 +3,7 @@ package CollectionImplementation.CollectionAlgorithm;
 import java.util.*;
 
 import static java.lang.System.out;
+import java.math.*;
 
 /**
  * Below is the implementation of several methods in Collections for List:
@@ -49,6 +50,14 @@ import static java.lang.System.out;
  *                                                      if at lest one replacement occurred. Returns false otherwise.
  *
  *  10 static void reverse(List<T> list)            :   reverse the sequences in the list.
+ *
+ *  11 static void rotate(List<T> list, int n)      :   rotates list by n places to the right. To rotate left, use a
+ *                                                      negative value for n.
+ *
+ *  12 static void shuffle(List<T> list, Random r)  :   Shuffles the elements in list by using r as a source of random
+ *                                                      numbers.
+ *
+ *  13 static void shuffle(List<T> list)            :   Shuffles the elements in list.
  *
  */
 public class CollectionAlgoDemo2 {
@@ -132,5 +141,31 @@ public class CollectionAlgoDemo2 {
         Collections.reverse(charlist);
         out.println(charlist);
         out.println();
+
+        // implementing rotate method
+        out.println("implementing rotate method");
+        List<String> rotatelist = new ArrayList<>();
+        rotatelist.add("hey");
+        rotatelist.add("this");
+        rotatelist.add("is");
+        rotatelist.add("Abhishek");
+        rotatelist.add("Mandal");
+
+        Collections.rotate(rotatelist, 2);
+        out.println(rotatelist);
+        Collections.rotate(rotatelist, -2);
+        out.println(rotatelist);
+        out.println();
+
+        // implementing shuffle method
+        List<String> shufflelist = new ArrayList<>();
+        shufflelist.add("1");
+        shufflelist.add("2");
+        shufflelist.add("3");
+        shufflelist.add("4");
+        Random random = new Random();
+        Collections.shuffle(shufflelist, random);
+        out.println(shufflelist);
+        out.println("implementing shuffle method");
     }
 }
