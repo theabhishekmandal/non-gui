@@ -59,6 +59,26 @@ import java.math.*;
  *
  *  13 static void shuffle(List<T> list)            :   Shuffles the elements in list.
  *
+ *  14 static <T> List<T> singletonList(T ob)       :   returns obj as an immutable list. This is an easy way to convert
+ *                                                      a single object into a list.
+ *
+ *  15 static <T extends Comparable<? super T>>
+ *      void sort(List<T> list)                     :   sort the elements of the list as determined by their natural
+ *                                                      sorting order.
+ *
+ *  16  static <T> void sort(List<T> list,
+ *      Comparator<? super T> comp)                 :   sort the elements of the list as determined by comp.
+ *
+ *  17 static void swap(List<?> list, int idx1,
+ *      int idx2)                                   :   exchanges the elements in list at the indices specified by
+ *                                                      idx1 and idx2.
+ *
+ *  18 static <T> List<T> synchronizedList(List<T>
+ *      list)                                       :   returns a thread-safe list backed by list.
+ *
+ *  19 static <T> List<T> unmodifiableList(
+ *      List<? extends T> list)                     :   returns an unmodifiable list backed by list.
+ *
  */
 public class CollectionAlgoDemo2 {
     public static void main(String[] args) {
@@ -157,7 +177,8 @@ public class CollectionAlgoDemo2 {
         out.println(rotatelist);
         out.println();
 
-        // implementing shuffle method
+        // implementing shuffle method with random parameter
+        out.println("implementing shuffle method with random parameter");
         List<String> shufflelist = new ArrayList<>();
         shufflelist.add("1");
         shufflelist.add("2");
@@ -166,6 +187,54 @@ public class CollectionAlgoDemo2 {
         Random random = new Random();
         Collections.shuffle(shufflelist, random);
         out.println(shufflelist);
+        out.println();
+
+        // implementing shuffle method
         out.println("implementing shuffle method");
+        shufflelist = new ArrayList<>();
+        shufflelist.add("hello");
+        shufflelist.add("world");
+        shufflelist.add("everyone");
+        Collections.shuffle(shufflelist);
+        out.println(shufflelist);
+        out.println();
+
+        // implementing singletonList method
+        out.println("implementing singletonList method");
+        List<String> singletonlist = Collections.singletonList("hello world");
+        out.println(singletonlist);
+        out.println();
+
+        // implementing sort method without comparator
+        out.println("implementing sort method without compartor");
+        List<String> sortlist = Arrays.asList("one", "two", "three", "four", "five");
+        Collections.sort(sortlist);
+        out.println(sortlist);
+        out.println();
+
+        // implementing sort method with comparator
+        out.println("implementing sort method with comparator");
+        List<String> sortlistwithcomparator = Arrays.asList("one", "two", "three", "four", "five");
+        Collections.sort(sortlistwithcomparator, Comparator.comparing(String::length).thenComparing(Comparator.naturalOrder()));
+        out.println(sortlistwithcomparator);
+        out.println();
+
+        // implementing swap list method
+        out.println("swapping the first and last values from the previous list");
+        Collections.swap(sortlistwithcomparator, 0, sortlistwithcomparator.size() - 1);
+        out.println(sortlistwithcomparator);
+        out.println();
+
+        // implementing synchronizedList method
+        out.println("implementing synchronized list method");
+        List<String> synclist = Collections.synchronizedList(Arrays.asList("one", "two", "three"));
+        out.println(synclist);
+        out.println();
+
+        // implementing unmodifiableList method
+        out.println("implementing unmodifiableList method");
+        List<String> unmolist = Collections.unmodifiableList(Arrays.asList("one", "two", "three"));
+        out.println(unmolist);
+        out.println();
     }
 }
