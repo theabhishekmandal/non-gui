@@ -79,6 +79,8 @@ import java.math.*;
  *  19 static <T> List<T> unmodifiableList(
  *      List<? extends T> list)                     :   returns an unmodifiable list backed by list.
  *
+ *  20 static <T> List<T> emptyList()               :   returns an immutable, empty List object of the inferred type.
+ *
  */
 public class CollectionAlgoDemo2 {
     public static void main(String[] args) {
@@ -236,5 +238,12 @@ public class CollectionAlgoDemo2 {
         List<String> unmolist = Collections.unmodifiableList(Arrays.asList("one", "two", "three"));
         out.println(unmolist);
         out.println();
+
+        // implementing emptyList method
+        out.println("implementing emptyList method");
+        List<Integer> emptyList = Collections.emptyList();
+        // any addition will cause exception
+        // emptyList.add(1);
+        out.println(emptyList);
     }
 }
