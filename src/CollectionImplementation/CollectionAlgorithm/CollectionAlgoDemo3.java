@@ -34,6 +34,10 @@ import static java.lang.System.*;
  *  6 static <K, V> SortedMap<K, V>
  *    emptySortedMap()                          :   returns an immutable, empty NavigableMap object of the inferred type.
  *
+ *  7 static <E> Set<E> newSetFromMap(
+ *    Map<E, boolean> m)                        :   creates and returns a set backed by the map specified by m, which
+ *                                                  must be empty at the time this method is called.
+ *
  */
 public class CollectionAlgoDemo3 {
     public static void main(String[] args) {
@@ -50,6 +54,7 @@ public class CollectionAlgoDemo3 {
         withoutGenericMap.put(5, 2);
         withoutGenericMap.put(6, 2);
         out.println(withoutGenericMap);
+        out.println();
 
         // implementing the checkedMap method
         out.println("implementing the checkedMap method");
@@ -64,6 +69,7 @@ public class CollectionAlgoDemo3 {
         // any other type will throw ClassCastException
         // autogen.put("String", "String");
         out.println(autogen);
+        out.println();
 
         // implementing checkedNavigableMap
         // here you cannot use the map variable and use the checkedNavigableMap method
@@ -79,6 +85,7 @@ public class CollectionAlgoDemo3 {
         // any other type will show ClassCastException
         // navigableautogen.put(4, 4);
         out.println(navigableautogen);
+        out.println();
 
         // implementing checkedSortedMap method
         // here either use NavigableMap or SortedMap and not Map interface
@@ -93,6 +100,7 @@ public class CollectionAlgoDemo3 {
         // any other type will show ClassCastException
         // sortedautogen.put(5, 5);
         out.println(sortedautogen);
+        out.println();
 
         // implementing emptyMap method
         out.println("implementing emptyMap method");
@@ -100,6 +108,7 @@ public class CollectionAlgoDemo3 {
         // any assignment will cause exception
         // emptyMap.put(1, 1);
         out.println(emptyMap);
+        out.println();
 
         // implementing emptyNavigableMap method
         out.println("implementing emptyNavigableMap method");
@@ -107,6 +116,7 @@ public class CollectionAlgoDemo3 {
         // any assignment will cause exception
         // emptyNavigableMap.put(1, 1);
         out.println(emptyNavigableMap);
+        out.println();
 
         // implementing emptySortedMap method
         out.println("implemting emptySortedMap method");
@@ -114,6 +124,20 @@ public class CollectionAlgoDemo3 {
         // any assignment will cause exception
         // emptySortedMap.put(1, 1);
         out.println(emptySortedMap);
+        out.println();
+
+        // implementing newSetFromMap method
+        // when anything is added to the set then it is added to map object too
+        out.println("implementing newSetFromMap method");
+        Map<Integer, Boolean> weakmap = new WeakHashMap<>();
+        Set<Integer> weakset = Collections.newSetFromMap(weakmap);
+        weakset.add(1);
+        weakset.add(2);
+        weakset.add(3);
+        weakset.add(4);
+        out.println("set elements " + weakset);
+        out.println("map elements " + weakmap);
+        out.println();
 
     }
 }

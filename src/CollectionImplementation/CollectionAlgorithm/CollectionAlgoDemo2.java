@@ -248,12 +248,14 @@ public class CollectionAlgoDemo2 {
         // any addition will cause exception
         // emptyList.add(1);
         out.println(emptyList);
+        out.println();
 
         // implementing list method of the enumeration parameter
         out.println("implementing list method of the enumeration parameter");
         Enumeration<objects> enumobjects= Collections.enumeration(Arrays.asList(objects.one, objects.two, objects.three));
         List<objects> enumlist = Collections.list(enumobjects);
         out.println(enumlist);
+        out.println();
     }
 }
 enum objects{
