@@ -251,7 +251,11 @@ public class CollectionAlgoDemo2 {
 
         // implementing list method of the enumeration parameter
         out.println("implementing list method of the enumeration parameter");
-        List<Integer> enumlist = Collections.list(Collections.enumeration(Arrays.asList(1, 2, 3, 4)));
+        Enumeration<objects> enumobjects= Collections.enumeration(Arrays.asList(objects.one, objects.two, objects.three));
+        List<objects> enumlist = Collections.list(enumobjects);
         out.println(enumlist);
     }
+}
+enum objects{
+    one, two, three
 }
