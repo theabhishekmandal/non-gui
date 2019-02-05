@@ -81,6 +81,9 @@ import java.math.*;
  *
  *  20 static <T> List<T> emptyList()               :   returns an immutable, empty List object of the inferred type.
  *
+ *  21 static <T> ArrayList<T> list(Enumeration
+ *      <T> enum)                                   :   returns a ArrayList that contains the elements of enum.
+ *
  */
 public class CollectionAlgoDemo2 {
     public static void main(String[] args) {
@@ -245,5 +248,10 @@ public class CollectionAlgoDemo2 {
         // any addition will cause exception
         // emptyList.add(1);
         out.println(emptyList);
+
+        // implementing list method of the enumeration parameter
+        out.println("implementing list method of the enumeration parameter");
+        List<Integer> enumlist = Collections.list(Collections.enumeration(Arrays.asList(1, 2, 3, 4)));
+        out.println(enumlist);
     }
 }
