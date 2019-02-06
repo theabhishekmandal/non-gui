@@ -38,6 +38,33 @@ import static java.lang.System.*;
  *    Map<E, boolean> m)                        :   creates and returns a set backed by the map specified by m, which
  *                                                  must be empty at the time this method is called.
  *
+ *  8 static <K,V> Map<K,V> singletonMap(
+ *    K k, V v)                                 :   returns the key/value pair k/v as an immutable map. This is an easy
+ *                                                  way to convert a single key/value pair into a map.
+ *
+ *  9 static <K,V> Map<K,V> synchronizedMap(
+ *     Map<K, V> m)                             :   returns a thread safe map backed by m.
+ *
+ *  10 static <K,V> NavigableMap<K,V>
+ *      synchronizedNavigableMap(
+ *      NavigableMap<K, V> nm)                  :   returns a synchronized navigable map backed by nm.
+ *
+ *  11 static <K,V> SortedMap<K,V>
+ *      synchronizedSortedMap(SortedMap<K,
+ *      V>sm)                                   :   returns a thread-safe sorted map backed by sm.
+ *
+ *  12 static <K, V> Map<K, V>
+ *      unmodifiableMap(Map<? extends K, ?
+ *      extends V> m)                           :   returns an unmodifiable map backed by m.
+ *
+ *  13 static <K, V> NavigableMap<K, V>
+ *      unmodifiableNavigableMap(
+ *      NavigableMap<K, ? extends V> nm)        :   returns an unmodifiable navigable map backed by nm.
+ *
+ *  14 static <K, V> SortedMap<K, V>
+ *      unmodifiableSortedMap(
+ *      SortedMap<K, ? extends V> sm)           :   returns an unmodifiable sorted map backed by sm.
+ *
  */
 public class CollectionAlgoDemo3 {
     public static void main(String[] args) {
@@ -137,6 +164,67 @@ public class CollectionAlgoDemo3 {
         weakset.add(4);
         out.println("set elements " + weakset);
         out.println("map elements " + weakmap);
+        out.println();
+
+        // implementing singletonMap method
+        out.println("implementing singletonMap method");
+        Map<Integer, Integer> singlemap = Collections.singletonMap(1, 2);
+        out.println(singlemap);
+        out.println();
+
+        // implementing synchronized map method
+        out.println("implementing synchronized map method");
+        Map<Integer, Integer> normalmap = new HashMap<>();
+        normalmap.put(1, 1);
+        normalmap.put(2, 1);
+        Map<Integer, Integer> synchmap = Collections.synchronizedMap(normalmap);
+        out.println(synchmap);
+        out.println();
+
+        // implementing synchronized navigable map method
+        out.println("implementing synchronized navigable map method");
+        NavigableMap<Integer, Integer> navmap = new TreeMap<>();
+        navmap.put(1, 1);
+        navmap.put(2, 1);
+        NavigableMap<Integer, Integer> synchnavmap =  Collections.synchronizedNavigableMap(navmap);
+        out.println(synchnavmap);
+        out.println();
+
+        // implementing synchronized sorted map method
+        out.println("implementing synchronized sorted map method");
+        SortedMap<Integer, Integer> sortmap = new TreeMap<>();
+        sortmap.put(1, 1);
+        sortmap.put(2, 1);
+        SortedMap<Integer, Integer> synchsortmap = Collections.synchronizedSortedMap(sortmap);
+        out.println(synchsortmap);
+        out.println();
+
+        // implementing unmodifiable map method
+        out.println("implementing unmodifiable map method");
+        Map<Integer, Integer> momap = new HashMap<>();
+        momap.put(1, 2);
+        momap.put(2, 2);
+        Map<Integer, Integer> unmomap = Collections.unmodifiableMap(momap);
+        //unmomap.put(3, 3); error
+        out.println(unmomap);
+        out.println();
+
+        // implementing unmodifiable Navigable map method
+        out.println("implementing unmodifiable Navigable map method");
+        NavigableMap<Integer, Integer> monavmap = new TreeMap<>();
+        monavmap.put(1, 1);
+        monavmap.put(2, 1);
+        NavigableMap<Integer, Integer> unmonavmap = Collections.unmodifiableNavigableMap(monavmap);
+        out.println(unmonavmap);
+        out.println();
+
+        // implementing unmodifiable sorted map method
+        out.println("implementing unmodifiable sorted map method");
+        SortedMap<Integer, Integer> mosortmap = new TreeMap<>();
+        mosortmap.put(1, 1);
+        mosortmap.put(2, 1);
+        SortedMap<Integer, Integer> unmosortmap = Collections.unmodifiableSortedMap(mosortmap);
+        out.println(unmosortmap);
         out.println();
 
     }
