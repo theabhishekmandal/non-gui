@@ -10,7 +10,7 @@ import java.math.*;
  *
  *  1 static <T> int binarySearch(List<? extends T>
  *    list, T value, Comparator<? super T> c)       :   searches for  value in list ordered according to c. Returns the
- *                                                      position of vlaue in list, or negative value if value is not
+ *                                                      position of value in list, or negative value if value is not
  *                                                      found.
  *
  *  2 static <T> int binarySearch(List<? extends
@@ -97,11 +97,38 @@ public class CollectionAlgoDemo2 {
         arr.add("four");
         arr.add("five");
 
-        // implementing binarySearch  first method
-        // you have to give a comparator because the list must be sorted before binary search
-        out.println("implementing binarySearch method");
+        // implementing binarySearch method for unsorted list
+        out.println("implementing binarySearch method for unsorted list");
         int position = Collections.binarySearch(arr, "five", Comparator.reverseOrder());
         out.println(position + " " + arr.get(position));
+        out.println();
+
+        // implementing binarySearch method for sorted list
+        out.println("implementing binarySearch method for sorted list");
+        Collections.sort(arr, Comparator.reverseOrder());
+        out.println(arr);
+        position = Collections.binarySearch(arr, "five");
+        out.println(position);// + " " + arr.get(position));
+        out.println();
+
+        // without using checkedList method
+        List<Integer> list = new ArrayList<>();
+        list.add(1);
+        list.add(2);
+        // if the generic list is passed to non-generic list then the non-generic list will not ensure
+        // that the values inserted will be type safe
+        // to ensure type safety checkedList method is used
+        List unchecklist = list;
+        unchecklist.add("hello");
+        unchecklist.add(23.07);
+        out.println("not type safe "  + unchecklist);
+        // implementing checkedList method
+        list = Collections.checkedList(list, Integer.class);
+        List checkedList = list;
+        checkedList.add(3);
+        checkedList.add(4);
+        // checkedList.add("hello"); this will throw error
+        out.println("type safe " + checkedList);
         out.println();
 
         // implementing copy method
