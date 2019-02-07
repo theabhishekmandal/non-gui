@@ -70,19 +70,17 @@ public class CollectionAlgoDemo3 {
     public static void main(String[] args) {
 
         // without the different type of checkmap methods
+        // without checkmap methods map variable does not force withoutGenericMap variable to be type safe
         out.println("without the different type of checkmap methods");
         Map<Integer, String> map = new HashMap<>();
         map.put(1, "hello");
         map.put(2, "worldl");
         map.put(3, "mangekeyo");
-        // without checkmap methods map variable does not force withoutGenericMap variable to be of the same type
         Map withoutGenericMap = map;
         withoutGenericMap.put(4, 2);
         withoutGenericMap.put(5, 2);
         withoutGenericMap.put(6, 2);
-        out.println(withoutGenericMap);
-        out.println();
-
+        out.println("not type safe " + withoutGenericMap);
         // implementing the checkedMap method
         out.println("implementing the checkedMap method");
         map = new HashMap<>();
@@ -95,7 +93,7 @@ public class CollectionAlgoDemo3 {
         autogen.put(5, "welcome");
         // any other type will throw ClassCastException
         // autogen.put("String", "String");
-        out.println(autogen);
+        out.println("type safe " + autogen);
         out.println();
 
         // implementing checkedNavigableMap
@@ -111,7 +109,7 @@ public class CollectionAlgoDemo3 {
         navigableautogen.put(4, "four");
         // any other type will show ClassCastException
         // navigableautogen.put(4, 4);
-        out.println(navigableautogen);
+        out.println("type safe " + navigableautogen);
         out.println();
 
         // implementing checkedSortedMap method
@@ -126,7 +124,7 @@ public class CollectionAlgoDemo3 {
         sortedautogen.put(4, 4);
         // any other type will show ClassCastException
         // sortedautogen.put(5, 5);
-        out.println(sortedautogen);
+        out.println("type safe " + sortedautogen);
         out.println();
 
         // implementing emptyMap method
