@@ -103,12 +103,12 @@ public class CollectionAlgoDemo2 {
         out.println(position + " " + arr.get(position));
         out.println();
 
-        // implementing binarySearch method for sorted list
-        out.println("implementing binarySearch method for sorted list");
-        Collections.sort(arr, Comparator.reverseOrder());
-        out.println(arr);
+        // implementing binarySearch method for sorted list in ascending order
+        // this binary search method only works for ascending order
+        out.println("implementing binarySearch method for sorted list in ascending order");
+        Collections.sort(arr);
         position = Collections.binarySearch(arr, "five");
-        out.println(position);// + " " + arr.get(position));
+        out.println(position + " " + arr.get(position));
         out.println();
 
         // without using checkedList method
