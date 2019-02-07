@@ -194,7 +194,7 @@ public class CollectionAlgoDemo3 {
         out.println("implementing synchronized sorted map method");
         SortedMap<Integer, Integer> sortmap = new TreeMap<>();
         sortmap.put(1, 1);
-        sortmap.put(2, 1);
+        sortmap.put(2, 2);
         SortedMap<Integer, Integer> synchsortmap = Collections.synchronizedSortedMap(sortmap);
         out.println(synchsortmap);
         out.println();
