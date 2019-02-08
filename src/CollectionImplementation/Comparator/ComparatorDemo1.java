@@ -2,7 +2,7 @@ package CollectionImplementation.Comparator;
 import java.util.*;
 
 /**
- * Compartor is particularly used for ordering of elements in different way.
+ * Comparator is particularly used for ordering of elements in different way.
  * Comparator is particularly used for customized sorting order.
  * Whereas comparable is used for natural order sorting order.
  * By default the elements that are stored in natural order of insertion.
@@ -15,7 +15,7 @@ import java.util.*;
  * 1 int compare(T obj1, T obj2)		:	returns zero if the two objects are equal,
  * 											returns positive if obj1 is greater than obj2
  * 											returns negative if obj1 is smaller than obj2
- * 
+ *
  * 2 boolean equals(object obj)			:	returns true if the invoking object is of the same type of obj
  * 											else it returns false.
  * 
