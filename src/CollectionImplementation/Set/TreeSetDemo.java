@@ -6,16 +6,29 @@ import java.util.TreeSet;
 import static java.lang.System.out;
 
 /**
- *  Treeset implements Navigable Set interface so you can it's methods
- *  Treeset is also another type of set which does not allow duplicates.
+ *  TreeSet implements Navigable Set interface so you can it's methods
+ *  TreeSet is also another type of set which does not allow duplicates.
  *  It is the slowest among HashSet and LinkedHashSet because after every insertion it sorts the elements
  *  order is preserved in non-decreasing order.
- *  TreeSet does not allow null values because sorting operation is performed so adding a null will throw nullpointer
- *  Exception
- *  Treeset Cannot have different types of elements, all the elements passed should be of same type because the comparison
- *  is being done. And for comparison all the objects should be of same type.
+ *  TreeSet does not allow null values because sorting operation is performed so adding a null will throw
+ *  NullPointerException
+ *  TreeSet cannot have different types of elements, all the elements passed should be of same type because
+ *  the comparison is being done. And for comparison all the objects should be of same type.
  *  TreeSet extends AbstractList and implements the NavigableSet interface.
  *
+ *  The following constructors are defined :
+ *
+ *  1 TreeSet()                         :   constructs an empty tree set that will be sorted in ascending
+ *                                          order.
+ *
+ *  2 TreeSet(Collection<? extends E>
+ *     c)                               :   constructs a tree set that contains the element of c.
+ *
+ *  3 TreeSet(Comparator<? super E>
+ *     comp)                            :   constructs an empty tree set that will be sorted according
+ *                                          to the comparator specified by comp.
+ *
+ *  4 TreeSet(SortedSet<E> ss)          :   builds a tree set that contains the elements of ss.
  */
 public class TreeSetDemo {
     public static void main(String[] args) {
@@ -119,8 +132,5 @@ public class TreeSetDemo {
 
         // returns the last element, removing the element in the process.
         out.println("polling the last value\n" + arr1.pollLast());
-
-
-
     }
 }
