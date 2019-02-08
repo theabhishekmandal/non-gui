@@ -30,22 +30,29 @@ import static java.lang.System.out;
  *  Ratio)
  *
  *  It has the following methods:
+ *
  *  1 void clear()                      :   Removes all Key/value pairs from the invoking map.
  *
- *  2 default V compute(K k, BiFunction :   calls func to construct a new value. If func returns non-null
- *     <? super K, ? super V, ? extends     , the new key/value pair is added to the map, any preexisting
- *     V>func)                              pairing is removed, and the new value is returned. If func
+ *  2 default V compute(K k, BiFunction
+ *     <? super K, ? super V, ? extends
+ *     V>func)                          :   calls func to construct a new value. If func returns non-null
+ *                                          , the new key/value pair is added to the map, any preexisting
+ *                                          pairing is removed, and the new value is returned. If func
  *                                          returns null, any preexisting pairing is removed, and null is
  *                                          returned
  *
- *  3 default V computeIfAbsent(K k,    :   returns the value associated with the key k, Otherwise,
- *    Function<? super K, ? extends V>      the value is constructed through a call to a func and the
- *    func)                                 pairing is entered into the map and the constructed value is
+ *  3 default V computeIfAbsent(K k,
+ *    Function<? super K, ? extends V>
+ *    func)                             :   returns the value associated with the key k, Otherwise,
+ *                                          the value is constructed through a call to a func and the
+ *                                          pairing is entered into the map and the constructed value is
  *                                          returned. If no value can be constructed, null is returned.
  *                                          
- *  4 default V computeIfPresent(K k,   :   if k is in the map, a new value is constructed through a call 
- *    BiFunction <? super K, ? super V,     to func and the new value replaces the old value in the map. 
- *    ? extends V>func)                     In this case the new value is returned. If the value returned
+ *  4 default V computeIfPresent(K k,
+ *    BiFunction <? super K, ? super V,
+ *    ? extends V>func)                 :   if k is in the map, a new value is constructed through a call
+ *                                          to func and the new value replaces the old value in the map.
+ *                                          In this case the new value is returned. If the value returned
  *                                          by func is null, the existing key and value are removed from
  *                                          the map and null is returned.
  *
@@ -62,15 +69,17 @@ import static java.lang.System.out;
  *  8 boolean equals(Object ob)         :   returns true if obj is a Map and contains the same entries.
  *                                          Otherwise, returns false.
  *
- *  9 default void forEach(BiConsumer   :   executes action on each element in the invoking map. A
- *  <? super K, ? super V> action)          ConcurrentModificationException will be throws if an object
+ *  9 default void forEach(BiConsumer
+ *  <? super K, ? super V> action)      :   executes action on each element in the invoking map. A
+ *                                          ConcurrentModificationException will be throws if an object
  *                                          is removed during the process
  *
  *  10 V get(Object k)                  :   returns the value associated with the key k. Returns null if
  *                                          if the key is not found.
  *
- *  11 default V getOrDefault(Object k, :   returns the value associated with k if it is in the map.
- *     V defVal)                            Otherwise defVal is returned.
+ *  11 default V getOrDefault(Object k,
+ *     V defVal)                        :   returns the value associated with k if it is in the map.
+ *                                          Otherwise defVal is returned.
  *
  *  12 int hashCode()                   :   returns the hash code for the invoking map.
  *
@@ -80,9 +89,11 @@ import static java.lang.System.out;
  *  14 Set<K> KeySet()                  :   returns a Set that contains the keys in the invoking map.
  *                                          This method provides a setview of hte keys in the invoking map.
  *
- *  15 default V merge(K k, V v,        :   If k is not in the map, the pairing k, v is added to the map.
- *     BiFunction<? super V, ? super V,     In this case, v is returned. Otherwise, func returns a new value
- *     ? extends V> func)                   based on the old value, the key is updated to use this value,
+ *  15 default V merge(K k, V v,
+ *     BiFunction<? super V, ? super V,
+ *     ? extends V> func)               :   If k is not in the map, the pairing k, v is added to the map.
+ *                                          In this case, v is returned. Otherwise, func returns a new value
+ *                                          based on the old value, the key is updated to use this value,
  *                                          and merge() returns this value. If the value returned by func is
  *                                          null, the existing key and value are removed from the map and
  *                                          null is returned.
@@ -92,8 +103,8 @@ import static java.lang.System.out;
  *                                          respectively. Returns null if the key did not already exist.
  *                                          Otherwise, the previous value linked to the key is returned
  *
- *  18 void putAll(Map<? extends K, ?   :   puts all the entries from m into this map.
- *      extends V> m)
+ *  18 void putAll(Map<? extends K, ?
+ *      extends V> m)                   :   puts all the entries from m into this map.
  *
  *  19 default V putIfAbsent(K k, V v)  :   inserts the key/value, pair into the invoking map if this
  *                                          pairing is not already present or if hte existing value is
@@ -102,20 +113,24 @@ import static java.lang.System.out;
  *
  *  20 V remove(Object k)               :   removes the entry whose key equals k.
  *
- *  21 default boolean remove(Object k, :   If the key/value pair specified by k and v is in the invoking map,
- *     Object v)                            it is removed and true is returned. Otherwise, false is returned.
+ *  21 default boolean remove(Object k,
+ *     Object v)                        :    If the key/value pair specified by k and v is in the invoking map,
+ *                                          it is removed and true is returned. Otherwise, false is returned.
  *
- *  22 default boolean replace(K k,     :   if the key/value pair specified by k and oldV is in the invoking
- *     V oldV, V new V)                     map, the value is replaced by new V and true is returned.
+ *  22 default boolean replace(K k,
+ *     V oldV, V new V)                 :   if the key/value pair specified by k and oldV is in the invoking
+ *                                          map, the value is replaced by new V and true is returned.
  *                                          Otherwise, false is returned.
  *
  *  23 default V replace(K k, V v)      :   If the key specified by k is in the invoking map, its value is
  *                                          set to v and the previous value is returned. Otherwise, null is
  *                                          returned
  *
- *  24 default void replaceAll(         :   Executes func on each element of the invoking map,replacing the
- *  BiFunction<? super K, ? super V,        element with the result returned byfunc. A
- *  ? extends V> func)                      ConcurrentModificationException will bethrown if an element
+ *  24 default void replaceAll(
+ *  BiFunction<? super K, ? super V,
+ *  ? extends V> func)                  :   Executes func on each element of the invoking map,replacing the
+ *                                          element with the result returned byfunc. A
+ *                                          ConcurrentModificationException will bethrown if an element
  *                                          is removed during the process.
  *
  */

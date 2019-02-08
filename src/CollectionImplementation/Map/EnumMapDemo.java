@@ -18,7 +18,7 @@ import static java.lang.System.*;
  */
 public class EnumMapDemo {
 	public enum GFG{
-		one, two, three, four, five;
+		one, two, three, four, five
 	}
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub

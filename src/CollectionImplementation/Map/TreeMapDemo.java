@@ -115,12 +115,6 @@ import static java.lang.System.out;
  *                                          greater than lowerBound. If incl is true, then an
  *                                          element equal to lowerBound is included. The
  *                                          resulting map is backed by the invoking map.
- *
- *
- *
- *
- *
- *
  */
 public class TreeMapDemo {
     public static void main(String[] args) {
