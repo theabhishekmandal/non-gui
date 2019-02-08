@@ -32,7 +32,7 @@ import java.util.*;
  * 	 ? extends U> getkey)				:	it returns a comparator of the given type
  *
  * 6 static <T,U> Comparator<T> comparing
- * (Function<? super T,? extends U>
+ *  (Function<? super T,? extends U>
  *  keyExtractor, Comparator<? super U>
  *  keyComparator)						:	it returns a comparator of the given type, but allows overriding the
  *  										natural order of the sort key by providing the comparator that creates
