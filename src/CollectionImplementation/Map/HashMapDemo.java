@@ -21,8 +21,8 @@ import static java.lang.System.out;
  *  The following constructors are defined:
  *  HashMap()                           :   It constructs a default hashMap.
  *
- *  HashMap(Map<? extends K,            :   The second form initializes the hashmap using the elements of m.
- *  ? extends V>m)
+ *  HashMap(Map
+ *  <? extends K, ? extends V>m)        :   The second form initializes the hashmap using the elements of m.
  *
  *  HashMap(int capacity)               :   It initializes the capacity of the hashmap to capacity.
  *
