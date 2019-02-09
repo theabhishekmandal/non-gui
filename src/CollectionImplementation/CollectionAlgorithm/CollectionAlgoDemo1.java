@@ -51,19 +51,16 @@ public class CollectionAlgoDemo1 {
         arr.add("one");
         arr.add("two");
 
-        // implementing addAll method
         out.println("implementing addAll method");
         Collections.addAll(arr, "three", "four", "five");
         out.println(arr);
         out.println();
 
-        // implementing checkedCollection method
         out.println("implementing checkedCollection method");
         Collection<String> obj = Collections.checkedCollection(arr, String.class);
         out.println(obj);
         out.println();
 
-        // implementing disjoint method
         out.println("implementing disjoint method");
         Collection<Integer> one = new ArrayList<>();
         Collection<Integer> two = new ArrayList<>();
@@ -78,7 +75,6 @@ public class CollectionAlgoDemo1 {
         out.println(Collections.disjoint(one, two));
         out.println();
 
-        // implementing the frequency method
         out.println("implementing the frequency method");
         String name = "Abhishek Mandal";
         // converting char array to Character array
@@ -89,32 +85,28 @@ public class CollectionAlgoDemo1 {
         Collection<Integer> IntegerCollection = new ArrayList<>();
         Collections.addAll(IntegerCollection, 1, 3, 9, 5, 4, 7, 6, 8, 2);
 
-        // implementing max method with comparator
         out.println("implementing max method with comparator");
         out.println(Collections.max(IntegerCollection, Comparator.reverseOrder()));
         out.println();
 
-        // implementing max method without comparator
         out.println("implementing max method without comparator");
         out.println(Collections.max(IntegerCollection));
         out.println();
 
-        // implementing min method with comparator
         out.println("implementing min method with comparator");
         out.println(Collections.min(IntegerCollection, Comparator.reverseOrder()));
         out.println();
 
-        // implementing max method without comparator
         out.println("implementing min method without comparator");
         out.println(Collections.min(IntegerCollection));
         out.println();
 
-        // implementing synchronized Collection
+        out.println("implementing synchronizedCollection method");
         Collection<Integer> synchronizedCollection = Collections.synchronizedCollection(IntegerCollection);
         out.println(synchronizedCollection);
         out.println();
 
-        // implementing unmodifiable Collection
+        out.println("implementing unmodifiableCollection");
         Collection<Integer> unmodifiableCollection = Collections.unmodifiableCollection(IntegerCollection);
         // this line will throw error if any modification is done
         //unmodifiableCollection.add(5);

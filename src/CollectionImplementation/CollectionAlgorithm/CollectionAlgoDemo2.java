@@ -100,13 +100,11 @@ public class CollectionAlgoDemo2 {
         arr.add("four");
         arr.add("five");
 
-        // implementing binarySearch method for unsorted list
         out.println("implementing binarySearch method for unsorted list");
         int position = Collections.binarySearch(arr, "five", Comparator.reverseOrder());
         out.println(position + " " + arr.get(position));
         out.println();
 
-        // implementing binarySearch method for sorted list in ascending order
         // this binary search method only works for ascending order
         out.println("implementing binarySearch method for sorted list in ascending order");
         Collections.sort(arr);
@@ -114,7 +112,7 @@ public class CollectionAlgoDemo2 {
         out.println(position + " " + arr.get(position));
         out.println();
 
-        // without using checkedList method
+        out.println( "without using checkedList method");
         List<Integer> list = new ArrayList<>();
         list.add(1);
         list.add(2);
@@ -125,7 +123,7 @@ public class CollectionAlgoDemo2 {
         unchecklist.add("hello");
         unchecklist.add(23.07);
         out.println("not type safe "  + unchecklist);
-        // implementing checkedList method
+        out.println("implementing checkedList method");
         list = Collections.checkedList(list, Integer.class);
         List checkedList = list;
         checkedList.add(3);
@@ -134,7 +132,6 @@ public class CollectionAlgoDemo2 {
         out.println("type safe " + checkedList);
         out.println();
 
-        // implementing copy method
         // increasing the size of the destination list so as to avoid indexOutOfBound
         out.println("implementing copy method");
         List<Integer> arr2 = Arrays.asList(1, 2, 3, 4);
@@ -145,7 +142,6 @@ public class CollectionAlgoDemo2 {
         out.println(arr2);
         out.println();
 
-        // implementing fill method
         // for this method to work arrayList must contain some values
         out.println("implementing fill method");
         ArrayList<String> emptylist = new ArrayList<>();
@@ -155,7 +151,6 @@ public class CollectionAlgoDemo2 {
         out.println(emptylist);
         out.println();
 
-        // implementing indexOfSubList method
         out.println("implementing indexOfSubList method");
         ArrayList<Integer> intlist = new ArrayList<>();
         for(int i = 1; i <= 2; i++)
@@ -169,18 +164,15 @@ public class CollectionAlgoDemo2 {
         out.println(Collections.indexOfSubList(intlist, templist));
         out.println();
 
-        // implementing lastIndexOfSubList method
         out.println("implementing lastIndexOfSubList method");
         out.println(Collections.lastIndexOfSubList(intlist, templist));
         out.println();
 
-        // implementing nCopies method
         out.println("implementing nCopies method");
         ArrayList<Integer> ncopylist = new ArrayList<>(Collections.nCopies(10 , 1));
         out.println(ncopylist);
         out.println();
 
-        // implementing replaceAll method
         out.println("implementing replaceAll method");
         ArrayList<Character> charlist = new ArrayList<>();
         for(int i = 0; i < 2; i++)
@@ -191,13 +183,11 @@ public class CollectionAlgoDemo2 {
         out.println(charlist);
         out.println();
 
-        // implementing reverse method
         out.println("implementing reverse method");
         Collections.reverse(charlist);
         out.println(charlist);
         out.println();
 
-        // implementing rotate method
         out.println("implementing rotate method");
         List<String> rotatelist = new ArrayList<>();
         rotatelist.add("hey");
@@ -212,7 +202,6 @@ public class CollectionAlgoDemo2 {
         out.println(rotatelist);
         out.println();
 
-        // implementing shuffle method with random parameter
         out.println("implementing shuffle method with random parameter");
         List<String> shufflelist = new ArrayList<>();
         shufflelist.add("1");
@@ -224,7 +213,6 @@ public class CollectionAlgoDemo2 {
         out.println(shufflelist);
         out.println();
 
-        // implementing shuffle method
         out.println("implementing shuffle method");
         shufflelist = new ArrayList<>();
         shufflelist.add("hello");
@@ -234,45 +222,38 @@ public class CollectionAlgoDemo2 {
         out.println(shufflelist);
         out.println();
 
-        // implementing singletonList method
         out.println("implementing singletonList method");
         List<String> singletonlist = Collections.singletonList("hello world");
         out.println(singletonlist);
         out.println();
 
-        // implementing sort method without comparator
-        out.println("implementing sort method without compartor");
+        out.println("implementing sort method without comparator");
         List<String> sortlist = Arrays.asList("one", "two", "three", "four", "five");
         Collections.sort(sortlist);
         out.println(sortlist);
         out.println();
 
-        // implementing sort method with comparator
         out.println("implementing sort method with comparator");
         List<String> sortlistwithcomparator = Arrays.asList("one", "two", "three", "four", "five");
         Collections.sort(sortlistwithcomparator, Comparator.comparing(String::length).thenComparing(Comparator.naturalOrder()));
         out.println(sortlistwithcomparator);
         out.println();
 
-        // implementing swap list method
         out.println("swapping the first and last values from the previous list");
         Collections.swap(sortlistwithcomparator, 0, sortlistwithcomparator.size() - 1);
         out.println(sortlistwithcomparator);
         out.println();
 
-        // implementing synchronizedList method
         out.println("implementing synchronized list method");
         List<String> synclist = Collections.synchronizedList(Arrays.asList("one", "two", "three"));
         out.println(synclist);
         out.println();
 
-        // implementing unmodifiableList method
         out.println("implementing unmodifiableList method");
         List<String> unmolist = Collections.unmodifiableList(Arrays.asList("one", "two", "three"));
         out.println(unmolist);
         out.println();
 
-        // implementing emptyList method
         out.println("implementing emptyList method");
         List<Integer> emptyList = Collections.emptyList();
         // any addition will cause exception
@@ -280,7 +261,6 @@ public class CollectionAlgoDemo2 {
         out.println(emptyList);
         out.println();
 
-        // implementing list method of the enumeration parameter
         out.println("implementing list method of the enumeration parameter");
         Enumeration<objects> enumobjects= Collections.enumeration(Arrays.asList(objects.one, objects.two, objects.three));
         List<objects> enumlist = Collections.list(enumobjects);

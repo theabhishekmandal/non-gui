@@ -81,7 +81,6 @@ public class CollectionAlgoDemo3 {
         withoutGenericMap.put(5, 2);
         withoutGenericMap.put(6, 2);
         out.println("not type safe " + withoutGenericMap);
-        // implementing the checkedMap method
         out.println("implementing the checkedMap method");
         map = new HashMap<>();
         map = Collections.checkedMap(map, Integer.class, String.class);
@@ -96,7 +95,6 @@ public class CollectionAlgoDemo3 {
         out.println("type safe " + autogen);
         out.println();
 
-        // implementing checkedNavigableMap
         // here you cannot use the map variable and use the checkedNavigableMap method
         // because the map variable does not implement NavigableMap interface
         out.println("implementing checkedNavigableMap method");
@@ -112,7 +110,6 @@ public class CollectionAlgoDemo3 {
         out.println("type safe " + navigableautogen);
         out.println();
 
-        // implementing checkedSortedMap method
         // here either use NavigableMap or SortedMap and not Map interface
         out.println("implementing checkedSortedMap method");
         SortedMap<Integer, Integer> sortedMap = new TreeMap<>();
@@ -127,7 +124,6 @@ public class CollectionAlgoDemo3 {
         out.println("type safe " + sortedautogen);
         out.println();
 
-        // implementing emptyMap method
         out.println("implementing emptyMap method");
         Map<Integer, Integer> emptyMap = Collections.emptyMap();
         // any assignment will cause exception
@@ -135,7 +131,6 @@ public class CollectionAlgoDemo3 {
         out.println(emptyMap);
         out.println();
 
-        // implementing emptyNavigableMap method
         out.println("implementing emptyNavigableMap method");
         NavigableMap<Integer, Integer> emptyNavigableMap = Collections.emptyNavigableMap();
         // any assignment will cause exception
@@ -143,15 +138,13 @@ public class CollectionAlgoDemo3 {
         out.println(emptyNavigableMap);
         out.println();
 
-        // implementing emptySortedMap method
-        out.println("implemting emptySortedMap method");
+        out.println("implementing emptySortedMap method");
         SortedMap<Integer, Integer> emptySortedMap = Collections.emptySortedMap();
         // any assignment will cause exception
         // emptySortedMap.put(1, 1);
         out.println(emptySortedMap);
         out.println();
 
-        // implementing newSetFromMap method
         // when anything is added to the set then it is added to map object too
         out.println("implementing newSetFromMap method");
         Map<Integer, Boolean> weakmap = new WeakHashMap<>();
@@ -164,13 +157,11 @@ public class CollectionAlgoDemo3 {
         out.println("map elements " + weakmap);
         out.println();
 
-        // implementing singletonMap method
         out.println("implementing singletonMap method");
         Map<Integer, Integer> singlemap = Collections.singletonMap(1, 2);
         out.println(singlemap);
         out.println();
 
-        // implementing synchronized map method
         out.println("implementing synchronized map method");
         Map<Integer, Integer> normalmap = new HashMap<>();
         normalmap.put(1, 1);
@@ -179,7 +170,6 @@ public class CollectionAlgoDemo3 {
         out.println(synchmap);
         out.println();
 
-        // implementing synchronized navigable map method
         out.println("implementing synchronized navigable map method");
         NavigableMap<Integer, Integer> navmap = new TreeMap<>();
         navmap.put(1, 1);
@@ -188,7 +178,6 @@ public class CollectionAlgoDemo3 {
         out.println(synchnavmap);
         out.println();
 
-        // implementing synchronized sorted map method
         out.println("implementing synchronized sorted map method");
         SortedMap<Integer, Integer> sortmap = new TreeMap<>();
         sortmap.put(1, 1);
@@ -197,7 +186,6 @@ public class CollectionAlgoDemo3 {
         out.println(synchsortmap);
         out.println();
 
-        // implementing unmodifiable map method
         out.println("implementing unmodifiable map method");
         Map<Integer, Integer> momap = new HashMap<>();
         momap.put(1, 2);
@@ -207,7 +195,6 @@ public class CollectionAlgoDemo3 {
         out.println(unmomap);
         out.println();
 
-        // implementing unmodifiable Navigable map method
         out.println("implementing unmodifiable Navigable map method");
         NavigableMap<Integer, Integer> monavmap = new TreeMap<>();
         monavmap.put(1, 1);
@@ -216,7 +203,6 @@ public class CollectionAlgoDemo3 {
         out.println(unmonavmap);
         out.println();
 
-        // implementing unmodifiable sorted map method
         out.println("implementing unmodifiable sorted map method");
         SortedMap<Integer, Integer> mosortmap = new TreeMap<>();
         mosortmap.put(1, 1);
@@ -224,6 +210,5 @@ public class CollectionAlgoDemo3 {
         SortedMap<Integer, Integer> unmosortmap = Collections.unmodifiableSortedMap(mosortmap);
         out.println(unmosortmap);
         out.println();
-
     }
 }
