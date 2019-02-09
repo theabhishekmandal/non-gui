@@ -45,9 +45,6 @@ public class quicksort {
         int temp=arr[pindex];
         arr[pindex]=arr[high];
         arr[high]=temp;
-
         return pindex;
-
-
     }
 }
