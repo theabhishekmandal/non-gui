@@ -37,6 +37,5 @@ public class IteratorDemo {
             out.println(it.next());
             it.remove();
         }
-
     }
 }
