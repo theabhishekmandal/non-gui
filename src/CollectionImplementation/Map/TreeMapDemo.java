@@ -224,6 +224,5 @@ public class TreeMapDemo {
 
         out.println("implementing tailMap method");
         out.println(arr.tailMap(2, true));
-
     }
 }
