@@ -57,9 +57,12 @@ class Record{
 }
 public class ComparatorDemo4 {
     public static void main(String[] args) {
-        Comparator<Record> comparator1 = Comparator.comparing(Record::getName).thenComparingInt(Record::getIntval);
-        Comparator<Record> comparator2 = Comparator.comparing(Record::getName).thenComparingDouble(Record::getDoubleval);
-        Comparator<Record> comparator3 = Comparator.comparing(Record::getName).thenComparingLong(Record::getLongval);
+        Comparator<Record> comparator1 = Comparator.comparing(Record::getName)
+                                        .thenComparingInt(Record::getIntval);
+        Comparator<Record> comparator2 = Comparator.comparing(Record::getName)
+                                        .thenComparingDouble(Record::getDoubleval);
+        Comparator<Record> comparator3 = Comparator.comparing(Record::getName)
+                                        .thenComparingLong(Record::getLongval);
 
         ArrayList<Record> arr = new ArrayList<>();
         arr.add(new Record("abhishek", 12L, 13, 23.0));
