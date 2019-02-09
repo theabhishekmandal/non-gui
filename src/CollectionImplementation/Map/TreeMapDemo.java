@@ -17,11 +17,11 @@ import static java.lang.System.out;
  *
  * The following TreeMap constructors are defined:
  *
- * 1 TreeMap()                          :  This creates an empty TreeMap
+ * 1 TreeMap()                          :  This creates an empty TreeMap.
  *
  * 2 TreeMap(Comparator<? super K>
  *     comp)                            :  This creates an empty TreeMap and elements will be arranged
- *                                          on the basis of the comparator used
+ *                                          on the basis of the comparator used.
  *
  * 3 TreeMap(Map<? extends K, ? extends
  *   V>m)                               :  This initializes a tree map with the entries form m, which
