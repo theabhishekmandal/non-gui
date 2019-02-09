@@ -69,7 +69,6 @@ import static java.lang.System.*;
 public class CollectionAlgoDemo3 {
     public static void main(String[] args) {
 
-        // without the different type of checkmap methods
         // without checkmap methods map variable does not force withoutGenericMap variable to be type safe
         out.println("without the different type of checkmap methods");
         Map<Integer, String> map = new HashMap<>();
