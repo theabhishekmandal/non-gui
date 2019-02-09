@@ -133,6 +133,11 @@ import static java.lang.System.out;
  *                                          ConcurrentModificationException will bethrown if an element
  *                                          is removed during the process.
  *
+ *  25 int size()                       :   returns the number of key value pairs in the map.
+ *
+ *  26 Collection<V> values()           :   returns a collection containing the values in the map.
+ *                                          This method provides a collection view of the values in the map.
+ *
  */
 
 public class HashMapDemo {
@@ -149,59 +154,75 @@ public class HashMapDemo {
         Set<Map.Entry<String, String>> set = arr.entrySet();
 
         // now looping and displaying the keys and values
+        out.println("printing values using entrySet method");
         for(Map.Entry<String, String> ob : set)
-            out.println("Key: " + ob.getKey() + " Value:" + ob.getValue());
-        
+            out.println("Key: " + ob.getKey() + " Value: " + ob.getValue());
         out.println(); 
         
         // Getting the keyset and printing the values using the foreach loop
+        out.println("printing values using keySet method");
         for(String i : arr.keySet()){
-        	out.println("Key: "+ i + " " + "Value:" + arr.get(i));
+        	out.println("Key: "+ i + " " + "Value: " + arr.get(i));
         }
-
         out.println();
 
         // implementing compute method and updating the value in key value pair
-        // this key does not exists so new value is added
-        out.println("Key: " + "blah " + "Value : " + arr.compute("blah", (key, value) -> (value == null) ? "Nothing found" : (value += " " + value)));
-        // this key exists so new value is added
-        out.println("Key: " + "hello " + "Value : " + arr.compute("blah", (key, value) -> (value == null) ? "Nothing found" : (value += " " + value)));
+        out.println("implementing compute method and updating the value in key value pair");
+        // when key does not exists so new values is added
+        out.println("when key does not exits so new value is added");
+        out.println("Key: " + "blah " + "Value: " + arr.compute("blah", (key, value) -> (value == null) ? "Nothing found" : (value += " " + value)));
+        // when new key exists then new value is added
+        out.println("when new key exists then new value is added");
+        out.println("Key: " + "hello " + "Value: " + arr.compute("blah", (key, value) -> (value == null) ? "Nothing found" : (value += " " + value)));
         out.println();
 
-        //implementing computeIfAbsent method
+        // implementing computeIfAbsent method
+        out.println("implementing computeIfAbsent method");
         // if key exists then nothing is assigned
-        out.println("Key :" + "Abhishek" + " " + "Value:" + arr.computeIfAbsent("Abhishek", (key) -> "nothing found"));
-        // it key does not exists then it puts a new value
-        out.println("Key :" + "fuuton" + " " + "Value:" + arr.computeIfAbsent("fuuton", (key) -> "nothing found"));
+        out.println("if key exists then nothing is assigned");
+        out.println("Key: " + "Abhishek" + " " + "Value: " + arr.computeIfAbsent("Abhishek", (key) -> "nothing found"));
+        // if key does not exists then new value is added
+        out.println("if key does not exists then new value is added");
+        out.println("Key: " + "fuuton" + " " + "Value: " + arr.computeIfAbsent("fuuton", (key) -> "nothing found"));
         out.println();
         
-        //implementing computeIfPresent method
+        // implementing computeIfPresent method
+        out.println("implementing computeIfPresent method");
         // if the key is present then new value is assigned
-        out.println("Key :" + "fuuton" + " " + "Value:" + arr.computeIfPresent("fuuton", (key, value) -> "Wind style"));
+        out.println("if key is present then new value is assigned");
+        out.println("Key: " + "fuuton" + " " + "Value: " + arr.computeIfPresent("fuuton", (key, value) -> "Wind style"));
         // if the key is not present then null is returned
-        out.println("Key :" + "mokton" + " " + "Value:" + arr.computeIfPresent("mokton", (key, value) -> "nothing found"));
+        out.println("if the key is not present then null is returned");
+        out.println("Key: " + "mokton" + " " + "Value: " + arr.computeIfPresent("mokton", (key, value) -> "nothing found"));
         out.println();
 
-        //implementing containsKey method
+        // implementing containsKey method
+        out.println("implementing containsKey method");
         out.println(arr.containsKey("fuuton"));
+        out.println();
 
-        //implementing containsValue method
+        // implementing containsValue method
+        out.println("implementing containsValue method");
         out.println(arr.containsValue("Wind style"));
         out.println();
 
-        //implementing the equals method
+        // implementing the equals method
+        out.println("implementing the  equals method");
         out.println(arr.equals(new HashMap<>()));
         out.println();
 
-        //implementing the get method to get the value associated with the key
-        out.println(arr.get("hello"));
+        // implementing the get method to get the value associated with the key
+        out.println("implementing the get method to get the value associated with the key");
+        out.println("Key: " + "hello" + " Value: " + arr.get("hello"));
         out.println();
 
-        //implementing the getOrdefault method
-        out.println(arr.getOrDefault("key not present", "defaultValue"));
+        // implementing the getOrDefault method
+        out.println("implementing the getOrDefault method");
+        out.println("Key: " + "key not present" + " Value: " + arr.getOrDefault("key not present", "defaultValue"));
         out.println();
 
-        //implementing merge method, it is used to update a specific key value pair
+        // implementing merge method, it is used to update a specific key value pair
+        out.println("implementing merge method, it is used to update a specified key value pair");
         out.println(arr.merge("blah", "Nothing found Nothing found", (k,v) ->
             v.replace("Nothing found Nothing found", "Value update in merge method")));
         out.println();
@@ -211,37 +232,55 @@ public class HashMapDemo {
         num.put(2 + "", "two");
         num.put(3 + "", "three");
 
-        //implementing the putAll method
+        // implementing  putAll method
+        out.println("implementing putAll method");
         arr.putAll(num);
+        out.println(arr + "\n");
 
-        //implementing the putIfAbsent method
+        // implementing putIfAbsent method
+        out.println("implementing putIfAbsent method");
         out.println(arr.putIfAbsent("3", "three"));
         out.println();
 
-        //implementing the remove method
+        // implementing remove method
+        out.println("implementing remove method");
         out.println(arr.remove("2"));
         out.println();
 
-        //implementing the remove method of key value pair
+        //implementing remove method of key value pair
+        out.println("implementing remove method of key value pair");
         out.println(arr.remove("3", "three"));
         out.println(arr.remove("3", "three"));
         out.println();
 
-        //implementing replace method with old and new value as parameters
+        // implementing replace method with old and new value as parameters
+        out.println("implementing replace method with old and new value as parameters");
         out.println(arr.replace("1", "one", "ONE"));
         out.println();
 
-        //implementing replace method with only key value as parameter
+        // implementing replace method with only key value as parameter
+        out.println("implementing replace method with only key value as parameter");
         out.println(arr.replace("Abhishek", "Mandal", "MANDAL"));
         out.println();
 
-        //implementing replaceAll method
+        // implementing replaceAll method, if value length is greater than 3 than get length upto 3 character
+        out.println("implementing replaceAll method ");
         arr.replaceAll((k, v) -> {
             if(v.length() > 3)
                 v = v.substring(0,3);
             return v;
         });
-
         out.println(arr);
+        out.println();
+
+        // implementing size method
+        out.println("implementing size method");
+        out.println(arr.size());
+        out.println();
+
+        // implementing values method
+        out.println("implementing values method");
+        out.println(arr.values());
+        out.println();
     }
 }
