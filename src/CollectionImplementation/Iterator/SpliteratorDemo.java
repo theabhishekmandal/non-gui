@@ -51,32 +51,43 @@ public class SpliteratorDemo {
 
         Spliterator<String> split = arr.spliterator();
 
+        out.println("implementing characteristics method");
         out.println(split.characteristics());
+        out.println();
 
+        out.println("implementing estimateSize method");
         out.println(split.estimateSize());
+        out.println();
 
+        out.println("implementing getExactSizeIfKnown method");
         out.println(split.getExactSizeIfKnown());
+        out.println();
 
+        out.println("implementing hasCharacteristics method");
         out.println(split.hasCharacteristics(12));
+        out.println();
 
         // throws exception if sequence is unordered.
         //out.println(split.getComparator());
-        out.println();
+        //out.println();
 
-        // using tryAdvance to print and perform other operations
+        out.println("implementing tryAdvance to print values");
         while(split.tryAdvance(out::println));
         out.println();
 
         split = arr.spliterator();
+        out.println("implementing tryAdvance to reversing");
         while(split.tryAdvance((n) -> out.println(new StringBuilder(n).reverse().toString())));
         out.println();
 
-        // using forEach to print the values and perform operations.
+        out.println("using forEach to print the values");
         split = arr.spliterator();
         split.forEachRemaining(System.out::println);
         out.println();
 
         split = arr.spliterator();
+        out.println("using forEach to perform operations");
         split.forEachRemaining((n) -> System.out.println(n + n));
+        out.println();
     }
 }

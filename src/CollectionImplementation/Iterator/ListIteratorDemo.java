@@ -50,22 +50,24 @@ public class ListIteratorDemo {
         arr.add(10);
 
         ListIterator it = arr.listIterator();
-        // traversing in forward direction
         out.println("traversing in forward direction");
         while(it.hasNext()){
             out.println(it.next() + " " + it.nextIndex());
         }
+        out.println();
 
         // now for traversing in reverse direction iterator must be it at last index
         out.println("traversing in reverse direction");
         while(it.hasPrevious()){
             out.println(it.previous() + " "+ it.previousIndex());
         }
+        out.println();
 
-        // for each remaining implementation
+        out.println("for each remaining implementation");
         it.forEachRemaining(System.out::println);
+        out.println();
 
-        // adding, removing and setting the values using listIterator
+        out.println("adding, removing and setting the values using listIterator");
         it = arr.listIterator();
         out.println(arr);
         while(it.hasNext()){
@@ -76,5 +78,6 @@ public class ListIteratorDemo {
         }
         it.add(1e9);
         out.println(arr);
+        out.println();
     }
 }
