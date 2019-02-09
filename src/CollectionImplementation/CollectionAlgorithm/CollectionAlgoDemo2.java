@@ -86,6 +86,9 @@ import java.math.*;
  *
  */
 public class CollectionAlgoDemo2 {
+    enum objects{
+        one, two, three
+    }
     public static void main(String[] args) {
 
         ArrayList<String> arr = new ArrayList<>();
@@ -285,6 +288,4 @@ public class CollectionAlgoDemo2 {
         out.println();
     }
 }
-enum objects{
-    one, two, three
-}
+
