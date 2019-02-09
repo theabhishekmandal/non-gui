@@ -17,90 +17,118 @@ import static java.lang.System.out;
  *
  * The following TreeMap constructors are defined:
  *
- *   TreeMap()                           :  This creates an empty TreeMap
+ * 1 TreeMap()                          :  This creates an empty TreeMap
  *
- *   TreeMap(Comparator<? super K> comp) :  This creates an empty TreeMap and elements will be arranged
+ * 2 TreeMap(Comparator<? super K>
+ *     comp)                            :  This creates an empty TreeMap and elements will be arranged
  *                                          on the basis of the comparator used
  *
- *   TreeMap(Map<? extends K, ? extends  :  This initializes a tree map with the entries form m, which
- *   V>m)                                   will be sorted by using the natural order of the keys.
+ * 3 TreeMap(Map<? extends K, ? extends
+ *   V>m)                               :  This initializes a tree map with the entries form m, which
+ *                                          will be sorted by using the natural order of the keys.
  *
- *   TreeMap(SortedMap<K,? extends V> sm):  This initializes a tree map with the entries from sm, which
+ * 4 TreeMap(SortedMap<K,? extends V>
+ *     sm)                              :  This initializes a tree map with the entries from sm, which
  *                                          will be sorted in the same order as sm.
  *
- *   Map.Entry<K,V> ceilingEntry(K obj)  :  Searches the map for the smallest key k such that
+ *
+ * The following methods are defined in the SortedMap Interface:
+ *
+ * 1 Comparator<? super K> comparator() :   returns the invoking sorted map's comparator. If
+ *                                          natural ordering is used for the invoking map, null
+ *                                          is returned.
+ *
+ * 2 K firstKey()                       :   returns the first key in the invoking map.
+ *
+ * 3 SortedMap<K, V> headMap(K end)     :   returns a sorted map for those map entries with keys that are
+ *                                          less than end.
+ *
+ * 4 K lastKey()                        :   returns the last key in the invoking map.
+ *
+ * 5 SortedMap<K, V> subMap(K start, K
+ *   end)                               :   returns a map containing those entries with keys that are
+ *                                          greater than or equal to start and less than end.
+ *
+ * 6 SortedMap<K, V> tailMap(K start)   :   returns a map containing those entries with keys that
+ *                                          are greater than or equal to start.
+ *
+ *
+ * The following methods are defined in the NavigableMap Interface:
+ *
+ * 1 Map.Entry<K,V> ceilingEntry(K obj) :  Searches the map for the smallest key k such that
  *                                          k >= obj. If such a key is found, its entry is returned.
  *                                          Otherwise, null is returned.
  *
- *   K ceilingKey(K obj)                 :  Searches the map for the smallest key k such
+ * 2 K ceilingKey(K obj)                :  Searches the map for the smallest key k such
  *                                          that k >= obj. If such a key is found, it is returned.
  *                                          Otherwise, null is returned.
  *
- *   NavigableSet<K> descendingKeySet()  :  Returns a NavigableSet that contains the keys in
+ * 3 NavigableSet<K> descendingKeySet() :  Returns a NavigableSet that contains the keys in
  *                                          the invoking map in reverse order. Thus, it returns
  *                                          a reverse set-view of the keys. The resulting set is
  *                                          backed by the map.
  *
- *  NavigableMap<K,V> descendingMap()    :  Returns a NavigableMap that is the reverse of the
+ * 4 NavigableMap<K,V> descendingMap()  :  Returns a NavigableMap that is the reverse of the
  *                                          invoking map. The resulting map is backed by the
  *                                          invoking map.
  *
- *  Map.Entry<K,V> firstEntry()          :  Returns the first entry in the map. This is the entry
+ * 5 Map.Entry<K,V> firstEntry()        :  Returns the first entry in the map. This is the entry
  *                                          with the least key.
  *
- *  Map.Entry<K,V> floorEntry(K obj)     :  Searches the map for the largest key k such that
+ * 6 Map.Entry<K,V> floorEntry(K obj)   :  Searches the map for the largest key k such that
  *                                          k <= obj. If such a key is found, its entry is returned.
  *                                          Otherwise, null is returned.
  *
- *  K floorKey(K obj)                    :  Searches the map for the largest key k such that
+ * 7 K floorKey(K obj)                  :  Searches the map for the largest key k such that
  *                                          k <= obj. If such a key is found, it is returned.
  *                                          Otherwise, null is returned.
  *
- *  NavigableMap<K,V>
- *    headMap(K upperBound, boolean incl):  Returns a NavigableMap that includes all entries
+ * 8 NavigableMap<K,V>
+ *    headMap(K upperBound, boolean
+ *    incl)                             :   Returns a NavigableMap that includes all entries
  *                                          from the invoking map that have keys that are less
  *                                          than upperBound. If incl is true, then an element
  *                                          equal to upperBound is included. The resulting map
  *                                          is backed by the invoking map.
  *
- *  Map.Entry<K,V> higherEntry(K obj)    :  Searches the set for the largest key k such that
+ * 9 Map.Entry<K,V> higherEntry(K obj)  :  Searches the set for the largest key k such that
  *                                          k > obj. If such a key is found, its entry is returned.
  *                                          Otherwise, null is returned.
  *
- *  K higherKey(K obj)                   :  Searches the set for the largest key k such that
+ * 10 K higherKey(K obj)                :  Searches the set for the largest key k such that
  *                                          k > obj. If such a key is found, it is returned.
  *                                          Otherwise, null is returned.
  *
- *  Map.Entry<K,V> lastEntry()           :  Returns the last entry in the map. This is the entry
+ * 11 Map.Entry<K,V> lastEntry()        :  Returns the last entry in the map. This is the entry
  *                                          with the largest key.
  *
- *  Map.Entry<K,V> lowerEntry(K obj)     :  Searches the set for the largest key k such that
+ * 12 Map.Entry<K,V> lowerEntry(K obj)  :  Searches the set for the largest key k such that
  *                                          k < obj. If such a key is found, its entry is returned.
  *                                          Otherwise, null is returned.
  *
- *  K lowerKey(K obj)                    :  Searches the set for the largest key k such that
+ * 13 K lowerKey(K obj)                 :  Searches the set for the largest key k such that
  *                                          k < obj. If such a key is found, it is returned.
  *                                          Otherwise, null is returned.
  *
- *  NavigableSet<K> navigableKeySet()    :  Returns a NavigableSet that contains the keys in the
+ * 14 NavigableSet<K> navigableKeySet() :  Returns a NavigableSet that contains the keys in the
  *                                          invoking map. The resulting set is backed by the
  *                                          invoking map.
  *
- *  Map.Entry<K,V> pollFirstEntry()      :  Returns the first entry, removing the entry in the
+ * 15 Map.Entry<K,V> pollFirstEntry()   :  Returns the first entry, removing the entry in the
  *                                          process. Because the map is sorted, this is the entry
  *                                          with the least key value. null is returned if the map
  *                                          is empty.
  *
- *  Map.Entry<K,V> pollLastEntry()       :  Returns the last entry, removing the entry in the
+ * 16 Map.Entry<K,V> pollLastEntry()    :  Returns the last entry, removing the entry in the
  *                                          process. Because the map is sorted, this is the entry
  *                                          with the greatest key value. null is returned if the
  *                                          map is empty.
  *
- *  NavigableMap<K,V>
+ * 17 NavigableMap<K,V>
  *      subMap(K lowerBound,
  *      boolean lowIncl,
  *      K upperBound
- *      boolean highIncl)                :  Returns a NavigableMap that includes all entries
+ *      boolean highIncl)               :  Returns a NavigableMap that includes all entries
  *                                          from the invoking map that have keys that are
  *                                          greater than lowerBound and less than upperBound. If
  *                                          lowIncl is true, then an element equal to lowerBound
@@ -108,9 +136,9 @@ import static java.lang.System.out;
  *                                          to highIncl is included. The resulting map is backed
  *                                          by the invoking map.
  *
- *  NavigableMap<K,V>
+ * 18 NavigableMap<K,V>
  *      tailMap(K lowerBound, boolean
- *      incl)                            :  Returns a NavigableMap that includes all entries
+ *      incl)                           :  Returns a NavigableMap that includes all entries
  *                                          from the invoking map that have keys that are
  *                                          greater than lowerBound. If incl is true, then an
  *                                          element equal to lowerBound is included. The
