@@ -75,7 +75,5 @@ public class LinkedLIstDemo {
         // poping an element returns the popped element from the front of the list
         arr.pop();
         out.println("list after poping an element" + arr);
-
-
     }
 }
