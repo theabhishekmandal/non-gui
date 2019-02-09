@@ -54,8 +54,6 @@ public class PriorityQueueDemo {
         // Printing names of student in priority order, poll()
         // method is used to access the head element of queue
         out.println("Students served in their priority order");
-
         while(!pq.isEmpty()) out.println(pq.poll().getName());
-
     }
 }
