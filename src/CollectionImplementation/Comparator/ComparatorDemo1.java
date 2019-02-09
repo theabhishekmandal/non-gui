@@ -1,5 +1,6 @@
 package CollectionImplementation.Comparator;
 import java.util.*;
+import static java.lang.System.*;
 
 /**
  * Comparator is particularly used for ordering of elements in different way.
@@ -43,6 +44,7 @@ public class ComparatorDemo1 {
         // Creating a TreeSet in which elements will be inserted in descending order
         // passing a comparator object and thereby implementing the compare method
         // for customized sorting order.
+        out.println("TreeSet with Descending comparator");
         TreeSet<Integer> arr = new TreeSet<>(new Comparator<Integer>(){
             @Override
             public int compare(Integer one, Integer two){
@@ -50,10 +52,10 @@ public class ComparatorDemo1 {
             }
         });
         for(int i = 1; i < 11; i++) arr.add(i);
-        System.out.println(arr);
+        out.println(arr);
+        out.println();
 
-
-        // implementing the reversed method
+        out.println("implementing the reversed method");
         // first creating a comparator for natural sorting order
         // then using reversed method to return a reverse comparator and sorting in descending order
         Comparator<String> comparator = new Comparator<String>() {
@@ -62,14 +64,14 @@ public class ComparatorDemo1 {
                 return o1.compareTo(o2);
             }
         };
-
         ArrayList<String> hel = new ArrayList<>();
         for(char ch = 'a'; ch <= 'z'; ch++) hel.add(ch + "");
         Collections.sort(hel, comparator.reversed());
-        System.out.println(hel);
+        out.println(hel);
+        out.println();
 
 
-        // implementing the reverseOrder method
+        out.println("implementing the reverseOrder method");
         ArrayList<City> helobj = new ArrayList<>();
         helobj.add(new City("Delhi"));
         helobj.add(new City("Mumbai"));
@@ -86,13 +88,15 @@ public class ComparatorDemo1 {
         //first getting the comparator using Comparator.comparing and then reversing it with reverseOrder method
         Comparator<City> cityComparator = Collections.reverseOrder(Comparator.comparing(City::getName));
         Collections.sort(helobj, cityComparator);
-        System.out.println(helobj);
+        out.println(helobj);
+        out.println();
 
-        // implementing the comparing method and also by providing the keyComp
+        out.println("implementing the comparing method and also by providing the keyComp");
         // the above comparison can also be performed by using the below way
         Comparator<City> cityComparator1 = Comparator.comparing(City::getName, Comparator.reverseOrder());
         helobj.sort(cityComparator1);
-        System.out.println(helobj);
+        out.println(helobj);
+        out.println();
     }
 }
 

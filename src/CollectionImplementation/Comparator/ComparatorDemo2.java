@@ -3,6 +3,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.TreeSet;
+import static java.lang.System.*;
 
 /**
  * This is an implementation on how differently a comparator is defined
@@ -49,7 +50,7 @@ class Student{
 public class ComparatorDemo2 {
     public static void main(String[] args) {
 
-        // First way of Defining a comparator using lambda expression
+        out.println("First way of Defining a comparator using lambda expression");
         // Remember, to Store a user defined class object, TreeSet should
         // define its comparator while declaring it
         // defining the comparator to store elements in descending order
@@ -65,10 +66,11 @@ public class ComparatorDemo2 {
         student.add(new Student("Shuton", 4));
         student.add(new Student("Fuuton", 5));
         student.add(new Student("Khaton", 6));
-        System.out.println(student);
+        out.println(student);
+        out.println();
 
 
-        // Second way of defining a comparator separately to store the elements in descending order
+        out.println("Second way of defining a comparator separately to store the elements in descending order");
         // Without Lambda Expression
         // Sorting based on String values
         Comparator<Student> studentcomparator1 = new Comparator<Student>() {
@@ -84,10 +86,11 @@ public class ComparatorDemo2 {
         student2.add(new Student("Shuton", 4));
         student2.add(new Student("Fuuton", 5));
         student2.add(new Student("Khaton", 6));
-        System.out.println(student2);
+        out.println(student2);
+        out.println();
 
 
-        // Third way of defining a comparator
+        out.println("Third way of defining a comparator");
         Comparator<Student> studentComparator2 = Comparator.comparing(Student::getnumber);
         ArrayList<Student> stud = new ArrayList<>();
         stud.add(new Student("Delhi", 1));
@@ -96,16 +99,18 @@ public class ComparatorDemo2 {
         stud.add(new Student("kolkata", 4));
         stud.add(new Student("kanpur", 5));
         Collections.sort(stud, Collections.reverseOrder(studentComparator2));
-        System.out.println(stud);
+        out.println(stud);
+        out.println();
 
-        //implementing nullsFirst method
+        out.println("implementing nullsFirst method");
         stud.add(null);
         stud.sort(Comparator.nullsFirst(studentComparator2));
-        System.out.println(stud);
+        out.println(stud);
+        out.println();
 
-        //implementing nullsLast method
+        out.println("implementing nullsLast method");
         stud.sort(Comparator.nullsLast(studentComparator2));
-        System.out.println(stud);
-
+        out.println(stud);
+        out.println();
     }
 }
