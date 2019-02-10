@@ -17,7 +17,6 @@ import static java.lang.System.out;
  *                                          elements of the collection c.
  *
  *  3 ArrayList(int capacity)           :   builds an array list that has the specified initial capacity.
- *
  */
 public class ArrayListDemo
 {
