@@ -9,6 +9,16 @@ import static java.lang.System.out;
  *  ArrayDeque is similar to that of double ended queue
  *  It can also have different types of elements if the type is of Object.
  *  ArrayDeque class extends AbstractCollection and implements the Deque interface.
+ *
+ *  The constructors defines are:
+ *
+ *  1 ArrayDeque()                  :   builds an empty ArrayDequeue
+ *
+ *  2 ArrayDeque(int size)          :   builds a deque with the specified size.
+ *
+ *  3 ArrayDequeue(Collection<
+ *      ? extends E> c)             :   builds a dequeue that is initialized with the elements
+ *                                      of the collection c.
  */
 public class ArrayDequeueDemo {
     public static void main(String[] args) {

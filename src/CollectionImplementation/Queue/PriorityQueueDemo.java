@@ -12,6 +12,31 @@ import static java.lang.System.out;
  *  If no comparator is provided then it stores the values in ascending order
  *  It is similar to TreeSet but it allows duplicates
  *  PriorityQueue extends AbstractQueue and implements the Queue interface.
+ *
+ *  The constructors defined are:
+ *
+ *  1 PriorityQueue()               :   builds an empty queue.
+ *
+ *  2 PriorityQueue(int capacity)   :   builds a queue that has the specified initial capacity.
+ *
+ *  3 PriorityQueue(Comparator<?
+ *      super E> comp)              :   builds a queue based on the comparator passed.
+ *
+ *  4 PriorityQueue(int capacity,
+ *      Comparator<? super E>
+ *          comp)                   :   builds a queue with the specified capacity and comparator.
+ *
+ *  5 PriorityQueue(Collection<
+ *      ? extends E> c)             :   builds a queue that is initialized with the elements of the
+ *                                      collection c.
+ *
+ *  6 PriorityQueue(PriorityQueue
+ *  <? extends E> c)                :   builds a queue that is initialized with the elements of the
+ *                                      priority queue c.
+ *
+ *  7 PriorityQueue(SortedSet<?
+ *      extends E> c)               :   builds a queue that is initialized with the elements of the
+ *                                      SortedSet c.
  */
 class Student{
     public String name;
