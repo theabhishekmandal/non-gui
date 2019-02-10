@@ -22,6 +22,7 @@ import static java.lang.System.out;
  *   2 LinkedList(Collection<?
  *      extends E> c)                   :   returns a linked list that is initialized with the elements
  *                                          of the collection c.
+ *
  */
 
 public class LinkedLIstDemo {
