@@ -7,6 +7,16 @@ import static java.lang.System.out;
  *  Implementation of Arraylist:
  *  ArrayList is basically used for dynamic array or variable length array.
  *  ArrayList extends AbstractList and implements the list interface.
+ *
+ *  The constructors defined are:
+ *
+ *  1 ArrayList()                       :   builds an empty array list.
+ *
+ *  2 ArrayList(Collection<?
+ *      extends E> c)                   :   builds an array list that is initialized with the
+ *                                          elements of the collection c.
+ *
+ *  3 ArrayList(int capacity)           :   builds an array list that has the specified initial capacity.
  */
 public class ArrayListDemo
 {

@@ -13,7 +13,15 @@ import static java.lang.System.out;
  *
  *   List<String> arr = new LinkedList<>(); // this can only access those which are present in list interface
  *
- *   LinkedList<String> arr = new LinkedList(); // this can access those which are present in LinkedList class
+ *   LinkedList<String> arr = new LinkedList<>(); // this can access those which are present in LinkedList class
+ *
+ *   The constructors that are defined:
+ *
+ *   1 LinkedList()                     :   returns an empty linked list.
+ *
+ *   2 LinkedList(Collection<?
+ *      extends E> c)                   :   returns a linked list that is initialized with the elements
+ *                                          of the collection c.
  */
 
 public class LinkedLIstDemo {
