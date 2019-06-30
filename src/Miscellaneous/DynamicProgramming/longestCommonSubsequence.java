@@ -1,5 +1,17 @@
-package Miscellaneous;
-
+package Miscellaneous.DynamicProgramming;
+/**
+ * This is based on dynamic programming: 1) Overlapping subproblems 2) Optimal substructure
+ * This problem can be solved by using dynamic programming as:
+ *
+ * 1) if ith and jth character of String one and String two matches then the equation becomes
+ *  L(one[i], two[j]) = 1 + L(one[i - 1], two[j - 1])
+ *  eg: L(“AGGTAB”, “GXTXAYB”) = 1 + L(“AGGTA”, “GXTXAY”)
+ *
+ *  2) if the ith and jth character of String one and String two doesn't match then the equation becomes:
+ *  L(one[i], two[j]) = Max(L(one[i - 1], two[j]), L(one[i], two[j - 1]))
+ *  eg: L(“ABCDGH”, “AEDFHR”) = MAX ( L(“ABCDG”, “AEDFHR”), L(“ABCDGH”, “AEDFH”) ), here we see the max subsequence
+ *  that is common to both is "ADH"
+ */
 import java.util.*;
 import static java.lang.System.*;
 public class longestCommonSubsequence{
