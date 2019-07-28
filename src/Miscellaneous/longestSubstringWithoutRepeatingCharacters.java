@@ -4,6 +4,10 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 
+/**
+ *  This is not a dynamic programming based question.
+ */
+
 public class longestSubstringWithoutRepeatingCharacters {
     public static void main(String args[]){
         Scanner s = new Scanner(System.in);

@@ -1,13 +1,11 @@
-package Miscellaneous;
+package Miscellaneous.Recursion;
 
 /**
- * This is an example of storing and retrieving nth fibonaaci with logn time complexity
+ * This is an example of storing and retrieving nth fibonacci with logn time complexity
  */
 
-import java.lang.reflect.Array;
 import java.util.*;
 import static  java.lang.System.*;
-import java.io.*;
 
 class findingNthFibonacci {
     static long modulo = 1000000000L + 7L;

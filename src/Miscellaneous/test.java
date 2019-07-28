@@ -2,7 +2,7 @@ package Miscellaneous;
 import java.util.*;
 public class test
 {
-    static ArrayList<Integer>[] arr;
+    static ArrayList<ArrayList<Integer>> arr;
     static boolean visited[];
     static HashSet<Integer> count=new HashSet<Integer>();
 
@@ -25,10 +25,7 @@ public class test
     }
 
     private static int getoutput(String[] hello,int size) {
-        arr=new ArrayList[size];
-        for(int i=0;i<arr.length;i++)
-            arr[i]=new ArrayList<Integer>();
-
+        arr=new ArrayList<>();
 
         int max=0;
         int min=0;
@@ -39,8 +36,8 @@ public class test
             String coun[]=hello[i].split("#");
             int one=Integer.parseInt(coun[0]);
             int two=Integer.parseInt(coun[1]);
-            arr[one].add(two);
-            arr[two].add(one);
+            arr.get(one).add(two);
+            arr.get(two).add(one);
             min=Math.min(one,two);
             max=Math.max(one,two);
         }
@@ -63,10 +60,10 @@ public class test
              count.add(paths[paths.length-2]);
         }
         else
-            for(int i: arr[min])
+            for(int i: arr.get(min))
             {
                 if(!visited[i])
-                    printallpaths(i,max,visited,paths,pathindex);
+                    printallpaths(i,max, visited,paths,pathindex);
 
             }
         pathindex--;

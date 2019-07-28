@@ -1,4 +1,4 @@
-package Miscellaneous;
+package Miscellaneous.Recursion;
 import java.util.*;
 import static java.lang.System.*;
 public class findingPower {

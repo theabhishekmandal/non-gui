@@ -1,4 +1,4 @@
-package Miscellaneous;
+package Miscellaneous.Recursion;
 
 import java.util.Scanner;
 
