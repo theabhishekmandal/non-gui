@@ -38,8 +38,7 @@ class linkedList<T>{
     }
 
     public void insertInTheMiddle(int pos, T data){
-        if(pos < 0) throw new IndexOutOfBoundsException();
-        if(pos == 0){
+        if(pos <= 0){
             addFirst(data);
             return;
         }
