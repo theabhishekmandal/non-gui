@@ -71,145 +71,116 @@ public class doubly_linked_list {
 
     doublenode head;
 
-    void insert(int data)
-    {
-        if(head==null)
-        {
+    void insert(int data) {
+        if(head == null) {
             head=new doublenode(data);
         }
-        else
-        {
-            doublenode temp=head;
-            while(temp.next!=null)
-                temp=temp.next;
-            doublenode end=new doublenode(data);
-            temp.next=end;
-            end.previous=temp;
+        else {
+            doublenode temp = head;
+            while(temp.next != null)
+                temp = temp.next;
+            doublenode end = new doublenode(data);
+            temp.next = end;
+            end.previous = temp;
         }
     }
 
-
-
-    void delete(int pos)
-    {
-        doublenode temp=head;
-        doublenode other=null;
-        int i=1;
-        int len=0;
-        while(temp!=null){
+    void delete(int pos) {
+        doublenode temp = head;
+        doublenode other = null;
+        int i = 1;
+        int len = 0;
+        while(temp != null){
             len++;
-            temp=temp.next;
+            temp = temp.next;
         }
-        if(head==null||pos>len) {
+        if(head == null || pos > len) {
             System.err.print("deletion not possible\n");
             return;
         }
 
-        if(i==pos)
-        {
-            head=head.next;
-            head.previous=null;
+        if(i == pos) {
+            head = head.next;
+            head.previous = null;
         }
-        else
-        {
-            temp=head;
-            while(temp.next!=null&&i!=pos)
-            {
+        else {
+            temp = head;
+            while(temp.next != null && i != pos) {
                 i++;
-                temp=temp.next;
+                temp = temp.next;
             }
-            other=temp.previous;
-            other.next=temp.next;
-            if(temp.next!=null)
-                temp.next.previous=other;
+            other = temp.previous;
+            other.next = temp.next;
+            if(temp.next != null)
+                temp.next.previous = other;
         }
-
     }
 
-
-
-    void insertInTheMiddle(int data,int pos)
-    {
-         int len=0;
-         doublenode temp=head;
-         while(temp!=null)
-         {
-             temp=temp.next;
+    void insertInTheMiddle(int data, int pos) {
+         int len = 0;
+         doublenode temp = head;
+         while(temp != null) {
+             temp = temp.next;
              len++;
          }
-         if(pos>len)
-         {
+         if(pos > len) {
              System.err.println("insertion not possible not enough nodes");
-          return;
-         }
-         if(pos==1)
-         {
-             temp=new doublenode(data);
-             temp.next=head;
-             head.previous=temp;
-             head=temp;
              return;
          }
-         temp=head;
-         int i=1;
-         while(temp.next!=null&&i!=pos)
-         {
-             i++;
-             temp=temp.next;
+         if(pos == 1) {
+             temp = new doublenode(data);
+             temp.next = head;
+             head.previous = temp;
+             head = temp;
+             return;
          }
-         doublenode temp2=temp.previous;
-         doublenode newnode=new doublenode(data);
-         temp2.next=newnode;
-         newnode.previous=temp2;
-         newnode.next=temp;
-         temp.previous=newnode;
-
+         temp = head;
+         int i = 1;
+         while(temp.next != null && i != pos) {
+             i++;
+             temp = temp.next;
+         }
+         doublenode temp2 = temp.previous;
+         doublenode newnode = new doublenode(data);
+         temp2.next = newnode;
+         newnode.previous = temp2;
+         newnode.next = temp;
+         temp.previous = newnode;
     }
 
-
-
-    void show()
-    {
-        StringBuilder br=new StringBuilder("");
-        doublenode temp=head;
-        while(temp!=null)
-        {
-            br.append(temp.data+"-->");
-            temp=temp.next;
+    void show() {
+        StringBuilder br = new StringBuilder();
+        doublenode temp = head;
+        while(temp != null) {
+            br.append(temp.data + "-->");
+            temp = temp.next;
         }
         System.out.println(br);
-
     }
 
-
-
-    public static void main(String args[])
-    {
-        doubly_linked_list ob=new doubly_linked_list();
-        Scanner s=new Scanner(System.in);
+    public static void main(String args[]) {
+        doubly_linked_list ob = new doubly_linked_list();
+        Scanner s = new Scanner(System.in);
         System.out.println("enter how many elements");
-        int t=s.nextInt();
-        while(t-->0)
-        {
+        int t = s.nextInt();
+        while(t-- > 0) {
             ob.insert(s.nextInt());
         }
         System.out.println("do you want to insert in the middle");
-        char ch=s.next().charAt(0);
-        if(ch=='y'||ch=='Y')
-        {
+        char ch = s.next().charAt(0);
+        if(ch == 'y' || ch == 'Y') {
             System.out.println("enter the element and the position");
-            ob.insertInTheMiddle(s.nextInt(),s.nextInt());
+            ob.insertInTheMiddle(s.nextInt(), s.nextInt());
         }
         System.out.println("do you want to delete ?");
-        ch=s.next().charAt(0);
-        while(ch=='y'||ch=='Y')
-        {
+        ch = s.next().charAt(0);
+        while(ch == 'y' || ch == 'Y') {
             System.out.println("enter the position you want to delete");
-            t=s.nextInt();
+            t = s.nextInt();
             ob.delete(t);
             ob.show();
             System.out.println("do you want to continue");
-            ch=s.next().charAt(0);
+            ch = s.next().charAt(0);
         }
         ob.show();
     }
