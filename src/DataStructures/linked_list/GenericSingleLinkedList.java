@@ -2,9 +2,9 @@ package DataStructures.linked_list;
 import java.util.NoSuchElementException;
 
 class linkedList<T>{
-    node<T> head;
-    node<T> tail;
-    int size;
+    private node<T> head;
+    private node<T> tail;
+    private int size;
     static class node<T>{
         T data;
         node<T> next;
@@ -12,9 +12,15 @@ class linkedList<T>{
             this.data = data;
             this.next = next;
         }
+        @Override
+        public String toString(){
+            return "[" + this.data + "]";
+        }
     }
-    public linkedList(){
+    public linkedList(){}
 
+    public int getSize(){
+        return this.size;
     }
 
     public void addLast(T data){
@@ -101,7 +107,7 @@ class linkedList<T>{
     public String toString(){
         StringBuilder br = new StringBuilder();
         for(node<T> temp = head; temp != null; temp = temp.next)
-            br.append(temp.data + "-->");
+            br.append(temp + "-->");
         return br.toString();
     }
 }
@@ -110,7 +116,7 @@ public class GenericSingleLinkedList {
         linkedList<Integer> list = new linkedList<>();
         list.addLast(2);
         list.addLast(3);
-        System.out.println(list.size);
+        System.out.println(list.getSize());
         list.insertInTheMiddle(2, 99);
         System.out.println(list);
         list.deleteFirst();
