@@ -1,4 +1,4 @@
-package Miscellaneous;
+package Miscellaneous.Recursion;
 class linkedList<T>{
     node<T> first;
     node<T> last;
