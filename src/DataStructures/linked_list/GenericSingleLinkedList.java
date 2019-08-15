@@ -27,6 +27,14 @@ class linkedList<T>{
         return this.size;
     }
 
+    public node<T> getHead(){
+        return this.head;
+    }
+
+    public node<T> getTail(){
+        return this.tail;
+    }
+
     public void addLast(T data){
         final node<T> last = tail;
         final node<T> newnode = new node<>(data, null);
