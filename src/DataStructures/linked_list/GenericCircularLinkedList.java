@@ -1,10 +1,18 @@
 package DataStructures.linked_list;
+
 import java.util.NoSuchElementException;
 
-class linkedList<T>{
+class ClinkedList<T>{
     private node<T> head;
     private node<T> tail;
     private int size;
+
+    public ClinkedList(){}
+
+    public ClinkedList(ClinkedList<T> list){
+        copyAll(list);
+    }
+
     static class node<T>{
         T data;
         node<T> next;
@@ -16,11 +24,6 @@ class linkedList<T>{
         public String toString(){
             return "[" + this.data + "]";
         }
-    }
-    public linkedList(){}
-
-    public linkedList(linkedList<T> list){
-        copyAll(list);
     }
 
     public int getSize(){
@@ -37,7 +40,8 @@ class linkedList<T>{
 
     public void addLast(T data){
         final node<T> last = tail;
-        final node<T> newnode = new node<>(data, null);
+        final node<T> first = head;
+        node<T> newnode = new node<>(data, first);
         tail = newnode;
         if(last == null)
             head = newnode;
@@ -47,11 +51,14 @@ class linkedList<T>{
     }
 
     public void addFirst(T data){
+        final node<T> last = tail;
         final node<T> first = head;
-        final node<T> newnode = new node<>(data, first);
+        node<T> newnode = new node<>(data, first);
         head = newnode;
-        if(first == null)
-            tail = newnode;
+        if(first == null) tail = newnode;
+        else{
+            tail.next = newnode;
+        }
         size++;
     }
 
@@ -64,12 +71,9 @@ class linkedList<T>{
             addLast(data);
             return;
         }
-        // getting the previous node of the current node
-        // in the doubly linked list class this getNode will fetch
-        // the current node rather than previous node
-        node<T> pred = getNode(pos);
-        final node<T> nextnode = pred.next;
-        final node<T> newnode = new node<>(data, nextnode);
+        final node<T> pred = getNode(pos);
+        final node<T> succ = pred.next;
+        node<T> newnode = new node<T>(data, succ);
         pred.next = newnode;
         size++;
     }
@@ -90,10 +94,11 @@ class linkedList<T>{
 
         // deleting the value and the next pointer to null
         newnode.data = null;
+        newnode.next = null;
 
         if(tail == null) head = null;
         else{
-            tail.next = null;
+            tail.next = head;
         }
         size--;
         return newnode;
@@ -102,7 +107,7 @@ class linkedList<T>{
     public node<T> deleteFirst(){
         if(head == null) throw new NoSuchElementException();
         final node<T> newnode = head;
-        head = head.next;
+        head = tail = head.next;
 
         // deleting the value and the next pointer to null
         newnode.next = null;
@@ -125,56 +130,41 @@ class linkedList<T>{
         return currentNode;
     }
 
-    public void copyAll(linkedList<T> list){
-        if(list == null) throw new NullPointerException();
-        for(node<T> temp = list.head; temp != null; temp = temp.next){
+    public void copyAll(ClinkedList<T> list){
+        for(node<T> temp = list.head; temp != list.tail; temp = temp.next)
             this.addLast(temp.data);
-        }
+        this.addLast(list.tail.data);
     }
 
     @Override
     public String toString(){
         StringBuilder br = new StringBuilder();
-        for(node<T> temp = head; temp != null; temp = temp.next)
+        for(node<T> temp = head; temp != tail; temp = temp.next){
             br.append(temp + "-->");
-        return br.toString();
+        }
+
+        // printing tail here because it won't work in loop
+        return br.append(tail + "-->").toString();
     }
 }
-public class GenericSingleLinkedList {
+public class GenericCircularLinkedList {
     public static void main(String[] args) {
-        linkedList<Integer> list = new linkedList<>();
-        list.addLast(2);
-        list.addLast(3);
-        list.addLast(4);
+        ClinkedList<String> list = new ClinkedList<>();
+        list.addLast("hello");
+        list.addLast("world");
+        //System.out.println(list.getTail() + " " + list.getHead());
 
-        linkedList<Integer> list2 = new linkedList<>();
-        list2.copyAll(list);
+        ClinkedList<String> list2 = new ClinkedList<>(list);
+        System.out.println(list2);
+        list2.addFirst("Abhishek");
+        list2.addFirst("i");
+        System.out.println(list2);
 
-        linkedList<Integer> list3 = new linkedList<>(list2);
-
-        System.out.println("list1 before deletion " +  list);
-        // using this type of loop because the getsize() keeps on changing
-        for(;list.getSize() > 0;){
-            list.deleteLast();
-            System.out.println(list);
-        }
-        System.out.println("list2 before deletion " + list2);
-        for(;list2.getSize() > 0;){
-            list2.deleteFirst();
-            System.out.println(list2);
-        }
-
-        System.out.println("list3 before insertion " + list3);
-        int[] arr = {5, 6, 7, 8, 9};
+        System.out.println("list2 before insertion " + list2);
+        String[] arr = {"hey", "hi", "namaste"};
         for(int i = 0; i < arr.length; i++){
-            list3.insertInTheMiddle(list3.getSize() / 2, arr[i]);
-            System.out.println(list3);
-        }
-
-        System.out.println("list3 before deletion " + list3);
-        for(;list3.getSize() > 0;){
-            list3.deleteInTheMiddle(list3.getSize() / 2);
-            System.out.println(list3);
+            list2.insertInTheMiddle(list2.getSize() / 2, arr[i]);
+            System.out.println(list2);
         }
     }
 }

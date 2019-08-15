@@ -50,7 +50,7 @@ class DlinkedList<T>{
         size++;
     }
 
-    public void addBefore(T data){
+    public void addFirst(T data){
         final node<T> first = head;
         final node<T> newnode = new node<>(null, data, first);
         head = newnode;
@@ -63,7 +63,7 @@ class DlinkedList<T>{
 
     public void insertInTheMiddle(int pos, T data){
         if(pos <= 0) {
-            addBefore(data);
+            addFirst(data);
             return;
         }
         if(pos >= size){
@@ -77,6 +77,22 @@ class DlinkedList<T>{
         pred.next = newnode;
         size++;
     }
+
+    private node<T> getNode(int pos){
+        node<T> temp = null;
+        if(pos < size >> 1){
+            temp = head;
+            for(int i = 0; i < pos; i++)
+                temp = temp.next;
+        }
+        else{
+            temp = tail;
+            for(int i = size - 1; i > pos; i--)
+                temp = temp.previous;
+        }
+        return temp;
+    }
+
     public node<T> deleteLast(){
         if(tail == null) throw new NoSuchElementException();
         final node<T> newnode = tail;
@@ -123,22 +139,8 @@ class DlinkedList<T>{
         return currnode;
     }
 
-    private node<T> getNode(int pos){
-        node<T> temp = null;
-        if(pos < size >> 1){
-            temp = head;
-            for(int i = 0; i < pos; i++)
-                temp = temp.next;
-        }
-        else{
-            temp = tail;
-            for(int i = size - 1; i > pos; i--)
-                temp = temp.previous;
-        }
-        return temp;
-    }
-
     public void copyAll(DlinkedList<T> list){
+        if(list == null) throw new NullPointerException();
         for(node<T> temp = list.head; temp != null; temp = temp.next){
             this.addLast(temp.data);
         }
@@ -155,7 +157,7 @@ class DlinkedList<T>{
 public class GenericDoublyLinkedList{
     public static void main(String args[]){
         DlinkedList<String> list = new DlinkedList<String>();
-        list.addBefore("I");
+        list.addFirst("I");
         list.addLast("Abhishek");
         list.insertInTheMiddle(1, "am");
         list.insertInTheMiddle(1, "hello");
