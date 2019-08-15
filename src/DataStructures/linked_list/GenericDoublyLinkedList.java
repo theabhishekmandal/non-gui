@@ -23,6 +23,14 @@ class DlinkedList<T>{
 
     public DlinkedList(){}
 
+    public DlinkedList(DlinkedList<T> list){
+        copyAll(list);
+    }
+
+    public int getSize(){
+        return this.size;
+    }
+
     public void addLast(T data){
         final node<T> last = tail;
         final node<T> newnode = new node<>(last, data, null);
@@ -65,7 +73,11 @@ class DlinkedList<T>{
         if(tail == null) throw new NoSuchElementException();
         final node<T> newnode = tail;
         tail = tail.previous;
+
+        // deleting the value and previous pointer to null
         newnode.previous = null;
+        newnode.data = null;
+
         if(tail == null) head = null;
         else
             tail.next = null;
@@ -77,7 +89,11 @@ class DlinkedList<T>{
         if(head == null) throw new NoSuchElementException();
         final node<T> newnode = head;
         head = head.next;
+
+        // deleting the value and next pointer to null
         newnode.next = null;
+        newnode.data = null;
+
         if(head == null) tail = null;
         else
             head.previous = null;
@@ -113,6 +129,12 @@ class DlinkedList<T>{
         }
         return temp;
     }
+
+    public void copyAll(DlinkedList<T> list){
+        for(node<T> temp = list.head; temp != null; temp = temp.next){
+            this.addLast(temp.data);
+        }
+    }
     @Override
     public String toString(){
         StringBuilder br = new StringBuilder();
@@ -130,8 +152,16 @@ public class GenericDoublyLinkedList{
         list.insertInTheMiddle(1, "am");
         list.insertInTheMiddle(1, "hello");
         list.insertInTheMiddle(1, "gibberish");
+
+        DlinkedList<String> list2 = new DlinkedList<>(list);
         System.out.println(list);
         DlinkedList.node<String> node = list.deleteInTheMiddle(2);
         System.out.println(node + " " + node.previous + " " + node.next);
+
+        System.out.println("list2 before deleting " + list2);
+        for(;list2.getSize() > 0;){
+            list2.deleteInTheMiddle(list2.getSize() / 2);
+            System.out.println(list2);
+        }
     }
 }
