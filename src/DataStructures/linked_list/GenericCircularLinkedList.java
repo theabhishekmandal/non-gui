@@ -51,7 +51,6 @@ class ClinkedList<T>{
     }
 
     public void addFirst(T data){
-        final node<T> last = tail;
         final node<T> first = head;
         node<T> newnode = new node<>(data, first);
         head = newnode;
@@ -92,8 +91,7 @@ class ClinkedList<T>{
         final node<T> newnode = tail;
         tail = getNode(size - 1);
 
-        // deleting the value and the next pointer to null
-        newnode.data = null;
+        // deleting the next pointer to null
         newnode.next = null;
 
         if(tail == null) head = null;
@@ -107,13 +105,15 @@ class ClinkedList<T>{
     public node<T> deleteFirst(){
         if(head == null) throw new NoSuchElementException();
         final node<T> newnode = head;
-        head = tail = head.next;
+        head = (head.next == head) ? null : head.next;
 
-        // deleting the value and the next pointer to null
+        // deleting the next pointer to null
         newnode.next = null;
-        newnode.data = null;
 
         if(head == null) tail = null;
+        else{
+            tail.next = head;
+        }
         size--;
         return newnode;
     }
@@ -151,20 +151,44 @@ public class GenericCircularLinkedList {
     public static void main(String[] args) {
         ClinkedList<String> list = new ClinkedList<>();
         list.addLast("hello");
-        list.addLast("world");
-        //System.out.println(list.getTail() + " " + list.getHead());
+        list.addFirst("world");
+        list.addLast("Abhishek");
+        list.addFirst("Mandal");
+        list.insertInTheMiddle(list.getSize() >> 1, "middle");
+        print(list, null);
 
         ClinkedList<String> list2 = new ClinkedList<>(list);
-        System.out.println(list2);
-        list2.addFirst("Abhishek");
-        list2.addFirst("i");
-        System.out.println(list2);
+        ClinkedList<String> list3 = new ClinkedList<>(list);
+        ClinkedList<String> list4 = new ClinkedList<>(list);
 
-        System.out.println("list2 before insertion " + list2);
-        String[] arr = {"hey", "hi", "namaste"};
-        for(int i = 0; i < arr.length; i++){
-            list2.insertInTheMiddle(list2.getSize() / 2, arr[i]);
-            System.out.println(list2);
+        System.out.println("list2 before deletion from end " + list2);
+        for(;list2.getSize() > 0;){
+            print(list2, list2.deleteLast());
         }
+
+        System.out.println("list3 before deletion from begining " + list3);
+        for(;list3.getSize() > 0;){
+            print(list3, list3.deleteFirst());
+        }
+
+        System.out.println("list4 before deletion from middle " + list4);
+        for(;list4.getSize() > 0;){
+            print(list4, list4.deleteInTheMiddle(list4.getSize() >> 1));
+        }
+    }
+    private static <T> void print(ClinkedList<T> list, ClinkedList.node<T> deletednode){
+        ClinkedList.node<T> head = list.getHead();
+        ClinkedList.node<T> headNext = (head != null)? head.next : null;
+        ClinkedList.node<T> tail = list.getTail();
+        ClinkedList.node<T> tailNext = (tail != null) ? tail.next : null;
+
+        System.out.println(((deletednode == null) ? "" :"deleted node is " + deletednode)
+                + "\nlist is " + list
+                + "\nhead is " + head
+                + "\nhead next is " + headNext
+                + "\ntail is " + tail
+                + "\ntail next is " + tailNext
+                +"\nnumber of elements are " + list.getSize()
+                + "\n\n");
     }
 }

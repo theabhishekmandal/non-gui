@@ -88,9 +88,6 @@ class linkedList<T>{
         final node<T> newnode = tail;
         tail = getNode(size - 1);
 
-        // deleting the value and the next pointer to null
-        newnode.data = null;
-
         if(tail == null) head = null;
         else{
             tail.next = null;
@@ -104,9 +101,8 @@ class linkedList<T>{
         final node<T> newnode = head;
         head = head.next;
 
-        // deleting the value and the next pointer to null
+        // deleting the next pointer to null
         newnode.next = null;
-        newnode.data = null;
 
         if(head == null) tail = null;
         size--;
@@ -144,37 +140,39 @@ public class GenericSingleLinkedList {
     public static void main(String[] args) {
         linkedList<Integer> list = new linkedList<>();
         list.addLast(2);
-        list.addLast(3);
+        list.addFirst(3);
         list.addLast(4);
+        list.addFirst(5);
+        list.insertInTheMiddle(list.getSize() / 2, 10);
+        System.out.println("list is " + list + "\nhead is " + list.getHead() + "\ntail is " + list.getTail() + "\ntail next is " + list.getTail().next
+                + "\nnumber of elements are " + list.getSize() + "\n\n");
 
-        linkedList<Integer> list2 = new linkedList<>();
-        list2.copyAll(list);
 
-        linkedList<Integer> list3 = new linkedList<>(list2);
+        linkedList<Integer> list2 = new linkedList<>(list);
+        linkedList<Integer> list3 = new linkedList<>(list);
+        linkedList<Integer> list4 = new linkedList<>(list);
 
-        System.out.println("list1 before deletion " +  list);
+        System.out.println("list2 before deletion from end" +  list2);
         // using this type of loop because the getsize() keeps on changing
-        for(;list.getSize() > 0;){
-            list.deleteLast();
-            System.out.println(list);
-        }
-        System.out.println("list2 before deletion " + list2);
         for(;list2.getSize() > 0;){
-            list2.deleteFirst();
-            System.out.println(list2);
+            print(list2, list2.deleteLast());
         }
 
-        System.out.println("list3 before insertion " + list3);
-        int[] arr = {5, 6, 7, 8, 9};
-        for(int i = 0; i < arr.length; i++){
-            list3.insertInTheMiddle(list3.getSize() / 2, arr[i]);
-            System.out.println(list3);
-        }
-
-        System.out.println("list3 before deletion " + list3);
+        System.out.println("\nlist3 before deletion from begining" +  list3);
+        // using this type of loop because the getsize() keeps on changing
         for(;list3.getSize() > 0;){
-            list3.deleteInTheMiddle(list3.getSize() / 2);
-            System.out.println(list3);
+            print(list3, list3.deleteFirst());
         }
+
+        System.out.println("\nlist4 before deletion from middle" + list4);
+        // using this type of loop because the getsize() keeps on changing
+        for(;list4.getSize() > 0;){
+            print(list4, list4.deleteInTheMiddle(list4.getSize() >> 1));
+        }
+    }
+    private static <T> void print(linkedList<T> list, linkedList.node<T> deletednode){
+        System.out.println("deleted node is " + deletednode +
+                "\nlist is " + list + "\nhead is " + list.getHead() + "\ntail is " + list.getTail() +
+                "\nnumber of elements are " + list.getSize() + "\n\n");
     }
 }

@@ -98,9 +98,8 @@ class DlinkedList<T>{
         final node<T> newnode = tail;
         tail = tail.previous;
 
-        // deleting the value and previous pointer to null
+        // deleting the previous pointer to null
         newnode.previous = null;
-        newnode.data = null;
 
         if(tail == null) head = null;
         else
@@ -114,9 +113,8 @@ class DlinkedList<T>{
         final node<T> newnode = head;
         head = head.next;
 
-        // deleting the value and next pointer to null
+        // deleting the next pointer to null
         newnode.next = null;
-        newnode.data = null;
 
         if(head == null) tail = null;
         else
@@ -159,19 +157,49 @@ public class GenericDoublyLinkedList{
         DlinkedList<String> list = new DlinkedList<String>();
         list.addFirst("I");
         list.addLast("Abhishek");
-        list.insertInTheMiddle(1, "am");
-        list.insertInTheMiddle(1, "hello");
-        list.insertInTheMiddle(1, "gibberish");
+        list.insertInTheMiddle(list.getSize() / 2, "am");
+        list.addLast("tail");
+        list.addFirst("head");
+        print(list, null);
 
         DlinkedList<String> list2 = new DlinkedList<>(list);
-        System.out.println(list);
-        DlinkedList.node<String> node = list.deleteInTheMiddle(2);
-        System.out.println(node + " " + node.previous + " " + node.next);
+        DlinkedList<String> list3 = new DlinkedList<>(list);
+        DlinkedList<String> list4 = new DlinkedList<>(list);
 
-        System.out.println("list2 before deleting " + list2);
+        System.out.println("list2 before deletion from end" +  list2);
+        // using this type of loop because the getsize() keeps on changing
         for(;list2.getSize() > 0;){
-            list2.deleteInTheMiddle(list2.getSize() / 2);
-            System.out.println(list2);
+            print(list2, list2.deleteLast());
         }
+
+        System.out.println("list3 before deletion from begining" +  list3);
+        // using this type of loop because the getsize() keeps on changing
+        for(;list3.getSize() > 0;){
+            print(list3, list3.deleteFirst());
+        }
+
+        System.out.println("list4 before deletion from end" +  list4);
+        // using this type of loop because the getsize() keeps on changing
+        for(;list4.getSize() > 0;){
+            print(list4, list4.deleteInTheMiddle(list4.getSize() >> 1));
+        }
+    }
+    private static <T> void print(DlinkedList<T> list, DlinkedList.node<T> deletedNode){
+        DlinkedList.node<T> head = list.getHead();
+        DlinkedList.node<T> headPrev = (head != null) ? head.previous : null;
+        DlinkedList.node<T> headNext = (head != null) ? head.next : null;
+        DlinkedList.node<T> tail = list.getTail();
+        DlinkedList.node<T> tailPrev = (tail != null) ? tail.previous : null;
+        DlinkedList.node<T> tailNext = (tail != null) ? tail.next : null;
+        System.out.println("list is " + list
+                + "\nhead is " + head
+                + "\nhead next is " + headNext
+                + "\nhead previous is " + headPrev
+                + "\ntail is " + tail
+                + "\ntail next is " + tailNext
+                + "\ntail previous is " + tailPrev
+                + ((deletedNode == null) ? "" : "\ndeleted node is" + deletedNode)
+                + "\nnumber of elements are " + list.getSize()
+                + "\n\n");
     }
 }
