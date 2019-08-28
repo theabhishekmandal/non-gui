@@ -14,6 +14,14 @@ class UlinkedList<T>{
         list = new LinkedList<>();
     }
 
+    public int getInnerblocks(){
+        return this.innerblocks;
+    }
+
+    public int getOuterblocks(){
+        return this.outerblocks;
+    }
+
     public void add(T value){
         size++;
         innerblocks = getInnerblocks(size);
@@ -59,7 +67,9 @@ class UlinkedList<T>{
     }
 
     public void find(int index){
-
+        if (index < 0 || index > size) throw new IndexOutOfBoundsException();
+        int outerblockIndex = (int)Math.ceil((double) index / (double) outerblocks) - 1;
+        int innerblocks = index;
     }
     private int getInnerblocks(int size){
         return (int)Math.ceil(Math.sqrt(size));
@@ -75,9 +85,10 @@ class UlinkedList<T>{
 public class UnrolledLinkedList {
     public static void main(String[] args) {
         UlinkedList<Integer> list = new UlinkedList<>();
-        for(int i = 1; i <= 16; i++)
+        for(int i = 1; i <= 7; i++)
             list.add1(i);
         System.out.println(list);
+        System.out.println(list.getInnerblocks() + " " + list.getOuterblocks());
     }
 }
 
