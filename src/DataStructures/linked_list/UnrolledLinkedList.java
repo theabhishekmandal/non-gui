@@ -145,23 +145,6 @@ class UlinkedList<T>{
         int increment = (isGreaterThanOuterblockSize) ? mod : 0;
         rem += increment - 1;
 
-        T value = null;
-        /*
-            UNECESSARY CODE
-              for(ListIterator<LinkedList<T>> iterator = list.listIterator(); iterator.hasNext();){
-            int outerListIndex = iterator.nextIndex();
-            LinkedList<T> innerTempList = iterator.next();
-            if(outerListIndex == indexFound){
-                for(ListIterator<T> innerIterator = innerTempList.listIterator(); innerIterator.hasNext();){
-                    int innerListIndex = innerIterator.nextIndex();
-                    value = innerIterator.next();
-                    if(innerListIndex == rem){
-                        return value;
-                    }
-                }
-            }
-        }
-         */
         return list.get(indexFound).get(rem);
         //return  "[" + "Index = " + index + ", OuterBlockIndex = " + indexFound + ", InnerBlockIndex = " + rem + "]";
     }
