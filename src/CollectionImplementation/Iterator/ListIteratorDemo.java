@@ -52,14 +52,14 @@ public class ListIteratorDemo {
         ListIterator it = arr.listIterator();
         out.println("traversing in forward direction");
         while(it.hasNext()){
-            out.println(it.next() + " " + it.nextIndex());
+            out.println(it.nextIndex() + " " + it.next());
         }
         out.println();
 
         // now for traversing in reverse direction iterator must be it at last index
         out.println("traversing in reverse direction");
         while(it.hasPrevious()){
-            out.println(it.previous() + " "+ it.previousIndex());
+            out.println(it.previousIndex() + " " + it.previous());
         }
         out.println();
 
