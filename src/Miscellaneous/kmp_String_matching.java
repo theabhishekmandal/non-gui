@@ -4,7 +4,7 @@ package Miscellaneous;
  * the time complexity of this algorithm is O(m + n) where m is the length
  * of pattern P and n is the length of the text T
  *
- * To find the substring we precompute longest prefix and suffix array
+ * To find the substring we precompute longest prefix and suffix array of the pattern
  * This array stores the information of the longest proper suffix which is also
  * a prefix of the pattern.
  *
@@ -22,7 +22,8 @@ package Miscellaneous;
  *
  *  if T.charAt(i) == P.charAt(j) then we increment both
  *  else if they do not match then we find the previous position for the pattern from where it should
- *  start the matching of the text
+ *  start the matching of the text, if it still does not find the value from where it should start
+ *  then just increment i
  *
  *  if j is equal to the length of the pattern then the text is matched and we find the next index from
  *  where matching is to be done
@@ -60,6 +61,33 @@ public class kmp_String_matching {
             }
         }
     }
+
+    /*
+    This is to precompute the prefix array.
+    1. two counters are used and and lps array
+    2. the first if condition describes that when there is match,
+        then add the incremented value of j to array, because till i in the pattern
+        there is a substring of length (length present at array[i]) which is suffix as well
+        as prefix. For eg: if pattern = "acaca" i = 3, j = 1, lps[] = [0, 0, 1, 2]
+        so for pattern starting from 0 to (i = 3) index there is a substring of length
+        2 which is suffix as well as prefix.
+     3. the else condition is present because if ith and jth characters don't match, then at what
+        previous index value j should start from.
+            if j is greater than 0, then the new value of j would be lps[j - 1], this lps[j - 1]
+            will provide two things, first the length of the substring which is suffix and prefix
+            and the next index of j from which we will start again the match. if the current j
+            index dosen't match then we will get new value of j = lps[j - 1] and matching continues.
+
+            example: pattern = "a  c  a  c  a  b  a  c  a  c  a  b  a  c  a   c   a  c"
+                                0  1  2  3  4  5  6  7  8  9 10 11 12 13 14  15  16 17
+                         lps = [0, 0, 1, 2, 3, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, ]
+            now j = 11 and i = 17 so i and j value doesn't match next j would be j = lps[j - 1]
+            i.e j = 5, so there is a substring of length 5 which is suffix as well as prefix
+            we check again if i and j character match
+            j = 5, i = 17, i and j value doesn't match j becomes j = lps[5 - 1] = 3
+            now j = 3 and j = 17 and the value does match so new value is added at lps[i] = 3 + 1
+            lps = [0, 0, 1, 2, 3, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 3 + 1]
+     */
     private static int[] compute(String arr) {
         int i = 1;
         int j = 0;
