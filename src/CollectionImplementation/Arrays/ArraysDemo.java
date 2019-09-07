@@ -56,7 +56,7 @@ import static java.lang.System.*;
  *  9 static void fill(Object[] array, Object
  *      value)                                  :   It assign a value to all elements in an array.
  *
- *  10 static void sort(Object array[])         :   sorts an array in ascending order. There is also another method
+ *  10 static void sort(Object[] array)         :   sorts an array in ascending order. There is also another method
  *                                                  which sorts for a given range.
  *
  *  11 static <T> void sort(T[] array,
@@ -64,6 +64,21 @@ import static java.lang.System.*;
  *                                                  the elements of the array. Can throw ClassCastException if elements
  *                                                  of array being sorted are not comparable. There is also another method
  *                                                  which sorts for a given range.
+ *
+ * Note: Below is an example of sort with ranges.
+ *
+ *  12 static void parallelSort(T[] array)      :   sorts an array in ascending order , portions of an array in parallel
+ *                                                  and then merges the results.
+ *
+ *  13 static <T extends Comparable<? super T>>
+ *      void parallelSort(T[] array)            :   sorts a given array of type T in ascending order.
+ *
+ *  14 static <T> void parallelSort(T[] array,
+ *      Comparator<? super T> c)                :   sorts an array of type  T in a given order specified by the
+ *                                                  comparator.
+ *
+ * Note: Below is an example of parallelSort with ranges. which sorts a given range in parallel.
+ *
  */
 public class ArraysDemo {
     public static void main(String args[]){
@@ -133,7 +148,23 @@ public class ArraysDemo {
 
         out.println("implementing sort method with ranges");
         Arrays.sort(namearray, 1, namearray.length);
-        out.println(Arrays.toString(arr));
+        out.println(Arrays.toString(namearray));
+        out.println();
+
+        Integer[] parallelSortArray = {9, 8, 7, 6, 5, 4, 3, 2, 1, 0};
+        out.println("Implementing parallel sort method");
+        Arrays.parallelSort(parallelSortArray);
+        out.println(Arrays.toString(parallelSortArray));
+        out.println();
+
+        out.println("implementing  parallel sort method with comparator");
+        Arrays.parallelSort(parallelSortArray, Comparator.reverseOrder());
+        out.println(Arrays.toString(parallelSortArray));
+        out.println();
+
+        out.println("implementing  parallel sort method with ranges");
+        Arrays.parallelSort(parallelSortArray, 0, 5);
+        out.println(Arrays.toString(parallelSortArray));
         out.println();
     }
 }
