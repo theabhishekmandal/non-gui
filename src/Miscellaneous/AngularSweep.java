@@ -76,7 +76,8 @@ public class AngularSweep {
             return new ComplexNumber(this.x * a.x - this.y * a.y, this.y * a.x + this.x * a.y);
         }
     }
-    static class pair<First extends Comparable<? super First>, Second extends Comparable<? super Second>> implements Comparable<pair<First, Second>>{
+    static class pair<First extends Comparable<? super First>,
+            Second extends Comparable<? super Second>> implements Comparable<pair<First, Second>>{
         public final First first;
         public final Second second;
         pair(First first, Second second){
