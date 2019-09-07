@@ -6,31 +6,24 @@ package FileHandling;
  */
 import java.io.*;
 public class is_Dir_or_File_Demo {
-    public static void main(String args[]) throws IOException
-    {
-        String s="F:\\non-gui\\src\\DataStructures";
-        File ob=new File(s);
-        if(ob.isDirectory())
-        {
+    public static void main(String args[]) throws IOException {
+        String s = "F:\\non-gui\\src\\DataStructures";
+        File ob = new File(s);
+        if(ob.isDirectory()) {
             String arr[]=ob.list();
-            for(int i=0;i<arr.length;i++)
-            {
-                String check=s+"\\"+arr[i];
-                File ob1=new File(check);
+            for(int i = 0;i < arr.length; i++) {
+                String check = s + "\\" + arr[i];
+                File ob1 = new File(check);
                 if(ob1.isDirectory())
-                    System.out.println("Yes "+ob1.getName()+" is a directory");
-                else
-                     if(ob1.isFile())
-                         System.out.println("Yes "+ob1.getName()+" is a File");
+                    System.out.println("Yes " + ob1.getName() + " is a directory");
+                else if(ob1.isFile())
+                    System.out.println("Yes " + ob1.getName() + " is a File");
             }
-
-
         }
         else
              if(ob.isFile())
-                 System.out.println("hey "+ob.getName()+" is a file");
+                 System.out.println("hey " + ob.getName() + " is a file");
         else
             System.out.println("This is something else");
-
     }
 }

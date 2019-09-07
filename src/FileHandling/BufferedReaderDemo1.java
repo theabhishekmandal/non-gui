@@ -20,30 +20,27 @@ package FileHandling;
  */
 import java.io.IOException;
 import java.io.*;
-public class demo1 {
-    public static void main(String args[])throws IOException
-    {
-       BufferedReader br=new BufferedReader(new InputStreamReader(System.in));
+public class BufferedReaderDemo1 {
+    public static void main(String args[])throws IOException {
+       BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
        //using PrintWriter Stream object to display the output instead of using System.out
        //here auto flush the contents of the out object is true
-        PrintWriter out=new PrintWriter(System.out,true);
+        PrintWriter out = new PrintWriter(System.out,true);
 
        out.println("Reading a String from the console ");
-       String str=br.readLine();
+       String str = br.readLine();
 
        out.println("Reading a character from a console");
-       char c=(char)br.read();
+       char c = (char)br.read();
 
        br.readLine();
 
        out.println("Reading a integer from the string");
-       int num=Integer.parseInt(br.readLine());
+       int num = Integer.parseInt(br.readLine());
 
        out.println(str);
        out.println(c);
        out.println(num);
-
-
     }
 }

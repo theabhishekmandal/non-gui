@@ -23,14 +23,12 @@ package FileHandling;
 
 import java.io.*;
 
-public class demo2 {
-    public static void main(String args[]) throws IOException
-    {
-        FileInputStream fin=new FileInputStream("F:\\non-gui\\src\\FileHandling\\hello.txt");
-        FileOutputStream fout=new FileOutputStream("F:\\non-gui\\src\\FileHandling\\hello1.txt");
+public class FileInputStreamDemo {
+    public static void main(String args[]) throws IOException {
+        FileInputStream fin = new FileInputStream("F:\\non-gui\\src\\FileHandling\\hello.txt");
+        FileOutputStream fout = new FileOutputStream("F:\\non-gui\\src\\FileHandling\\hello1.txt");
         int k;
-        while((k=fin.read())!=-1)
-        {
+        while((k = fin.read()) != -1) {
             // while writing a value if pass very large number as argument then only the lower 8 bit values are written
             //also then the encoding also changes.
             fout.write(k);

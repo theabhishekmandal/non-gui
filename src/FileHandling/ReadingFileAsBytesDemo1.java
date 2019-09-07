@@ -7,22 +7,18 @@ package FileHandling;
  */
 
 import java.io.*;
-public class demo4 {
-    public static void main(String args[]) throws IOException
-    {
+public class ReadingFileAsBytesDemo1 {
+    public static void main(String args[]) throws IOException {
 
-         FileInputStream fin=new FileInputStream("F:\\non-gui\\src\\FileHandling\\hello1.txt")  ;
-         FileOutputStream fout=new FileOutputStream("F:\\non-gui\\src\\FileHandling\\hello.txt");
-         int k=-1;
+         FileInputStream fin = new FileInputStream("F:\\non-gui\\src\\FileHandling\\hello1.txt")  ;
+         FileOutputStream fout = new FileOutputStream("F:\\non-gui\\src\\FileHandling\\hello.txt");
+         int k = -1;
          //using the method read(byte[] arr)
 
-         byte[] arr=new byte[1000];
+         byte[] arr = new byte[1000];
 
         fin.read(arr,0,fin.available());
-        for(byte i:arr)
+        for(byte i : arr)
             System.out.print((char)i);
-
-
     }
-
 }

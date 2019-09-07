@@ -13,41 +13,37 @@ package FileHandling;
  */
 
 import java.io.*;
-public class demo5 {
-    public static void main(String args[]) throws IOException
-    {
-        try(FileInputStream fin=new FileInputStream("F:\\non-gui\\src\\FileHandling\\demo5.java"))
-        {
-            System.out.println("Total available bytes are"+fin.available());
-            int size=fin.available()/40;
-            System.out.println("we are reading first "+ size +" bytes of the input\n");
+public class ReadingFileAsBytesDemo2 {
+    public static void main(String args[]) throws IOException {
+        try(FileInputStream fin = new FileInputStream("F:\\non-gui\\src\\FileHandling\\demo5.java")) {
+            System.out.println("Total available bytes are" + fin.available());
+            int size=fin.available() / 40;
+            System.out.println("we are reading first " +  size  + " bytes of the input\n");
 
-            for(int i=0;i<size;i++)
+            for(int i = 0; i < size; i++)
                 System.out.print((char)fin.read());
 
             System.out.println();
 
-            byte arr[]=new byte[size];
-            while(fin.read(arr)!=size)
+            byte arr[] = new byte[size];
+            while(fin.read(arr) != size)
                 System.err.println("not able to read reamaining bytes");
 
-            System.out.print(new String(arr,0,size)+"\n\n");
+            System.out.print(new String(arr,0,size) + "\n\n");
 
             System.out.println("remaining bytes are "+fin.available());
             System.out.println("skipping the half of the bytes "+fin.skip(size/2));
             System.out.println("Still available bytes are"+fin.available());
 
-            System.out.println("Reading " + size/2 + " into the end of array");
-            if (fin.read(arr, size/2, size/2) != size/2) {
-                System.err.println("couldn’t read " + size/2 + " bytes.");
+            System.out.println("Reading " + size / 2 + " into the end of array");
+            if (fin.read(arr, size / 2, size / 2) != size / 2) {
+                System.err.println("couldn’t read " + size / 2 + " bytes.");
 
             }
-            for(byte i:arr)
+            for(byte i : arr)
                 System.out.print((char)i);
-
         }
-        catch(IOException e)
-        {
+        catch(IOException e) {
             System.out.println(e);
         }
     }

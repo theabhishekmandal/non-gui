@@ -12,28 +12,16 @@ package FileHandling;
  */
 
 import java.io.*;
-public class FileName_filter_demo
-{
-
-    public static void main(String args[]) throws Exception
-    {
+public class FileName_filter_demo {
+    public static void main(String args[]) throws Exception {
         String s="C:\\Users\\Administrator\\Desktop\\python";
         File ob=new File(s);
-        if(ob.isDirectory())
-        {
-            FilenameFilter ob1=new FilenameFilter(){
-                public boolean accept(File dir,String hello)
-                {
-                    return hello.endsWith(".py");
-
-                }
-            };
+        if(ob.isDirectory()) {
+            FilenameFilter ob1= (dir, hello) -> hello.endsWith(".py");
             String[] arr=ob.list(ob1);
-            for(String i:arr)
-            {
+            for(String i:arr) {
                 System.out.println(i);
             }
-
         }
         else
             System.out.print("working on directories only and nothing else");
