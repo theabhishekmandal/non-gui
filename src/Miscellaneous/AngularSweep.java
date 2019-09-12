@@ -78,8 +78,25 @@ public class AngularSweep {
     }
     static class pair<First extends Comparable<? super First>,
             Second extends Comparable<? super Second>> implements Comparable<pair<First, Second>>{
-        public final First first;
-        public final Second second;
+        public First first;
+        public Second second;
+
+        public Second getSecond() {
+            return second;
+        }
+
+        public void setSecond(Second second) {
+            this.second = second;
+        }
+
+        public First getFirst() {
+            return first;
+        }
+
+        public void setFirst(First first) {
+            this.first = first;
+        }
+
         pair(First first, Second second){
             this.first = first;
             this.second = second;
