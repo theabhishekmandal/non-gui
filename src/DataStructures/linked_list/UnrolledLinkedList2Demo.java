@@ -109,6 +109,7 @@ class UnrolledLinkedListFast<E> extends AbstractList<E> implements List<E>, Seri
 
     private Object[] getValues(int index){
         ListNode node;
+        // to iterate through the number of elements in each node
         int p = 0;
         // it means the node lies on the left hand side
         if(size - index > index){
@@ -361,6 +362,6 @@ public class UnrolledLinkedList2Demo {
         //list.add(0, "M");
         String ans = list.toString();
         System.out.println(list.toString());
-        list.get(5);
+        list.get(7);
     }
 }
