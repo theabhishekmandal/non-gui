@@ -1,5 +1,12 @@
 package Miscellaneous;
 /**
+ * The KMP matching algorithm uses degenerating property (pattern having same sub
+ * -patterns appearing more than once in the pattern) of the pattern and improves the worst
+ * case complexity to O(n). The basic idea behind KMP’s algorithm is: whenever we detect a
+ * mismatch (after some matches), we already know some of the characters in the text of the
+ * next window. We take advantage of this information to avoid matching the characters that
+ * we know will anyway match
+ *
  * This program is the implementation of the kmp string matching algorithm
  * the time complexity of this algorithm is O(m + n) where m is the length
  * of pattern P and n is the length of the text T
@@ -40,22 +47,22 @@ public class kmp_String_matching {
         String pattern = in.next();
         findsubstring(text, pattern);
     }
-    private static void findsubstring(String arr, String hel) {
-        int lps[] = compute(hel);
+    private static void findsubstring(String arr, String pattern) {
+        int lps[] = compute(pattern);
         int i = 0;
         int j = 0;
         while(i < arr.length()) {
-            if(arr.charAt(i) == hel.charAt(j)) {
+            if(arr.charAt(i) == pattern.charAt(j)) {
                 i++;
                 j++;
             }
-            else if(arr.charAt(i) != hel.charAt(j)) {
+            else if(arr.charAt(i) != pattern.charAt(j)) {
                 if(j > 0)
                     j = lps[j - 1];
                 else
                     i++;
             }
-            if(j == hel.length()) {
+            if(j == pattern.length()) {
                 System.out.println("match found at index " + (i - j));
                 j = lps[j - 1];
             }
