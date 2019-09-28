@@ -1,5 +1,6 @@
 package Miscellaneous;
 /**
+ * http://www.mathcs.emory.edu/~cheung/Courses/323/Syllabus/Text/Matching-KMP1.html
  * The KMP matching algorithm uses degenerating property (pattern having same sub
  * -patterns appearing more than once in the pattern) of the pattern and improves the worst
  * case complexity to O(n). The basic idea behind KMP’s algorithm is: whenever we detect a
