@@ -74,7 +74,7 @@ public class kmp_String_matching {
     1. two counters are used and and lps array
     2. the first if condition describes that when there is match,
         then add the incremented value of j to array, because till i in the pattern
-        there is a substring of length (length present at array[i]) which is suffix as well
+        there is a substring of length (length present at lps[i]) which is suffix as well
         as prefix. For eg: if pattern = "acaca" i = 3, j = 1, lps[] = [0, 0, 1, 2]
         so for pattern starting from 0 to (i = 3) index there is a substring of length
         2 which is suffix as well as prefix.
