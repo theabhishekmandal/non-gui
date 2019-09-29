@@ -316,7 +316,7 @@ class UnrolledLinkedListFast<E> extends AbstractList<E> implements List<E>, Seri
     }
     private void removeFromNode(ListNode node, int ptr){
         node.numElements--;
-        for(int i = 0; i < node.numElements; i++){
+        for(int i = ptr; i < node.numElements; i++){
             node.elements[i] = node.elements[i + 1];
         }
         node.elements[node.numElements] = null;
@@ -340,7 +340,7 @@ class UnrolledLinkedListFast<E> extends AbstractList<E> implements List<E>, Seri
         if(next.next != null){
             next.next.previous = node;
         }
-        node.next = next.next.next;
+        node.next = next.next;
         if(next == lastNode){
             lastNode = node;
         }
@@ -350,18 +350,28 @@ class UnrolledLinkedListFast<E> extends AbstractList<E> implements List<E>, Seri
 
 public class UnrolledLinkedList2Demo {
     public static void main(String[] args) {
+        // UnrolledLinkedListFast<String> list = new UnrolledLinkedListFast<>(8);
+        // int size = 11;
+        // String[] arr = new String[size];
+        // for(int i = 65; i < 65 + size; i++){
+        //     arr[i - 65] = "" + (char)i;
+        // }
+        // for(String str : arr){
+        //     list.add(str);
+        // }
+        // //list.add(0, "M");
+        // String ans = list.toString();
+        // System.out.println(list.toString());
+        // list.get(7);
+        
         UnrolledLinkedListFast<String> list = new UnrolledLinkedListFast<>(8);
-        int size = 11;
-        String[] arr = new String[size];
-        for(int i = 65; i < 65 + size; i++){
-            arr[i - 65] = "" + (char)i;
-        }
-        for(String str : arr){
+        String[] stringarr = "Hello I am Abhishek good morning friends my name is abhishek".split(" ");
+        for(String str : stringarr)
             list.add(str);
-        }
-        //list.add(0, "M");
-        String ans = list.toString();
-        System.out.println(list.toString());
-        list.get(7);
+        list.remove("morning");
+        list.remove("friends");
+        list.remove("abhishek");
+        list.remove("name");
+        System.out.println(list);
     }
 }
