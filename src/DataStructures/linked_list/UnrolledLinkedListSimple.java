@@ -54,6 +54,7 @@ class Ull<T>{
         return true;
     }
 
+    // removing a given object if exists
     public boolean remove(Object o){
         ListNode node = firstNode;
         if(o == null){
@@ -81,6 +82,10 @@ class Ull<T>{
         return false;
     }
 
+    /*
+     * replacing a given value and then adjusting the number
+     * of elements such that it remains under nodecapacity
+     */
     public void removeFromNode(ListNode node, int index){
         ListNode temp = node;
         node.numElements--;
@@ -89,17 +94,38 @@ class Ull<T>{
         }
         node.elements[node.numElements] = null;
         if(node.next != null && node.numElements + node.next.numElements <= nodeCapacity){
-//            mergeWithNextNode(node);
+            mergeWithNextNode(node);
         }
         else if(node.previous != null && node.numElements + node.previous.numElements <= nodeCapacity){
-//            mergeWithNextNode(node.previous);
+            mergeWithNextNode(node.previous);
         }
         size--;
 
     }
 
+    /*
+     * merging the node if a given node.elements and next.elements
+     * does not satisfy the total nodeCapacity
+     */
+    private void mergeWithNextNode(ListNode node){
+        ListNode next = node.next;
+        for(int i = 0; i < next.numElements; i++){
+            node.elements[node.numElements + i] = next.elements[i];
+            next.elements[i] = null;
+        }
+        node.numElements += next.numElements;
+        node.next = next.next;
+        if(next.next != null){
+            next.next.previous = node;
+        }
+        if(next == lastNode){
+            lastNode = node;
+        }
+    }
+
+    // method used for both inserting between nodes and at the end
     private void insertIntoNode(ListNode node, int ptr, T element){
-        // if the node is nUll
+        // if the node is null
         if(node.numElements == nodeCapacity){
             // create a new node
             ListNode newNode = new ListNode();
@@ -136,8 +162,8 @@ class Ull<T>{
             node.elements[i] = node.elements[i - 1];
         }
         node.elements[ptr] = element;
-        node.numElements++;
         size++;
+        node.numElements++;
     }
     @Override
     public String toString(){
@@ -163,6 +189,11 @@ public class UnrolledLinkedListSimple{
         String[] stringarr = "Hello I am Abhishek good morning friends my name is abhishek".split(" ");
         for(String str : stringarr)
             list.add(str);
+        System.out.println(list);
+        list.remove("morning");
+        list.remove("Abhishek");
+        list.remove("name");
+        list.remove("friends");
         System.out.println(list);
     }
 }
