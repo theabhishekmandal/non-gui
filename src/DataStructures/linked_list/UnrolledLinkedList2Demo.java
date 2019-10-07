@@ -373,5 +373,8 @@ public class UnrolledLinkedList2Demo {
         list.remove("abhishek");
         list.remove("name");
         System.out.println(list);
+        for(int i = 0; i < list.size(); i++){
+            System.out.println(list.get(i));
+        }
     }
 }

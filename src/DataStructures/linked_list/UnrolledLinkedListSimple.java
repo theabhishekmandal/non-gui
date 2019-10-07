@@ -54,6 +54,62 @@ class Ull<T>{
         return true;
     }
 
+    private void checkRange(int index)throws IndexOutOfBoundsException{
+        if(index < 0 || index >= this.size) throw new IndexOutOfBoundsException();
+    }
+
+    private Object[] getValues(int index){
+        ListNode node = null;
+        int p = 0;
+        /*if this condition is true then value lies at the starting of the list
+        note that it will check for both i.e if a value lies at the last of the first node
+        and if the value lies at the last of the last node
+        */
+        if(this.size - index > index){
+            /*
+                checking if total number of elements exceeds the given index, if that is true
+                then the we got our node
+             */
+            for(node = firstNode, p = 0; p + node.numElements <= index; p += node.numElements, node = node.next){
+
+            }
+        }
+        else{
+            /*
+            subtracting the total elements at the beginning because, by subtracting we want to go to the first
+            index of the current node
+             */
+            for(node = lastNode, p = this.size - node.numElements; p > index; p -= node.numElements, node = node.previous){
+
+            }
+        }
+        return new Object[]{node, p};
+    }
+
+    public T get(int index) throws IndexOutOfBoundsException{
+        checkRange(index);
+        Object[] arr = getValues(index);
+        ListNode node = (ListNode) arr[0];
+        int p = (int) arr[1];
+        return (T) node.elements[index - p];
+    }
+
+    public void set(int index, T value){
+        checkRange(index);
+        Object[] arr = getValues(index);
+        ListNode node = (ListNode) arr[0];
+        int p = (int) arr[1];
+        node.elements[index - p] = value;
+    }
+
+    public void add(int index, T value){
+        checkRange(index);
+        Object[] arr = getValues(index);
+        ListNode node = (ListNode) arr[0];
+        int p = (int) arr[1];
+        insertIntoNode(node, index - p, value);
+    }
+
     // removing a given object if exists
     public boolean remove(Object o){
         ListNode node = firstNode;
@@ -125,13 +181,13 @@ class Ull<T>{
 
     // method used for both inserting between nodes and at the end
     private void insertIntoNode(ListNode node, int ptr, T element){
-        // if the node is null
-        if(node.numElements == nodeCapacity){
+        // if the node is full
+        if(node.numElements == this.nodeCapacity){
             // create a new node
             ListNode newNode = new ListNode();
             // move half of the elements to the new node
-            int elementsToMove = nodeCapacity >> 1;
-            int startIndex = nodeCapacity - elementsToMove;
+            int elementsToMove = this.nodeCapacity >> 1;
+            int startIndex = this.nodeCapacity - elementsToMove;
             for(int i = 0; i < elementsToMove; i++){
                 newNode.elements[i] = node.elements[startIndex + i];
                 node.elements[startIndex + i] = null;
@@ -191,9 +247,13 @@ public class UnrolledLinkedListSimple{
             list.add(str);
         System.out.println(list);
         list.remove("morning");
-        list.remove("Abhishek");
+        list.remove("abhishek");
         list.remove("name");
         list.remove("friends");
         System.out.println(list);
+
+        for(int i = 0; i < list.size(); i++){
+            System.out.println(list.get(i));
+        }
     }
 }
