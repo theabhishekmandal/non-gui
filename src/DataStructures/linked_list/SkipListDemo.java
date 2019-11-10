@@ -15,6 +15,15 @@ import java.util.Random;
             this.next = next;
             this.down = down;
         }
+
+        @Override
+        public String toString() {
+            return "Node{" +
+                    "key=" + key +
+                    ", value=" + value +
+                    ", level=" + level +
+                    '}';
+        }
     }
 
     private Node head;
@@ -102,7 +111,8 @@ public class SkipListDemo{
     public static void main(String[] args) {
         SkipList<Integer, Integer> s = new SkipList<>();
         s.add(1, 100);
+        s.add(1, 200);
+        s.add(1, 300);
         System.out.println(s.get(1));
-        java.util.concurrent.ConcurrentSkipListMap<Integer, Integer> arr;
     }
 }
