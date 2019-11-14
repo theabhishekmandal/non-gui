@@ -12,7 +12,6 @@ class SkipListNew {
         String key;
         Integer value;
         SkipListEntry up, down, left, right;
-        int index;
         static final String posInf = "+INF";
         static final String negInf = "-INF";
         SkipListEntry(String key, Integer value){
@@ -58,7 +57,6 @@ class SkipListNew {
     /*
     If the key k is found in the skip list, findEntry(k) will return the reference
     to the entry containing the key k
-
     If the key k is not found in the Skip List, findEntry(k) will return the reference
     to the floorEntry(k) entry containing a key that is smaller than k
      */
@@ -159,7 +157,7 @@ class SkipListNew {
         while(start.down != null) start = start.down;
         StringBuilder br = new StringBuilder();
         while(start != null){
-            br.append("[ " + start.key + " " + start.value + " " + start.index + " ]").append("-->");
+            br.append("[ " + start.key + " " + start.value + " ]").append("-->");
             start = start.right;
         }
         return br.toString();
@@ -171,7 +169,7 @@ class SkipListNew {
             StringBuilder inner = new StringBuilder();
             SkipListEntry temp = p;
             while(temp != null){
-              inner.append("[ " + temp.key + " " + temp.value + " " + temp.index + " ]").append("-->");
+              inner.append("[ " + temp.key + " " + temp.value + " ]").append("-->");
               temp = temp.right;
             }
             outer.append(inner).append("\n");
