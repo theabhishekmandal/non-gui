@@ -7,7 +7,7 @@ package Miscellaneous;
  */
 import java.util.*;
 
-public class replace_a_substring {
+public class ReplaceSubstring {
     private static boolean ismatch(String s,String hel,int k)
     {
         for(int i=0;i<hel.length();i++)

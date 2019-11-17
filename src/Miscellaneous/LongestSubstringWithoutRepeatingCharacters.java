@@ -8,7 +8,7 @@ import java.util.Scanner;
  *  This is not a dynamic programming based question.
  */
 
-public class longestSubstringWithoutRepeatingCharacters {
+public class LongestSubstringWithoutRepeatingCharacters {
     public static void main(String args[]){
         Scanner s = new Scanner(System.in);
         String hel = s.next();

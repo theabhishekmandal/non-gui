@@ -2,7 +2,7 @@ package Miscellaneous.DynamicProgramming;
 
 import java.util.Scanner;
 
-public class longestCommonSubstring {
+public class LongestCommonSubstring {
     public static void main(String[] args) {
         Scanner s = new Scanner(System.in);
         String one = s.next().trim();

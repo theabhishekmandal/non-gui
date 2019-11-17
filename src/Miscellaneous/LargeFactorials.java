@@ -1,6 +1,6 @@
 package Miscellaneous;
 import java.util.*;
-public class large_factorials {
+public class LargeFactorials {
     public static void main(String args[])
     {
         Scanner s=new Scanner(System.in);

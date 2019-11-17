@@ -38,7 +38,7 @@ import java.util.*;
  *
  * by following the below one you can preserve the original value.
  */
-public class permutation {
+public class Permutation {
     private static PrintWriter out =  new PrintWriter(System.out);
     public static void main(String args[]) {
         Scanner s = new Scanner(System.in);

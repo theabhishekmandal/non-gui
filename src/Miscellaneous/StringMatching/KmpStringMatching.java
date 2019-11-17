@@ -1,4 +1,4 @@
-package Miscellaneous;
+package Miscellaneous.StringMatching;
 /**
  * http://www.mathcs.emory.edu/~cheung/Courses/323/Syllabus/Text/Matching-KMP1.html
  * The KMP matching algorithm uses degenerating property (pattern having same sub
@@ -39,7 +39,7 @@ package Miscellaneous;
  */
 
 import java.util.*;
-public class kmp_String_matching {
+public class KmpStringMatching {
     public static void main(String args[]) {
         Scanner in = new Scanner(System.in);
        // System.out.println("enter a text ");

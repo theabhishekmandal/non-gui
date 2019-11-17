@@ -41,7 +41,7 @@ package Miscellaneous.DynamicProgramming;
  */
 import java.util.*;
 import static java.lang.System.*;
-public class longestCommonSubsequence{
+public class LongestCommonSubsequence {
     private static void debug(Object...a){
         System.err.println(Arrays.deepToString(a));
     }

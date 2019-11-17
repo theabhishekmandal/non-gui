@@ -1,4 +1,4 @@
-package Miscellaneous;
+package Miscellaneous.Geometry;
 
 import java.util.ArrayList;
 import java.util.Collections;

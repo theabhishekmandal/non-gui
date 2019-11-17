@@ -1,4 +1,4 @@
-package Miscellaneous;
+package Miscellaneous.Prime;
 
 import java.util.*;
 import static java.lang.System.*;

@@ -1,10 +1,10 @@
-package Miscellaneous;
+package Miscellaneous.DynamicProgramming;
 import java.util.*;
 import static java.lang.System.*;
 /**
  This is an example of dynamic programming in fibonacci series
  */
-public class fibo {
+public class Fibonacci {
     static long[] arr;
 
     /*

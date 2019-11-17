@@ -7,7 +7,7 @@ import java.util.Scanner;
  * 1) if two chars equal then it is given by: L(arr[i][j]) = 2 + arr[i + 1][j - 1]
  * 2) if two chars are not equal then : L(arr[i][j]) = max(arr[i + 1][j], arr[i][j - 1])
  */
-public class longestPalindromeSubsequence {
+public class LongestPalindromeSubsequence {
     public static void main(String args[]){
         Scanner s = new Scanner(System.in);
         String hel = s.next();

@@ -13,7 +13,7 @@ import java.util.*;
 
  */
 
-class reversing {
+class ReversingBySpace {
     public static void reverse(char arr[], int start, int end) {
         while(start <= end) {
             char temp = arr[start];

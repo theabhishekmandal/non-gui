@@ -1,7 +1,7 @@
 package Miscellaneous.Recursion;
 import java.util.*;
 import static java.lang.System.*;
-public class findingPower {
+public class FindingPower {
     public static void main(String[] args) {
 
         Scanner s = new Scanner(in);

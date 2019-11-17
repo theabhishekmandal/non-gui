@@ -7,7 +7,7 @@ package Miscellaneous.Recursion;
 import java.util.*;
 import static  java.lang.System.*;
 
-class findingNthFibonacci {
+class FindingNthFibonacci {
     static long modulo = 1000000000L + 7L;
     public static void main (String[] args) {
         Scanner s = new Scanner(System.in);

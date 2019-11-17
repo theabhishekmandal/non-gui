@@ -1,6 +1,6 @@
 package Miscellaneous;
 import java.util.*;
-public class sumoflargenumbers {
+public class SumOfLargeNumbers {
     public static void main(String arg[]) {
         Scanner s=new Scanner(System.in);
         System.out.println("enter two numbers large or small");

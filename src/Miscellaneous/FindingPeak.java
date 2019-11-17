@@ -6,7 +6,7 @@ package Miscellaneous;
  */
 
 import java.util.*;
-class findingpeak
+class FindingPeak
 {
     public static void main(String args[])
     {

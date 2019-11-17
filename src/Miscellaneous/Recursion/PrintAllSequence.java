@@ -13,7 +13,7 @@ import java.util.*;
  *    but in the latter we are adding it.
  * 3. when there is nothing left in the given string then that is our base condition.
  */
-public class print_all_sequence {
+public class PrintAllSequence {
     public static void main(String args[]) {
         Scanner s  = new Scanner(System.in);
         String input = s.next();

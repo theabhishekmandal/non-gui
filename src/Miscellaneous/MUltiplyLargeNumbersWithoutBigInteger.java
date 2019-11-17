@@ -1,7 +1,7 @@
 package Miscellaneous;
 
 import java.util.*;
-public class MUltiply_large_numbers_without_bigInteger {
+public class MUltiplyLargeNumbersWithoutBigInteger {
     public static void main(String args[])
     {
         Scanner s=new Scanner(System.in);
