@@ -1,4 +1,4 @@
-package Miscellaneous;
+package DataStructures.Searching;
 
 import java.util.Arrays;
 import java.util.Scanner;
