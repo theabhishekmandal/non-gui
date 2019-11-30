@@ -1,5 +1,8 @@
 package DataStructures.linked_list;
 
+import DataStructures.linked_list.Node.GenericCircularLinkedList;
+import DataStructures.linked_list.Node.GenericDoublyLinkedList;
+
 import java.util.Arrays;
 import java.util.LinkedList;
 
@@ -17,7 +20,7 @@ import static java.lang.System.*;
  * @param <T>
  */
 class UlinkedList<T>{
-    private DlinkedList<ClinkedList<T>> outerList;
+    private GenericDoublyLinkedList<GenericCircularLinkedList<T>> outerList;
     private LinkedList<LinkedList<T>> list;
     private int size;
     private int innerblocks;
@@ -32,7 +35,7 @@ class UlinkedList<T>{
     static void gettime(){err.println(((double)(stop - start) / 1000.0) + " seconds");}
 
     public UlinkedList(Boolean bool){
-        if(bool) outerList = new DlinkedList<>();
+        if(bool) outerList = new GenericDoublyLinkedList<>();
         else list = new LinkedList<>();
     }
 
@@ -54,14 +57,14 @@ class UlinkedList<T>{
 
         // adding a new node at the outerList if it's size is less
         if(outerList.getSize() < outerblocks){
-            outerList.addLast(new ClinkedList<>());
+            outerList.addLast(new GenericCircularLinkedList<>());
         }
 
         /* adding a outerList node first at the end and not the beginning
         eg: [1,2]-->[3,4] now if you want to add 5 then add it to the end of the last node
         [1, 2]-->[3, 4, 5]
          */
-        outerList.getTail().data.addLast(value);
+        outerList.getTail().getData().addLast(value);
 
         // adjusting the nodes such that
         /*
@@ -70,16 +73,16 @@ class UlinkedList<T>{
                 eg: [[[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12, 13, 14, 15]]] where n is 15
              2. Number of outerBlocks should be no more than floor(root(n)).
          */
-        for(DlinkedList.node<ClinkedList<T>> temp = outerList.getHead(); temp.next != null; temp = temp.next){
-            if(temp.data.getSize() < innerblocks){
-                DlinkedList.node<ClinkedList<T>> succOuterListNode = temp.next;
-                while(temp.data.getSize() != innerblocks)
-                    temp.data.addLast(succOuterListNode.data.deleteFirst().data);
+        for(GenericDoublyLinkedList.node<GenericCircularLinkedList<T>> temp = outerList.getHead(); temp.getData() != null; temp = temp.getNext()){
+            if(temp.getData().getSize() < innerblocks){
+                GenericDoublyLinkedList.node<GenericCircularLinkedList<T>> succOuterListNode = temp.getNext();
+                while(temp.getData().getSize() != innerblocks)
+                    temp.getData().addLast(succOuterListNode.getData().deleteFirst().getData());
             }
-            else if(temp.data.getSize() > innerblocks){
-                DlinkedList.node<ClinkedList<T>> succOuterListNode = temp.next;
-                while(succOuterListNode.data.getSize() != innerblocks)
-                    succOuterListNode.data.addFirst(temp.data.deleteLast().data);
+            else if(temp.getData().getSize() > innerblocks){
+                GenericDoublyLinkedList.node<GenericCircularLinkedList<T>> succOuterListNode = temp.getNext();
+                while(succOuterListNode.getData().getSize() != innerblocks)
+                    succOuterListNode.getData().addFirst(temp.getData().deleteLast().getData());
             }
         }
     }

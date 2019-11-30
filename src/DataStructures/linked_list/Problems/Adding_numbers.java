@@ -1,4 +1,4 @@
-package DataStructures.linked_list;
+package DataStructures.linked_list.Problems;
 
 import java.util.*;
 import static java.lang.System.*;

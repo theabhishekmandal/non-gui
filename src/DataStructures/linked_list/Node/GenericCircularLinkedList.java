@@ -1,23 +1,35 @@
-package DataStructures.linked_list;
+package DataStructures.linked_list.Node;
 
 import java.util.NoSuchElementException;
 
-class ClinkedList<T>{
+public class GenericCircularLinkedList<T>{
     private node<T> head;
     private node<T> tail;
     private int size;
 
-    public ClinkedList(){}
+    public GenericCircularLinkedList(){}
 
-    public ClinkedList(ClinkedList<T> list){
+    public GenericCircularLinkedList(GenericCircularLinkedList<T> list){
         copyAll(list);
     }
 
-    static class node<T>{
+    public static class node<T>{
         T data;
         node<T> next;
         node(T data, node<T> next){
             this.data = data;
+            this.next = next;
+        }
+        public T getData(){
+            return this.data;
+        }
+        public node<T> getNext(){
+            return this.next;
+        }
+        public void setData(T data){
+            this.data = data;
+        }
+        public void setNext(node<T> next){
             this.next = next;
         }
         @Override
@@ -77,7 +89,7 @@ class ClinkedList<T>{
         size++;
     }
 
-    private node<T> getNode(int pos){
+    public node<T> getNode(int pos){
         node<T> temp = head;
         if(head == tail) return null;
         for(int i = 0; i < pos - 1; i++){
@@ -130,7 +142,7 @@ class ClinkedList<T>{
         return currentNode;
     }
 
-    public void copyAll(ClinkedList<T> list){
+    public void copyAll(GenericCircularLinkedList<T> list){
         for(node<T> temp = list.head; temp != list.tail; temp = temp.next)
             this.addLast(temp.data);
         this.addLast(list.tail.data);
@@ -140,55 +152,10 @@ class ClinkedList<T>{
     public String toString(){
         StringBuilder br = new StringBuilder();
         for(node<T> temp = head; temp != tail; temp = temp.next){
-            br.append(temp + "-->");
+            br.append(temp).append("-->");
         }
 
         // printing tail here because it won't work in loop
-        return br.append(tail + "-->").toString();
-    }
-}
-public class GenericCircularLinkedList {
-    public static void main(String[] args) {
-        ClinkedList<String> list = new ClinkedList<>();
-        list.addLast("hello");
-        list.addFirst("world");
-        list.addLast("Abhishek");
-        list.addFirst("Mandal");
-        list.insertInTheMiddle(list.getSize() >> 1, "middle");
-        print(list, null);
-
-        ClinkedList<String> list2 = new ClinkedList<>(list);
-        ClinkedList<String> list3 = new ClinkedList<>(list);
-        ClinkedList<String> list4 = new ClinkedList<>(list);
-
-        System.out.println("list2 before deletion from end " + list2);
-        for(;list2.getSize() > 0;){
-            print(list2, list2.deleteLast());
-        }
-
-        System.out.println("list3 before deletion from begining " + list3);
-        for(;list3.getSize() > 0;){
-            print(list3, list3.deleteFirst());
-        }
-
-        System.out.println("list4 before deletion from middle " + list4);
-        for(;list4.getSize() > 0;){
-            print(list4, list4.deleteInTheMiddle(list4.getSize() >> 1));
-        }
-    }
-    private static <T> void print(ClinkedList<T> list, ClinkedList.node<T> deletednode){
-        ClinkedList.node<T> head = list.getHead();
-        ClinkedList.node<T> headNext = (head != null)? head.next : null;
-        ClinkedList.node<T> tail = list.getTail();
-        ClinkedList.node<T> tailNext = (tail != null) ? tail.next : null;
-
-        System.out.println(((deletednode == null) ? "" :"deleted node is " + deletednode)
-                + "\nlist is " + list
-                + "\nhead is " + head
-                + "\nhead next is " + headNext
-                + "\ntail is " + tail
-                + "\ntail next is " + tailNext
-                +"\nnumber of elements are " + list.getSize()
-                + "\n\n");
+        return br.append(tail).append("-->").toString();
     }
 }

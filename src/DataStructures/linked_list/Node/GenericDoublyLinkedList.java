@@ -1,18 +1,37 @@
-package DataStructures.linked_list;
+package DataStructures.linked_list.Node;
 
-import java.util.*;
-class DlinkedList<T>{
+import java.util.NoSuchElementException;
+
+public class GenericDoublyLinkedList<T>{
     private node<T> head;
     private node<T> tail;
     private int size;
 
-    static class node<T>{
+    public static class node<T>{
         T data;
         node<T> previous;
         node<T> next;
-        node(node<T> previous, T data, node<T> next){
+        node(node<T> previous,T data, node<T> next){
             this.previous = previous;
             this.data = data;
+            this.next = next;
+        }
+        public T getData(){
+            return this.data;
+        }
+        public node<T> getPrevious(){
+            return this.previous;
+        }
+        public node<T> getNext(){
+            return this.next;
+        }
+        public void setData(T data){
+            this.data = data;
+        }
+        public void setPrevious(node<T> previous){
+            this.previous = previous;
+        }
+        public void setNext(node<T> next){
             this.next = next;
         }
         @Override
@@ -21,9 +40,9 @@ class DlinkedList<T>{
         }
     }
 
-    public DlinkedList(){}
+    public GenericDoublyLinkedList(){}
 
-    public DlinkedList(DlinkedList<T> list){
+    public GenericDoublyLinkedList(GenericDoublyLinkedList<T> list){
         copyAll(list);
     }
 
@@ -78,7 +97,7 @@ class DlinkedList<T>{
         size++;
     }
 
-    private node<T> getNode(int pos){
+    public node<T> getNode(int pos){
         node<T> temp = null;
         if(pos < size >> 1){
             temp = head;
@@ -137,7 +156,7 @@ class DlinkedList<T>{
         return currnode;
     }
 
-    public void copyAll(DlinkedList<T> list){
+    public void copyAll(GenericDoublyLinkedList<T> list){
         if(list == null) throw new NullPointerException();
         for(node<T> temp = list.head; temp != null; temp = temp.next){
             this.addLast(temp.data);
@@ -150,56 +169,5 @@ class DlinkedList<T>{
             br.append(temp + "-->");
         }
         return br.toString();
-    }
-}
-public class GenericDoublyLinkedList{
-    public static void main(String args[]){
-        DlinkedList<String> list = new DlinkedList<String>();
-        list.addFirst("I");
-        list.addLast("Abhishek");
-        list.insertInTheMiddle(list.getSize() / 2, "am");
-        list.addLast("tail");
-        list.addFirst("head");
-        print(list, null);
-
-        DlinkedList<String> list2 = new DlinkedList<>(list);
-        DlinkedList<String> list3 = new DlinkedList<>(list);
-        DlinkedList<String> list4 = new DlinkedList<>(list);
-
-        System.out.println("list2 before deletion from end" +  list2);
-        // using this type of loop because the getsize() keeps on changing
-        for(;list2.getSize() > 0;){
-            print(list2, list2.deleteLast());
-        }
-
-        System.out.println("list3 before deletion from begining" +  list3);
-        // using this type of loop because the getsize() keeps on changing
-        for(;list3.getSize() > 0;){
-            print(list3, list3.deleteFirst());
-        }
-
-        System.out.println("list4 before deletion from end" +  list4);
-        // using this type of loop because the getsize() keeps on changing
-        for(;list4.getSize() > 0;){
-            print(list4, list4.deleteInTheMiddle(list4.getSize() >> 1));
-        }
-    }
-    private static <T> void print(DlinkedList<T> list, DlinkedList.node<T> deletedNode){
-        DlinkedList.node<T> head = list.getHead();
-        DlinkedList.node<T> headPrev = (head != null) ? head.previous : null;
-        DlinkedList.node<T> headNext = (head != null) ? head.next : null;
-        DlinkedList.node<T> tail = list.getTail();
-        DlinkedList.node<T> tailPrev = (tail != null) ? tail.previous : null;
-        DlinkedList.node<T> tailNext = (tail != null) ? tail.next : null;
-        System.out.println("list is " + list
-                + "\nhead is " + head
-                + "\nhead next is " + headNext
-                + "\nhead previous is " + headPrev
-                + "\ntail is " + tail
-                + "\ntail next is " + tailNext
-                + "\ntail previous is " + tailPrev
-                + ((deletedNode == null) ? "" : "\ndeleted node is" + deletedNode)
-                + "\nnumber of elements are " + list.getSize()
-                + "\n\n");
     }
 }

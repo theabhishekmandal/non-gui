@@ -1,15 +1,28 @@
-package DataStructures.linked_list;
+package DataStructures.linked_list.Node;
+
 import java.util.NoSuchElementException;
 
-class linkedList<T>{
+public class GenericSinglyLinkedList<T>{
     private node<T> head;
     private node<T> tail;
     private int size;
-    static class node<T>{
+    public static class node<T>{
         T data;
         node<T> next;
         node(T data, node<T> next){
             this.data = data;
+            this.next = next;
+        }
+        public T getData(){
+            return this.data;
+        }
+        public node<T> getNext(){
+            return this.next;
+        }
+        public void setData(T data){
+            this.data = data;
+        }
+        public void setNext(node<T>  next){
             this.next = next;
         }
         @Override
@@ -17,9 +30,9 @@ class linkedList<T>{
             return "[" + this.data + "]";
         }
     }
-    public linkedList(){}
+    public GenericSinglyLinkedList(){}
 
-    public linkedList(linkedList<T> list){
+    public GenericSinglyLinkedList(GenericSinglyLinkedList<T> list){
         copyAll(list);
     }
 
@@ -74,7 +87,7 @@ class linkedList<T>{
         size++;
     }
 
-    private node<T> getNode(int pos){
+    public node<T> getNode(int pos){
         node<T> temp = head;
         if(head == tail) return null;
         for(int i = 0; i < pos - 1; i++){
@@ -121,7 +134,7 @@ class linkedList<T>{
         return currentNode;
     }
 
-    public void copyAll(linkedList<T> list){
+    public void copyAll(GenericSinglyLinkedList<T> list){
         if(list == null) throw new NullPointerException();
         for(node<T> temp = list.head; temp != null; temp = temp.next){
             this.addLast(temp.data);
@@ -134,45 +147,5 @@ class linkedList<T>{
         for(node<T> temp = head; temp != null; temp = temp.next)
             br.append(temp + "-->");
         return br.toString();
-    }
-}
-public class GenericSingleLinkedList {
-    public static void main(String[] args) {
-        linkedList<Integer> list = new linkedList<>();
-        list.addLast(2);
-        list.addFirst(3);
-        list.addLast(4);
-        list.addFirst(5);
-        list.insertInTheMiddle(list.getSize() / 2, 10);
-        System.out.println("list is " + list + "\nhead is " + list.getHead() + "\ntail is " + list.getTail() + "\ntail next is " + list.getTail().next
-                + "\nnumber of elements are " + list.getSize() + "\n\n");
-
-
-        linkedList<Integer> list2 = new linkedList<>(list);
-        linkedList<Integer> list3 = new linkedList<>(list);
-        linkedList<Integer> list4 = new linkedList<>(list);
-
-        System.out.println("list2 before deletion from end" +  list2);
-        // using this type of loop because the getsize() keeps on changing
-        for(;list2.getSize() > 0;){
-            print(list2, list2.deleteLast());
-        }
-
-        System.out.println("\nlist3 before deletion from begining" +  list3);
-        // using this type of loop because the getsize() keeps on changing
-        for(;list3.getSize() > 0;){
-            print(list3, list3.deleteFirst());
-        }
-
-        System.out.println("\nlist4 before deletion from middle" + list4);
-        // using this type of loop because the getsize() keeps on changing
-        for(;list4.getSize() > 0;){
-            print(list4, list4.deleteInTheMiddle(list4.getSize() >> 1));
-        }
-    }
-    private static <T> void print(linkedList<T> list, linkedList.node<T> deletednode){
-        System.out.println("deleted node is " + deletednode +
-                "\nlist is " + list + "\nhead is " + list.getHead() + "\ntail is " + list.getTail() +
-                "\nnumber of elements are " + list.getSize() + "\n\n");
     }
 }
