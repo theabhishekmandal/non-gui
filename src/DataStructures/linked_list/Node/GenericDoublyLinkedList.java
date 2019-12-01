@@ -98,6 +98,7 @@ public class GenericDoublyLinkedList<T>{
     }
 
     public node<T> getNode(int pos){
+        if(pos < 1 || pos > size) throw new IndexOutOfBoundsException();
         node<T> temp = null;
         if(pos < size >> 1){
             temp = head;

@@ -88,6 +88,7 @@ public class GenericSinglyLinkedList<T>{
     }
 
     public node<T> getNode(int pos){
+        if(pos < 1 || pos > size) throw new IndexOutOfBoundsException();
         node<T> temp = head;
         if(head == tail) return null;
         for(int i = 0; i < pos - 1; i++){
