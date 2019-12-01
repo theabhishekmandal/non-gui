@@ -42,6 +42,18 @@ public class GenericCircularLinkedList<T>{
         return this.size;
     }
 
+    public void setTail(node<T> tail) {
+        this.tail = tail;
+    }
+
+    public void setSize(int size) {
+        this.size = size;
+    }
+
+    public void setHead(node<T> head) {
+        this.head = head;
+    }
+
     public node<T> getHead(){
         return this.head;
     }
@@ -144,9 +156,19 @@ public class GenericCircularLinkedList<T>{
     }
 
     public void copyAll(GenericCircularLinkedList<T> list){
+        if(list == null) throw new NullPointerException();
         for(node<T> temp = list.head; temp != list.tail; temp = temp.next)
             this.addLast(temp.data);
         this.addLast(list.tail.data);
+    }
+
+    public void merge(GenericCircularLinkedList<T> list){
+        if(list == null) throw new NullPointerException();
+        if(list.size >= 0) this.size = this.size + list.size;
+        else return;
+        this.tail.next = list.head;
+        this.tail = list.tail;
+        this.tail.next = this.head;
     }
 
     @Override

@@ -54,6 +54,18 @@ public class GenericDoublyLinkedList<T>{
         return this.head;
     }
 
+    public void setHead(node<T> head) {
+        this.head = head;
+    }
+
+    public void setTail(node<T> tail) {
+        this.tail = tail;
+    }
+
+    public void setSize(int size) {
+        this.size = size;
+    }
+
     public node<T> getTail(){
         return this.tail;
     }
@@ -163,6 +175,16 @@ public class GenericDoublyLinkedList<T>{
             this.addLast(temp.data);
         }
     }
+
+    public void merge(GenericDoublyLinkedList<T> list){
+        if(list == null) throw new NullPointerException();
+        if(list.size >= 0) this.size = this.size + list.size;
+        else return;
+        this.tail.next = list.head;
+        list.head.previous = this.tail;
+        this.tail = list.tail;
+    }
+
     @Override
     public String toString(){
         StringBuilder br = new StringBuilder();

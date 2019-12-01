@@ -44,6 +44,18 @@ public class GenericSinglyLinkedList<T>{
         return this.head;
     }
 
+    public void setHead(node<T> head) {
+        this.head = head;
+    }
+
+    public void setTail(node<T> tail) {
+        this.tail = tail;
+    }
+
+    public void setSize(int size) {
+        this.size = size;
+    }
+
     public node<T> getTail(){
         return this.tail;
     }
@@ -140,6 +152,14 @@ public class GenericSinglyLinkedList<T>{
         for(node<T> temp = list.head; temp != null; temp = temp.next){
             this.addLast(temp.data);
         }
+    }
+
+    public void merge(GenericSinglyLinkedList<T> list){
+        if(list == null) throw new NullPointerException();
+        if(list.size >= 0) this.size = this.size + list.size;
+        else return;
+        this.tail.next = list.head;
+        this.tail = list.tail;
     }
 
     @Override
