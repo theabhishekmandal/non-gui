@@ -57,7 +57,7 @@ public class DetectingCycle {
         GenericSinglyLinkedList.node<?> fastNode = arr.getHead();
         GenericSinglyLinkedList.node<?> slowNode = arr.getHead();
         boolean isCycle = false;
-        while(fastNode.getNext() != null){
+        while(fastNode != null && fastNode.getNext() != null){
             fastNode = fastNode.getNext().getNext();
             slowNode = slowNode.getNext();
             if(fastNode == slowNode){
