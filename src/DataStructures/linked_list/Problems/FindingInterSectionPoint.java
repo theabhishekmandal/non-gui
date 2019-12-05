@@ -43,11 +43,14 @@ public class FindingInterSectionPoint {
         for(GenericSinglyLinkedList.node<T> temp = first.getHead(); temp != null; temp = temp.getNext()){
             firstSet.add(temp);
         }
+        GenericSinglyLinkedList.node<T> ans = null;
         for(GenericSinglyLinkedList.node<T> temp = second.getHead(); temp != null; temp = temp.getNext()){
-            if(firstSet.contains(temp))
-                return temp;
+            if(firstSet.contains(temp)){
+                ans = temp;
+                break;
+            }
         }
-        return null;
+        return ans;
     }
 
     // using three iterations
@@ -55,6 +58,7 @@ public class FindingInterSectionPoint {
                                                                                      GenericSinglyLinkedList<T> second){
         Object[] firstArray = new Object[first.getSize()];
         GenericSinglyLinkedList.node<T> temp = null;
+        GenericSinglyLinkedList.node<T> ans = null;
         int i = 0;
         for(i = 0, temp = first.getHead(); i < firstArray.length; temp = temp.getNext(), i++){
             firstArray[i] = temp;
@@ -70,12 +74,14 @@ public class FindingInterSectionPoint {
             Object firstNode = firstArray[firstArray.length - i - 1];
             Object secondNode = secondArray[secondArray.length - i - 1];
             if(firstNode != secondNode){
-                return (GenericSinglyLinkedList.node<T>)firstArray[firstArray.length - i];
+                ans = (GenericSinglyLinkedList.node<T>)firstArray[firstArray.length - i];
+                break;
             }
         }
-        return null;
+        return ans;
     }
 
+    // using single scan
     private static <T> GenericSinglyLinkedList.node<T> getIntersectionNodeUsingSingleScan(GenericSinglyLinkedList<T> first,
                                                                                           GenericSinglyLinkedList<T> second){
         GenericSinglyLinkedList<T> tempfirst = first;
