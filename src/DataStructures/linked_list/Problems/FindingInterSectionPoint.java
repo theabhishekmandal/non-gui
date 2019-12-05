@@ -30,8 +30,13 @@ public class FindingInterSectionPoint {
         System.out.println("second list after merging " + second);
         System.out.println("the intersection point is " + getIntersectionNodeUsingSet(first, second));
         System.out.println("the intersection point is " + getIntersectionNodeUsingArray(first, second));
+        System.out.println("the intersection point is " + getIntersectionNodeUsingSingleScan(first, second));
+        System.out.println("first list " + first);
+        System.out.println("second list " + second);
 
     }
+
+    // using two iterations
     private static <T> GenericSinglyLinkedList.node<T> getIntersectionNodeUsingSet(GenericSinglyLinkedList<T> first,
                                                                            GenericSinglyLinkedList<T> second){
         Set<GenericSinglyLinkedList.node<T>> firstSet = new HashSet<>();
@@ -45,6 +50,7 @@ public class FindingInterSectionPoint {
         return null;
     }
 
+    // using three iterations
     private static <T> GenericSinglyLinkedList.node<T> getIntersectionNodeUsingArray(GenericSinglyLinkedList<T> first,
                                                                                      GenericSinglyLinkedList<T> second){
         Object[] firstArray = new Object[first.getSize()];
@@ -68,5 +74,37 @@ public class FindingInterSectionPoint {
             }
         }
         return null;
+    }
+
+    private static <T> GenericSinglyLinkedList.node<T> getIntersectionNodeUsingSingleScan(GenericSinglyLinkedList<T> first,
+                                                                                          GenericSinglyLinkedList<T> second){
+        GenericSinglyLinkedList<T> tempfirst = first;
+        GenericSinglyLinkedList<T> tempSecond = second;
+        int d = 0;
+        if(first.getSize() > second.getSize()){
+            d = first.getSize() - second.getSize();
+        }
+        else{
+            d = second.getSize() - first.getSize();
+            first = tempSecond;
+            second = tempfirst;
+        }
+        GenericSinglyLinkedList.node<T> temp = first.getHead();
+        for(int i = 0; i < d; i++){
+            temp = temp.getNext();
+        }
+        GenericSinglyLinkedList.node<T> tempanother = second.getHead();
+        GenericSinglyLinkedList.node<T> ans = null;
+        while(temp != null){
+            if(temp == tempanother){
+                ans = temp;
+                break;
+            }
+            temp = temp.getNext();
+            tempanother = tempanother.getNext();
+        }
+        first = tempfirst;
+        second = tempSecond;
+        return ans;
     }
 }
