@@ -8,9 +8,9 @@ public class GenericDoublyLinkedList<T>{
     private int size;
 
     public static class node<T>{
-        T data;
-        node<T> previous;
-        node<T> next;
+        private T data;
+        private node<T> previous;
+        private node<T> next;
         node(node<T> previous,T data, node<T> next){
             this.previous = previous;
             this.data = data;

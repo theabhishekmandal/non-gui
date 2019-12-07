@@ -7,8 +7,8 @@ public class GenericSinglyLinkedList<T>{
     private node<T> tail;
     private int size;
     public static class node<T>{
-        T data;
-        node<T> next;
+        private T data;
+        private node<T> next;
         node(T data, node<T> next){
             this.data = data;
             this.next = next;
