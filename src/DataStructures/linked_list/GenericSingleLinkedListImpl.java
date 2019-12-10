@@ -1,10 +1,10 @@
 package DataStructures.linked_list;
 
-import DataStructures.linked_list.Node.GenericSinglyLinkedList;
+import DataStructures.linked_list.Node.SinglyLinkedList;
 
 public class GenericSingleLinkedListImpl {
     public static void main(String[] args) {
-        GenericSinglyLinkedList<Integer> list = new GenericSinglyLinkedList<>();
+        SinglyLinkedList<Integer> list = new SinglyLinkedList<>();
         list.addLast(2);
         list.addFirst(3);
         list.addLast(4);
@@ -14,9 +14,9 @@ public class GenericSingleLinkedListImpl {
                 + "\nnumber of elements are " + list.getSize() + "\n\n");
 
 
-        GenericSinglyLinkedList<Integer> list2 = new GenericSinglyLinkedList<>(list);
-        GenericSinglyLinkedList<Integer> list3 = new GenericSinglyLinkedList<>(list);
-        GenericSinglyLinkedList<Integer> list4 = new GenericSinglyLinkedList<>(list);
+        SinglyLinkedList<Integer> list2 = new SinglyLinkedList<>(list);
+        SinglyLinkedList<Integer> list3 = new SinglyLinkedList<>(list);
+        SinglyLinkedList<Integer> list4 = new SinglyLinkedList<>(list);
 
         System.out.println("list2 before deletion from end" +  list2);
         // using this type of loop because the getsize() keeps on changing
@@ -36,7 +36,7 @@ public class GenericSingleLinkedListImpl {
             print(list4, list4.deleteInTheMiddle(list4.getSize() >> 1));
         }
     }
-    private static <T> void print(GenericSinglyLinkedList<T> list, GenericSinglyLinkedList.node<T> deletednode){
+    private static <T> void print(SinglyLinkedList<T> list, SinglyLinkedList.node<T> deletednode){
         System.out.println("deleted node is " + deletednode +
                 "\nlist is " + list + "\nhead is " + list.getHead() + "\ntail is " + list.getTail() +
                 "\nnumber of elements are " + list.getSize() + "\n\n");

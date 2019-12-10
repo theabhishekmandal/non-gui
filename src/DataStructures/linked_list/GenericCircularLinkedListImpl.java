@@ -1,10 +1,10 @@
 package DataStructures.linked_list;
 
-import DataStructures.linked_list.Node.GenericCircularLinkedList;
+import DataStructures.linked_list.Node.CircularLinkedList;
 
 public class GenericCircularLinkedListImpl {
     public static void main(String[] args) {
-        GenericCircularLinkedList<String> list = new GenericCircularLinkedList<>();
+        CircularLinkedList<String> list = new CircularLinkedList<>();
         list.addLast("hello");
         list.addFirst("world");
         list.addLast("Abhishek");
@@ -12,9 +12,9 @@ public class GenericCircularLinkedListImpl {
         list.insertInTheMiddle(list.getSize() >> 1, "middle");
         print(list, null);
 
-        GenericCircularLinkedList<String> list2 = new GenericCircularLinkedList<>(list);
-        GenericCircularLinkedList<String> list3 = new GenericCircularLinkedList<>(list);
-        GenericCircularLinkedList<String> list4 = new GenericCircularLinkedList<>(list);
+        CircularLinkedList<String> list2 = new CircularLinkedList<>(list);
+        CircularLinkedList<String> list3 = new CircularLinkedList<>(list);
+        CircularLinkedList<String> list4 = new CircularLinkedList<>(list);
 
         System.out.println("list2 before deletion from end " + list2);
         for(;list2.getSize() > 0;){
@@ -31,11 +31,11 @@ public class GenericCircularLinkedListImpl {
             print(list4, list4.deleteInTheMiddle(list4.getSize() >> 1));
         }
     }
-    private static <T> void print(GenericCircularLinkedList<T> list, GenericCircularLinkedList.node<T> deletednode){
-        GenericCircularLinkedList.node<T> head = list.getHead();
-        GenericCircularLinkedList.node<T> headNext = (head != null)? head.getNext() : null;
-        GenericCircularLinkedList.node<T> tail = list.getTail();
-        GenericCircularLinkedList.node<T> tailNext = (tail != null) ? tail.getNext() : null;
+    private static <T> void print(CircularLinkedList<T> list, CircularLinkedList.node<T> deletednode){
+        CircularLinkedList.node<T> head = list.getHead();
+        CircularLinkedList.node<T> headNext = (head != null)? head.getNext() : null;
+        CircularLinkedList.node<T> tail = list.getTail();
+        CircularLinkedList.node<T> tailNext = (tail != null) ? tail.getNext() : null;
 
         System.out.println(((deletednode == null) ? "" :"deleted node is " + deletednode)
                 + "\nlist is " + list

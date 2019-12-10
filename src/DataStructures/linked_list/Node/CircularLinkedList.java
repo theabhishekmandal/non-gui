@@ -2,34 +2,32 @@ package DataStructures.linked_list.Node;
 
 import java.util.NoSuchElementException;
 
-public class GenericDoublyLinkedList<T>{
+public class CircularLinkedList<T>{
     private node<T> head;
     private node<T> tail;
     private int size;
 
+    public CircularLinkedList(){}
+
+    public CircularLinkedList(CircularLinkedList<T> list){
+        copyAll(list);
+    }
+
     public static class node<T>{
         private T data;
-        private node<T> previous;
         private node<T> next;
-        node(node<T> previous,T data, node<T> next){
-            this.previous = previous;
+        node(T data, node<T> next){
             this.data = data;
             this.next = next;
         }
         public T getData(){
             return this.data;
         }
-        public node<T> getPrevious(){
-            return this.previous;
-        }
         public node<T> getNext(){
             return this.next;
         }
         public void setData(T data){
             this.data = data;
-        }
-        public void setPrevious(node<T> previous){
-            this.previous = previous;
         }
         public void setNext(node<T> next){
             this.next = next;
@@ -40,22 +38,8 @@ public class GenericDoublyLinkedList<T>{
         }
     }
 
-    public GenericDoublyLinkedList(){}
-
-    public GenericDoublyLinkedList(GenericDoublyLinkedList<T> list){
-        copyAll(list);
-    }
-
     public int getSize(){
         return this.size;
-    }
-
-    public node<T> getHead(){
-        return this.head;
-    }
-
-    public void setHead(node<T> head) {
-        this.head = head;
     }
 
     public void setTail(node<T> tail) {
@@ -66,13 +50,22 @@ public class GenericDoublyLinkedList<T>{
         this.size = size;
     }
 
+    public void setHead(node<T> head) {
+        this.head = head;
+    }
+
+    public node<T> getHead(){
+        return this.head;
+    }
+
     public node<T> getTail(){
         return this.tail;
     }
 
     public void addLast(T data){
         final node<T> last = tail;
-        final node<T> newnode = new node<>(last, data, null);
+        final node<T> first = head;
+        node<T> newnode = new node<>(data, first);
         tail = newnode;
         if(last == null)
             head = newnode;
@@ -83,17 +76,17 @@ public class GenericDoublyLinkedList<T>{
 
     public void addFirst(T data){
         final node<T> first = head;
-        final node<T> newnode = new node<>(null, data, first);
+        node<T> newnode = new node<>(data, first);
         head = newnode;
-        if(first == null)
-            tail = newnode;
-        else
-            first.previous = newnode;
+        if(first == null) tail = newnode;
+        else{
+            tail.next = newnode;
+        }
         size++;
     }
 
     public void insertInTheMiddle(int pos, T data){
-        if(pos <= 0) {
+        if(pos <= 0){
             addFirst(data);
             return;
         }
@@ -101,41 +94,35 @@ public class GenericDoublyLinkedList<T>{
             addLast(data);
             return;
         }
-        final node<T> succ = getNode(pos);
-        final node<T> pred = succ.previous;
-        node<T> newnode = new node<>(pred, data, succ);
-        succ.previous = newnode;
+        final node<T> pred = getNode(pos);
+        final node<T> succ = pred.next;
+        node<T> newnode = new node<T>(data, succ);
         pred.next = newnode;
         size++;
     }
 
     public node<T> getNode(int pos){
         if(pos < 1 || pos > size) throw new IndexOutOfBoundsException();
-        node<T> temp = null;
-        if(pos < size >> 1){
-            temp = head;
-            for(int i = 0; i < pos; i++)
-                temp = temp.next;
+        node<T> temp = head;
+        if(head == tail) return null;
+        for(int i = 0; i < pos - 1; i++){
+            temp = temp.next;
         }
-        else{
-            temp = tail;
-            for(int i = size - 1; i > pos; i--)
-                temp = temp.previous;
-        }
-        return temp;
+        return  temp;
     }
 
     public node<T> deleteLast(){
         if(tail == null) throw new NoSuchElementException();
         final node<T> newnode = tail;
-        tail = tail.previous;
+        tail = getNode(size - 1);
 
-        // deleting the previous pointer to null
-        newnode.previous = null;
+        // deleting the next pointer to null
+        newnode.next = null;
 
         if(tail == null) head = null;
-        else
-            tail.next = null;
+        else{
+            tail.next = head;
+        }
         size--;
         return newnode;
     }
@@ -143,14 +130,15 @@ public class GenericDoublyLinkedList<T>{
     public node<T> deleteFirst(){
         if(head == null) throw new NoSuchElementException();
         final node<T> newnode = head;
-        head = head.next;
+        head = (head.next == head) ? null : head.next;
 
         // deleting the next pointer to null
         newnode.next = null;
 
         if(head == null) tail = null;
-        else
-            head.previous = null;
+        else{
+            tail.next = head;
+        }
         size--;
         return newnode;
     }
@@ -159,38 +147,38 @@ public class GenericDoublyLinkedList<T>{
         if(pos < 0 || pos >= size) throw new IndexOutOfBoundsException();
         if(pos == 0) return deleteFirst();
         if(pos == size - 1) return deleteLast();
-        node<T> currnode = getNode(pos);
-        final node<T> pred = currnode.previous;
-        final node<T> succ = currnode.next;
-        currnode.next = currnode.previous = null;
-        pred.next = succ;
-        succ.previous = pred;
+        node<T> temp = getNode(pos);
+        node<T> currentNode = temp.next;
+        temp.next = currentNode.next;
+        currentNode.next = null;
         size--;
-        return currnode;
+        return currentNode;
     }
 
-    public void copyAll(GenericDoublyLinkedList<T> list){
+    public void copyAll(CircularLinkedList<T> list){
         if(list == null) throw new NullPointerException();
-        for(node<T> temp = list.head; temp != null; temp = temp.next){
+        for(node<T> temp = list.head; temp != list.tail; temp = temp.next)
             this.addLast(temp.data);
-        }
+        this.addLast(list.tail.data);
     }
 
-    public void merge(GenericDoublyLinkedList<T> list){
+    public void merge(CircularLinkedList<T> list){
         if(list == null) throw new NullPointerException();
         if(list.size >= 0) this.size = this.size + list.size;
         else return;
         this.tail.next = list.head;
-        list.head.previous = this.tail;
         this.tail = list.tail;
+        this.tail.next = this.head;
     }
 
     @Override
     public String toString(){
         StringBuilder br = new StringBuilder();
-        for(node<T> temp = head; temp != null; temp = temp.next){
-            br.append(temp + "-->");
+        for(node<T> temp = head; temp != tail; temp = temp.next){
+            br.append(temp).append("-->");
         }
-        return br.toString();
+
+        // printing tail here because it won't work in loop
+        return br.append(tail).append("-->").toString();
     }
 }

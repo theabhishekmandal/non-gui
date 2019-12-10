@@ -1,7 +1,6 @@
 package DataStructures.linked_list.Problems;
 
-import DataStructures.linked_list.Node.GenericSinglyLinkedList;
-import java.util.Random;
+import DataStructures.linked_list.Node.SinglyLinkedList;
 
 /**
  * Given a linked list find that if a loop exists, and remove the loop
@@ -43,19 +42,19 @@ import java.util.Random;
 
 public class DetectingCycle {
     public static void main(String[] args) {
-        GenericSinglyLinkedList<Integer> arr = new GenericSinglyLinkedList<>();
+        SinglyLinkedList<Integer> arr = new SinglyLinkedList<>();
         for(int i = 0; i < 10; i++) arr.addLast(i);
         for(int i = 1; i < 11; i++){
-            GenericSinglyLinkedList<Integer> temp = new GenericSinglyLinkedList<>();
+            SinglyLinkedList<Integer> temp = new SinglyLinkedList<>();
             temp.copyAll(arr);
             arr.getTail().setNext(arr.getNode(i));
             detectAndRemoveCycle(arr);
             arr = temp;
         }
     }
-    private static void detectAndRemoveCycle(GenericSinglyLinkedList<?> arr){
-        GenericSinglyLinkedList.node<?> fastNode = arr.getHead();
-        GenericSinglyLinkedList.node<?> slowNode = arr.getHead();
+    private static void detectAndRemoveCycle(SinglyLinkedList<?> arr){
+        SinglyLinkedList.node<?> fastNode = arr.getHead();
+        SinglyLinkedList.node<?> slowNode = arr.getHead();
         boolean isCycle = false;
         while(fastNode != null && fastNode.getNext() != null){
             fastNode = fastNode.getNext().getNext();

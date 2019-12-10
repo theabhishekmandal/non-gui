@@ -1,14 +1,14 @@
 package DataStructures.linked_list.Problems;
 
-import DataStructures.linked_list.Node.GenericSinglyLinkedList;
+import DataStructures.linked_list.Node.SinglyLinkedList;
 
 import java.util.Random;
 import java.util.stream.IntStream;
-import static DataStructures.linked_list.Node.GenericSinglyLinkedList.node;
+import static DataStructures.linked_list.Node.SinglyLinkedList.node;
 
 public class OddOrEvenLengthLinkedList {
     public static void main(String[] args) {
-        GenericSinglyLinkedList<Integer> first = new GenericSinglyLinkedList<>();
+        SinglyLinkedList<Integer> first = new SinglyLinkedList<>();
         Random random = new Random();
         IntStream.range(0, random.nextInt(10)).forEach(first::addLast);
         System.out.println(first);
@@ -19,7 +19,7 @@ public class OddOrEvenLengthLinkedList {
         Using a 2x pointer that will determine if a given linked list is
         even length or odd length
      */
-    private static <T> String getLength(GenericSinglyLinkedList<T> first){
+    private static <T> String getLength(SinglyLinkedList<T> first){
         String[] arr = {"even", "odd"};
         node<T> fast = first.getHead();
         while(fast != null && fast.getNext() != null){

@@ -2,17 +2,10 @@ package DataStructures.linked_list.Node;
 
 import java.util.NoSuchElementException;
 
-public class GenericCircularLinkedList<T>{
+public class SinglyLinkedList<T>{
     private node<T> head;
     private node<T> tail;
     private int size;
-
-    public GenericCircularLinkedList(){}
-
-    public GenericCircularLinkedList(GenericCircularLinkedList<T> list){
-        copyAll(list);
-    }
-
     public static class node<T>{
         private T data;
         private node<T> next;
@@ -29,7 +22,7 @@ public class GenericCircularLinkedList<T>{
         public void setData(T data){
             this.data = data;
         }
-        public void setNext(node<T> next){
+        public void setNext(node<T>  next){
             this.next = next;
         }
         @Override
@@ -37,9 +30,22 @@ public class GenericCircularLinkedList<T>{
             return "[" + this.data + "]";
         }
     }
+    public SinglyLinkedList(){}
+
+    public SinglyLinkedList(SinglyLinkedList<T> list){
+        copyAll(list);
+    }
 
     public int getSize(){
         return this.size;
+    }
+
+    public node<T> getHead(){
+        return this.head;
+    }
+
+    public void setHead(node<T> head) {
+        this.head = head;
     }
 
     public void setTail(node<T> tail) {
@@ -50,22 +56,13 @@ public class GenericCircularLinkedList<T>{
         this.size = size;
     }
 
-    public void setHead(node<T> head) {
-        this.head = head;
-    }
-
-    public node<T> getHead(){
-        return this.head;
-    }
-
     public node<T> getTail(){
         return this.tail;
     }
 
     public void addLast(T data){
         final node<T> last = tail;
-        final node<T> first = head;
-        node<T> newnode = new node<>(data, first);
+        final node<T> newnode = new node<>(data, null);
         tail = newnode;
         if(last == null)
             head = newnode;
@@ -76,12 +73,10 @@ public class GenericCircularLinkedList<T>{
 
     public void addFirst(T data){
         final node<T> first = head;
-        node<T> newnode = new node<>(data, first);
+        final node<T> newnode = new node<>(data, first);
         head = newnode;
-        if(first == null) tail = newnode;
-        else{
-            tail.next = newnode;
-        }
+        if(first == null)
+            tail = newnode;
         size++;
     }
 
@@ -94,9 +89,12 @@ public class GenericCircularLinkedList<T>{
             addLast(data);
             return;
         }
-        final node<T> pred = getNode(pos);
-        final node<T> succ = pred.next;
-        node<T> newnode = new node<T>(data, succ);
+        // getting the previous node of the current node
+        // in the doubly linked list class this getNode will fetch
+        // the current node rather than previous node
+        node<T> pred = getNode(pos);
+        final node<T> nextnode = pred.next;
+        final node<T> newnode = new node<>(data, nextnode);
         pred.next = newnode;
         size++;
     }
@@ -116,12 +114,9 @@ public class GenericCircularLinkedList<T>{
         final node<T> newnode = tail;
         tail = getNode(size - 1);
 
-        // deleting the next pointer to null
-        newnode.next = null;
-
         if(tail == null) head = null;
         else{
-            tail.next = head;
+            tail.next = null;
         }
         size--;
         return newnode;
@@ -130,15 +125,12 @@ public class GenericCircularLinkedList<T>{
     public node<T> deleteFirst(){
         if(head == null) throw new NoSuchElementException();
         final node<T> newnode = head;
-        head = (head.next == head) ? null : head.next;
+        head = head.next;
 
         // deleting the next pointer to null
         newnode.next = null;
 
         if(head == null) tail = null;
-        else{
-            tail.next = head;
-        }
         size--;
         return newnode;
     }
@@ -155,30 +147,26 @@ public class GenericCircularLinkedList<T>{
         return currentNode;
     }
 
-    public void copyAll(GenericCircularLinkedList<T> list){
+    public void copyAll(SinglyLinkedList<T> list){
         if(list == null) throw new NullPointerException();
-        for(node<T> temp = list.head; temp != list.tail; temp = temp.next)
+        for(node<T> temp = list.head; temp != null; temp = temp.next){
             this.addLast(temp.data);
-        this.addLast(list.tail.data);
+        }
     }
 
-    public void merge(GenericCircularLinkedList<T> list){
+    public void merge(SinglyLinkedList<T> list){
         if(list == null) throw new NullPointerException();
         if(list.size >= 0) this.size = this.size + list.size;
         else return;
         this.tail.next = list.head;
         this.tail = list.tail;
-        this.tail.next = this.head;
     }
 
     @Override
     public String toString(){
         StringBuilder br = new StringBuilder();
-        for(node<T> temp = head; temp != tail; temp = temp.next){
-            br.append(temp).append("-->");
-        }
-
-        // printing tail here because it won't work in loop
-        return br.append(tail).append("-->").toString();
+        for(node<T> temp = head; temp != null; temp = temp.next)
+            br.append(temp + "-->");
+        return br.toString();
     }
 }

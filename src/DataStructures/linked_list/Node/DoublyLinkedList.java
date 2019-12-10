@@ -2,19 +2,25 @@ package DataStructures.linked_list.Node;
 
 import java.util.NoSuchElementException;
 
-public class GenericSinglyLinkedList<T>{
+public class DoublyLinkedList<T>{
     private node<T> head;
     private node<T> tail;
     private int size;
+
     public static class node<T>{
         private T data;
+        private node<T> previous;
         private node<T> next;
-        node(T data, node<T> next){
+        node(node<T> previous,T data, node<T> next){
+            this.previous = previous;
             this.data = data;
             this.next = next;
         }
         public T getData(){
             return this.data;
+        }
+        public node<T> getPrevious(){
+            return this.previous;
         }
         public node<T> getNext(){
             return this.next;
@@ -22,7 +28,10 @@ public class GenericSinglyLinkedList<T>{
         public void setData(T data){
             this.data = data;
         }
-        public void setNext(node<T>  next){
+        public void setPrevious(node<T> previous){
+            this.previous = previous;
+        }
+        public void setNext(node<T> next){
             this.next = next;
         }
         @Override
@@ -30,9 +39,10 @@ public class GenericSinglyLinkedList<T>{
             return "[" + this.data + "]";
         }
     }
-    public GenericSinglyLinkedList(){}
 
-    public GenericSinglyLinkedList(GenericSinglyLinkedList<T> list){
+    public DoublyLinkedList(){}
+
+    public DoublyLinkedList(DoublyLinkedList<T> list){
         copyAll(list);
     }
 
@@ -62,7 +72,7 @@ public class GenericSinglyLinkedList<T>{
 
     public void addLast(T data){
         final node<T> last = tail;
-        final node<T> newnode = new node<>(data, null);
+        final node<T> newnode = new node<>(last, data, null);
         tail = newnode;
         if(last == null)
             head = newnode;
@@ -73,15 +83,17 @@ public class GenericSinglyLinkedList<T>{
 
     public void addFirst(T data){
         final node<T> first = head;
-        final node<T> newnode = new node<>(data, first);
+        final node<T> newnode = new node<>(null, data, first);
         head = newnode;
         if(first == null)
             tail = newnode;
+        else
+            first.previous = newnode;
         size++;
     }
 
     public void insertInTheMiddle(int pos, T data){
-        if(pos <= 0){
+        if(pos <= 0) {
             addFirst(data);
             return;
         }
@@ -89,35 +101,41 @@ public class GenericSinglyLinkedList<T>{
             addLast(data);
             return;
         }
-        // getting the previous node of the current node
-        // in the doubly linked list class this getNode will fetch
-        // the current node rather than previous node
-        node<T> pred = getNode(pos);
-        final node<T> nextnode = pred.next;
-        final node<T> newnode = new node<>(data, nextnode);
+        final node<T> succ = getNode(pos);
+        final node<T> pred = succ.previous;
+        node<T> newnode = new node<>(pred, data, succ);
+        succ.previous = newnode;
         pred.next = newnode;
         size++;
     }
 
     public node<T> getNode(int pos){
         if(pos < 1 || pos > size) throw new IndexOutOfBoundsException();
-        node<T> temp = head;
-        if(head == tail) return null;
-        for(int i = 0; i < pos - 1; i++){
-            temp = temp.next;
+        node<T> temp = null;
+        if(pos < size >> 1){
+            temp = head;
+            for(int i = 0; i < pos; i++)
+                temp = temp.next;
         }
-        return  temp;
+        else{
+            temp = tail;
+            for(int i = size - 1; i > pos; i--)
+                temp = temp.previous;
+        }
+        return temp;
     }
 
     public node<T> deleteLast(){
         if(tail == null) throw new NoSuchElementException();
         final node<T> newnode = tail;
-        tail = getNode(size - 1);
+        tail = tail.previous;
+
+        // deleting the previous pointer to null
+        newnode.previous = null;
 
         if(tail == null) head = null;
-        else{
+        else
             tail.next = null;
-        }
         size--;
         return newnode;
     }
@@ -131,6 +149,8 @@ public class GenericSinglyLinkedList<T>{
         newnode.next = null;
 
         if(head == null) tail = null;
+        else
+            head.previous = null;
         size--;
         return newnode;
     }
@@ -139,34 +159,38 @@ public class GenericSinglyLinkedList<T>{
         if(pos < 0 || pos >= size) throw new IndexOutOfBoundsException();
         if(pos == 0) return deleteFirst();
         if(pos == size - 1) return deleteLast();
-        node<T> temp = getNode(pos);
-        node<T> currentNode = temp.next;
-        temp.next = currentNode.next;
-        currentNode.next = null;
+        node<T> currnode = getNode(pos);
+        final node<T> pred = currnode.previous;
+        final node<T> succ = currnode.next;
+        currnode.next = currnode.previous = null;
+        pred.next = succ;
+        succ.previous = pred;
         size--;
-        return currentNode;
+        return currnode;
     }
 
-    public void copyAll(GenericSinglyLinkedList<T> list){
+    public void copyAll(DoublyLinkedList<T> list){
         if(list == null) throw new NullPointerException();
         for(node<T> temp = list.head; temp != null; temp = temp.next){
             this.addLast(temp.data);
         }
     }
 
-    public void merge(GenericSinglyLinkedList<T> list){
+    public void merge(DoublyLinkedList<T> list){
         if(list == null) throw new NullPointerException();
         if(list.size >= 0) this.size = this.size + list.size;
         else return;
         this.tail.next = list.head;
+        list.head.previous = this.tail;
         this.tail = list.tail;
     }
 
     @Override
     public String toString(){
         StringBuilder br = new StringBuilder();
-        for(node<T> temp = head; temp != null; temp = temp.next)
+        for(node<T> temp = head; temp != null; temp = temp.next){
             br.append(temp + "-->");
+        }
         return br.toString();
     }
 }

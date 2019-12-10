@@ -1,10 +1,10 @@
 package DataStructures.linked_list;
 
-import DataStructures.linked_list.Node.GenericDoublyLinkedList;
+import DataStructures.linked_list.Node.DoublyLinkedList;
 
 public class GenericDoublyLinkedListImpl {
     public static void main(String args[]){
-        GenericDoublyLinkedList<String> list = new GenericDoublyLinkedList<String>();
+        DoublyLinkedList<String> list = new DoublyLinkedList<String>();
         list.addFirst("I");
         list.addLast("Abhishek");
         list.insertInTheMiddle(list.getSize() / 2, "am");
@@ -12,9 +12,9 @@ public class GenericDoublyLinkedListImpl {
         list.addFirst("head");
         print(list, null);
 
-        GenericDoublyLinkedList<String> list2 = new GenericDoublyLinkedList<>(list);
-        GenericDoublyLinkedList<String> list3 = new GenericDoublyLinkedList<>(list);
-        GenericDoublyLinkedList<String> list4 = new GenericDoublyLinkedList<>(list);
+        DoublyLinkedList<String> list2 = new DoublyLinkedList<>(list);
+        DoublyLinkedList<String> list3 = new DoublyLinkedList<>(list);
+        DoublyLinkedList<String> list4 = new DoublyLinkedList<>(list);
 
         System.out.println("list2 before deletion from end" +  list2);
         // using this type of loop because the getsize() keeps on changing
@@ -34,13 +34,13 @@ public class GenericDoublyLinkedListImpl {
             print(list4, list4.deleteInTheMiddle(list4.getSize() >> 1));
         }
     }
-    private static <T> void print(GenericDoublyLinkedList<T> list, GenericDoublyLinkedList.node<T> deletedNode){
-        GenericDoublyLinkedList.node<T> head = list.getHead();
-        GenericDoublyLinkedList.node<T> headPrev = (head != null) ? head.getPrevious() : null;
-        GenericDoublyLinkedList.node<T> headNext = (head != null) ? head.getNext() : null;
-        GenericDoublyLinkedList.node<T> tail = list.getTail();
-        GenericDoublyLinkedList.node<T> tailPrev = (tail != null) ? tail.getPrevious() : null;
-        GenericDoublyLinkedList.node<T> tailNext = (tail != null) ? tail.getNext() : null;
+    private static <T> void print(DoublyLinkedList<T> list, DoublyLinkedList.node<T> deletedNode){
+        DoublyLinkedList.node<T> head = list.getHead();
+        DoublyLinkedList.node<T> headPrev = (head != null) ? head.getPrevious() : null;
+        DoublyLinkedList.node<T> headNext = (head != null) ? head.getNext() : null;
+        DoublyLinkedList.node<T> tail = list.getTail();
+        DoublyLinkedList.node<T> tailPrev = (tail != null) ? tail.getPrevious() : null;
+        DoublyLinkedList.node<T> tailNext = (tail != null) ? tail.getNext() : null;
         System.out.println("list is " + list
                 + "\nhead is " + head
                 + "\nhead next is " + headNext
