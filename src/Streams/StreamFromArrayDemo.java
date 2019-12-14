@@ -2,7 +2,7 @@ package Streams;
 
 import java.util.Arrays;
 
-public class ArrayStreamDemo {
+public class StreamFromArrayDemo {
     public static void main(String[] args) {
         String[] arr = {"hello", "world", "Abhishek", "Mandal"};
         Arrays.stream(arr)

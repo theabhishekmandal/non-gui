@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class ArrayFromStream {
+public class ArrayFromStreamDemo {
     /*
     If we need to get an array out of the stream, we can simply use toArray()
      */
