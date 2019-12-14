@@ -1,4 +1,4 @@
-package CollectionImplementation.Streams;
+package Streams;
 
 /*
    We saw forEach() earlier in this section, which is a terminal operation.

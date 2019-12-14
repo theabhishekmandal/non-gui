@@ -1,4 +1,4 @@
-package CollectionImplementation.Streams;
+package Streams;
 
 import java.util.List;
 import java.util.stream.Collectors;

@@ -1,8 +1,7 @@
-package CollectionImplementation.Streams;
+package Streams;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.IntStream;
 
 /*
     map() produces a new stream after applying a function to each element of the original stream

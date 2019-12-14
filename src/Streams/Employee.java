@@ -1,4 +1,4 @@
-package CollectionImplementation.Streams;
+package Streams;
 
 public class Employee {
     private int id;

@@ -1,4 +1,4 @@
-package CollectionImplementation.Streams;
+package Streams;
 
 import java.io.File;
 import java.io.IOException;
