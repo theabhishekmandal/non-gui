@@ -1,5 +1,8 @@
 package DataStructures.linked_list.Problems;
 
+import DataStructures.linked_list.Node.SinglyLinkedList;
+import static DataStructures.linked_list.Node.SinglyLinkedList.node;
+
 import java.util.*;
 import static java.lang.System.*;
 public class Adding_numbers {
@@ -11,7 +14,12 @@ public class Adding_numbers {
         // converting both the values to int
         int first = Integer.parseInt(one[0]);
         int second = Integer.parseInt(one[1]);
+        out.println(solve(first, second));
+        out.println(solveSecond(first, second));
 
+    }
+
+    private static String solve(int first, int second){
         // creating linked list for the two numbers
         LinkedList<Integer> num1 = new LinkedList<>();
         LinkedList<Integer> num2 = new LinkedList<>();
@@ -55,11 +63,68 @@ public class Adding_numbers {
             }
             else{
                 num1.add(carry);
+                // make carry zero after use
+                carry = 0;
             }
         }
 
         // reversing the linked list and printing the result
         Collections.reverse(num1);
-        out.println(Arrays.toString(num1.toArray()));
+        return Arrays.toString(num1.toArray());
+    }
+
+    private static String solveSecond(int one, int two){
+
+        SinglyLinkedList<Integer> first = new SinglyLinkedList<>();
+        SinglyLinkedList<Integer> second = new SinglyLinkedList<>();
+
+        while(one > 0){
+            first.addLast(one % 10);
+            one /= 10;
+        }
+        while(two > 0){
+            second.addLast(two % 10);
+            two /= 10;
+        }
+
+        if(second.getSize() > first.getSize()){
+            SinglyLinkedList<Integer> temp = null;
+            temp = first;
+            first = second;
+            second = temp;
+        }
+
+        int counter = 0, carry = 0;
+        int min = Math.min(first.getSize(), second.getSize());
+        int max = Math.max(first.getSize(), second.getSize());
+        node<Integer> firstnode = first.getHead();
+        node<Integer> secondnode = second.getHead();
+
+        while(counter < max || carry > 0){
+            if(counter < max){
+                int sum = carry + firstnode.getData();
+                if(counter < min) {
+                    sum += secondnode.getData();
+                    secondnode = secondnode.getNext();
+                }
+                firstnode.setData(sum % 10);
+                carry = sum / 10;
+                firstnode = firstnode.getNext();
+                counter++;
+            }
+            else{
+                first.addLast(carry);
+                carry = 0;
+            }
+        }
+
+        second = new SinglyLinkedList<>();
+        firstnode = first.getHead();
+        while(firstnode != null){
+            second.addFirst(firstnode.getData());
+            firstnode = firstnode.getNext();
+
+        }
+        return second.toString();
     }
 }
