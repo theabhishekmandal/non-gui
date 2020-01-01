@@ -19,6 +19,7 @@ public class FlatMapDemo {
 
         List<String> namesFlatStream = namesNested.stream()
                                         .flatMap(Collection::stream)
+                                        .peek(System.out::println)
                                         .collect(Collectors.toList());
         namesFlatStream.forEach(System.out::println);
     }
