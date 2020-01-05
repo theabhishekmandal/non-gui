@@ -11,7 +11,7 @@ public class DoublyLinkedList<T>{
         private T data;
         private node<T> previous;
         private node<T> next;
-        node(node<T> previous,T data, node<T> next){
+        public node(node<T> previous,T data, node<T> next){
             this.previous = previous;
             this.data = data;
             this.next = next;

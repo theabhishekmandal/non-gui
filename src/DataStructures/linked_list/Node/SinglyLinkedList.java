@@ -9,7 +9,7 @@ public class SinglyLinkedList<T>{
     public static class node<T>{
         private T data;
         private node<T> next;
-        node(T data, node<T> next){
+        public node(T data, node<T> next){
             this.data = data;
             this.next = next;
         }
