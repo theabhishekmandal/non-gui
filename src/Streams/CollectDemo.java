@@ -18,5 +18,6 @@ public class CollectDemo {
                 .map(x -> x * x)
                 .boxed()                        //  Need to apply boxed() to IntStream to convert it into Stream<Integer>
                 .collect(Collectors.toList());
+        System.out.println(arr);
     }
 }
