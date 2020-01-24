@@ -6,6 +6,17 @@ import static DataStructures.linked_list.Node.SinglyLinkedList.node;
 import java.util.Scanner;
 import java.util.stream.IntStream;
 
+/**
+ * Given n number of nodes and an integer k, find the first n / k element. Also length of the list is not known
+ *
+ * Approach:
+ * Let us suppose there are n Number of nodes, then n / k will give the number of elements that satisfy i % k == 0 where
+ * 1 <= i <= n, So n / k == number of i % k
+ *
+ * If after first search of  i % k == 0, we will assign a new pointer to head and will traverse when
+ * next i % k == 0 will be found. After this way we can find the n / k
+ */
+
 public class findFractionalNode {
     public static void main(String[] args) {
         SinglyLinkedList<Integer> first = new SinglyLinkedList<>();
