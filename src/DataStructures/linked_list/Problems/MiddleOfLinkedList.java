@@ -4,6 +4,9 @@ import DataStructures.linked_list.Node.SinglyLinkedList;
 
 import java.util.Random;
 
+/**
+ * n / 2 is the middle of the linked list if n starts from 0,
+ */
 public class MiddleOfLinkedList {
     public static void main(String[] args) {
         SinglyLinkedList<Integer> first = new SinglyLinkedList<>();
