@@ -5,6 +5,9 @@ import static DataStructures.linked_list.Node.SinglyLinkedList.node;
 
 import java.util.Scanner;
 
+/**
+ * Implementation of insertion sort for singlyLinked list
+ */
 public class InsertionSort {
     public static void main(String[] args) {
         Scanner s = new Scanner(System.in);
@@ -16,18 +19,35 @@ public class InsertionSort {
         first.addLast(0);
         first.addLast(7);
         System.out.println("list before sorting " + first);
-        node<Integer> head = sort2(first);
-        String answer = "";
-        for(;head != null; head = head.getNext()) answer += head.getData() + ",";
+        sort(first);
         System.out.println("list after sorting " + first);
     }
 
+    // use this method for insertion sort better than the other one
     private static <T extends Comparable<? super T>> void sort(SinglyLinkedList<T> head){
-        node<T> temp = head.getHead();
-        while(temp != null){
-            node<T> next = temp.getNext();
-            temp = temp.getNext();
+        if(head == null) return;
+        node<T> curr = head.getHead();
+        node<T> nex = null;
+        node<T> newHead = null;
+
+        while(curr != null){
+            nex = curr.getNext();
+            if(newHead == null || curr.getData().compareTo(newHead.getData()) <= 0){
+                curr.setNext(newHead);
+                newHead = curr;
+            }
+            else{
+                node<T> temp = newHead;
+                while(temp.getNext() != null && curr.getData().compareTo(temp.getNext().getData()) > 0){
+                    temp = temp.getNext();
+                }
+                curr.setNext(temp.getNext());
+                temp.setNext(curr);
+            }
+            if(nex == null) head.setTail(curr);
+            curr = nex;
         }
+        head.setHead(newHead);
     }
 
     private static <T extends Comparable<? super T>> node<T> sort2(SinglyLinkedList<T> first){
