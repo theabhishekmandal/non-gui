@@ -1,10 +1,6 @@
-package DataStructures.linked_list.Problems;
+package DataStructures.Stack.Node;
 
-/**
- *
- * This is an example of Stack using LinkedList.
- */
-class Stack<T>{
+class DLLStack<T>{
     private class Node{
         T data;
         Node next, previous;
@@ -16,7 +12,7 @@ class Stack<T>{
     }
     private Node head, tail;
     private int size;
-    public Stack(){
+    public DLLStack(){
     }
 
     public void push(T data){
@@ -62,14 +58,5 @@ class Stack<T>{
         }
         br.append("\n");
         return br.toString();
-    }
-}
-public class StackUsingLinkedList {
-    public static void main(String args[]){
-        Stack<Integer> obj = new Stack<>();
-        for(int i = 0; i < 11; i++)obj.push(i);
-        System.out.println(obj);
-        System.out.println("Top of the stack " + obj.peek() + " size of the stack " + obj.size());
-        System.out.println("Popped value " + obj.pop() + " size of the stack " + obj.size());
     }
 }
