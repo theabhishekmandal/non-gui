@@ -12,7 +12,7 @@ import java.util.stream.IntStream;
 /**
  *  To remove duplicates from linked list, either by looping or by using hashing technique.
  *  - removeDuplicatesInSortedList : this method will work in sorted linked list
- *  -
+ *  - removeDuplicatesByHashing : this method will work in non sorted linked list
  */
 
 public class removeDuplicates {
