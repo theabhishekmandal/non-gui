@@ -6,6 +6,10 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.function.BiFunction;
 
+/*
+    Given a postfix expression, check whether it can be evaluated or not
+ */
+
 public class PostFixEvaluation {
     public static void main(String[] args) {
         String[] arr = {
@@ -37,6 +41,9 @@ public class PostFixEvaluation {
                     int[] arr = {0, 0};
                     for(int i = 0; i < 2; i++){
                         if(stack.isEmpty()) throw new Exception("not enough operands");
+
+                        // getting the last two elements in reverse order
+                        // in which current operation will be applied and pushed to stack
                         arr[arr.length - i - 1] = stack.pop();
                     }
                     stack.push(map.get(c).apply(arr[0], arr[1]));
@@ -46,6 +53,7 @@ public class PostFixEvaluation {
         catch(Exception e){
             e.printStackTrace();
         }
-        return stack.peek();
+        // returning the remaining element of the stack as answer
+        return stack.pop();
     }
 }

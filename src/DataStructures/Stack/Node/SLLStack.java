@@ -46,6 +46,10 @@ public class SLLStack<T> {
         return this.size == 0;
     }
 
+    public int getSize(){
+        return this.size;
+    }
+
     @Override
     public String toString(){
         StringBuilder br = new StringBuilder("[");

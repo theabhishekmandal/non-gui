@@ -2,6 +2,11 @@ package DataStructures.Stack.Problems;
 
 import DataStructures.Stack.Node.SLLStack;
 
+/*
+    Given a string of infix expression, check whether it can be converted to it's respective
+    postfix expression
+ */
+
 public class InfixToPostFix {
     public static void main(String[] args) {
         String[] array = {
