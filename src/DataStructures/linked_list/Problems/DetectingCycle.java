@@ -66,13 +66,18 @@ public class DetectingCycle {
         }
         if(isCycle){
             slowNode = arr.getHead();
-            if(fastNode.getNext() != slowNode){
-                while(slowNode.getNext() != fastNode.getNext()){
-                    slowNode = slowNode.getNext();
+            // if the linked list is a circular linked list
+            if(fastNode == slowNode){
+                while(fastNode.getNext() != slowNode) fastNode = fastNode.getNext();
+            }
+            // if the linked list contains a circle
+            else{
+                while(fastNode.getNext() != slowNode.getNext()){
                     fastNode = fastNode.getNext();
+                    slowNode = slowNode.getNext();
                 }
             }
-            arr.getTail().setNext(null);
+            fastNode.setNext(null);
         }
         System.out.println(arr);
     }
