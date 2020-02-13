@@ -6,6 +6,10 @@ import java.util.HashSet;
 import java.util.Random;
 import java.util.Set;
 
+/**
+ *  Given two linked list combined with each other, find the intersection point of the two lists.
+ */
+
 public class FindingInterSectionPoint {
     public static void main(String[] args) {
         Random random = new Random();

@@ -25,6 +25,8 @@ public class findFractionalNode {
         int k = s.nextInt();
         IntStream.range(1, n).forEach(first::addLast);
         node<Integer> node = findFractionalNode(first, k);
+        System.out.println(first);
+        System.out.println(node);
     }
     private static <T> node<T> findFractionalNode(SinglyLinkedList<T> first, int k){
         node<T> fractionalNode = null;
