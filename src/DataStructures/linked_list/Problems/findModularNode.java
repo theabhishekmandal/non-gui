@@ -3,6 +3,7 @@ package DataStructures.linked_list.Problems;
 import DataStructures.linked_list.Node.SinglyLinkedList;
 import static DataStructures.linked_list.Node.SinglyLinkedList.node;
 
+import java.util.Random;
 import java.util.Scanner;
 import java.util.stream.IntStream;
 
@@ -11,6 +12,13 @@ import java.util.stream.IntStream;
  *  where n is the number of elements in the list and k is an integer constant.
  *
  *  Basically find the node whose's position is multiple of k in a list of length n
+ *
+ *  if 2->4->3->8->9->10->11 and k = 2,
+ *  6th position node is the last node that is divisible by 2 so answer is 10
+ *
+ *  Approach,
+ *      take the counter = 1 and head, whenever counter % k == 0 get that location node
+ *      do this till the end of the list.
  */
 public class findModularNode {
     public static void main(String[] args) {
@@ -18,7 +26,8 @@ public class findModularNode {
         Scanner s = new Scanner(System.in);
         int n = s.nextInt() + 1;
         int k = s.nextInt();
-        IntStream.range(1, n).forEach(first::addLast);
+        Random random = new Random();
+        IntStream.range(1, n).forEach(x -> first.addLast(random.nextInt(n)));
 
         System.out.println(first);
         node<Integer> node = findModularNode(first, k);
