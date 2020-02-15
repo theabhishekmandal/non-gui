@@ -3,9 +3,7 @@ package DataStructures.linked_list.Problems;
 import DataStructures.linked_list.Node.SinglyLinkedList;
 import static DataStructures.linked_list.Node.SinglyLinkedList.node;
 
-import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Map;
 import java.util.Set;
 import java.util.stream.IntStream;
 
@@ -13,6 +11,9 @@ import java.util.stream.IntStream;
  *  To remove duplicates from linked list, either by looping or by using hashing technique.
  *  - removeDuplicatesInSortedList : this method will work in sorted linked list
  *  - removeDuplicatesByHashing : this method will work in non sorted linked list
+ *  Approach
+ *      For a given node check if the next node is in the set or not,
+ *      if it is in the set then set the current node next to next node's next
  */
 
 public class removeDuplicates {
