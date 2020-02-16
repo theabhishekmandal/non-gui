@@ -2,7 +2,7 @@ package DataStructures.Stack.Problems;
 
 import DataStructures.Stack.Node.SLLStack;
 
-/*
+/**
     Given a string of infix expression, check whether it can be converted to it's respective
     postfix expression
  */

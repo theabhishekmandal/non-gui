@@ -53,7 +53,7 @@ public class InfixEvaluation {
                     }
 
                     // if ( is not found then throw error else pop (
-                    if(operatorStack.isEmpty()) throw new Exception("mimatched number of closing brackets");
+                    if(operatorStack.isEmpty()) throw new Exception("mismatched number of closing brackets");
                     operatorStack.pop();
                 }
                 else{
