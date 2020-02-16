@@ -3,6 +3,7 @@ package DataStructures.linked_list.Problems;
 import DataStructures.linked_list.Node.SinglyLinkedList;
 import  static DataStructures.linked_list.Node.SinglyLinkedList.node;
 
+import java.util.Arrays;
 import java.util.stream.Stream;
 
 /**
@@ -18,50 +19,58 @@ import java.util.stream.Stream;
 public class IsPalindrome {
     public static void main(String[] args) {
         SinglyLinkedList<Integer> first = new SinglyLinkedList<>();
-        Stream.of(1, 2, 3, 1).forEach(first::addLast);
-        System.out.println(first + " is" + (isPalindrome(first) ? " a " : " not a ") + "palindrome list");
-        System.out.println(first);
-    }
+        String[] arr = {
+                "1 2 1",
+                "1 2 3",
+                "1 2 2 1",
+                "2 2 2 1"
+        };
+        for(String string : arr){
+            first = new SinglyLinkedList<>();
+            Arrays.stream(string.split(" ")).map(Integer::parseInt).forEach(first::addLast);
+            System.out.println(first + " is" + (isPalindrome(first) ? " a " : " not a ") + "palindrome list");
+        }
+   }
 
     private static <T extends Comparable<? super T>> boolean isPalindrome(SinglyLinkedList<T> temp) {
-        int midlength = temp.getSize() >> 1;
-        node<T> midpointer = temp.getHead();
+        if(temp == null || temp.getHead() == null) return false;
+        node<T> fast = temp.getHead();
+        node<T> slow = temp.getHead();
 
-        // for even length the midpointer will be midlength index node if indexing starts from 0
-        // for odd length the midpointer will be the middle element
-        for(int i = 0; i < midlength ; i++) midpointer = midpointer.getNext();
+        while(fast != null && fast.getNext() != null){
+            fast = fast.getNext().getNext();
+            slow = slow.getNext();
+        }
 
-        reverseTillMiddleNode(temp, midpointer);
+        // if odd length then shift the slow node by one
+        if(fast != null) {
+            slow = slow.getNext();
+        }
 
-        node<T> firstPointer = temp.getHead();
-        node<T> secondPointer = ((temp.getSize() & 1) == 0)? midpointer : midpointer.getNext();
+        slow = reverse(slow);
 
         boolean isPalindrome = true;
-        while(secondPointer != null){
-            if(secondPointer.getData().compareTo(firstPointer.getData()) != 0){
+        node<T> firstHalf = temp.getHead();
+        node<T> otherhalf = slow;
+        while(firstHalf != null && otherhalf != null){
+            if(firstHalf.getData().compareTo(otherhalf.getData()) != 0){
                 isPalindrome = false;
                 break;
             }
-            secondPointer = secondPointer.getNext();
-            firstPointer = firstPointer.getNext();
+            firstHalf = firstHalf.getNext();
+            otherhalf = otherhalf.getNext();
         }
-
-        reverseTillMiddleNode(temp, midpointer);
         return isPalindrome;
     }
-
-    private static <T> void reverseTillMiddleNode(SinglyLinkedList<T> temp, node<T> midpointer){
-        // prev is set to midpointer because the head will point to mid element
-        node<T> prev = midpointer;
-        node<T> next = null;
-        node<T> curr = temp.getHead();
-
-        while(curr != midpointer){
-            next = curr.getNext();
-            curr.setNext(prev);
-            prev = curr;
-            curr = next;
+    private static <T> node<T> reverse(node<T> node){
+        node<T> prev = null;
+        node<T> nex = null;
+        while(node != null){
+            nex = node.getNext();
+            node.setNext(prev);
+            prev = node;
+            node = nex;
         }
-        temp.setHead(prev);
+        return prev;
     }
 }
