@@ -38,17 +38,15 @@ public class kStack<T>{
     private Object[] arr;
     private int[] next;
     private int[] top;
-    private int size;
     private int free;
 
     public kStack(int n, int k){
-        this.size = n;
-        this.arr = new Object[this.size];
-        this.next = new int[this.size];
+        this.arr = new Object[n];
+        this.next = new int[n];
         this.top = new int[k];
         this.free = 0;
         Arrays.fill(top, -1);
-        for(int i = 0; i < this.size - 1; i++)
+        for(int i = 0; i < n - 1; i++)
             this.next[i] = i + 1;
         this.next[n - 1] = -1;
     }
