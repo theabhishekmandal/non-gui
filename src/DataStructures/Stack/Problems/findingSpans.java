@@ -24,6 +24,21 @@ import java.util.stream.IntStream;
  *
  * link: https://www.geeksforgeeks.org/the-stock-span-problem/
  *
+ * Approach:
+ *      spanList will contain the span of each element
+ *      stack will contain the index of the current element index
+ *
+ *      for the first element span will be 1 because there is no other before it.
+ *      and stack will hold the first index
+ *
+ *      now there will be two conditions for the next element:
+ *          1. if the current element is greater than or equal to previous element provided by the stack
+ *              then pop the indices from stack until element from stack is greater than the current
+ *
+ *          if stack is now empty this means there is no element greater than current element so
+ *          span will be index + 1
+ *          other wise it will be i - top of the stack
+ *      at the end push the current index to the stack
  *
  */
 
