@@ -24,6 +24,8 @@ import DataStructures.Stack.Node.SLLStack;
  *              else stack is empty
  *                  take max(currentMaximum, arr[poppedIndex] * currentIndex)
  *      do this if the stack is still not empty
+ *
+ *  https://www.geeksforgeeks.org/largest-rectangle-under-histogram/
  */
 public class HistogramArea {
     public static void main(String[] args) {
