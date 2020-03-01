@@ -39,12 +39,20 @@ public class HistogramArea {
             if(stack.isEmpty() || arr[stack.peek()] <= arr[i]) stack.push(i++);
             else{
                 int top = stack.pop();
-                maxArea = Math.max(maxArea, arr[top] * ((stack.isEmpty())? i : i - 1 - stack.peek()));
+                int spanIndex;
+                if(stack.isEmpty()) spanIndex = i;
+                else
+                    spanIndex = i - 1 - stack.peek();
+                maxArea = Math.max(maxArea, arr[top] * spanIndex);
             }
         }
         while(!stack.isEmpty()){
             int top = stack.pop();
-            maxArea = Math.max(maxArea, arr[top] * ((stack.isEmpty())? i : i - stack.peek() - 1));
+            int spanIndex;
+            if(stack.isEmpty())spanIndex = i;
+            else
+                spanIndex = i - 1 - stack.peek();
+            maxArea = Math.max(maxArea, arr[top] * spanIndex);
         }
         System.out.println(maxArea);
     }
