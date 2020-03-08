@@ -23,6 +23,8 @@ import DataStructures.Stack.Node.SLLStack;
  *                  so take max(currentMaximum, arr[poppedIndex] * (currentIndex - 1 - stack.peek())
  *              else stack is empty
  *                  take max(currentMaximum, arr[poppedIndex] * currentIndex)
+ *                  currentIndex is representing the number of elements that have minimum height
+ *                  of popped Index element
  *      do this if the stack is still not empty
  *
  *  https://www.geeksforgeeks.org/largest-rectangle-under-histogram/
