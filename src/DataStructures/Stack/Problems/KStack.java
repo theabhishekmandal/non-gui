@@ -1,8 +1,6 @@
 package DataStructures.Stack.Problems;
 
-import DataStructures.Stack.Node.kStack;
-
-import java.util.ArrayList;
+import DataStructures.Stack.StackImpl.kStack;
 
 public class KStack {
     public static void main(String[] args) {

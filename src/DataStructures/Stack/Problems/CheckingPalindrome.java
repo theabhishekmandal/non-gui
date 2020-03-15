@@ -1,6 +1,6 @@
 package DataStructures.Stack.Problems;
 
-import DataStructures.Stack.Node.SLLStack;
+import DataStructures.Stack.StackImpl.SLLStack;
 
 /**
  * Given a characters formed with a's and b's. The string marked with special character X which represents the
@@ -32,6 +32,6 @@ public class CheckingPalindrome {
         while(stack != null && !stack.isEmpty()){
             if(string.charAt(++i) != stack.pop()) return false;
         }
-        return true && stack != null;
+        return true;
     }
 }

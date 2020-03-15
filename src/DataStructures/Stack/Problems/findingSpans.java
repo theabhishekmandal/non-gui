@@ -1,6 +1,6 @@
 package DataStructures.Stack.Problems;
 
-import DataStructures.Stack.Node.SLLStack;
+import DataStructures.Stack.StackImpl.SLLStack;
 
 import java.util.ArrayList;
 import java.util.Random;

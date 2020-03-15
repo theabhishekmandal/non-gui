@@ -1,6 +1,6 @@
 package DataStructures.Stack.Problems;
 
-import DataStructures.Stack.Node.SLLStack;
+import DataStructures.Stack.StackImpl.SLLStack;
 
 /**
  * Given a array of bars, find the a rectangle that covers maximum area.

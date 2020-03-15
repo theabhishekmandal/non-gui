@@ -1,4 +1,4 @@
-package DataStructures.Queue;
+package DataStructures.Queue.Problems;
 
 import java.util.Stack;
 
@@ -13,8 +13,8 @@ public class QueueUsingStack {
         While the old stack is used for finding the front element
         of the stack and also to perform the dequeue operation.
          */
-        Stack<T>  oldstack = new Stack<T>();
-        Stack<T>  newstack = new Stack<T>();
+        Stack<T>  oldstack = new Stack<>();
+        Stack<T>  newstack = new Stack<>();
         public void enqueue(T value){
             newstack.push(value);
         }
