@@ -1,4 +1,4 @@
-package DataStructures.Queue.Problems;
+package DataStructures.Stack.Problems;
 
 import DataStructures.Stack.StackImpl.SLLStack;
 

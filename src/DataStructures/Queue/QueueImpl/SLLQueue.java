@@ -1,11 +1,7 @@
 package DataStructures.Queue.QueueImpl;
 
-import DataStructures.Stack.StackImpl.SLLStack;
 
-import java.util.ArrayDeque;
-import java.util.EmptyStackException;
-
-public class Qll<T> {
+public class SLLQueue<T> {
     private node<T> front;
     private node<T> rear;
     private int size;
@@ -21,7 +17,7 @@ public class Qll<T> {
             return "[" + this.data + "]";
         }
     }
-    public Qll(){
+    public SLLQueue(){
         this.size = 0;
         this.front = null;
         this.rear = null;
@@ -38,15 +34,25 @@ public class Qll<T> {
         ++this.size;
     }
 
-    public T dQueue(){
+    public T deQueue(){
         if(isEmpty()) throw new RuntimeException("empty queue");
         node<T> temp = front;
+        if(front == rear) rear = rear.next;
         front = front.next;
         temp.next = null;
         --this.size;
         return temp.data;
     }
 
+    public T getFirst(){
+        if(isEmpty()) throw new RuntimeException("empty queue");
+        return this.front.data;
+    }
+
+    public T getLast(){
+        if(isEmpty()) throw new RuntimeException("empty queue");
+        return this.rear.data;
+    }
     public boolean isEmpty(){
         return this.size == 0;
     }
