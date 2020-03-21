@@ -15,7 +15,7 @@ import java.util.function.BiFunction;
 public class InfixEvaluation {
     public static void main(String[] args) {
         String[] array = {
-                "1+2", "(1*2+3)", "1+2-3", "(1+2)*3-4", "(())"
+                "11+22*14", "(1*2+3)", "1+2-3", "(1+2)*3-4", "(())"
         };
         for(String string : array){
             System.out.println(evaluateInfix(string));
@@ -42,8 +42,16 @@ public class InfixEvaluation {
                     }
                 };
         try{
-            for(char c : string.toCharArray()){
-                if(Character.isDigit(c)) operandStack.push(c - '0');
+            int i = 0;
+            for(;i < string.length();){
+                StringBuilder number = new StringBuilder();
+                char c = string.charAt(i);
+                if(Character.isDigit(c)){
+                    while(i < string.length() && Character.isDigit(string.charAt(i)))
+                        number.append(string.charAt(i++));
+                    operandStack.push(Integer.parseInt(number.toString()));
+                    continue;
+                }
                 else if(c == '(') operatorStack.push(c);
                 else if(c == ')'){
 
@@ -65,6 +73,7 @@ public class InfixEvaluation {
                     }
                     operatorStack.push(c);
                 }
+                i++;
             }
 
             // pop the remaining operators and execute the result
