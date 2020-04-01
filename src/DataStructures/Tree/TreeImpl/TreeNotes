@@ -1,0 +1,82 @@
+Tree
+    -   The root of the tree is the node with no parents. There can be atmost one root node in the tree
+
+    -   The edge refers to the link from parent to child.
+
+    -   A node with no children is called leaf node.
+
+    -   Children of same parent are called siblings.
+
+    -   A node p is an ancestor of node q if there exists a path from root to q and p appears on the path.
+        The node q is called a descendant of p.
+
+    -   The set of all nodes at a given depth is called the level of the tree. The root node is at level 0.
+
+    -   The depth of the node is the length of the path from root to the node
+
+    -   The height of the node is the length of the path from that node to the deepest node.
+
+    -   The height of the tree is the length of the path from the root to the deepest node.
+
+    -   Height of the tree is equal to the depth of the tree, but height of node is not equal to the
+        depth of the node.
+
+    -   The size of the node is the number of descendants it has including itself.
+
+    -   If every node in a tree has only one child then we call such trees skew trees. If every
+        node has only left child then we call them left skew trees. Similarly, if every node has
+        only right child then we call them right skew trees.
+
+Binary Tree
+    -   A tree is called binary tree if each node has zero child, one child or two children.
+        Empty tree is also a valid binary tree.
+
+    -   Types of Binary tree
+        -   Strict Binary Tree
+            -   A binary tree is called strict binary tree if each node has exactly two children or no children.
+
+        -   Full Binary Tree
+            -   A binary tree is called full binary tree if each node has exactly two children and all leaf nodes
+                are at the same level.
+
+        -   Complete Binary Tree
+            -   A binary tree is called complete binary tree if all leaf nodes are at height h or h - 1 and
+                also without any missing number in the sequence.
+
+
+Properties of Binary Trees
+    -   height      Number of nodes at level h
+        h = 0           2 ^ 0 = 1
+        h = 1           2 ^ 1 = 2
+        h = 2           2 ^ 2 = 4
+
+    -   The total number of nodes given by full binary tree is 2^0 + 2^1 + 2^3 ... + 2 ^ 4 = 2 ^ (h + 1) - 1
+    -   The total number of nodes in complete binary tree is between 2 ^ h(minimum) and 2 ^ (h + 1) - 1(maximum)
+    -   The number of leaf nodes in full binary tree are 2 ^ h
+    -   The number of null links wasted in a complete binary tree of n nodes is n + 1
+
+Operations on Binary Trees
+    -   Basic Operations
+        -   Inserting, deleting, searching and traversing
+
+    -   Auxiliary Operations
+        -   Finding the size of the tree
+        -   Finding the height of the tree
+        -   Finding the level which has maximum sum
+        -   Finding the least common ancestor(LCA) for a given pair of nodes, and many more.
+
+    -   Applications of Binary Trees
+        -   Following are the soe of the applications where binary trees play an important role:
+            -   Expression trees are used in compilers.
+            -   Huffman coding trees that are used in data compression algorithms.
+            -   Binary Search Tree which supports search, insertion and deletion on a collection of items in O(logn) time.
+            -   Priority Queue(PQ), which supports search and deletion of minimum(or maximum) on a collection of items
+                in logarithmic time.
+
+
+Classifying the Traversals
+    -   There are three types of traversals:
+        -   Preorder (CLR) traversal
+        -   Inorder (LCR) traversal
+        -   PostOrder (LRD) Traversal
+        -   Level Order Traversal or Breadth First Traversal
