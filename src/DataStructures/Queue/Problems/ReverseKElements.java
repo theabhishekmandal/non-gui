@@ -6,6 +6,10 @@ import DataStructures.Stack.StackImpl.SLLStack;
 import java.util.Random;
 import java.util.stream.IntStream;
 
+/**
+ * Given a queue with number of elements and a number k. Reverse the k elements
+ */
+
 public class ReverseKElements {
     public static void main(String[] args) {
        Random random = new Random();

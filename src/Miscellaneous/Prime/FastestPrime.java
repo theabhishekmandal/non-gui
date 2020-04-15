@@ -40,7 +40,7 @@ public class FastestPrime{
         prime[0] = prime[1] = false;
         for(int i = 2; i <= num; i++){
             if(!prime[i]) continue;
-            for(long j = 1L * i * i; j <= (long)num; j += i){
+            for(long j = (long) i * i; j <= (long)num; j += i){
                 prime[(int)j] = false;
             }
         }

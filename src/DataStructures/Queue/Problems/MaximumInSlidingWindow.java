@@ -46,13 +46,10 @@ public class MaximumInSlidingWindow {
         List<Integer> list = IntStream.range(0, 10 + random.nextInt(20))
                             .map(x -> random.nextInt(100))
                             .boxed().collect(Collectors.toList());
-        Integer k;
-        while(true){
+        int k;
+        do {
             k = 2 + random.nextInt(list.size());
-            if(list.size() % k == 0){
-                break;
-            }
-        }
+        } while (list.size() % k != 0);
         System.out.println( "list size is " + list.size() + "\nlist is\n" + list + "\nwindow size is\n" + k + "\n");
         List<Integer> maxSumList = getMaxSumInThisWindow(list, k);
         System.out.println(maxSumList);
@@ -66,13 +63,16 @@ public class MaximumInSlidingWindow {
 
         for(int i = 0; i < list.size(); i++){
 
+            // for checking if front of the queue has maximum element
             while(dll.getSize() != 0 && list.get(i) > list.get(dll.getTail().getData()))
                 dll.deleteLast();
 
+            // for checking if the current element should reside in the given window
             if(dll.getSize() != 0 && dll.getHead().getData() + maxSize == i)
                 dll.deleteFirst();
 
             dll.addLast(i);
+            // appending the result
             if(i + 1 >= maxSize)
             answerlist.add(list.get(dll.getHead().getData()));
         }

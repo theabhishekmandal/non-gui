@@ -61,7 +61,7 @@ public class BinaryTree<T>{
             if(temp.left != null)
                 queue.add(temp.left);
             else{
-                temp.left = new node<T>(data);
+                temp.left = new node<>(data);
                 return;
             }
             if(temp.right != null)
@@ -73,6 +73,7 @@ public class BinaryTree<T>{
         }
     }
 
+    // process current, left and right
     public String preOrder(){
         if(this.root == null) return "";
         StringBuilder string = new StringBuilder("[ ");
@@ -95,6 +96,7 @@ public class BinaryTree<T>{
         return string.toString();
     }
 
+    // process left, current, right
     public String inOrder(){
         if(this.root == null) return "";
         StringBuilder string = new StringBuilder("[ ");
@@ -116,6 +118,31 @@ public class BinaryTree<T>{
             }
         }
 
+        string.append("]");
+        return string.toString();
+    }
+
+    // process left, right, root
+    public String postOrder(){
+        if(this.root == null) return "";
+        StringBuilder string = new StringBuilder("[ ");
+
+        Deque<node<T>> stack = new ArrayDeque<>();
+        node<T> curr = this.root;
+
+        while(curr != null || !stack.isEmpty()){
+            if(curr != null){
+                stack.push(curr);
+                curr = curr.left;
+            }
+            else{
+                curr = stack.pop();
+                string.append(curr.data);
+                curr = curr.right;
+                if(curr != null || !stack.isEmpty())
+                    string.append(", ");
+            }
+        }
         string.append("]");
         return string.toString();
     }

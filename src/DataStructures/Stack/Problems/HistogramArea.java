@@ -21,6 +21,38 @@ import DataStructures.Stack.StackImpl.SLLStack;
  *                  and current top of the stack index(after popping) will give leftmost
  *                  index which has the height of element pointed by popped index
  *                  so take max(currentMaximum, arr[poppedIndex] * (currentIndex - 1 - stack.peek())
+ *
+ *                  eg:
+ *                  if arr = [2, 4, 5, 6, 2], and if i = 4, then stack will contain stack = [0, 1, 2, 3]
+ *                  now if after popping
+ *                              stack = [0, 1, 2]
+ *                              poppedIndex = 3
+ *                              stack.peek = 2
+ *                              i = 4
+ *                              then i - 1 - stack.peek = 4 - 1  - 2 = 1
+ *                                          => arr[poppedIndex] i.e arr[3] = 6 height's is of range 1
+ *                  now after popping again
+ *                              stack = [0, 1]
+ *                              poppedIndex = 2
+ *                              stack.peek = 1
+ *                              i = 4
+ *                              then i - 1 - stack.peek = 4 - 1 - 1 = 2
+ *                                          => arr[poppedIndex] i.e arr[2] = 5 height's is of range 2
+ *                  now after popping again
+ *                              stack = [0]
+ *                              poppedIndex = 1
+ *                              stack.peek = 0
+ *                              i = 4
+ *                              then i - 1 - stack.peek = 4 - 1 - 0 = 3
+ *                                          => arr[poppedIndex] i.e arr[1] = 4 height's is of range 3
+ *                  now after popping again
+ *                              stack = []
+ *                              poppedIndex = 0
+ *                              stack.peek is empty so left most is not required and now the current index
+ *                              will give the range of the height
+ *                              i = 4
+ *                                          => arr[poppedIndex] i.e arr[0] = 2 height's is of range 4
+ *
  *              else stack is empty
  *                  take max(currentMaximum, arr[poppedIndex] * currentIndex)
  *                  currentIndex is representing the number of elements that have minimum height
