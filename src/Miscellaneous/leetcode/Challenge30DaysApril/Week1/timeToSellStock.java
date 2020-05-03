@@ -1,4 +1,4 @@
-package Miscellaneous.leetcode.Challenge30DaysApril;
+package Miscellaneous.leetcode.Challenge30DaysApril.Week1;
 
 import java.util.ArrayDeque;
 import java.util.Arrays;
@@ -6,6 +6,7 @@ import java.util.Random;
 import java.util.Scanner;
 
 /**
+ * Week 1 day 5
  * Say you have an array prices for which the ith element is the price of a given stock on day i.
  *
  * Design an algorithm to find the maximum profit. You may complete as many transactions as you like (i.e., buy one and sell one share of the stock multiple times).

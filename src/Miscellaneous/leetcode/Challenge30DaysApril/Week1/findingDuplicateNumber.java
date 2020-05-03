@@ -1,10 +1,11 @@
-package Miscellaneous.leetcode.Challenge30DaysApril;
+package Miscellaneous.leetcode.Challenge30DaysApril.Week1;
 
 import java.util.Scanner;
 
 import static java.lang.System.out;
 
 /**
+ * Week1 day 1
  * given an array containing non negative numbers, every element appears twice except one.
  * Find the single one.
  *

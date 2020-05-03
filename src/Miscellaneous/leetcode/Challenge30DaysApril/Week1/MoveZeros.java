@@ -1,7 +1,8 @@
-package Miscellaneous.leetcode.Challenge30DaysApril;
+package Miscellaneous.leetcode.Challenge30DaysApril.Week1;
 import java.util.*;
 
 /**
+ * Week 1 day 4
  * Given an array of numbers and zeros, move all the zeros to the right without disturbing
  * the order of other elements
  */

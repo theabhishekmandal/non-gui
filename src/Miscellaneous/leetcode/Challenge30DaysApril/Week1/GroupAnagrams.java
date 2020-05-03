@@ -1,8 +1,9 @@
-package Miscellaneous.leetcode.Challenge30DaysApril;
+package Miscellaneous.leetcode.Challenge30DaysApril.Week1;
 
 import java.util.*;
 
 /**
+ * Week 1 day 6
  * Given an array of strings, group anagrams together.
  *
  * Example:
