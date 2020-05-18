@@ -109,7 +109,7 @@ public class BinaryTreeDiameter {
         else{
             int leftvalue = count(node.left);
             int rightvalue = count(node.right);
-            max = Math.max(max, leftvalue + rightvalue);
+            max = Math.max(max, leftvalue + rightvalue + 1);
             return Math.max(leftvalue, rightvalue) + 1;
         }
     }
