@@ -8,5 +8,6 @@ public class BinaryTreeImpl {
         for(int i = 0; i < 10; i++) binaryTree.insertInBinaryTreeLevelOrder(i);
         System.out.println(binaryTree.preOrder());
         System.out.println(binaryTree.inOrder());
+        System.out.println(binaryTree.postOrder());
     }
 }

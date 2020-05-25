@@ -48,6 +48,9 @@ public class BinaryTree<T>{
         this.root = null;
     }
 
+    /*
+        Queue is used as a data structure while inserting to the tree
+     */
     public void insertInBinaryTreeLevelOrder(T data){
         if(this.root == null) {
             this.root = new node<>(data);
@@ -73,33 +76,62 @@ public class BinaryTree<T>{
         }
     }
 
-    // process current, left and right
+    /*
+     process current, left and right
+     Approach:
+            -   Stack is used here to traverse the nodes
+            -   First pop the current element from the stack and append it to the string
+            -   Then add the right element of the current popped node and the left node.
+                Remember to add the right node first in the stack and then the left node, because
+                in stack the left node will be processed first.
+    */
     public String preOrder(){
         if(this.root == null) return "";
-        StringBuilder string = new StringBuilder("[ ");
 
         Deque<node<T>> stack = new ArrayDeque<>();
         stack.push(this.root);
 
+        List<String> finalAnswer = new ArrayList<>();
         while(!stack.isEmpty()){
             node<T> temp = stack.pop();
-            string.append(temp.data);
+
+            // adding the answer
+            finalAnswer.add(temp.toString());
+
             if(temp.right != null) {
                 stack.push(temp.right);
             }
             if(temp.left != null){
                 stack.push(temp.left);
             }
-            if(!stack.isEmpty()) string.append(", ");
         }
-        string.append("]");
-        return string.toString();
+        return "[" + String.join(", ", finalAnswer) + "]";
     }
 
-    // process left, current, right
+   /*
+    process left, current, right
+     Approach:
+            -   Stack is used here to traverse the nodes
+            -   In the while condition two types of conditions are used.
+                    -   if curr != null , this will be required when we have processed all the left side of the
+                        root node, but the right side still remains. So, in that case we cannot depend on
+                        !stack.isEmpty(), because stack will be empty at that time.
+                        Example: use node [1, 2, 3], when 1 and 2 will be processed then current node will be 3
+                        but stack will be empty at that time
+
+
+                    -   !stack.isEmpty(), will be required when we have reached a child of the leaf node which
+                        will be null, So, at that time we have to process the node present in the stack
+
+                    -   If the current node is not null then push the current to the stack and make left the new
+                        current.
+                        Else pop the last node from the stack and add it to the string, and make the right node
+                        of popped value the new current node.
+
+    */
     public String inOrder(){
         if(this.root == null) return "";
-        StringBuilder string = new StringBuilder("[ ");
+        List<String> finalAnswer = new ArrayList<>();
 
         Deque<node<T>> stack = new ArrayDeque<>();
         node<T> curr = this.root;
@@ -111,39 +143,55 @@ public class BinaryTree<T>{
             }
             else{
                 curr = stack.pop();
-                string.append(curr.data);
+
+                // adding the answer
+                finalAnswer.add(curr.data.toString());
                 curr = curr.right;
-                if(curr != null || !stack.isEmpty())
-                    string.append(", ");
             }
         }
 
-        string.append("]");
-        return string.toString();
+        return "[" + String.join(", ", finalAnswer) + "]";
     }
 
-    // process left, right, root
+    /*
+        process left, right, root
+        Approach:
+            -   In postOrder traversal we need to process left then right and then at last the current node.
+                But, what happens is that, if we process left node and then go to current node, then we are
+                not sure whether we have come back from the left child or the right child. So, that's why a
+                different approach is used
+            -   In this approach we will push each node two times.
+            -   First push the root node two times
+            -   In the while loop check if the popped element is equal to the top of the stack.
+                -   If it is equal, it means that we need to process the child nodes also,
+                        -   push the left and right children two times if present. Also note that
+                            right child are pushed first then left children because, left is processed before
+                            in post order traversal.
+                -   If it is not equal, then it means processing of it's children has been done and now
+                    it can be added to answer.
+     */
     public String postOrder(){
         if(this.root == null) return "";
-        StringBuilder string = new StringBuilder("[ ");
+        List<String> finalAnswer = new ArrayList<>();
 
         Deque<node<T>> stack = new ArrayDeque<>();
-        node<T> curr = this.root;
-
-        while(curr != null || !stack.isEmpty()){
-            if(curr != null){
-                stack.push(curr);
-                curr = curr.left;
+        stack.push(this.root);
+        stack.push(this.root);
+        while(!stack.isEmpty()){
+            node<T> curr = stack.pop();
+            if(!stack.isEmpty() && stack.peek() == curr){
+                if(curr.right != null){
+                    stack.push(curr.right);
+                    stack.push(curr.right);
+                }
+                if(curr.left != null){
+                    stack.push(curr.left);
+                    stack.push(curr.left);
+                }
             }
-            else{
-                curr = stack.pop();
-                string.append(curr.data);
-                curr = curr.right;
-                if(curr != null || !stack.isEmpty())
-                    string.append(", ");
-            }
+            else
+               finalAnswer.add(curr.data.toString());
         }
-        string.append("]");
-        return string.toString();
+        return "[" + String.join(", ", finalAnswer) + "]";
     }
 }
