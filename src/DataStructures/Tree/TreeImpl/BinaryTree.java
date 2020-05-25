@@ -2,6 +2,7 @@ package DataStructures.Tree.TreeImpl;
 
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class BinaryTree<T>{
     public static class node<T> {
@@ -108,7 +109,25 @@ public class BinaryTree<T>{
         return "[" + String.join(", ", finalAnswer) + "]";
     }
 
-   /*
+    /*
+        process current, left and right
+
+        Preorder traversal using recursion
+     */
+    public String preOrderRecursive(){
+        List<String> finalAnswer = new ArrayList<>();
+        preOrderRec(this.root, finalAnswer);
+        return "[" + String.join(", ", finalAnswer) + "]";
+    }
+
+    private void preOrderRec(node<T> node, List<String> answer){
+        if(node == null) return;
+        answer.add(node.toString());
+        preOrderRec(node.left, answer);
+        preOrderRec(node.right, answer);
+    }
+
+    /*
     process left, current, right
      Approach:
             -   Stack is used here to traverse the nodes
@@ -152,6 +171,23 @@ public class BinaryTree<T>{
 
         return "[" + String.join(", ", finalAnswer) + "]";
     }
+    /*
+        process left, current and right
+
+        InOrder traversal using recursion
+     */
+    public String inOrderRecursive(){
+        List<String> finalAnswer = new ArrayList<>();
+        inOrderRec(this.root, finalAnswer);
+        return "[" + String.join(", ", finalAnswer) + "]";
+    }
+
+    private void inOrderRec(node<T> node, List<String> answer){
+        if(node == null) return;
+        inOrderRec(node.left, answer);
+        answer.add(node.toString());
+        inOrderRec(node.right, answer);
+    }
 
     /*
         process left, right, root
@@ -193,5 +229,68 @@ public class BinaryTree<T>{
                finalAnswer.add(curr.data.toString());
         }
         return "[" + String.join(", ", finalAnswer) + "]";
+    }
+    /*
+        process left, right and current
+
+        PostOrder traversal using recursion
+     */
+    public String postOrderRecursive(){
+        List<String> finalAnswer = new ArrayList<>();
+        postOrderRec(this.root, finalAnswer);
+        return "[" + String.join(", ", finalAnswer) + "]";
+    }
+
+    private void postOrderRec(node<T> node, List<String> answer){
+        if(node == null) return;
+        postOrderRec(node.left, answer);
+        postOrderRec(node.right, answer);
+        answer.add(node.toString());
+    }
+
+
+    /*
+        Level Order traversal is same as the insertion above,
+        first process the l level elements and then l + 1 elements and so on
+
+        Approach
+                -   Using queue as ds because, traversing of all nodes at the same level are done first
+                -   Here after every level we are adding null, null is added to first process the nodes of level l
+                    and then go to level l + 1
+     */
+    public String levelOrder(){
+       if(this.root == null) return "";
+       Queue<node<T>> queue = new LinkedList<>();
+
+       queue.add(this.root);
+       queue.add(null);
+
+       List<List<String>> finalList = new ArrayList<>();
+       List<String> nodeList = new ArrayList<>();
+       while(!queue.isEmpty()){
+           node<T> curr = queue.poll();
+           if(curr != null){
+              nodeList.add(curr.data.toString());
+              if(curr.left != null)
+                  queue.add(curr.left);
+              if(curr.right != null)
+                  queue.add(curr.right);
+           }
+           else{
+               // creating new list because, if we clear nodeList then nodeList will be cleared
+               // from the final list
+                List<String> tempList = new ArrayList<>(nodeList);
+                finalList.add(tempList);
+
+                // clearing the list for next level
+                nodeList.clear();
+                if(!queue.isEmpty())
+                    queue.add(null);
+
+           }
+       }
+       return "[" + finalList.stream()
+               .map(list -> "(" + String.join(", ", list) + ")")
+               .collect(Collectors.joining(", ")) + "]";
     }
 }
