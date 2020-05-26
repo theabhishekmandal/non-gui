@@ -45,6 +45,9 @@ public class BinaryTree<T>{
     }
 
     private node<T> root;
+    public node<T> getRoot(){
+        return this.root;
+    }
     public BinaryTree(){
         this.root = null;
     }
