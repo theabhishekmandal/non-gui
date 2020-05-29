@@ -7,6 +7,12 @@ import java.util.Deque;
 import java.util.LinkedList;
 import java.util.Random;
 
+/**
+ * Find the maximum value node in the tree.
+ * Approach:
+ *      -   Find the max between left child, right child and the parent node
+ *      -   Using post order traversal is the best option
+ */
 public class MaxElementInTree {
     public static void main(String[] args) {
         Random random = new Random();

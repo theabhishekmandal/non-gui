@@ -7,6 +7,11 @@ import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Random;
 
+/**
+ * Search a node in the Binary Tree
+ * Approach:
+ *  -   We can use level order traversal to find the node in the tree
+ */
 public class SearchInTree {
     public static void main(String[] args) {
         BinaryTree<Integer> binaryTree = new BinaryTree<>();
@@ -32,6 +37,9 @@ public class SearchInTree {
         return findByRecursive(searchValue, node.getLeft()) || findByRecursive(searchValue, node.getRight());
     }
 
+    /*
+        searching using level order traversal
+     */
     private static boolean findByIteration(Integer searchValue, node<Integer> node){
         if(node == null) return false;
         Queue<node<Integer>> queue = new LinkedList<>();

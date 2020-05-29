@@ -45,11 +45,21 @@ public class BinaryTree<T>{
     }
 
     private node<T> root;
+    private int size;
     public node<T> getRoot(){
         return this.root;
     }
+    public int getSize(){
+        return this.size;
+    }
     public BinaryTree(){
+        this.size = 0;
         this.root = null;
+    }
+
+    public void deleteTree(){
+        this.root = null;
+        this.size = 0;
     }
 
     /*
@@ -58,6 +68,7 @@ public class BinaryTree<T>{
     public void insertInBinaryTreeLevelOrder(T data){
         if(this.root == null) {
             this.root = new node<>(data);
+            this.size++;
             return;
         }
         Queue<node<T>> queue = new LinkedList<>();
@@ -69,12 +80,14 @@ public class BinaryTree<T>{
                 queue.add(temp.left);
             else{
                 temp.left = new node<>(data);
+                this.size++;
                 return;
             }
             if(temp.right != null)
                 queue.add(temp.right);
             else{
                 temp.right = new node<>(data);
+                this.size++;
                 return;
             }
         }
