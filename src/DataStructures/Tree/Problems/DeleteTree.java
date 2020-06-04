@@ -7,7 +7,8 @@ import java.util.Random;
 /**
  * Delete a tree.
  * Approach:
- *  -   To delete a tree set the
+ *  -   To delete a tree set the root as null and rest of the work will be done by
+ *      garbage collector.
  */
 
 public class DeleteTree {

@@ -8,18 +8,6 @@ import java.util.stream.IntStream;
  * Week 2 day 4
  *
  */
-class TreeNode {
-      int val;
-      TreeNode left;
-      TreeNode right;
-      TreeNode() {}
-      TreeNode(int val) { this.val = val; }
-      TreeNode(int val, TreeNode left, TreeNode right) {
-          this.val = val;
-          this.left = left;
-          this.right = right;
-      }
-  }
 public class BinaryTreeDiameter {
     private TreeNode root;
     private final Random random;
@@ -84,33 +72,41 @@ public class BinaryTreeDiameter {
         stringBuilder.append(nodevalue);
         List<String> templist = list.get(stackdepth);
         templist.add(nodevalue);
-//        list.set(stackdepth, (list.get(stackdepth) != null)? list.get(stackdepth) + " " + nodevalue: nodevalue);
         getString(node, node.right, "r", stackdepth + 1);
     }
 
     public static void main(String[] args) {
         BinaryTreeDiameter ob = new BinaryTreeDiameter();
-        for(int i = 0; i < 20; i++){
+        for(int i = 0; i < 3; i++){
             ob.insertInBinaryTreeLevelOrder(i);
         }
-        int value = ob.findLongestPath(ob.root);
-        System.out.println(value);
-        ob.toString();
+        int result = getResult(ob.root);
+        System.out.println(result);
     }
+    private static int value;
+    private static  int getResult(TreeNode node){
+        value = 1;
+        getAnswer(node);
+        return value - 1;
+    }
+    private static int getAnswer(TreeNode node){
+    if(node == null) return 0;
+        int left = getAnswer(node.left);
+        int right = getAnswer(node.right);
+        value = Math.max(value, left + right + 1);
+        return Math.max(left, right) + 1;
+    }
+}
 
-    private int findLongestPath(TreeNode root) {
-        max = 0;
-        count(root);
-        return max;
-    }
-    private static int max;
-    private int count(TreeNode node) {
-        if(node == null) return 0;
-        else{
-            int leftvalue = count(node.left);
-            int rightvalue = count(node.right);
-            max = Math.max(max, leftvalue + rightvalue + 1);
-            return Math.max(leftvalue, rightvalue) + 1;
-        }
+class TreeNode {
+    int val;
+    TreeNode left;
+    TreeNode right;
+    TreeNode() {}
+    TreeNode(int val) { this.val = val; }
+    TreeNode(int val, TreeNode left, TreeNode right) {
+        this.val = val;
+        this.left = left;
+        this.right = right;
     }
 }

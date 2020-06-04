@@ -18,7 +18,7 @@ public class test {
     }
 
     private static void solve(){
-        var hello = "hello world";
+        String hello = "hello world";
         try{
             BufferedReader br = new BufferedReader(new FileReader("/Users/amanda16/Desktop/network drive folders/non-gui/src/hello.txt"));
             String k = null;

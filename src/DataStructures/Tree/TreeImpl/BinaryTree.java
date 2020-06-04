@@ -10,7 +10,7 @@ public class BinaryTree<T>{
         private node<T> left;
         private node<T> right;
 
-        node(T data){
+        public node(T data){
             this.data = data;
         }
 
@@ -41,6 +41,21 @@ public class BinaryTree<T>{
         @Override
         public String toString(){
             return this.data.toString();
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (!(o instanceof node)) return false;
+            node<?> node = (node<?>) o;
+            return data.equals(node.data) &&
+                    (left != null && left.equals(node.left)) &&
+                    (right != null && right.equals(node.right));
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(data, left, right);
         }
     }
 
@@ -307,6 +322,6 @@ public class BinaryTree<T>{
        }
        return "[" + finalList.stream()
                .map(list -> "(" + String.join(", ", list) + ")")
-               .collect(Collectors.joining(", ")) + "]";
+               .collect(Collectors.joining(", \n")) + "]";
     }
 }
