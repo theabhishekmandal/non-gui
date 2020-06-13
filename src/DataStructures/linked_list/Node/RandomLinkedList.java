@@ -120,8 +120,7 @@ public class RandomLinkedList<T>{
         // the current node rather than previous node
         node<T> pred = getNode(pos);
         final node<T> nextnode = pred.next;
-        final node<T> newnode = new node<>(data, nextnode);
-        pred.next = newnode;
+        pred.next = new node<>(data, nextnode);
         size++;
     }
 
@@ -203,7 +202,7 @@ public class RandomLinkedList<T>{
     public String toString(){
         StringBuilder br = new StringBuilder();
         for(node<T> temp = head; temp != null; temp = temp.next)
-            br.append("[" + temp + ", " + temp.getRandom().getData() + "]" + "-->");
+            br.append("[").append(temp).append(", ").append(temp.getRandom().getData()).append("]").append("-->");
         return br.toString();
     }
 }

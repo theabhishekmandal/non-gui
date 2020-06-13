@@ -1,16 +1,40 @@
+
 import java.io.BufferedReader;
-import java.io.FileInputStream;
 import java.io.FileReader;
-import java.io.InputStreamReader;
 import java.util.*;
-import java.util.function.Function;
-import java.util.stream.Stream;
 
 public class test {
     private String floor;
     public static void main(String[] args) {
-        solve3();
+//        solve3();
 //        call();
+        solve4();
+    }
+    static int characterWidth;
+    private static void solve4() {
+        Scanner s = new Scanner(System.in);
+        List<StringBuilder> list = new ArrayList<>();
+        for(int i = 0; i < 5; i++) list.add(new StringBuilder());
+        getS(list);
+        getA(list);
+        getS(list);
+        System.out.println(String.join("\n", list));
+    }
+
+    private static void getS(List<StringBuilder> list){
+        list.get(0).append(" ").append("******");
+        list.get(1).append(" ").append("*     ");
+        list.get(2).append(" ").append("******");
+        list.get(3).append(" ").append("     *");
+        list.get(4).append(" ").append("******");
+    }
+
+    private static void getA(List<StringBuilder> list){
+        list.get(0).append(" ").append("******");
+        list.get(1).append(" ").append("*    *");
+        list.get(2).append(" ").append("******");
+        list.get(3).append(" ").append("*    *");
+        list.get(4).append(" ").append("*    *");
     }
 
     private static void solve3(){

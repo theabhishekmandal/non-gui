@@ -33,7 +33,10 @@ public class DepthOfTree {
         System.out.println(binaryTree.levelOrder());
         int depthOfTreeRecursion = depthOfTreeRecursion(binaryTree.getRoot());
         int depthOfTreeIteration = depthOfTreeIteration(binaryTree.getRoot());
-        System.out.println("depth using recursion " + depthOfTreeRecursion + "\ndepth using iteration " + depthOfTreeIteration);
+        int depthOfTreeLevelOrder = depthOfTreeLevelOrder(binaryTree.getRoot());
+        System.out.println("depth using recursion " + depthOfTreeRecursion +
+                "\ndepth using iteration " + depthOfTreeIteration +
+                "\ndepth using levelOrder " + depthOfTreeLevelOrder);
     }
 
     private static <T> int depthOfTreeRecursion(node<T> node){
@@ -51,7 +54,6 @@ public class DepthOfTree {
         Deque<node<T>> stack = new LinkedList<>();
         stack.push(node);
         stack.push(node);
-        depthCounter++;
 
         int depth = 0;
         while(!stack.isEmpty()){
@@ -68,8 +70,8 @@ public class DepthOfTree {
                 depthCounter++;
             }
             else{
-                depthCounter--;
                 depth = Math.max(depth, depthCounter);
+                depthCounter--;
             }
         }
         return depth;

@@ -166,7 +166,7 @@ public class SinglyLinkedList<T>{
     public String toString(){
         StringBuilder br = new StringBuilder();
         for(node<T> temp = head; temp != null; temp = temp.next)
-            br.append(temp + "-->");
+            br.append(temp).append("-->");
         return br.toString();
     }
 }

@@ -96,8 +96,7 @@ public class CircularLinkedList<T>{
         }
         final node<T> pred = getNode(pos);
         final node<T> succ = pred.next;
-        node<T> newnode = new node<T>(data, succ);
-        pred.next = newnode;
+        pred.next = new node<T>(data, succ);
         size++;
     }
 
