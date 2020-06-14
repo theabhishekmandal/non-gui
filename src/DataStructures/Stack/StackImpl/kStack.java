@@ -35,9 +35,9 @@ import java.util.EmptyStackException;
  *
  */
 public class kStack<T>{
-    private Object[] arr;
-    private int[] next;
-    private int[] top;
+    private final Object[] arr;
+    private final int[] next;
+    private final int[] top;
     private int free;
 
     public kStack(int n, int k){

@@ -30,12 +30,10 @@ public class DeepestNodeInTree {
         node<T> curr = null;
         while(!queue.isEmpty()){
             curr = queue.poll();
-            if(curr != null){
-                if(curr.getLeft()  != null)
-                    queue.add(curr.getLeft());
-                if(curr.getRight() != null)
-                    queue.add(curr.getRight());
-            }
+            if(curr.getLeft()  != null)
+                queue.add(curr.getLeft());
+            if(curr.getRight() != null)
+                queue.add(curr.getRight());
         }
         return (curr != null) ? curr.getData() : null;
     }

@@ -16,7 +16,7 @@ import java.util.stream.IntStream;
  *      -   After, that using level order traversal find the parent of the last node and then set the parent child as
  *          null
  */
-public class deleteNodeFromTree {
+public class DeleteNodeFromTree {
     public static void main(String[] args) {
         Random random = new Random();
         BinaryTree<Integer> binaryTree = new BinaryTree<>();
@@ -42,17 +42,15 @@ public class deleteNodeFromTree {
         node<T> lastNode = null;
         while(!queue.isEmpty()){
             lastNode = queue.poll();
-            if(lastNode != null){
-                if(lastNode.getData().equals(data)){
-                    nodeToBeDeleted = lastNode;
-                }
-                if(lastNode.getLeft() != null)
-                    queue.add(lastNode.getLeft());
-                if(lastNode.getRight() != null)
-                    queue.add(lastNode.getRight());
+            if(lastNode.getData().equals(data)){
+                nodeToBeDeleted = lastNode;
             }
+            if(lastNode.getLeft() != null)
+                queue.add(lastNode.getLeft());
+            if(lastNode.getRight() != null)
+                queue.add(lastNode.getRight());
         }
-       if(nodeToBeDeleted != null && lastNode != null){
+        if(nodeToBeDeleted != null){
            nodeToBeDeleted.setData(lastNode.getData());
            deleteLastNode(node, lastNode);
            return true;
@@ -65,20 +63,18 @@ public class deleteNodeFromTree {
         queue.add(node);
         while(!queue.isEmpty()){
             node<T> curr = queue.poll();
-            if(curr != null){
-                // set to null if parent's left or right child
-               if(curr.getLeft() == lastNode){
-                  curr.setLeft(null);
-               }
-               else if(curr.getRight() == lastNode){
-                  curr.setRight(null);
-               }
-               else{
-                   if(curr.getLeft() != null)
-                       queue.add(curr.getLeft());
-                   if(curr.getRight() != null)
-                       queue.add(curr.getRight());
-               }
+            // set to null if parent's left or right child
+            if(curr.getLeft() == lastNode){
+                curr.setLeft(null);
+            }
+            else if(curr.getRight() == lastNode){
+                curr.setRight(null);
+            }
+            else{
+                if(curr.getLeft() != null)
+                    queue.add(curr.getLeft());
+                if(curr.getRight() != null)
+                    queue.add(curr.getRight());
             }
         }
     }

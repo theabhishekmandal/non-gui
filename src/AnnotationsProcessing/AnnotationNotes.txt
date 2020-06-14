@@ -1,0 +1,38 @@
+-   Annotations are added to the source java file, thus adding annotations does not change the
+    actions of a program.
+
+-   Thus, an annotation leaves the semantics of a program unchanged.
+
+-   However, this annotation can be used by various tools during both development and deployment.
+
+-   Annotations Basics
+    -   // A simple annotation type
+        @interface MyAnno{
+            String str();
+            int val();
+        }
+
+    -   This '@' tells the compiler that an annotation type is being declared
+    -   Next, notice the two members str() and val(). All annotations consists solely of method declarations.
+    -   You don't have to provide bodies for these methods. Instead Java implements these methods
+
+-   An annotation cannot include an extends clause. However, all annotation types automatically extend the
+    Annotation interface. Thus, Annotation is super-interface of all annotations.
+-   It is declared within the java.lang.annotation package. It overrides hashCode(), equals(), and toString(),
+    which is defined by Object. It also specifies annotationType()
+
+-   Retention Policy
+    A retention policy determines at what point an annotation is discarded. Java declares three such policies, which
+    are encapsulated within the java.lang.annotation.RetentionPolicy enumeration. They are
+        -   SOURCE
+        -   CLASS
+        -   RUNTIME
+
+-   An annotation with a retention policy of SOURCE is retained only in the source file and is discarded during compilation
+-   An annotation with a retention policy of CLASS is stored in the .class file during compilation. However, not available
+    through the JVM during run time.
+-   An annotation with retention policy of RUNTIME is stored in the .class file during compilation and is available through the
+    JVM during runtime. Thus, RUNTIME retention offers the greatest annotation persistence
+
+
+
