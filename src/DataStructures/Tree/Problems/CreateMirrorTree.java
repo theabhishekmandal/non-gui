@@ -1,0 +1,60 @@
+package DataStructures.Tree.Problems;
+
+import DataStructures.Tree.TreeImpl.BinaryTree;
+import static DataStructures.Tree.TreeImpl.BinaryTree.node;
+
+import java.util.Deque;
+import java.util.LinkedList;
+import java.util.Random;
+
+/**
+ * Create the mirror image of binary tree
+ * Approach
+ *  -   You can top down approach or bottom up approach
+ *  -   In the iterative version top down approach is used i.e first right and left child's are resolved of the root
+ *      and then their subtrees
+ *  -   In the recursive version bottom up approach is used i.e first interchange the left and right of the child
+ *      and then go for the parent
+ */
+public class CreateMirrorTree {
+    public static void main(String[] args) {
+        Random random = new Random();
+        BinaryTree<Integer> binaryTree = new BinaryTree<>();
+        for(int i = 0; i < random.nextInt(20); i++){
+           binaryTree.insertInBinaryTreeLevelOrder(random.nextInt(20));
+        }
+        System.out.println("binary Tree before mirroring " + binaryTree.levelOrder());
+        createMirrorTree(binaryTree.getRoot());
+        System.out.println("binary Tree after mirroring " + binaryTree.levelOrder());
+        createMirrorTreeRecursion(binaryTree.getRoot());
+        System.out.println("binary Tree after mirroring again " + binaryTree.levelOrder());
+    }
+
+    private static void createMirrorTree(node<Integer> node){
+        if(node == null) return;
+        Deque<node<Integer>> stack = new LinkedList<>();
+        stack.push(node);
+        while(!stack.isEmpty()){
+            node<Integer> curr = stack.pop();
+            node<Integer> temp = curr.getRight();
+            curr.setRight(curr.getLeft());
+            curr.setLeft(temp);
+            if(curr.getRight() != null){
+                stack.push(curr.getRight());
+            }
+
+            if(curr.getLeft() != null){
+                stack.push(curr.getLeft());
+            }
+        }
+    }
+
+    private static void createMirrorTreeRecursion(node<Integer> node){
+        if(node == null) return;
+        createMirrorTreeRecursion(node.getLeft());
+        createMirrorTreeRecursion(node.getRight());
+        node<Integer> temp = node.getRight();
+        node.setRight(node.getLeft());
+        node.setLeft(temp);
+    }
+}
