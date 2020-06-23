@@ -30,6 +30,7 @@ public class CreateMirrorTree {
         System.out.println("binary Tree after mirroring again " + binaryTree.levelOrder());
     }
 
+    // using top down approach
     private static void createMirrorTree(node<Integer> node){
         if(node == null) return;
         Deque<node<Integer>> stack = new LinkedList<>();
@@ -49,6 +50,7 @@ public class CreateMirrorTree {
         }
     }
 
+    // using bottom up approach
     private static void createMirrorTreeRecursion(node<Integer> node){
         if(node == null) return;
         createMirrorTreeRecursion(node.getLeft());
