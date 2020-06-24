@@ -1,6 +1,8 @@
 package DataStructures.Tree.TreeImpl;
 
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -63,6 +65,9 @@ public class BinaryTree<T>{
     private int size;
     public node<T> getRoot(){
         return this.root;
+    }
+    public void setRoot(node<T> root) {
+        this.root = root;
     }
     public int getSize(){
         return this.size;

@@ -27,15 +27,24 @@ public class CreateTreeUsingPreOrderAndInOrder {
 
     private static BinaryTree<Character> createTree(char[] in, char[] pre){
         BinaryTree<Character> binaryTree = new BinaryTree<>();
-        if(in == null || pre == null || in.length == 0 || in.length != pre.length)
+        if(in == null || pre == null || (in.length == 0  && in.length == pre.length) || in.length != pre.length)
             return binaryTree;
-        node<Character> node = getBinaryTree(in, 0, in.length, pre, 0, pre.length);
+        /**
+         * Using inclusive ranges and not exclusive
+         * @param in inorder values given
+         * @param inStart 0
+         * @param inEnd in.length - 1
+         * @param pre preorder values given
+         * @param preStart 0
+         * @param preEnd pre.length - 1
+         */
+        node<Character> node = getBinaryTree(in, 0, in.length - 1, pre, 0, pre.length - 1);
         binaryTree.setRoot(node);
         return binaryTree;
     }
 
     private static node<Character> getBinaryTree(char[] in, int inStart, int inEnd, char[] pre, int preStart, int preEnd) {
-        if(inStart >= inEnd || preStart >= preEnd) return null;
+        if(inStart > inEnd || preStart > preEnd) return null;
         node<Character> curr = new node<>(pre[preStart]);
         int index = getIndex(in, pre[preStart], inStart, inEnd);
         if(index == -1){
@@ -43,24 +52,26 @@ public class CreateTreeUsingPreOrderAndInOrder {
         }
         curr.setLeft(
                 /**
+                 * Using inclusive ranges and not exclusive
                  * @param in inorder values given
                  * @param inStart starting index for inorder array
-                 * @param inEnd exclusive end index, will be the index found
+                 * @param inEnd end index - 1, because index is consumed above
                  * @param pre preorder values given
-                 * @param preStart starting index will be consumed index + 1
-                 * @param preEnd exclusive endIndex will be consumed index + length of array which contains left child
+                 * @param preStart starting index will be consumed preStart + 1
+                 * @param preEnd endIndex will be consumed index + length of array which contains left child
                  */
-                getBinaryTree(in, inStart, index, pre, preStart + 1, preStart + (index - inStart + 1))
+                getBinaryTree(in, inStart, index - 1, pre, preStart + 1, preStart + (index - inStart))
         );
 
         curr.setRight(
                 /**
+                 * Using inclusive ranges and not exclusive
                  * @param in inorder values given
                  * @param inStart starting index for inorder array will be consumed index + 1
-                 * @param inEnd exclusive end index, will be current inEnd
+                 * @param inEnd end index, will be current inEnd
                  * @param pre preorder values given
                  * @param preStart starting index will be consumed index + 1 + length of array which contains left child
-                 * @param preEnd exclusive endIndex will be the current preEnd
+                 * @param preEnd endIndex will be the current preEnd
                  */
                 getBinaryTree(in, index + 1, inEnd, pre, preStart + (index - inStart + 1), preEnd)
         );
@@ -69,7 +80,7 @@ public class CreateTreeUsingPreOrderAndInOrder {
 
     private static int getIndex(char[] in, char c, int start, int end) {
         int index = -1;
-        for(int i = start; i < end; i++){
+        for(int i = start; i <= end; i++){
             if(in[i] == c){
                 index = i;
                 break;
