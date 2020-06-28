@@ -28,7 +28,7 @@ public class AlternateAdd {
             fastPointer = fastPointer.getNext().getNext();
         }
 
-        // reversing the other half of the list
+        // reversing the right half of the list
         node<T> curr = slowPointer;
         node<T> prev = null;
         node<T> nex = null;

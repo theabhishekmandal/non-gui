@@ -159,6 +159,7 @@ public class SinglyLinkedList<T>{
         if(list.size >= 0) this.size = this.size + list.size;
         else return;
         this.tail.next = list.head;
+        list.head = this.head;
         this.tail = list.tail;
     }
 

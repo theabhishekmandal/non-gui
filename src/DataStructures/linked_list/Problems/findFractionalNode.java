@@ -1,10 +1,11 @@
 package DataStructures.linked_list.Problems;
 
 import DataStructures.linked_list.Node.SinglyLinkedList;
-import static DataStructures.linked_list.Node.SinglyLinkedList.node;
 
-import java.util.Scanner;
+import java.util.Random;
 import java.util.stream.IntStream;
+
+import static DataStructures.linked_list.Node.SinglyLinkedList.node;
 
 /**
  * Given n number of nodes and an integer k, find the first n / k element. Also length of the list is not known
@@ -20,11 +21,12 @@ import java.util.stream.IntStream;
 public class findFractionalNode {
     public static void main(String[] args) {
         SinglyLinkedList<Integer> first = new SinglyLinkedList<>();
-        Scanner s = new Scanner(System.in);
-        int n = s.nextInt() + 1;
-        int k = s.nextInt();
+        Random random = new Random();
+        int n = random.nextInt(20) + 1;
+        int k = random.nextInt(n / 2);
         IntStream.range(1, n).forEach(first::addLast);
         node<Integer> node = findFractionalNode(first, k);
+        System.out.println("n = " + n + " k = " + k);
         System.out.println(first);
         System.out.println(node);
     }

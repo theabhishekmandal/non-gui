@@ -25,7 +25,7 @@ public class ReversingLinkedListUsingIteration {
 
     private static <T> SinglyLinkedList.node<T> generateReverseLinkedList(node<T> current){
         node<T> prev = null;
-        node<T> next  = null;
+        node<T> next;
 
         /*
             here there are three pointers prev, curr and next

@@ -4,6 +4,9 @@ import DataStructures.linked_list.Node.DoublyLinkedList;
 import DataStructures.linked_list.Node.SinglyLinkedList;
 import static DataStructures.linked_list.Node.SinglyLinkedList.node;
 
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
 import java.util.Random;
 import java.util.stream.IntStream;
 
@@ -21,8 +24,17 @@ public class InsertingInSortedList {
         SinglyLinkedList<Integer> sll = new SinglyLinkedList<>();
         DoublyLinkedList<Integer> dll = new DoublyLinkedList<>();
 
-        IntStream.range(1, 11).forEach(sll::addLast);
-        IntStream.range(1, 11).forEach(dll::addLast);
+        List<Integer> list = new ArrayList<>();
+
+        IntStream.range(1, 11).forEach(x -> list.add(random.nextInt(11)));
+        list.sort(Comparator.naturalOrder());
+        list.forEach(sll::addLast);
+        list.clear();
+
+        IntStream.range(1, 11).forEach(x -> list.add(random.nextInt(11)));
+        list.sort(Comparator.naturalOrder());
+        list.forEach(dll::addLast);
+        list.clear();
 
         Integer value = random.nextInt(10);
 

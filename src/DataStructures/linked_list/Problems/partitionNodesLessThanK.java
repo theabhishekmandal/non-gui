@@ -31,6 +31,13 @@ public class partitionNodesLessThanK {
         System.out.println("second list is " + second);
 
     }
+
+    /*
+        Approach
+            -   while traversing the list check whether the current node is smaller than k
+            -   if it is smaller than k then add it to new list
+            -   else keep track of these nodes using a pointer
+     */
     private static <T extends Comparable<? super T>> void partitionNodesLessThanK(SinglyLinkedList<T> first, T k){
         if(first == null) return;
 
@@ -47,18 +54,18 @@ public class partitionNodesLessThanK {
             if(temp.getData().compareTo(k) < 0){
                 if(head == null){
                     head = temp;
-                    tail = temp;
                 }
                 else{
                     tail.setNext(temp);
-                    tail = temp;
                 }
+                tail = temp;
                 tail.setNext(null);
                 if(prev != null)
                     prev.setNext(nex);
             }
             else{
-                if(headOfNodesGreaterOrEqualToK == null) headOfNodesGreaterOrEqualToK = temp;
+                if(headOfNodesGreaterOrEqualToK == null)
+                    headOfNodesGreaterOrEqualToK = temp;
                 prev = temp;
             }
             temp = nex;
@@ -88,22 +95,20 @@ public class partitionNodesLessThanK {
             if(temp.getData().compareTo(key) >= 0){
                 if(nodeHeadGreaterThanK == null){
                     nodeHeadGreaterThanK = temp;
-                    nodeTailGreaterThanK = temp;
                 }
                 else{
                     nodeTailGreaterThanK.setNext(temp);
-                    nodeTailGreaterThanK = temp;
                 }
+                nodeTailGreaterThanK = temp;
             }
             else{
                 if(nodeHeadLessThanK == null){
                     nodeHeadLessThanK = temp;
-                    nodeTailLessThanK = temp;
                 }
                 else{
                     nodeTailLessThanK.setNext(temp);
-                    nodeTailLessThanK = temp;
                 }
+                nodeTailLessThanK = temp;
             }
             temp.setNext(null);
             temp = next;

@@ -32,10 +32,15 @@ public class InsertionSort {
 
         while(curr != null){
             nex = curr.getNext();
+            // if first time or if current node value in list is smaller than new node
+            // eg: if current node is 1 and the newHead is 3
             if(newHead == null || curr.getData().compareTo(newHead.getData()) <= 0){
                 curr.setNext(newHead);
                 newHead = curr;
             }
+            // if current node value in list is greater than the newHead
+            // eg: if current node is 3 and newHead is 1,
+            // then you want to traverse and check where does 3 best fits
             else{
                 node<T> temp = newHead;
                 while(temp.getNext() != null && curr.getData().compareTo(temp.getNext().getData()) > 0){

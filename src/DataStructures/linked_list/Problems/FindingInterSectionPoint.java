@@ -1,6 +1,7 @@
 package DataStructures.linked_list.Problems;
 
 import DataStructures.linked_list.Node.SinglyLinkedList;
+import static DataStructures.linked_list.Node.SinglyLinkedList.node;
 
 import java.util.HashSet;
 import java.util.Random;
@@ -41,14 +42,19 @@ public class FindingInterSectionPoint {
     }
 
     // using two iterations
-    private static <T> SinglyLinkedList.node<T> getIntersectionNodeUsingSet(SinglyLinkedList<T> first,
+    /*
+        Approach
+            -   In two iterations approach scan the first list and put it in the set
+            -   traverse the second list and check if the node is in the set, if it is found then return
+     */
+    private static <T> node<T> getIntersectionNodeUsingSet(SinglyLinkedList<T> first,
                                                                             SinglyLinkedList<T> second){
-        Set<SinglyLinkedList.node<T>> firstSet = new HashSet<>();
-        for(SinglyLinkedList.node<T> temp = first.getHead(); temp != null; temp = temp.getNext()){
+        Set<node<T>> firstSet = new HashSet<>();
+        for(node<T> temp = first.getHead(); temp != null; temp = temp.getNext()){
             firstSet.add(temp);
         }
-        SinglyLinkedList.node<T> ans = null;
-        for(SinglyLinkedList.node<T> temp = second.getHead(); temp != null; temp = temp.getNext()){
+        node<T> ans = null;
+        for(node<T> temp = second.getHead(); temp != null; temp = temp.getNext()){
             if(firstSet.contains(temp)){
                 ans = temp;
                 break;
@@ -58,12 +64,18 @@ public class FindingInterSectionPoint {
     }
 
     // using three iterations
-    private static <T> SinglyLinkedList.node<T> getIntersectionNodeUsingArray(SinglyLinkedList<T> first,
+    /*
+        Approach
+            -   In three iterations approach, traverse both the list and add it to the array
+            -   Now, find the length of the smaller list, and traverse both the array in reverse order
+            -   return if the common node is found
+     */
+    private static <T> node<T> getIntersectionNodeUsingArray(SinglyLinkedList<T> first,
                                                                               SinglyLinkedList<T> second){
         Object[] firstArray = new Object[first.getSize()];
-        SinglyLinkedList.node<T> temp = null;
-        SinglyLinkedList.node<T> ans = null;
-        int i = 0;
+        node<T> temp;
+        node<T> ans = null;
+        int i;
         for(i = 0, temp = first.getHead(); i < firstArray.length; temp = temp.getNext(), i++){
             firstArray[i] = temp;
         }
@@ -78,7 +90,8 @@ public class FindingInterSectionPoint {
             Object firstNode = firstArray[firstArray.length - i - 1];
             Object secondNode = secondArray[secondArray.length - i - 1];
             if(firstNode != secondNode){
-                ans = (SinglyLinkedList.node<T>)firstArray[firstArray.length - i];
+                //noinspection unchecked
+                ans = (node<T>)firstArray[firstArray.length - i];
                 break;
             }
         }
@@ -86,11 +99,18 @@ public class FindingInterSectionPoint {
     }
 
     // using single scan
-    private static <T> SinglyLinkedList.node<T> getIntersectionNodeUsingSingleScan(SinglyLinkedList<T> first,
+    /*
+       Approach
+        -   if two lists are given then first find the length of the two lists
+        -   take the difference d of the two lists and find which list is greater
+        -   traverse till d distance in larger list, so as to make the pointer at equal distance in two lists.
+        -   now traverse in both list one by one and return the common node when found
+     */
+    private static <T> node<T> getIntersectionNodeUsingSingleScan(SinglyLinkedList<T> first,
                                                                                    SinglyLinkedList<T> second){
         SinglyLinkedList<T> tempfirst = first;
         SinglyLinkedList<T> tempSecond = second;
-        int d = 0;
+        int d;
         if(first.getSize() > second.getSize()){
             d = first.getSize() - second.getSize();
         }
@@ -99,12 +119,12 @@ public class FindingInterSectionPoint {
             first = tempSecond;
             second = tempfirst;
         }
-        SinglyLinkedList.node<T> temp = first.getHead();
+        node<T> temp = first.getHead();
         for(int i = 0; i < d; i++){
             temp = temp.getNext();
         }
-        SinglyLinkedList.node<T> tempanother = second.getHead();
-        SinglyLinkedList.node<T> ans = null;
+        node<T> tempanother = second.getHead();
+        node<T> ans = null;
         while(temp != null){
             if(temp == tempanother){
                 ans = temp;
@@ -113,8 +133,6 @@ public class FindingInterSectionPoint {
             temp = temp.getNext();
             tempanother = tempanother.getNext();
         }
-        first = tempfirst;
-        second = tempSecond;
         return ans;
     }
 }

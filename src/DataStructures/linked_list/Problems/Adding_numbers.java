@@ -5,12 +5,17 @@ import static DataStructures.linked_list.Node.SinglyLinkedList.node;
 
 import java.util.*;
 import static java.lang.System.*;
+
+/**
+ * Given two number a and b, add them using linked list.
+ */
 public class Adding_numbers {
     public static void main(String[] args) {
-        Scanner s = new Scanner(in);
+        Random random = new Random();
         // splitting the string on the basis of '+'
-        String[] one = s.next().split("\\+");
+        String[] one = new String[]{String.valueOf(random.nextInt(1000)),  String.valueOf(random.nextInt(1000))};
 
+        out.println(Arrays.toString(one));
         // converting both the values to int
         int first = Integer.parseInt(one[0]);
         int second = Integer.parseInt(one[1]);
@@ -36,7 +41,7 @@ public class Adding_numbers {
         // carry generated during addition
         int carry = 0;
 
-        // temporaray node to swap the larger number with the smaller number
+        // temporary node to swap the larger number with the smaller number
         // num1 will contain larger number and num2 will contain smaller number
         LinkedList<Integer> temp = null;
         if(num1.size() < num2.size()){
@@ -46,7 +51,7 @@ public class Adding_numbers {
         }
 
         // going from 0 to min(num1.size(), num2.size())
-        int i = 0;
+        int i;
         for(i = 0; i < num2.size(); i++){
             int foo = carry + num1.get(i) + num2.get(i);
             carry = foo / 10;
@@ -69,8 +74,19 @@ public class Adding_numbers {
         }
 
         // reversing the linked list and printing the result
-        Collections.reverse(num1);
-        return Arrays.toString(num1.toArray());
+        StringBuilder br = new StringBuilder("[");
+        boolean firstTime = true;
+        while(!num1.isEmpty()){
+            if(firstTime){
+                firstTime = false;
+                br.append(num1.removeLast());
+            }
+            else{
+                br.append(", ").append(num1.removeLast());
+            }
+        }
+        br.append("]");
+        return br.toString();
     }
 
     private static String solveSecond(int one, int two){
@@ -118,13 +134,19 @@ public class Adding_numbers {
             }
         }
 
-        second = new SinglyLinkedList<>();
-        firstnode = first.getHead();
+        StringBuilder br = new StringBuilder("[");
+        boolean firstTime = true;
         while(firstnode != null){
-            second.addFirst(firstnode.getData());
+            if(firstTime){
+                firstTime = false;
+                br.append(firstnode.getData());
+            }
+            else{
+                br.append(", ").append(firstnode.getData());
+            }
             firstnode = firstnode.getNext();
-
         }
-        return second.toString();
+        br.append("]");
+        return br.toString();
     }
 }

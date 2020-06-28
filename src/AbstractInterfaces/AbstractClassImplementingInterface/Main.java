@@ -5,13 +5,12 @@ package AbstractInterfaces.AbstractClassImplementingInterface;
  */
 
 interface myname {
-    void helloabhishek();
-
+    void helloAbhishek();
 }
 
 
 abstract class New implements myname {
-    void instancemethod() {
+    void instanceMethod() {
         System.out.println("today is 25 of august ");
     }
 }
@@ -19,13 +18,13 @@ abstract class New implements myname {
 
 public class Main extends New{
 
-    public void helloabhishek() {
+    public void helloAbhishek() {
         System.out.println("HELLO ABHISHEK");
     }
 
-    public static void main(String args[]) {
+    public static void main(String[] args) {
         Main t=new Main();
-        t.helloabhishek();
-        t.instancemethod();
+        t.helloAbhishek();
+        t.instanceMethod();
     }
 }

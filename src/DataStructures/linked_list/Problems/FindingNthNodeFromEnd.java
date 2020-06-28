@@ -1,9 +1,10 @@
 package DataStructures.linked_list.Problems;
 
 import DataStructures.linked_list.Node.SinglyLinkedList;
-import static DataStructures.linked_list.Node.SinglyLinkedList.node;
 
-import java.util.Scanner;
+import java.util.Random;
+
+import static DataStructures.linked_list.Node.SinglyLinkedList.node;
 /**
  * Finding Nth node from end in single ll.
  * Approach:
@@ -30,10 +31,10 @@ public class FindingNthNodeFromEnd {
     public static void main(String[] args) {
         SinglyLinkedList<Integer> arr = new SinglyLinkedList<>();
         for(int i = 1; i < 10; i++) arr.addLast(i);
-        Scanner s = new Scanner(System.in);
-        System.out.println("enter the nth node from the end that you want to find");
-        int n = s.nextInt();
+        Random random = new Random();
+        int n = random.nextInt(10);
         System.out.println(arr);
-        System.out.println(getNthNodeFromEnd2(arr, n));
+        System.out.println("n = " + n);
+        System.out.println("nth node from end is " + getNthNodeFromEnd2(arr, n));
     }
 }

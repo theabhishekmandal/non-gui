@@ -23,10 +23,9 @@ import java.util.stream.IntStream;
 public class findModularNode {
     public static void main(String[] args) {
         SinglyLinkedList<Integer> first = new SinglyLinkedList<>();
-        Scanner s = new Scanner(System.in);
-        int n = s.nextInt() + 1;
-        int k = s.nextInt();
         Random random = new Random();
+        int n = random.nextInt(10) + 1;
+        int k = random.nextInt(10);
         IntStream.range(1, n).forEach(x -> first.addLast(random.nextInt(n)));
 
         System.out.println(first);
@@ -40,8 +39,7 @@ public class findModularNode {
     private static <T> node<T> findModularNode(SinglyLinkedList<T> first, int k){
         int length = first.getSize();
         int pos = (length / k) * k;
-        node<T> node = first.getNode(pos);
-        return node;
+        return first.getNode(pos);
     }
 
     // if size of the list is not given
