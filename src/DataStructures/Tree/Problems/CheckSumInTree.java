@@ -36,6 +36,7 @@ class Pair<A, B> {
         return "Pair[" + this.fst + "," + this.snd + "]";
     }
 
+    @SuppressWarnings("unchecked")
     public boolean equals(Object other) {
         return other instanceof Pair &&
                 Objects.equals(this.fst, ((Pair<A, B>)other).fst) &&
