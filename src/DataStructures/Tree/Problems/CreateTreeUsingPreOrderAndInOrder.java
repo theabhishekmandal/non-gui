@@ -17,8 +17,8 @@ import static DataStructures.Tree.TreeImpl.BinaryTree.node;
  */
 public class CreateTreeUsingPreOrderAndInOrder {
     public static void main(String[] args) {
-        char in[] = new char[] { 'D', 'B', 'E', 'A', 'F', 'C' };
-        char pre[] = new char[] { 'A', 'B', 'D', 'E', 'C', 'F' };
+        char[] in = new char[] { 'D', 'B', 'E', 'A', 'F', 'C' };
+        char[] pre = new char[] { 'A', 'B', 'D', 'E', 'C', 'F' };
         BinaryTree<Character> binaryTree = createTree(in, pre);
         System.out.println(binaryTree.levelOrder());
         System.out.println(binaryTree.preOrder());
@@ -45,11 +45,17 @@ public class CreateTreeUsingPreOrderAndInOrder {
 
     private static node<Character> getBinaryTree(char[] in, int inStart, int inEnd, char[] pre, int preStart, int preEnd) {
         if(inStart > inEnd || preStart > preEnd) return null;
+
+        // get the current node
         node<Character> curr = new node<>(pre[preStart]);
+
+        // find the above current node above in inorder array, within the index range
         int index = getIndex(in, pre[preStart], inStart, inEnd);
+
         if(index == -1){
             return null;
         }
+
         curr.setLeft(
                 /**
                  * Using inclusive ranges and not exclusive
@@ -75,6 +81,8 @@ public class CreateTreeUsingPreOrderAndInOrder {
                  */
                 getBinaryTree(in, index + 1, inEnd, pre, preStart + (index - inStart + 1), preEnd)
         );
+
+        // return the current node after setting left and right values
         return curr;
     }
 

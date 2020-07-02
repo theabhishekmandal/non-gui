@@ -11,11 +11,12 @@ import java.util.stream.IntStream;
  * Approach
  *      -   Traverse the tree using post order recursion, we will set v1 or v2 if first or second matches the
  *          root
- *      -   now the result if left and right can be (null, null), (nonnull, null), (null, nonnull) and (nonnull, nonnull)
+ *      -   now the result of left and right can be (null, null), (nonnull, null), (null, nonnull) and (nonnull, nonnull)
  *      -   if both are not null then there common part is root then we return root
  *      -   if both of them are null then we return null
  *      -   if one of them is null, then in this case the flags will be used, if at the end of recursion
- *          if these flags are not set then we will return null, we won't return left or right
+ *          if these flags are not set then we will return null because there can be a possibility while finding
+ *          the common root of both first and second node,
  */
 public class LeastCommonAncestor {
     public static void main(String[] args) {

@@ -27,35 +27,33 @@ class TrieNode{
 }
 public class TrieDemo2 {
     private static TrieNode root;
+
     public static void insert(String str){
         TrieNode temp = root;
-        for(int i = 0; i < str.length(); i++){
-            // getting the hashmap
-            HashMap<Character, TrieNode> tempchildren = temp.getChildren();
-            // putting the value if not present
-            tempchildren.putIfAbsent(str.charAt(i), new TrieNode());
-            // setting the hashmap
-            temp.setChildren(tempchildren);
-            // making the children as the new temp
-            temp = temp.getChildren().get(str.charAt(i));
+        for(char c : str.toCharArray()){
+            temp.getChildren().putIfAbsent(c, new TrieNode());
+            temp = temp.getChildren().get(c);
         }
         temp.setIsWord(true);
     }
     public static boolean search(String str){
         TrieNode temp = root;
-        for(int i = 0; i < str.length(); i++){
+        for(char c : str.toCharArray()){
             HashMap<Character, TrieNode> tempchildren = temp.getChildren();
+
             // checking if the current node contains the character
-            if(!tempchildren.containsKey(str.charAt(i))){
+            if(!tempchildren.containsKey(c)){
+
                 // if not then the previous found letters must form a complete word
                 if(!temp.getIsWord()) return false;
+
                 // if not present then the character must be present in the root otherwise false
-                if(root.getChildren().containsKey(str.charAt(i))){
+                if(root.getChildren().containsKey(c)){
                     temp = root;
                 }
                 else return false;
             }
-            temp = temp.getChildren().get(str.charAt(i));
+            temp = temp.getChildren().get(c);
         }
         // return true if temp is not null and isWord is true
         return (temp != null && temp.getIsWord());

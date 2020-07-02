@@ -48,8 +48,13 @@ public class CreateTreeUsingPostOrderAndInOrder {
     private static node<Integer> getBinaryTree(int[] in, int inStart, int inEnd, int[] post, int postStart, int postEnd){
        if(inStart > inEnd || postStart > postEnd)
            return null;
+
+        // get the current node
        node<Integer> curr = new node<>(post[postEnd]);
+
+        // find the above current node above in inorder array, within the index range
        int index = getIndex(in, inStart, inEnd, post[postEnd]);
+
        if(index == -1){
            return null;
        }
@@ -77,6 +82,8 @@ public class CreateTreeUsingPostOrderAndInOrder {
                 */
             getBinaryTree(in, index + 1, inEnd, post, postStart + (index - inStart), postEnd - 1)
        );
+
+       // return the current node after setting left and right values
        return curr;
     }
 
