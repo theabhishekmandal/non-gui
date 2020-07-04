@@ -28,6 +28,11 @@ class TrieNode{
 public class TrieDemo2 {
     private static TrieNode root;
 
+    /*
+        inserting a word in a trie data structure, takes place from the root
+        -   first check if root's children have the current character present or not, if not present then add it
+        -   now make temp as children
+     */
     public static void insert(String str){
         TrieNode temp = root;
         for(char c : str.toCharArray()){
@@ -40,14 +45,8 @@ public class TrieDemo2 {
         TrieNode temp = root;
         for(char c : str.toCharArray()){
             HashMap<Character, TrieNode> tempchildren = temp.getChildren();
-
-            // checking if the current node contains the character
             if(!tempchildren.containsKey(c)){
-
-                // if not then the previous found letters must form a complete word
                 if(!temp.getIsWord()) return false;
-
-                // if not present then the character must be present in the root otherwise false
                 if(root.getChildren().containsKey(c)){
                     temp = root;
                 }
@@ -55,7 +54,6 @@ public class TrieDemo2 {
             }
             temp = temp.getChildren().get(c);
         }
-        // return true if temp is not null and isWord is true
         return (temp != null && temp.getIsWord());
     }
     public static void main(String[] args) {

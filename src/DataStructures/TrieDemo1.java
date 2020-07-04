@@ -99,7 +99,7 @@ public class TrieDemo1 {
         }
         return (temp != null && temp.isWord);
     }
-    public static void main(String args[]){
+    public static void main(String[] args){
         root = new Trie();
         insert("i");
         insert("love");
