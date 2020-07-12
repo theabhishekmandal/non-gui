@@ -1,6 +1,4 @@
-package DataStructures.Tree;
-
-import DataStructures.Tree.TreeImpl.BinaryTree;
+package DataStructures.Tree.BinaryTree.TreeImpl;
 
 public class BinaryTreeImpl {
     public static void main(String[] args) {

@@ -1,4 +1,4 @@
-package DataStructures.Tree.Problems;
+package DataStructures.Tree.BinaryTree.Problems;
 
 import java.util.*;
 

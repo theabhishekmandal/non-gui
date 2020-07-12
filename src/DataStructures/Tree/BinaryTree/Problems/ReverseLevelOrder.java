@@ -1,13 +1,13 @@
-package DataStructures.Tree.Problems;
+package DataStructures.Tree.BinaryTree.Problems;
 
-import DataStructures.Tree.TreeImpl.BinaryTree;
+import DataStructures.Tree.BinaryTree.TreeImpl.BinaryTree;
 
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Random;
 import java.util.stream.Collectors;
 
-import static DataStructures.Tree.TreeImpl.BinaryTree.node;
+import static DataStructures.Tree.BinaryTree.TreeImpl.BinaryTree.node;
 
 /**
  * Print the level order traversal in reverse order

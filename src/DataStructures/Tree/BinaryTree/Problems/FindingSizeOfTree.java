@@ -1,7 +1,6 @@
-package DataStructures.Tree.Problems;
+package DataStructures.Tree.BinaryTree.Problems;
 
-import DataStructures.Tree.TreeImpl.BinaryTree;
-import static DataStructures.Tree.TreeImpl.BinaryTree.node;
+import DataStructures.Tree.BinaryTree.TreeImpl.BinaryTree;
 
 import java.util.Deque;
 import java.util.LinkedList;
@@ -27,19 +26,19 @@ public class FindingSizeOfTree {
         System.out.println(size2);
     }
 
-    private static <T> int findSizeOfTreeRecursive(node<T> node) {
+    private static <T> int findSizeOfTreeRecursive(BinaryTree.node<T> node) {
        if(node == null) return 0;
        return findSizeOfTreeRecursive(node.getLeft()) + findSizeOfTreeRecursive(node.getRight()) + 1;
     }
 
-    private static <T> int findSizeOfTreeIteration(node<T> node){
+    private static <T> int findSizeOfTreeIteration(BinaryTree.node<T> node){
        if(node == null) return 0;
        int size = 0;
-       Deque<node<T>> stack = new LinkedList<>();
+       Deque<BinaryTree.node<T>> stack = new LinkedList<>();
        stack.push(node);
        stack.push(node);
        while(!stack.isEmpty()){
-            node<T> curr = stack.pop();
+            BinaryTree.node<T> curr = stack.pop();
             if(!stack.isEmpty() && stack.peek() == curr){
                if(curr.getRight() != null){
                    stack.push(curr.getRight());

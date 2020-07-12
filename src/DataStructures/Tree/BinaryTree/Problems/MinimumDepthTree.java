@@ -1,7 +1,6 @@
-package DataStructures.Tree.Problems;
+package DataStructures.Tree.BinaryTree.Problems;
 
-import DataStructures.Tree.TreeImpl.BinaryTree;
-import static DataStructures.Tree.TreeImpl.BinaryTree.node;
+import DataStructures.Tree.BinaryTree.TreeImpl.BinaryTree;
 
 import java.util.Deque;
 import java.util.LinkedList;
@@ -42,18 +41,18 @@ public class MinimumDepthTree {
         System.out.println(minimumDepthLevelOrder);
     }
 
-    private static <T> int minimumDepth(node<T> node){
+    private static <T> int minimumDepth(BinaryTree.node<T> node){
         if(node == null) return 0;
 
         int minDepth = Integer.MAX_VALUE;
         int depthCounter = 0;
 
-        Deque<node<T>> stack = new LinkedList<>();
+        Deque<BinaryTree.node<T>> stack = new LinkedList<>();
         stack.push(node);
         stack.push(node);
 
         while(!stack.isEmpty()){
-            node<T> curr = stack.pop();
+            BinaryTree.node<T> curr = stack.pop();
             if(!stack.isEmpty() && curr == stack.peek()){
                 if(curr.getRight() != null){
                     stack.push(curr.getRight());
@@ -75,20 +74,20 @@ public class MinimumDepthTree {
         return minDepth;
     }
 
-    private static <T> int minimumDepthLevelOrder(node<T> node){
+    private static <T> int minimumDepthLevelOrder(BinaryTree.node<T> node){
         if(node == null) return 0;
 
         int minDepth = 1;
 
-        Queue<node<T>> queue = new LinkedList<>();
+        Queue<BinaryTree.node<T>> queue = new LinkedList<>();
         queue.add(node);
         queue.add(null);
 
         while(!queue.isEmpty()){
-            node<T> curr = queue.poll();
+            BinaryTree.node<T> curr = queue.poll();
             if(curr != null){
-                node<T> left = curr.getLeft();
-                node<T> right = curr.getRight();
+                BinaryTree.node<T> left = curr.getLeft();
+                BinaryTree.node<T> right = curr.getRight();
                 if(right == null && left == null){
                     return minDepth;
                 }

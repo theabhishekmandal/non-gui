@@ -1,7 +1,6 @@
-package DataStructures.Tree.Problems;
+package DataStructures.Tree.BinaryTree.Problems;
 
-import DataStructures.Tree.TreeImpl.BinaryTree;
-import static DataStructures.Tree.TreeImpl.BinaryTree.node;
+import DataStructures.Tree.BinaryTree.TreeImpl.BinaryTree;
 
 import java.util.Deque;
 import java.util.LinkedList;
@@ -23,11 +22,11 @@ public class SumInTree {
         int sum = getSum(binaryTree.getRoot());
         System.out.println("sum of tree is " + sum);
     }
-    private static int getSum(node<Integer> node){
+    private static int getSum(BinaryTree.node<Integer> node){
         if(node == null) return 0;
-        Deque<node<Integer>> stack = new LinkedList<>();
+        Deque<BinaryTree.node<Integer>> stack = new LinkedList<>();
         int sum = 0;
-        node<Integer> curr = node;
+        BinaryTree.node<Integer> curr = node;
         while(curr != null || !stack.isEmpty()){
             if(curr != null){
                 stack.push(curr);

@@ -1,7 +1,6 @@
-package DataStructures.Tree.Problems;
+package DataStructures.Tree.BinaryTree.Problems;
 
-import DataStructures.Tree.TreeImpl.BinaryTree;
-import static DataStructures.Tree.TreeImpl.BinaryTree.node;
+import DataStructures.Tree.BinaryTree.TreeImpl.BinaryTree;
 
 import java.util.Deque;
 import java.util.LinkedList;
@@ -36,20 +35,20 @@ public class CheckMirrorTree {
         System.out.println("binaryTree1 " + binaryTree1.levelOrder());
     }
 
-    private static boolean areMirrors(node<Integer> root, node<Integer> root1) {
+    private static boolean areMirrors(BinaryTree.node<Integer> root, BinaryTree.node<Integer> root1) {
         if(root == null && root1 == null) return true;
         if(root == null || root1 == null) return false;
 
-        Deque<node<Integer>> stack = new LinkedList<>();
+        Deque<BinaryTree.node<Integer>> stack = new LinkedList<>();
         stack.push(root);
 
-        Deque<node<Integer>> stack1 = new LinkedList<>();
+        Deque<BinaryTree.node<Integer>> stack1 = new LinkedList<>();
         stack1.push(root1);
 
         boolean flag = true;
         while(!stack.isEmpty() && !stack1.isEmpty()){
-            node<Integer> first = stack.pop();
-            node<Integer> second = stack1.pop();
+            BinaryTree.node<Integer> first = stack.pop();
+            BinaryTree.node<Integer> second = stack1.pop();
             if(!first.getData().equals(second.getData())){
                 flag = false;
                 break;
@@ -68,13 +67,13 @@ public class CheckMirrorTree {
     }
 
     // using top down approach
-    private static void createMirrorTree(node<Integer> node){
+    private static void createMirrorTree(BinaryTree.node<Integer> node){
         if(node == null) return;
-        Deque<node<Integer>> stack = new LinkedList<>();
+        Deque<BinaryTree.node<Integer>> stack = new LinkedList<>();
         stack.push(node);
         while(!stack.isEmpty()){
-            node<Integer> curr = stack.pop();
-            node<Integer> temp = curr.getRight();
+            BinaryTree.node<Integer> curr = stack.pop();
+            BinaryTree.node<Integer> temp = curr.getRight();
             curr.setRight(curr.getLeft());
             curr.setLeft(temp);
             if(curr.getRight() != null){

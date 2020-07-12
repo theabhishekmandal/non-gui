@@ -1,7 +1,6 @@
-package DataStructures.Tree.Problems;
+package DataStructures.Tree.BinaryTree.Problems;
 
-import DataStructures.Tree.TreeImpl.BinaryTree;
-import static DataStructures.Tree.TreeImpl.BinaryTree.node;
+import DataStructures.Tree.BinaryTree.TreeImpl.BinaryTree;
 
 import java.util.*;
 import java.util.stream.IntStream;
@@ -50,13 +49,13 @@ public class DiameterOfTree {
     }
 
     private static int value;
-    private static int findDiameterOfTreeRecursion(node<Integer> root) {
+    private static int findDiameterOfTreeRecursion(BinaryTree.node<Integer> root) {
         value = 1;
         find(root);
         return value - 1;
     }
 
-    private static <T> int  find(node<T> node) {
+    private static <T> int  find(BinaryTree.node<T> node) {
         if(node == null)
             return 0;
         int left = find(node.getLeft());
@@ -69,16 +68,16 @@ public class DiameterOfTree {
         return Math.max(left, right) + 1;
     }
 
-    private static <T> int findDiameterOfTreeIteration(node<T> root){
+    private static <T> int findDiameterOfTreeIteration(BinaryTree.node<T> root){
         if(root == null || (root.getLeft() == null && root.getRight() == null))
             return 0;
         int maxValue = 0;
-        Map<node<T>, Integer> map = new HashMap<>();
-        Deque<node<T>> stack = new LinkedList<>();
+        Map<BinaryTree.node<T>, Integer> map = new HashMap<>();
+        Deque<BinaryTree.node<T>> stack = new LinkedList<>();
         stack.push(root);
         stack.push(root);
         while(!stack.isEmpty()){
-            node<T> curr = stack.pop();
+            BinaryTree.node<T> curr = stack.pop();
             if(!stack.isEmpty() && curr == stack.peek()){
                 if(curr.getRight() != null){
                     stack.push(curr.getRight());

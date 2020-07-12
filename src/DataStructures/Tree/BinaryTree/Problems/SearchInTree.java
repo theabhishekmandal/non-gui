@@ -1,7 +1,6 @@
-package DataStructures.Tree.Problems;
+package DataStructures.Tree.BinaryTree.Problems;
 
-import DataStructures.Tree.TreeImpl.BinaryTree;
-import static DataStructures.Tree.TreeImpl.BinaryTree.node;
+import DataStructures.Tree.BinaryTree.TreeImpl.BinaryTree;
 
 import java.util.LinkedList;
 import java.util.Queue;
@@ -31,7 +30,7 @@ public class SearchInTree {
         Approach
         search in left subtree or right subtree, which ever yields result.
      */
-    private static boolean findByRecursive(Integer searchValue, node<Integer> node){
+    private static boolean findByRecursive(Integer searchValue, BinaryTree.node<Integer> node){
         if(node == null) return false;
         if(node.getData().equals(searchValue)) return true;
         return findByRecursive(searchValue, node.getLeft()) || findByRecursive(searchValue, node.getRight());
@@ -40,12 +39,12 @@ public class SearchInTree {
     /*
         searching using level order traversal
      */
-    private static boolean findByIteration(Integer searchValue, node<Integer> node){
+    private static boolean findByIteration(Integer searchValue, BinaryTree.node<Integer> node){
         if(node == null) return false;
-        Queue<node<Integer>> queue = new LinkedList<>();
+        Queue<BinaryTree.node<Integer>> queue = new LinkedList<>();
         queue.add(node);
         while(!queue.isEmpty()){
-           node<Integer> curr = queue.poll();
+           BinaryTree.node<Integer> curr = queue.poll();
            if(curr.getData().equals(searchValue))
                return true;
            if(curr.getLeft() != null)

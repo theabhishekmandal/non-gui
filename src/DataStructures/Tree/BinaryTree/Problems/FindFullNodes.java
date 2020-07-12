@@ -1,6 +1,6 @@
-package DataStructures.Tree.Problems;
+package DataStructures.Tree.BinaryTree.Problems;
 
-import DataStructures.Tree.TreeImpl.BinaryTree;
+import DataStructures.Tree.BinaryTree.TreeImpl.BinaryTree;
 
 import java.util.LinkedList;
 import java.util.Queue;

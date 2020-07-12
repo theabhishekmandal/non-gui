@@ -1,8 +1,6 @@
-package DataStructures.Tree.Problems;
+package DataStructures.Tree.BinaryTree.Problems;
 
-import DataStructures.Tree.TreeImpl.BinaryTree;
-
-import static DataStructures.Tree.TreeImpl.BinaryTree.node;
+import DataStructures.Tree.BinaryTree.TreeImpl.BinaryTree;
 
 /**
  * Construct a binary Tree from given InOrder and PreOrder traversals
@@ -38,16 +36,16 @@ public class CreateTreeUsingPreOrderAndInOrder {
          * @param preStart 0
          * @param preEnd pre.length - 1
          */
-        node<Character> node = getBinaryTree(in, 0, in.length - 1, pre, 0, pre.length - 1);
+        BinaryTree.node<Character> node = getBinaryTree(in, 0, in.length - 1, pre, 0, pre.length - 1);
         binaryTree.setRoot(node);
         return binaryTree;
     }
 
-    private static node<Character> getBinaryTree(char[] in, int inStart, int inEnd, char[] pre, int preStart, int preEnd) {
+    private static BinaryTree.node<Character> getBinaryTree(char[] in, int inStart, int inEnd, char[] pre, int preStart, int preEnd) {
         if(inStart > inEnd || preStart > preEnd) return null;
 
         // get the current node
-        node<Character> curr = new node<>(pre[preStart]);
+        BinaryTree.node<Character> curr = new BinaryTree.node<>(pre[preStart]);
 
         // find the above current node above in inorder array, within the index range
         int index = getIndex(in, pre[preStart], inStart, inEnd);

@@ -1,7 +1,5 @@
-package DataStructures.Tree.TreeImpl;
+package DataStructures.Tree.BinaryTree.TreeImpl;
 
-
-import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -85,31 +83,33 @@ public class BinaryTree<T>{
     /*
         Queue is used as a data structure while inserting to the tree
      */
+    private Deque<node<T>> queue;
     public void insertInBinaryTreeLevelOrder(T data){
         if(this.root == null) {
             this.root = new node<>(data);
+            this.queue = new LinkedList<>();
+            this.queue.add(this.root);
             this.size++;
             return;
         }
-        Queue<node<T>> queue = new LinkedList<>();
-        queue.add(root);
-
+        node<T> temp = null;
         while(!queue.isEmpty()){
-            node<T> temp = queue.poll();
-            if(temp.left != null)
-                queue.add(temp.left);
-            else{
+            temp = queue.poll();
+            if(temp.left == null){
                 temp.left = new node<>(data);
+                queue.add(temp.left);
                 this.size++;
-                return;
+                break;
             }
-            if(temp.right != null)
-                queue.add(temp.right);
-            else{
+            if(temp.right == null){
                 temp.right = new node<>(data);
+                queue.add(temp.right);
                 this.size++;
-                return;
+                break;
             }
+        }
+        if(temp != null && (temp.left == null || temp.right == null)) {
+            queue.addFirst(temp);
         }
     }
 
