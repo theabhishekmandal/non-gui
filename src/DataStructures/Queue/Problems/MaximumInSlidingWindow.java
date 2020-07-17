@@ -31,7 +31,7 @@ import java.util.stream.IntStream;
  *      the queue)
  *
  *  if queue is not empty and if queue is full with k elements then
- *      pop out the last index
+ *      pop out the last index i.e the first element of the queue
  *
  *  now you can push the index in the queue
  *
@@ -52,6 +52,9 @@ public class MaximumInSlidingWindow {
         } while (list.size() % k != 0);
         System.out.println( "list size is " + list.size() + "\nlist is\n" + list + "\nwindow size is\n" + k + "\n");
         List<Integer> maxSumList = getMaxSumInThisWindow(list, k);
+
+        // debug this for better clarification
+        // List<Integer> maxSumList = getMaxSumInThisWindow(IntStream.range(0,10).boxed().sorted(Comparator.reverseOrder()).collect(Collectors.toList()), 4);
         System.out.println(maxSumList);
     }
 
@@ -64,17 +67,27 @@ public class MaximumInSlidingWindow {
         for(int i = 0; i < list.size(); i++){
 
             // for checking if front of the queue has maximum element
-            while(dll.getSize() != 0 && list.get(i) > list.get(dll.getTail().getData()))
+            int tailIndex;
+            while(dll.getSize() != 0 && list.get(i) > list.get((tailIndex = dll.getTail().getData()))){
                 dll.deleteLast();
+            }
 
             // for checking if the current element should reside in the given window
-            if(dll.getSize() != 0 && dll.getHead().getData() + maxSize == i)
-                dll.deleteFirst();
+            // if queue size increases the maxsize then remove index from the front
+            if(dll.getSize() != 0){
+                int headIndex = dll.getHead().getData();
+                if(headIndex + maxSize == i){
+                    dll.deleteFirst();
+                }
+            }
 
             dll.addLast(i);
             // appending the result
-            if(i + 1 >= maxSize)
-            answerlist.add(list.get(dll.getHead().getData()));
+            // here if i + 1 = maxSize, this means we have reached queue size of maxSize
+            // from this point and for next iterations, we need to add the indices in the answerList
+            if(i + 1 >= maxSize) {
+                answerlist.add(list.get(dll.getHead().getData()));
+            }
         }
         return answerlist;
     }

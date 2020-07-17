@@ -1,0 +1,49 @@
+-   Binary Tree does not have any restrictions so, the worst case complexity of search operation is O(n)
+
+-   Binary Search Tree comes into picture, as the name suggests, the main use of this representation is for searching.
+
+-   In this representation we impose restriction on the kind of data a node can contain. As a result, it reduces the
+    worst case average search operation to O(logn).
+
+
+Properties of Binary Search Trees
+    -   The left subtree of a node contains only nodes with keys less than the nodes key.
+    -   The right subtree of a node contains only nodes with keys greater than the nodes key.
+    -   Both the left and right subtrees must also be binary search trees.
+
+
+Operations on Binary Search Trees
+Main operations
+    -   Find/ Find Minimum/ Find Maximum in binary search trees
+    -   Inserting an element in binary search trees
+    -   Deleting an element from binary search trees
+
+
+Auxiliary Operations
+    -   Checking whether the given tree is a binary search tree or not
+    -   Finding kth smallest element in tree.
+    -   Sorting the elements of binary search tree and many more
+
+
+Notes on Binary Search Trees
+    -   Since root data is always between left subtree data and right subtree data, performing inorder traversal
+        on binary search tree produces a sorted list.
+
+    -   While solving problems on binary search trees, first we process left subtree, then root data, and finally
+        we process right subtree. This means , depending on the problem, only the intermediate(processing root data)
+        changes and we do not touch the first and third steps.
+
+    -   If we are searching for an element and if the left subtree root data is less than the element we want to
+        search, then skip it. The same is the case with the right subtree. Because of this, binary search trees
+        take less time for searching and element than regular binary trees. In other words, the binary search trees
+        consider either left or right subtrees for searching an element but not both.
+
+    -   The basic operations that can be performed on binary search tree (BST) are insertion of element, deletion of element,
+        and searching for and element. While performing these operations on BST the height of the tree gets changed each time.
+        Hence there exists variations in time complexities of best case, average case, and worst case.
+
+    -   The basic operations on a binary search tree take time proportional tot he height of the tree. For a complete binary
+        tree with node n, such operations runs in O(logn) worst-case time. If the tree is a linear chain of n nodes.
+        however, the same operations takes O(n) worst-case time.
+
+

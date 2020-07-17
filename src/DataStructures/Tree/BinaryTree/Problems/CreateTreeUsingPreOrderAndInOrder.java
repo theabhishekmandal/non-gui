@@ -1,6 +1,6 @@
 package DataStructures.Tree.BinaryTree.Problems;
 
-import DataStructures.Tree.BinaryTree.TreeImpl.BinaryTree;
+import DataStructures.Tree.BinaryTree.BinaryTreeImpl.BinaryTree;
 
 /**
  * Construct a binary Tree from given InOrder and PreOrder traversals

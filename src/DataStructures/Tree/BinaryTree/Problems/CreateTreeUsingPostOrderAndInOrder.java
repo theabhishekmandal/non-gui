@@ -1,12 +1,12 @@
 package DataStructures.Tree.BinaryTree.Problems;
 
-import DataStructures.Tree.BinaryTree.TreeImpl.BinaryTree;
+import DataStructures.Tree.BinaryTree.BinaryTreeImpl.BinaryTree;
 
 import java.util.Random;
 import java.util.StringTokenizer;
 import java.util.stream.IntStream;
 
-import static DataStructures.Tree.BinaryTree.TreeImpl.BinaryTree.node;
+import static DataStructures.Tree.BinaryTree.BinaryTreeImpl.BinaryTree.node;
 
 /**
  * Given the inOrder and postOrder traversals generate the binaryTree

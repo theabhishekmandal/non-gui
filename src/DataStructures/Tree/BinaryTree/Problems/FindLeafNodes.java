@@ -1,13 +1,13 @@
 package DataStructures.Tree.BinaryTree.Problems;
 
-import DataStructures.Tree.BinaryTree.TreeImpl.BinaryTree;
+import DataStructures.Tree.BinaryTree.BinaryTreeImpl.BinaryTree;
 
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Random;
 import java.util.stream.IntStream;
 
-import static DataStructures.Tree.BinaryTree.TreeImpl.BinaryTree.node;
+import static DataStructures.Tree.BinaryTree.BinaryTreeImpl.BinaryTree.node;
 
 /**
  * Find all the leaf nodes in the tree

@@ -1,7 +1,7 @@
 package DataStructures.Tree.BinaryTree.Problems;
 
-import DataStructures.Tree.BinaryTree.TreeImpl.BinaryTree;
-import static DataStructures.Tree.BinaryTree.TreeImpl.BinaryTree.node;
+import DataStructures.Tree.BinaryTree.BinaryTreeImpl.BinaryTree;
+import static DataStructures.Tree.BinaryTree.BinaryTreeImpl.BinaryTree.node;
 
 import java.util.*;
 import java.util.stream.IntStream;

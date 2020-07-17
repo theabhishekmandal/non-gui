@@ -1,4 +1,4 @@
-package DataStructures.Tree.BinaryTree.TreeImpl;
+package DataStructures.Tree.BinaryTree.BinaryTreeImpl;
 
 
 import java.util.*;

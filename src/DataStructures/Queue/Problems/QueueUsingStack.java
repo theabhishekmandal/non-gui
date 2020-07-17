@@ -13,8 +13,8 @@ public class QueueUsingStack {
         While the old stack is used for finding the front element
         of the stack and also to perform the dequeue operation.
          */
-        private SLLStack<T> oldStack;
-        private SLLStack<T> newStack;
+        private final SLLStack<T> oldStack;
+        private final SLLStack<T> newStack;
         public MyQueue(){
             this.oldStack = new SLLStack<>();
             this.newStack = new SLLStack<>();

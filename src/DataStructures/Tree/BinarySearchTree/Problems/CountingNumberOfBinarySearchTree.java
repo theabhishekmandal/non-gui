@@ -1,8 +1,8 @@
-package DataStructures.Tree.GenericTree.Problems;
+package DataStructures.Tree.BinarySearchTree.Problems;
 
 import java.util.Random;
 
-public class CountingNumberOfBinaryTree {
+public class CountingNumberOfBinarySearchTree {
     public static void main(String[] args) {
         Random random = new Random();
         int n = random.nextInt(10);
