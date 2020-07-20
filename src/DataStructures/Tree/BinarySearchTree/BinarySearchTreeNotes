@@ -27,7 +27,11 @@ Auxiliary Operations
 
 Notes on Binary Search Trees
     -   Since root data is always between left subtree data and right subtree data, performing inorder traversal
-        on binary search tree produces a sorted list.
+        on binary search tree produces a sorted list. So, the left most non-null leaf node is the minimum value in BST
+        and the right most non-null leaf node is the maximum value in BST.
+
+    -   The inorder predecessor of a given node x, is the right most node in the left subtree and inorder successor of
+        a given node x, is the left most node in the right subtree.
 
     -   While solving problems on binary search trees, first we process left subtree, then root data, and finally
         we process right subtree. This means , depending on the problem, only the intermediate(processing root data)
