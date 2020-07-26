@@ -375,4 +375,156 @@ public class BinarySearchTree<T extends Comparable<? super T>>{
                .map(list -> "(" + String.join(", ", list) + ")")
                .collect(Collectors.joining(", \n")) + "]";
     }
+
+
+    /*
+        To delete a node from a BST, there are three conditions
+            -   node to be deleted is leaf node
+                -   simply remove from the tree
+            -   node to be deleted has one child
+                -   copy the child value to the node and then delete the child
+            -   node to be deleted has both right as well left child
+                -   find the inorder successor of the node
+                    -   if inorder successor is present which is a left leaf node, then make the
+                        right child of the successor, left child of the parent
+                    -   if inorder successor is the immediate right child of the node(to be deleted), then
+                        make the right child of successor as right child of the parent
+     */
+    public void deleteNodeFromTreeRecur(T data) {
+        this.root = delete(this.root, data);
+    }
+
+    private node<T> delete(node<T> node, T data) {
+        if(this.root == null) {
+            return null;
+        }
+
+        // returning node is important, consider the case of node to be deleted, is the only child
+        // eg: [1, 2] and node to be deleted is 2, so we have to make 1.right = 2.right
+        if(node.data.compareTo(data) > 0) {
+            node.left = delete(node.left, data);
+            return node;
+        }
+        else if(node.data.compareTo(data) < 0) {
+            node.right = delete(node.right, data);
+            return node;
+        }
+
+        // if there are no children or only one children then these two conditions
+        if(node.left == null) {
+            return node.right;
+        }
+        else if(node.right == null) {
+            return node.left;
+        }
+        // if both of the children exists
+        else {
+            var parent = node;
+            var succ = node.right;
+
+            // finding nearest inorder successor
+            while(succ.left != null) {
+                parent = succ;
+                succ = succ.left;
+            }
+
+            /*
+            first if condition
+                  65                                76
+                    \                                 \
+                     82         -> delete 65 ->       82
+                    /  \                             /  \
+                   76   88                          78   88
+                     \   \                                \
+                     78   89                              89
+             else condition
+                  65                                82
+                    \                                 \
+                     82         -> delete 65 ->       88
+                       \                                \
+                        88                               89
+                         \
+                          89
+             */
+            if (parent != node) {
+                parent.left = succ.right;
+            }
+            else {
+                parent.right = succ.right;
+            }
+            node.data = succ.data;
+            return node;
+        }
+    }
+
+
+    // iterative solution of above problem
+    public void deleteNodeFromTree(T data) {
+        if(this.root == null) {
+            return;
+        }
+
+        var curr = this.root;
+        node<T> prev = null;
+        // finding the correct node that is to be deleted
+        while(curr != null) {
+            var compare = curr.data.compareTo(data);
+            if(compare == 0) {
+                break;
+            }
+            prev = curr;
+            if(compare > 0) {
+                curr = curr.left;
+            }
+            else {
+                curr = curr.right;
+            }
+        }
+
+        if(curr == null) {
+            return;
+        }
+        // this means root is not your data node to be deleted
+        if(prev != null) {
+            if(prev.left == curr) {
+                prev.left = deleteNode(prev.left);
+            }
+            else {
+                prev.right = deleteNode(prev.right);
+            }
+        }
+        else {
+            this.root = deleteNode(this.root);
+        }
+    }
+
+    private node<T> deleteNode(node<T> curr) {
+       if(curr.left == null) {
+           var temp = curr.right;
+           curr.right = null;
+           return temp;
+       }
+       else if(curr.right == null) {
+           var temp = curr.left;
+           curr.left = null;
+           return temp;
+       }
+       else {
+           var parent = curr;
+           node<T> succ = curr.right;
+           while(succ.left != null) {
+               parent = succ;
+               succ = succ.left;
+           }
+
+           if(parent != curr) {
+               parent.left = succ.right;
+           }
+           else {
+               parent.right = succ.right;
+           }
+           curr.data = succ.data;
+           return curr;
+       }
+    }
 }

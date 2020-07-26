@@ -3,6 +3,7 @@ package DataStructures.Tree.BinarySearchTree.Problems;
 import DataStructures.Tree.BinarySearchTree.BinarySearchTreeImpl.BinarySearchTree;
 import static DataStructures.Tree.BinarySearchTree.BinarySearchTreeImpl.BinarySearchTree.node;
 
+
 import java.util.Random;
 import java.util.stream.IntStream;
 
@@ -42,7 +43,7 @@ public class FindingMinMax {
         }
         node<T> temp = root;
         while(temp.getLeft() != null){
-            temp = temp.getLeft();
+            temp = temp.getRight();
         }
         return temp.getData();
     }

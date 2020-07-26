@@ -14,7 +14,7 @@ import java.util.stream.IntStream;
  */
 public class FindNodeInBst {
     public static void main(String[] args) {
-        BinarySearchTree<Integer> bst = new BinarySearchTree<>();
+        var bst = new BinarySearchTree<Integer>();
 
         Random random = new Random();
         int valueToBeFound = random.nextInt(20);
