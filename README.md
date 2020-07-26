@@ -1,6 +1,7 @@
-# Core Java Programs
+# Core Java, DS and Algorithms
 
-This repository contains examples of almost all the topics contained in core Java
+This repository contains examples of Core Java programs as well as DS and Algorithms
+in Java
 
 ## Prerequisites
 
@@ -8,7 +9,7 @@ Little knowledge of Java classes and Object Oriented Paradigm
 
 ## Built With
 
-* [Java-9](http://www.oracle.com/technetwork/java/javase/downloads/jdk9-downloads-3848520.html) - Java
+* [Java-11](https://www.oracle.com/java/technologies/javase-downloads.html) - Java
 
 
 ## Authors
