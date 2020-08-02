@@ -84,7 +84,7 @@ public class BinarySearchTree<T extends Comparable<? super T>>{
     }
     public BinarySearchTree(Boolean reverse){
         this();
-        this.doReverse = (reverse == null) ? false : reverse;
+        this.doReverse = reverse != null && reverse;
     }
 
     public void deleteTree(){
