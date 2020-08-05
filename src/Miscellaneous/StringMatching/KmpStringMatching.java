@@ -40,7 +40,7 @@ package Miscellaneous.StringMatching;
 
 import java.util.*;
 public class KmpStringMatching {
-    public static void main(String args[]) {
+    public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
        // System.out.println("enter a text ");
         String text = in.next();
@@ -49,7 +49,7 @@ public class KmpStringMatching {
         findsubstring(text, pattern);
     }
     private static void findsubstring(String arr, String pattern) {
-        int lps[] = compute(pattern);
+        int[] lps = compute(pattern);
         int i = 0;
         int j = 0;
         while(i < arr.length()) {
@@ -99,9 +99,9 @@ public class KmpStringMatching {
     private static int[] compute(String arr) {
         int i = 1;
         int j = 0;
-        int lps[] = new int[arr.length()];
+        int[] lps = new int[arr.length()];
         lps[0] = 0;
-        for(;i < lps.length;) {
+        while (i < lps.length) {
             if(arr.charAt(i) == arr.charAt(j)) {
                 lps[i] = j + 1;
                 i++;
