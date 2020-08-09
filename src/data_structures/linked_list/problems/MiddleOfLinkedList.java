@@ -1,11 +1,10 @@
-package Miscellaneous.leetcode.Challenge30DaysApril.Week2;
+package data_structures.linked_list.problems;
 
 import data_structures.linked_list.node.SinglyLinkedList;
 
 import java.util.Random;
 
 /**
- * Week 2 day 1
  * n / 2 is the middle of the linked list if n starts from 0,
  */
 public class MiddleOfLinkedList {

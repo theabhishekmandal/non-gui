@@ -15,7 +15,7 @@ public class StreamFromFiles {
                 + File.separator
                 + "src"
                 + File.separator
-                + "CollectionImplementation"
+                + "collection_implementation"
                 + File.separator
                 + "Streams"
                 + File.separator
