@@ -30,7 +30,7 @@ public class BalancingBrackets {
             if(bracketMap.containsKey(c)){
 
                 // if opening bracket is not found or if opening bracket is not equal to closing bracket
-                if(stack.isEmpty() || stack.pop() != bracketMap.get(c)){
+                if(stack.isEmpty() || !stack.pop().equals(bracketMap.get(c))) {
                     match = false;
                     break;
                 }

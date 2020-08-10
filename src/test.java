@@ -66,51 +66,53 @@ public class test {
 
     private static void solve2(){
         try{
-            BufferedReader br = new BufferedReader(new FileReader("/Users/amanda16/Desktop/network drive folders/non-gui/src/hello.txt"));
-            String k = null;
-            StringBuilder builder;
-            ArrayDeque<Character> array = new ArrayDeque<>();
-            List<String> list = new ArrayList<>();
-            while((k = br.readLine()) != null){
-                k = k.trim();
-                if(k.startsWith("CREATE")){
-                    builder = new StringBuilder();
-                    builder.append(k).append("\n");
-                    String nextLines;
-                    boolean isBracketsBalanced = true;
-                    while((nextLines = br.readLine()) != null){
-                        nextLines = nextLines.trim();
-                        for(int i = 0; i < nextLines.length(); ++i){
-                            char currchar = nextLines.charAt(i);
-                            if(currchar == '(') array.push(currchar);
-                            else if(currchar == ')') {
-                                if(array.isEmpty()) throw new Exception("not enough opening brackets");
-                                array.pop();
-                            }
-                            builder.append(currchar);
-                        }
-                        builder.append("\n");
-                        if(!array.isEmpty()){
-                            isBracketsBalanced = false;
-                            break;
-                        }
-                    }
-                    if(!isBracketsBalanced){
-                        while((nextLines = br.readLine()) != null){
+            List<String> list;
+            try (BufferedReader br = new BufferedReader(new FileReader("/Users/amanda16/Desktop/network drive folders/non-gui/src/hello.txt"))) {
+                String k = null;
+                StringBuilder builder;
+                ArrayDeque<Character> array = new ArrayDeque<>();
+                list = new ArrayList<>();
+                while ((k = br.readLine()) != null) {
+                    k = k.trim();
+                    if (k.startsWith("CREATE")) {
+                        builder = new StringBuilder();
+                        builder.append(k).append("\n");
+                        String nextLines;
+                        boolean isBracketsBalanced = true;
+                        while ((nextLines = br.readLine()) != null) {
                             nextLines = nextLines.trim();
-                            for(int i = 0; i < nextLines.length() && !array.isEmpty(); ++i){
+                            for (int i = 0; i < nextLines.length(); ++i) {
                                 char currchar = nextLines.charAt(i);
-                                if(currchar == '(') array.push(currchar);
-                                else if(currchar == ')') array.pop();
+                                if (currchar == '(') array.push(currchar);
+                                else if (currchar == ')') {
+                                    if (array.isEmpty()) throw new Exception("not enough opening brackets");
+                                    array.pop();
+                                }
                                 builder.append(currchar);
                             }
-                            if(array.isEmpty()) break;
                             builder.append("\n");
+                            if (!array.isEmpty()) {
+                                isBracketsBalanced = false;
+                                break;
+                            }
                         }
-                        if(!array.isEmpty())
-                            throw new Exception("not enough closing brackets");
+                        if (!isBracketsBalanced) {
+                            while ((nextLines = br.readLine()) != null) {
+                                nextLines = nextLines.trim();
+                                for (int i = 0; i < nextLines.length() && !array.isEmpty(); ++i) {
+                                    char currchar = nextLines.charAt(i);
+                                    if (currchar == '(') array.push(currchar);
+                                    else if (currchar == ')') array.pop();
+                                    builder.append(currchar);
+                                }
+                                if (array.isEmpty()) break;
+                                builder.append("\n");
+                            }
+                            if (!array.isEmpty())
+                                throw new Exception("not enough closing brackets");
+                        }
+                        list.add(builder.toString());
                     }
-                    list.add(builder.toString());
                 }
             }
             System.out.println(list);
