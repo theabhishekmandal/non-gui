@@ -10,6 +10,11 @@ import java.util.stream.IntStream;
  *  This is basic example of the main Functional interfaces present in the function package.
  */
 
+@FunctionalInterface
+interface MyFunctionalInterface<T, V> {
+    T get(V p);
+}
+
 public class FunctionDemo {
     public static void main(String[] args) {
         biConsumerDemo();
@@ -22,6 +27,7 @@ public class FunctionDemo {
         predicateDemo();
         supplierDemo();
         unaryOperator();
+        myFunctionalInterface();
     }
 
     /*
@@ -131,5 +137,18 @@ public class FunctionDemo {
     private static void unaryOperator(){
         UnaryOperator<Integer> unaryOperator = (first) -> first * first;
         System.out.println(unaryOperator.apply(12));
+    }
+
+    private static void myFunctionalInterface() {
+        MyFunctionalInterface<Integer, String> mF = x -> {
+            try {
+                return Integer.parseInt(x);
+            }
+            catch(Exception e) {
+                return null;
+            }
+        };
+        System.out.println(mF.get("12"));
+        System.out.println(mF.get("sdfds"));
     }
 }

@@ -12,7 +12,7 @@ import static data_structures.tree.binary_search_tree.binary_search_tree_impl.Bi
  * Give an algorithm to check whether the given binary tree is BST or not
  * Approach
  *  -   Find the inorder traversal of the bst, this will given all the values in sorted order
- *  -   then check whether each element is smaller than it's next element
+ *  -   then check whether each element is greater than the previous element.
  */
 
 public class CheckIfBst {

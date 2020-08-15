@@ -6,6 +6,14 @@ import static data_structures.tree.binary_search_tree.binary_search_tree_impl.Bi
 import java.util.*;
 import java.util.stream.IntStream;
 
+/**
+ * Given a BST, convert it into circular sorted dll.
+ * Approach:
+ *  -   To convert a BST to sorted order, we will use inorder traversal as it gives sorted order in bst
+ *  -   a given node's left pointer will become the previous pointer for a dll and the right pointer will become
+ *      the next pointer
+ */
+
 public class ConvertBstToCircularDll {
     static class Pair<U, T> {
         U first;
@@ -60,15 +68,16 @@ public class ConvertBstToCircularDll {
 
         Node<T> head = null;
         Node<T> tail = null;
-        while(curr != null || !stack.isEmpty()){
-            if(curr != null){
+        while(curr != null || !stack.isEmpty()) {
+            if(curr != null) {
                 stack.push(curr);
                 curr = curr.getLeft();
             }
-            else{
+            else {
                 curr = stack.pop();
                 Node<T> right = curr.getRight();
                 if(head == null) {
+                    // if head is null then point the left and right to itself
                     curr.setRight(curr);
                     curr.setLeft(curr);
                     head = tail = curr;
@@ -81,6 +90,7 @@ public class ConvertBstToCircularDll {
                 curr = right;
             }
         }
+        // at last assign left of head to tail and assign right of tail to head to create a circle
         if(head != null) {
             head.setLeft(tail);
             tail.setRight(head);

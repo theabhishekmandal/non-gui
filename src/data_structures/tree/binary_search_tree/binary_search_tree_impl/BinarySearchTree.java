@@ -157,6 +157,7 @@ public class BinarySearchTree<T extends Comparable<? super T>>{
         else {
             prev.right = newnode;
         }
+        this.size++;
     }
 
     /*
