@@ -1,0 +1,75 @@
+Problems With BinarySearch Trees
+
+    -   Binary Search Trees have worst case complexity as O(n) where n is the number of nodes in the tree.
+
+    -   This happens when the trees are skew trees. (skew trees are those which have only left child or only right child)
+
+    -   This complexity can be reduced to O(log n) by imposing some restrictions on the heights.
+
+
+ -  In general, the height balanced trees are represented with HB(k), where k is the difference between left subtree height and right subtree height.
+
+ -  Sometimes k is called the balance factor.
+
+
+ Full Balanced Binary Search Trees
+
+    -   balance factor k is calculated as height of left subtree - height of right subtree
+    -   In HB(k), if k = 0 (if balance factor is zero), then we call such binary search trees as full balanced binary search
+        trees.
+
+    -   HB(0) means the difference between left subtree height and right subtree height should be at most zero. This
+        ensures that the tree is a full binary tree.
+
+                                                4
+                                              /   \
+                                            2      6
+                                          /  \    /  \
+                                         1    3  5    7
+
+
+AVL(Adelson - Velskii and Landis) Trees
+
+    -   In HB(k), if k = 1 (if balance factor is one), such binary search tree is called an AVL tree. That means an
+        AVL tree is a binary search tree with balance condition: the difference between left subtree height and right
+        subtree height is at most 1.
+
+Properties of AVL trees
+
+    -   It is a binary search tree
+    -   For any node X, the height of left subtree of X and height of right subtree of X differ by at most 1.
+    ex: left one is not a AVL Tree, but the right one is an avl tree, height is calculated as
+                        8(-1)                8(1)
+                      /   \                /   \
+                     6(1)  1(2)           6(1)  1(0)
+                    /     /              /     /  \
+                   3(0)  1(1)           3(0)  0(0) 1(0)
+                        /
+                       0(0)
+
+Minimum / Maximum Number of Nodes in AVL Tree
+    -   let h is the height of an AVL tree and N(h) indicates the number of nodes in AVL tree with height h.
+
+    -   To get the minimum number of nodes with height h, we should fill the tree with minimum number of nodes
+
+    -   So the left subtree of height h - 2 will have N(h - 2) nodes while the right subtree of height h - 1
+        will have N(h - 1) number of nodes
+
+    -   The recurrence relation for minimum number of nodes with height h is:
+        N(h) = N(h - 1) + N(h - 2) + 1
+
+    -   In the above equation
+        -   N(h - 1) indicates the minimum number of nodes with height h - 1.
+        -   N(h - 2) indicates the minimum number of nodes with height h - 2.
+        -   In the above expression, "1" indicates the current node.
+
+    -   Solving the recurrence relation gives N(h) = 1 + N(h - 1) + N(h - 2) => O(log n)
+
+    -   Similarly , to get maximum number of nodes, we need to fill both left and right subtrees with height h - 1.
+        As a result we get the recurrence relation as
+        N(h) = 1 + 2N(h - 1)
+
+    -   Solving this recurrence relation given N(h) = 1 + 2N(h - 1) => O(log n)
+
+    -   In both cases, AVL tree property is ensuring that the height of an AVL tree with n nodes is O(log n).
+

@@ -134,28 +134,25 @@ public class BinarySearchTree<T extends Comparable<? super T>>{
             this.size++;
             return;
         }
-        Node<T> prev = null;
+        Node<T> prev;
         Node<T> temp = this.root;
-        Node<T> newnode = new Node<>(data);
+        Node<T> newNode = new Node<>(data);
         while(temp != null){
             prev = temp;
-            int compare = temp.compareTo(newnode);
+            int compare = temp.compareTo(newNode);
             compare = (doReverse) ? -compare : compare;
             if(compare >= 1) {
                 temp = temp.left;
+                if(temp == null) {
+                    prev.left = newNode;
+                }
             }
             else {
                 temp = temp.right;
+                if(temp == null) {
+                    prev.right = newNode;
+                }
             }
-        }
-
-        int compare = prev.compareTo(newnode);
-        compare = (doReverse) ? -compare : compare;
-        if(compare >= 1){
-            prev.left = newnode;
-        }
-        else {
-            prev.right = newnode;
         }
         this.size++;
     }
