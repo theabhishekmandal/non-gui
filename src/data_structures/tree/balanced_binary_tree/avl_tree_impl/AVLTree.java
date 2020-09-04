@@ -188,7 +188,8 @@ public class AVLTree<T extends Comparable<? super T>> {
         leftNode.right = node;
 
         node.height = Math.max(getHeight(node.left), getHeight(node.right)) + 1;
-        leftNode.height = Math.max(getHeight(leftNode.right) , getHeight(leftNode.left)) + 1;
+        node.height = calculateHeight(node);
+        leftNode.height = calculateHeight(leftNode);
 
         return leftNode;
     }
@@ -199,8 +200,8 @@ public class AVLTree<T extends Comparable<? super T>> {
         node.right = rightNode.left;
         rightNode.left = node;
 
-        node.height = Math.max(getHeight(node.left), getHeight(node.right)) + 1;
-        rightNode.height = Math.max(getHeight(rightNode.left), getHeight(rightNode.right)) + 1;
+        node.height = calculateHeight(node);
+        rightNode.height = calculateHeight(rightNode);
 
         return rightNode;
     }
