@@ -84,11 +84,6 @@ public class AVLTree<T extends Comparable<? super T>> {
         this.size = 0;
     }
 
-    public void deleteTree() {
-        this.root = null;
-        this.size = 0;
-    }
-
     public Node<T> getRoot() {
         return this.root;
     }
@@ -101,6 +96,9 @@ public class AVLTree<T extends Comparable<? super T>> {
         this.root = insert(this.root, data);
     }
 
+    /*
+        Recursive version of insertion of node in AVL tree
+     */
     private Node<T> insert(Node<T> node, T data) {
         if(node == null) {
             this.size++;
@@ -109,11 +107,9 @@ public class AVLTree<T extends Comparable<? super T>> {
         if(node.data.compareTo(data) >= 1) {
             node.left = insert(node.left, data);
             if(getBalance(node) == 2) {
-                // if node is the left of left subtree of current node
-                if(node.left.data.compareTo(data) >= 0) {
+                if(getHeight(node.left.left) > getHeight(node.left.right)) {
                     node = rightRotate(node);
                 }
-                // if node is the right of left subtree of current node
                 else {
                     node = leftRightRotate(node);
                 }
@@ -122,11 +118,9 @@ public class AVLTree<T extends Comparable<? super T>> {
         else {
             node.right = insert(node.right, data);
             if(getBalance(node) == 2) {
-                // if node is the right of the right subtree of current node
-                if(node.right.data.compareTo(data) <= 0) {
+                if(getHeight(node.right.right) > getHeight(node.right.left)) {
                     node = leftRotate(node);
                 }
-                // if the node is the left of the right subtree of the current node
                 else {
                     node = rightLeftRotate(node);
                 }
@@ -173,65 +167,8 @@ public class AVLTree<T extends Comparable<? super T>> {
                 }
             }
         }
-        balanceTree(data);
+        balanceTree(balancingStack);
         this.size++;
-    }
-
-    /*
-        if node is in right of right subtree
-        else node is in the left of right subtree
-
-        if node is left of left subtree
-        else node is in the right of left subtree
-    */
-    private void balanceTree(T data) {
-        while(!balancingStack.isEmpty()) {
-            var temp = balancingStack.pop();
-            if(getBalance(temp) == 2) {
-                if(temp.data.compareTo(data) <= 0) {
-                    if(temp.right.data.compareTo(data) <= 0) {
-                        temp = leftRotate(temp);
-                    }
-                    else {
-                        temp = rightLeftRotate(temp);
-                    }
-                }
-                else {
-                    if(temp.left.data.compareTo(data) >= 0) {
-                        temp = rightRotate(temp);
-                    }
-                    else {
-                        temp = leftRightRotate(temp);
-                    }
-                }
-                // this if check is used to determine, whether temp will be attached to left or to right side of the peek Node of stack
-                // or will it become the root node
-                /*
-                    eg: 17                              17
-                          \                               \
-                          19 <- previousChild             18  <- newChild
-                          /                               /  \
-                         18  => after leftRotation       18  19
-                           \
-                           18
-                 */
-                if(balancingStack.isEmpty()) {
-                    this.root = temp;
-                }
-                else {
-                    var peekNode = balancingStack.peek();
-                    if(peekNode.data.compareTo(temp.data) <= 0) {
-                       peekNode.right = temp;
-                    }
-                    else {
-                        peekNode.left = temp;
-                    }
-                }
-            }
-            else {
-                temp.height = Math.max(getHeight(temp.left), getHeight(temp.right)) + 1;
-            }
-        }
     }
 
     /*
@@ -301,6 +238,128 @@ public class AVLTree<T extends Comparable<? super T>> {
         return Math.abs(getHeight(node.left) - getHeight(node.right));
     }
 
+    public Node<T> deleteNode(T data) {
+        if(data == null) {
+            return null;
+        }
+
+        Deque<Node<T>> stack = new ArrayDeque<>();
+        Node<T> curr = this.root;
+        Node<T> prev = null;
+        while(curr != null) {
+            // check first then assign to previous because element deleted can also be root
+            int compare = curr.data.compareTo(data);
+            if(compare == 0) {
+                break;
+            }
+            prev = curr;
+            // adding node visited in stack for balancing
+            stack.push(curr);
+            if(compare > 0) {
+                curr = curr.left;
+            }
+            else {
+                curr = curr.right;
+            }
+        }
+
+        // value to be deleted not found in tree
+        if(curr == null) {
+            return null;
+        }
+
+        var nodeToBeDeleted = new Node<>(curr.data);
+
+        if(prev != null) {
+            if(prev.left == curr) {
+               prev.left = delete(prev.left);
+            }
+            else {
+               prev.right = delete(prev.right);
+            }
+        }
+        else {
+            this.root = delete(this.root);
+        }
+        this.size--;
+        balanceTree(stack);
+        return nodeToBeDeleted;
+    }
+
+    private void balanceTree(Deque<Node<T>> stack) {
+       while(!stack.isEmpty()) {
+           var temp = stack.pop();
+           if(getBalance(temp) == 2) {
+               if(getHeight(temp.right) >= getHeight(temp.left)) {
+                   if(getHeight(temp.right.right) > getHeight(temp.right.left)) {
+                        temp = leftRotate(temp);
+                   }
+                   else {
+                        temp = rightLeftRotate(temp);
+                   }
+               }
+               else {
+                   if(getHeight(temp.left.left) > getHeight(temp.left.right)) {
+                       temp = rightRotate(temp);
+                   }
+                   else {
+                       temp = leftRightRotate(temp);
+                   }
+               }
+
+               if(stack.isEmpty()) {
+                   this.root = temp;
+               }
+               else {
+                   var peekNode = stack.peek();
+                   if(peekNode.data.compareTo(temp.data) <= 0) {
+                       peekNode.right = temp;
+                   }
+                   else {
+                       peekNode.left = temp;
+                   }
+               }
+           }
+           else {
+               temp.height = Math.max(getHeight(temp.left), getHeight(temp.right)) + 1;
+           }
+       }
+    }
+
+    private Node<T> delete(Node<T> node) {
+        if(node.left == null) {
+            var temp = node.right;
+            node.right = null;
+            return temp;
+        }
+        else if(node.right == null) {
+           var temp = node.left;
+           node.left = null;
+           return temp;
+        }
+        else {
+            var parent = node;
+            var succ = node.right;
+            while(succ.left != null) {
+                parent = succ;
+                succ = succ.left;
+            }
+
+            if(parent != node) {
+                parent.left = succ.right;
+            }
+            else {
+                parent.right = succ.right;
+            }
+            parent.height = calculateHeight(parent);
+            node.data = succ.data;
+            return node;
+        }
+    }
+
+    private int calculateHeight(Node<T> node) {
+        return Math.max(getHeight(node.left), getHeight(node.right)) + 1;
+    }
     public String inOrder() {
         if(this.root == null) {
             return "[]";
@@ -322,9 +381,9 @@ public class AVLTree<T extends Comparable<? super T>> {
         return "[ " + String.join(", ", finalAnswer) + " ]";
     }
 
-    public String levelOrder() {
+    private List<List<String>> levelOrderPrivate() {
         if(this.root == null) {
-            return "[]";
+            return Collections.emptyList();
         }
         List<List<String>> finalAnswer = new ArrayList<>();
         List<String> tempList = new ArrayList<>();
@@ -334,27 +393,54 @@ public class AVLTree<T extends Comparable<? super T>> {
         queue.add(null);
 
         Node<T> curr;
+        Node<T> emptyObject = new Node<>(null);
         while(!queue.isEmpty()) {
-           curr = queue.poll();
-           if(curr != null) {
-               tempList.add(curr.data.toString());
-               if(curr.left != null) {
-                   queue.add(curr.left);
-               }
-               if(curr.right != null) {
-                   queue.add(curr.right);
-               }
-           }
-           else {
-               finalAnswer.add(new ArrayList<>(tempList));
-               tempList.clear();
-               if(!queue.isEmpty()) {
-                   queue.add(null);
-               }
-           }
+            curr = queue.poll();
+            if(curr != null) {
+                if(curr != emptyObject) {
+                    tempList.add(curr.data.toString());
+                    queue.add(Objects.requireNonNullElse(curr.left, emptyObject));
+                    queue.add(Objects.requireNonNullElse(curr.right, emptyObject));
+                }
+                else {
+                    tempList.add("*");
+                }
+            }
+            else {
+                finalAnswer.add(new ArrayList<>(tempList));
+                tempList.clear();
+                if(!queue.isEmpty()) {
+                    queue.add(null);
+                }
+            }
+        }
+        return finalAnswer;
+    }
+
+    public String levelOrder() {
+        List<List<String>> finalAnswer = levelOrderPrivate();
+        if(finalAnswer.isEmpty()) {
+            return "[]";
         }
         return "[" + finalAnswer.stream()
                 .map(list -> "(" + String.join(", ", list) + ")")
                 .collect(Collectors.joining(", \n")) + "]";
+    }
+
+    public String levelOrderPretty() {
+       List<List<String>> finalAnswer = levelOrderPrivate();
+       if(finalAnswer.isEmpty()) {
+           return "[]";
+       }
+       StringBuilder br = new StringBuilder();
+       int maxSize = finalAnswer.get(finalAnswer.size() - 2).size();
+       for(int i = 0; i < finalAnswer.size() - 1; i++) {
+           var list = finalAnswer.get(i);
+           int rem = ((maxSize - list.size()) + 1) >> 1;
+           br.append(" ".repeat(Math.max(0, rem)));
+           list.forEach(x -> br.append(x).append(" "));
+           br.append("\n");
+       }
+       return br.toString();
     }
 }
