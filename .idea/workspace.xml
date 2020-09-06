@@ -22,376 +22,14 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="59c2c0ed-1f07-475b-919f-5deeed6d1fa5" name="Default" comment="Refactoring 2">
-      <change afterPath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/codeStyles/codeStyleConfig.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/hello.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/multi_threading/CreatingMultipleThreadsDemo2.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/multi_threading/ExtendingThreadDemo.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/multi_threading/ImplementingRunnableDemo.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/multi_threading/JoinMethodDemo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+    <list default="true" id="59c2c0ed-1f07-475b-919f-5deeed6d1fa5" name="Default" comment="AVLTree.java adding method for calculating height">
+      <change afterPath="$PROJECT_DIR$/src/data_structures/linked_list/problems/MergeKSortedLinkedLists.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/miscellaneous/StringToInteger.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/Collection_demo/CollectionAlgorithm/CollectionAlgoDemo1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/Collection_demo/CollectionAlgorithm/CollectionAlgoDemo2.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/Collection_demo/Comparator/City.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/Collection_demo/Comparator/ComparatorDemo1$1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/Collection_demo/Comparator/ComparatorDemo1$2.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/Collection_demo/Comparator/ComparatorDemo1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/Collection_demo/Comparator/ComparatorDemo2$1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/Collection_demo/Comparator/ComparatorDemo2.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/Collection_demo/Comparator/ComparatorDemo3.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/Collection_demo/Comparator/ComparatorDemo4.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/Collection_demo/Comparator/Person.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/Collection_demo/Comparator/Record.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/Collection_demo/Comparator/Student.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/Collection_demo/Iterator/Example.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/Collection_demo/Iterator/ForEachAlternative.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/Collection_demo/Iterator/IteratorDemo.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/Collection_demo/Iterator/ListIteratorDemo.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/Collection_demo/Iterator/SpliteratorDemo.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/Collection_demo/List/ArrayListDemo.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/Collection_demo/List/LinkedLIstDemo.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/Collection_demo/Map/EnumMapDemo$GFG.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/Collection_demo/Map/EnumMapDemo.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/Collection_demo/Map/HashMapDemo.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/Collection_demo/Map/LinkedHashMapDemo$1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/Collection_demo/Map/LinkedHashMapDemo.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/Collection_demo/Map/MapEntryDemo.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/Collection_demo/Map/TreeMapDemo.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/Collection_demo/Queue/ArrayDequeueDemo.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/Collection_demo/Queue/PriorityQueueDemo.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/Collection_demo/Queue/Student.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/Collection_demo/Queue/StudentComparator.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/Collection_demo/Set/HashSetDemo.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/Collection_demo/Set/LinkedHashSetDemo.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/Collection_demo/Set/TreeSetDemo.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/Collection_demo/UserDefinedClass/Address.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/Collection_demo/UserDefinedClass/UserDefinedClassDemo.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/Enumeration_and_Autoboxing/Apple.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/Enumeration_and_Autoboxing/AutoboxingDemo.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/Enumeration_and_Autoboxing/Orange.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/Enumeration_and_Autoboxing/enumDemo$1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/Enumeration_and_Autoboxing/enumDemo.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/Enumeration_and_Autoboxing/enumdemo2.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/Exception_handling/Multi_catch_demo.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/Exception_handling/NestTry.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/Exception_handling/NestTry2.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/Exception_handling/Throws_demo.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/Exception_handling/exception1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/Exception_handling/finally_demo.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/Exception_handling/multiple_catch.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/Exception_handling/test1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/Exception_handling/throws_demo2.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/Exception_handling/user_defined_exception_demo.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/Exception_handling/using_try_catch.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/Filehandling/Demo3.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/Filehandling/FileName_filter_demo$1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/Filehandling/FileName_filter_demo.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/Filehandling/FileObjectDemo.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/Filehandling/FileOutputStreamDemo/demo6.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/Filehandling/FileOutputStreamDemo/file1.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/Filehandling/FileOutputStreamDemo/file2.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/Filehandling/FileOutputStreamDemo/file3.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/Filehandling/demo1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/Filehandling/demo2.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/Filehandling/demo4.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/Filehandling/demo5.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/Filehandling/hello" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/Filehandling/hello1.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/Filehandling/is_Dir_or_File_Demo.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/Generics/A.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/Generics/Animal.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/Generics/B.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/Generics/BoundedWildCardArgDemo7.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/Generics/BoundedWildCardArgDemo8.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/Generics/Dog.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/Generics/ExtendingClassImplementingInterfaceDemo4.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/Generics/FourD.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/Generics/GenAnimal.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/Generics/GenClassExtendingNonGenClassDemo12.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/Generics/GenericClassDemo1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/Generics/GenericClassDemo2.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/Generics/GenericClassExtendingNumberDemo3.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/Generics/GenericClassInheritenceDemo11.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/Generics/GenericInterfaceDemo10.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/Generics/GenericMethodDemo5.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/Generics/GenericMethodInNonGenricClassDemo9.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/Generics/MinMax.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/Generics/Myclass.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/Generics/Spitz.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/Generics/Stats.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/Generics/Stats1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/Generics/ThreeD.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/Generics/TwoD.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/Generics/TwoGen.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/Generics/WildCardArgDemo6.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/Generics/abhishek.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/Generics/demo1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/Generics/demo10.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/Generics/demo11.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/Generics/demo12.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/Generics/demo2.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/Generics/demo3.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/Generics/demo4.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/Generics/demo5.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/Generics/demo6.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/Generics/demo7.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/Generics/demo8.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/Generics/demo9.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/Generics/gen.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/Generics/generic.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/Generics/geng.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/Generics/hello.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/Generics/mandal.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/Generics/mandal2.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/Generics/nongen.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/Generics/show.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/INNER_CLASS/A$1B.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/INNER_CLASS/A.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/INNER_CLASS/Inside_method_innerclass.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/INNER_CLASS/Outer1$inner1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/INNER_CLASS/Outer1$inner2.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/INNER_CLASS/Outer1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/INNER_CLASS/test$abc.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/INNER_CLASS/test$staticClass.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/INNER_CLASS/test.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/Inheritence/A.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/Inheritence/B.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/Inheritence/Box.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/Inheritence/BoxWeigth.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/Inheritence/C.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/Inheritence/DemoShipment.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/Inheritence/Inheritence1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/Inheritence/Inheritence2.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/Inheritence/Inheritence3.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/Inheritence/Inheritence4.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/Inheritence/Rectangle.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/Inheritence/Square.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/Inheritence/hello.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/Inheritence/hi.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/Lambda_Expressions/DoubleNumericArrayFunc.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/Lambda_Expressions/EmptyArrayException.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/Lambda_Expressions/HighTemp.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/Lambda_Expressions/StringFunc.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/Lambda_Expressions/demo1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/Lambda_Expressions/demo10.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/Lambda_Expressions/demo11.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/Lambda_Expressions/demo2.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/Lambda_Expressions/demo3.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/Lambda_Expressions/demo4.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/Lambda_Expressions/demo5.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/Lambda_Expressions/demo6.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/Lambda_Expressions/demo7.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/Lambda_Expressions/demo8.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/Lambda_Expressions/demo9.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/Lambda_Expressions/func.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/Lambda_Expressions/myFunc.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/Lambda_Expressions/mynumber.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/Lambda_Expressions/mytest.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/Lambda_Expressions/numerictest.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/Lambda_Expressions/objectfunc.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/Lambda_Expressions/test.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/Lambda_Expressions/testFunc.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/MultiThreading/Consumer.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/MultiThreading/Consumer1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/MultiThreading/CreatingMultipleThreads.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/MultiThreading/CreatingMultipleThreadsDemo2.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/MultiThreading/ExtendingThreadDemo.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/MultiThreading/Implementing_Runnable_demo.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/MultiThreading/NewThread.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/MultiThreading/Non_Syncronised_Demo.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/MultiThreading/ProduceConsumerDemo.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/MultiThreading/Producer.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/MultiThreading/Producer1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/MultiThreading/ProducerConsumerDemo2.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/MultiThreading/Synchronised_block_demo.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/MultiThreading/Syncronised_Demo.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/MultiThreading/Thread_demo.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/MultiThreading/q.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/String_Handling/CharAtAndGetCharsDemo.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/String_Handling/CompareToDemo.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/String_Handling/ContainsDemo.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/String_Handling/EqualsAndEqualsIgnoreCaseDemo.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/String_Handling/IndexOfDemo.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/String_Handling/JoiningStringsDemo.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/String_Handling/MatchesDemo.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/String_Handling/RegionMatchesDemo.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/String_Handling/ReplaceDemo.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/String_Handling/ReplaceFirstAndReplaceAllDemo.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/String_Handling/StartsWithAndEndsWithDemo.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/String_Handling/StringBuilder/AppendDemo.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/String_Handling/StringBuilder/InsertDemo.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/String_Handling/StringBuilder/ReplaceDemo.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/String_Handling/StringBuilder/StringBuilderDemo.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/String_Handling/StringBuilder/SubstringDemo.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/String_Handling/StringBuilder/charAtAndSetCharAtDemo.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/String_Handling/StringBuilder/deleteAndDeleteCharAtDemo.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/String_Handling/StringBuilder/ensureCapacityAndSetLengthDemo.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/String_Handling/StringBuilder/lengthAndCapacityDemo.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/String_Handling/StringBuilder/reverseDemo.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/String_Handling/StringFormatDemo.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/String_Handling/StringSplitDemo.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/String_Handling/SubstringDemo.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/String_Handling/contentEquals.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/String_Handling/getBytesDemo.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/String_Handling/toLowerAndtoUpperDemo.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/String_Handling/toStringDemo$Class.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/String_Handling/toStringDemo.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/abstractClass/abstractClassDemo/Main.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/abstractClass/abstractClassDemo/checkone.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/abstractClass/abstractClassDemo/checktwo.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/abstractClass/abstractInnerAnonymous/Main$1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/abstractClass/abstractInnerAnonymous/Main$2.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/abstractClass/abstractInnerAnonymous/Main.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/abstractClass/abstractInnerAnonymous/hello$anotherone.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/abstractClass/abstractInnerAnonymous/hello$check.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/abstractClass/abstractInnerAnonymous/hello.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/abstractClass/abstractInnerStatic/Main$1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/abstractClass/abstractInnerStatic/Main$2.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/abstractClass/abstractInnerStatic/Main.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/abstractClass/abstractInnerStatic/check$testing.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/abstractClass/abstractInnerStatic/check$testing2.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/abstractClass/abstractInnerStatic/check$testing3.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/abstractClass/abstractInnerStatic/check.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/abstract_interfaces/AbstractClassImplementingInterface/Main.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/abstract_interfaces/AbstractClassImplementingInterface/New.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/abstract_interfaces/AbstractClassImplementingInterface/myname.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/abstract_interfaces/ExtendingInterfaces/Main.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/abstract_interfaces/ExtendingInterfaces/Myclass.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/abstract_interfaces/ExtendingInterfaces/one.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/abstract_interfaces/ExtendingInterfaces/two.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/abstract_interfaces/InterfaceDemo1/Main.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/abstract_interfaces/InterfaceDemo1/getString.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/abstract_interfaces/InterfaceDemo1/goit.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/abstract_interfaces/InterfaceDemo1/interfacedemo.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/abstract_interfaces/InterfaceStaticMethods/Main.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/abstract_interfaces/InterfaceStaticMethods/number.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/abstract_interfaces/NestedInterface/A$B.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/abstract_interfaces/NestedInterface/A.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/abstract_interfaces/NestedInterface/C$D.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/abstract_interfaces/NestedInterface/C.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/abstract_interfaces/NestedInterface/Main.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/com/company/MUltiply_large_numbers_without_bigInteger.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/com/company/Main$InputReader.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/com/company/Main$ProblemSolver.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/com/company/Main.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/com/company/Prime1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/com/company/fibo.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/com/company/findingLengthOfInteger.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/com/company/findingNthFibonacci.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/com/company/findingPower.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/com/company/findingpeak.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/com/company/hello.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/com/company/kmp_String_matching.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/com/company/large_factorials.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/com/company/permutation.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/com/company/print_all_sequence.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/com/company/replace_a_substring.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/com/company/reversing.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/com/company/sumoflargenumbers.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/com/company/test.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/data_structure/Queue/QueueUsingStack$MyQueue.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/data_structure/Queue/QueueUsingStack.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/data_structure/Queue/node1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/data_structure/Queue/queue.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/data_structure/Queue/queue_linked_list.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/data_structure/Queue/queueit.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/data_structure/Searching/Binary_Search.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/data_structure/SegmentTree.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/data_structure/Stack/Stackit.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/data_structure/Stack/stack.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/data_structure/Tree/BinaryTree.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/data_structure/Tree/TreeNode.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/data_structure/TrieTest$Trie.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/data_structure/TrieTest.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/data_structure/linked_list/Adding_numbers.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/data_structure/linked_list/Linkedlist.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/data_structure/linked_list/doublenode.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/data_structure/linked_list/doubly_linked_list.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/data_structure/linked_list/node.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/data_structure/linked_list/sort1and2$node.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/data_structure/linked_list/sort1and2.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/data_structure/sorting/Bubblesort.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/data_structure/sorting/HeapSort.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/data_structure/sorting/bubble.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/data_structure/sorting/insertionsort.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/data_structure/sorting/insertsort.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/data_structure/sorting/mergesort.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/data_structure/sorting/quicksort.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/method_overriding/A.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/non-gui/method_overriding/A.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/method_overriding/B.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/non-gui/method_overriding/B.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/method_overriding/Figure.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/non-gui/method_overriding/Figure.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/method_overriding/FindAreas.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/method_overriding/Rectangle.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/non-gui/method_overriding/Rectangle.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/method_overriding/Triangle.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/non-gui/method_overriding/Triangle.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/method_overriding/hello.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/method_overriding/methodoverriding1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/regexdemo/all_mail_id.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/regexdemo/capturing_digits.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/regexdemo/comment.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/regexdemo/date_Capturring.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/regexdemo/regex.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/regexdemo/substring_with_no100.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/testing/Account.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/testing/Application.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/testing/Banking.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/testing/Book.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/testing/BookStoreApp.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/testing/BooksStore.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/testing/CurrentAccount.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/testing/LinkedListMiddle$Node.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/testing/LinkedListMiddle.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/testing/Main.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/testing/SavingAccount.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/testing/Student.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/testing/demo$pair.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/non-gui/testing/demo.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/MultiThreading/CreatingMultipleThreads.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/multi_threading/CreatingMultipleThreads.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/MultiThreading/CreatingMultipleThreadsDemo2.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/MultiThreading/ExtendingThreadDemo.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/MultiThreading/Implementing_Runnable_demo.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/MultiThreading/NewThread.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/MultiThreading/Non_Syncronised_Demo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/multi_threading/NonSynchronizedDemo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/MultiThreading/ProduceConsumerDemo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/multi_threading/ProduceConsumerDemo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/MultiThreading/ProducerConsumerDemo2.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/multi_threading/ProducerConsumerDemo2.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/MultiThreading/Synchronised_block_demo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/multi_threading/SynchronizedBlockDemo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/MultiThreading/Syncronised_Demo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/multi_threading/SynchronizedDemo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/MultiThreading/Thread_demo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/multi_threading/ThreadDemo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/RegexImplementation/AllMailId.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/regex_implementation/AllMailId.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/RegexImplementation/CapturingDigits.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/regex_implementation/CapturingDigits.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/RegexImplementation/Comment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/regex_implementation/Comment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/RegexImplementation/DateCapturring.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/regex_implementation/DateCapturring.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/RegexImplementation/SubstringWithNo100.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/regex_implementation/SubstringWithNo100.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/RegexImplementation/ValidPhoneNumber.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/regex_implementation/ValidPhoneNumber.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Streams/ArrayFromStreamDemo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/streams/ArrayFromStreamDemo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Streams/CollectDemo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/streams/CollectDemo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Streams/DistinctDemo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/streams/DistinctDemo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Streams/Employee.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/streams/Employee.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Streams/FilterDemo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/streams/FilterDemo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Streams/FlatMapDemo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/streams/FlatMapDemo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Streams/ForEachDemo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/streams/ForEachDemo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Streams/IntStreamDemo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/streams/IntStreamDemo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Streams/MapDemo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/streams/MapDemo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Streams/MinAndMaxDemo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/streams/MinAndMaxDemo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Streams/Names.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/streams/Names.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Streams/OptionalDemo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/streams/OptionalDemo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Streams/PeekDemo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/streams/PeekDemo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Streams/PredicateDemo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/streams/PredicateDemo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Streams/SortedDemo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/streams/SortedDemo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Streams/StreamFromArray.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/streams/StreamFromArray.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Streams/StreamFromArrayDemo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/streams/StreamFromArrayDemo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Streams/StreamFromCsvFile.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/streams/StreamFromCsvFile.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Streams/StreamFromFiles.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/streams/StreamFromFiles.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Streams/StreamFromListDemo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/streams/StreamFromListDemo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Streams/StreamMatchDemo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/streams/StreamMatchDemo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Streams/StreamOfDemo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/streams/StreamOfDemo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Streams/StreamReduceDemo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/streams/StreamReduceDemo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Streams/StreamsTutorial" beforeDir="false" afterPath="$PROJECT_DIR$/src/streams/StreamsTutorial" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Streams/data.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/streams/data.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Streams/findFirstDemo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/streams/FindFirstDemo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Streams/test.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/streams/TestStream.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/StringsImplementation/StringBuilder/charAtAndSetCharAtDemo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/StringsImplementation/StringBuilder/CharAtAndSetCharAtDemo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/data_structures/linked_list/problems/MergeTwoSortedLinkedLists.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/data_structures/linked_list/problems/MergeTwoSortedLinkedLists.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/data_structures/tree/binary_search_tree/binary_search_tree_impl/BinarySearchTree.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/data_structures/tree/binary_search_tree/binary_search_tree_impl/BinarySearchTree.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/miscellaneous/FindingNthHighestNumber.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/miscellaneous/FindingNthHighestNumber.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -458,7 +96,7 @@
       <recent name="F:\work\non-gui\src\Filehandling" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.FindFirstDemo">
+  <component name="RunManager" selected="Application.MergeKSortedLinkedLists">
     <configuration default="true" type="AndroidTestRunConfigurationType" factoryName="Android Tests">
       <module name="" />
       <option name="TESTING_TYPE" value="0" />
@@ -486,12 +124,12 @@
       </Profilers>
       <method />
     </configuration>
-    <configuration name="FindFirstDemo" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="streams.FindFirstDemo" />
+    <configuration name="AVLTreeImpl" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="data_structures.tree.balanced_binary_tree.avl_tree_impl.AVLTreeImpl" />
       <module name="non-gui" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="streams.*" />
+          <option name="PATTERN" value="data_structures.tree.balanced_binary_tree.avl_tree_impl.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -499,12 +137,12 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="JoinMethodDemo" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="multi_threading.JoinMethodDemo" />
+    <configuration name="FindingNthHighestNumber" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="miscellaneous.FindingNthHighestNumber" />
       <module name="non-gui" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="multi_threading.*" />
+          <option name="PATTERN" value="miscellaneous.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -512,12 +150,12 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="NonSynchronizedDemo" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="multi_threading.NonSynchronizedDemo" />
+    <configuration name="MergeKSortedLinkedLists" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="data_structures.linked_list.problems.MergeKSortedLinkedLists" />
       <module name="non-gui" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="multi_threading.*" />
+          <option name="PATTERN" value="data_structures.linked_list.problems.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -525,12 +163,12 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ProduceConsumerDemo" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="multi_threading.ProduceConsumerDemo" />
+    <configuration name="StringToInteger" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="miscellaneous.StringToInteger" />
       <module name="non-gui" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="multi_threading.*" />
+          <option name="PATTERN" value="miscellaneous.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -538,15 +176,9 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ProducerConsumerDemo2" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="multi_threading.ProducerConsumerDemo2" />
+    <configuration name="test" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="test" />
       <module name="non-gui" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="multi_threading.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -604,19 +236,19 @@
       </method>
     </configuration>
     <list>
-      <item itemvalue="Application.JoinMethodDemo" />
-      <item itemvalue="Application.NonSynchronizedDemo" />
-      <item itemvalue="Application.ProduceConsumerDemo" />
-      <item itemvalue="Application.ProducerConsumerDemo2" />
-      <item itemvalue="Application.FindFirstDemo" />
+      <item itemvalue="Application.AVLTreeImpl" />
+      <item itemvalue="Application.test" />
+      <item itemvalue="Application.FindingNthHighestNumber" />
+      <item itemvalue="Application.StringToInteger" />
+      <item itemvalue="Application.MergeKSortedLinkedLists" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.FindFirstDemo" />
-        <item itemvalue="Application.ProducerConsumerDemo2" />
-        <item itemvalue="Application.ProduceConsumerDemo" />
-        <item itemvalue="Application.NonSynchronizedDemo" />
-        <item itemvalue="Application.JoinMethodDemo" />
+        <item itemvalue="Application.MergeKSortedLinkedLists" />
+        <item itemvalue="Application.StringToInteger" />
+        <item itemvalue="Application.FindingNthHighestNumber" />
+        <item itemvalue="Application.test" />
+        <item itemvalue="Application.AVLTreeImpl" />
       </list>
     </recent_temporary>
   </component>
@@ -631,48 +263,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1499839898178</updated>
-    </task>
-    <task id="LOCAL-00061" summary="Collections Implementation">
-      <created>1536892635999</created>
-      <option name="number" value="00061" />
-      <option name="presentableId" value="LOCAL-00061" />
-      <option name="project" value="LOCAL" />
-      <updated>1536892635999</updated>
-    </task>
-    <task id="LOCAL-00062" summary="Collections Implementation">
-      <created>1538012013970</created>
-      <option name="number" value="00062" />
-      <option name="presentableId" value="LOCAL-00062" />
-      <option name="project" value="LOCAL" />
-      <updated>1538012013970</updated>
-    </task>
-    <task id="LOCAL-00063" summary="Collections Implementation">
-      <created>1538013979503</created>
-      <option name="number" value="00063" />
-      <option name="presentableId" value="LOCAL-00063" />
-      <option name="project" value="LOCAL" />
-      <updated>1538013979503</updated>
-    </task>
-    <task id="LOCAL-00064" summary="Collections Implementation">
-      <created>1538016028234</created>
-      <option name="number" value="00064" />
-      <option name="presentableId" value="LOCAL-00064" />
-      <option name="project" value="LOCAL" />
-      <updated>1538016028234</updated>
-    </task>
-    <task id="LOCAL-00065" summary="Collections implementation">
-      <created>1538249306947</created>
-      <option name="number" value="00065" />
-      <option name="presentableId" value="LOCAL-00065" />
-      <option name="project" value="LOCAL" />
-      <updated>1538249306947</updated>
-    </task>
-    <task id="LOCAL-00066" summary="Collections Implementation">
-      <created>1538249452585</created>
-      <option name="number" value="00066" />
-      <option name="presentableId" value="LOCAL-00066" />
-      <option name="project" value="LOCAL" />
-      <updated>1538249452585</updated>
     </task>
     <task id="LOCAL-00067" summary="Collections Implementation">
       <created>1538249675720</created>
@@ -975,7 +565,49 @@
       <option name="project" value="LOCAL" />
       <updated>1597086327796</updated>
     </task>
-    <option name="localTasksCounter" value="110" />
+    <task id="LOCAL-00110" summary="Refactoring 3">
+      <created>1597123570100</created>
+      <option name="number" value="00110" />
+      <option name="presentableId" value="LOCAL-00110" />
+      <option name="project" value="LOCAL" />
+      <updated>1597123570100</updated>
+    </task>
+    <task id="LOCAL-00111" summary="ConvertDllToBst.java FindKSmallestOrKLargest.java and SubtractNumbers.java">
+      <created>1597505045087</created>
+      <option name="number" value="00111" />
+      <option name="presentableId" value="LOCAL-00111" />
+      <option name="project" value="LOCAL" />
+      <updated>1597505045087</updated>
+    </task>
+    <task id="LOCAL-00112" summary="ContainsSameElements.java and FindInRange.java">
+      <created>1597648692165</created>
+      <option name="number" value="00112" />
+      <option name="presentableId" value="LOCAL-00112" />
+      <option name="project" value="LOCAL" />
+      <updated>1597648692165</updated>
+    </task>
+    <task id="LOCAL-00113" summary="AVLTree.java initial and updating BinarySearchTree.java insertion method">
+      <created>1598808772344</created>
+      <option name="number" value="00113" />
+      <option name="presentableId" value="LOCAL-00113" />
+      <option name="project" value="LOCAL" />
+      <updated>1598808772348</updated>
+    </task>
+    <task id="LOCAL-00114" summary="AVLTree.java 2nd updation without comments">
+      <created>1599206026588</created>
+      <option name="number" value="00114" />
+      <option name="presentableId" value="LOCAL-00114" />
+      <option name="project" value="LOCAL" />
+      <updated>1599206026590</updated>
+    </task>
+    <task id="LOCAL-00115" summary="AVLTree.java adding method for calculating height">
+      <created>1599207899448</created>
+      <option name="number" value="00115" />
+      <option name="presentableId" value="LOCAL-00115" />
+      <option name="project" value="LOCAL" />
+      <updated>1599207899448</updated>
+    </task>
+    <option name="localTasksCounter" value="116" />
     <servers />
   </component>
   <component name="TodoView">
@@ -1010,12 +642,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Trie Implementation" />
-    <MESSAGE value="sort elements in a single traversal" />
-    <MESSAGE value="fixes" />
-    <MESSAGE value="String Handling" />
-    <MESSAGE value="Collections implementation" />
-    <MESSAGE value="Collections Implementations" />
     <MESSAGE value="Collection Implementation" />
     <MESSAGE value="Algorithms implementation" />
     <MESSAGE value="Inner Class Implementation" />
@@ -1035,7 +661,13 @@
     <MESSAGE value="ConvertBstToCircularDll.java and refactoring" />
     <MESSAGE value="Refactoring" />
     <MESSAGE value="Refactoring 2" />
-    <option name="LAST_COMMIT_MESSAGE" value="Refactoring 2" />
+    <MESSAGE value="Refactoring 3" />
+    <MESSAGE value="ConvertDllToBst.java FindKSmallestOrKLargest.java and SubtractNumbers.java" />
+    <MESSAGE value="ContainsSameElements.java and FindInRange.java" />
+    <MESSAGE value="AVLTree.java initial and updating BinarySearchTree.java insertion method" />
+    <MESSAGE value="AVLTree.java 2nd updation without comments" />
+    <MESSAGE value="AVLTree.java adding method for calculating height" />
+    <option name="LAST_COMMIT_MESSAGE" value="AVLTree.java adding method for calculating height" />
   </component>
   <component name="WindowStateProjectService">
     <state x="843" y="426" width="223" height="244" key="#Notifications" timestamp="1594563226998">
@@ -1046,14 +678,15 @@
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state x="418" y="197" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1080@0.0.1920.1080" timestamp="1594383773167" />
-    <state x="658" y="356" width="594" height="384" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1594703565570">
-      <screen x="0" y="24" width="1920" height="1056" />
-    </state>
-    <state x="658" y="356" width="594" height="384" key="#com.intellij.fileTypes.FileTypeChooser/0.24.1920.1056@0.24.1920.1056" timestamp="1594703565570" />
-    <state x="768" y="241" width="496" height="559" key="#com.intellij.ide.util.MemberChooser" timestamp="1597076091201">
+    <state x="658" y="340" width="609" height="393" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1597721726532">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state x="768" y="241" width="496" height="559" key="#com.intellij.ide.util.MemberChooser/0.0.1920.1080@0.0.1920.1080" timestamp="1597076091201" />
+    <state x="658" y="340" width="609" height="393" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1920.1080@0.0.1920.1080" timestamp="1597721726532" />
+    <state x="658" y="356" width="594" height="384" key="#com.intellij.fileTypes.FileTypeChooser/0.24.1920.1056@0.24.1920.1056" timestamp="1594703565570" />
+    <state x="768" y="241" width="496" height="559" key="#com.intellij.ide.util.MemberChooser" timestamp="1598100515264">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state x="768" y="241" width="496" height="559" key="#com.intellij.ide.util.MemberChooser/0.0.1920.1080@0.0.1920.1080" timestamp="1598100515264" />
     <state x="768" y="260" width="374" height="575" key="#com.intellij.ide.util.MemberChooser/0.24.1920.1056@0.24.1920.1056" timestamp="1596023870578" />
     <state x="669" y="360" width="571" height="352" key="#com.intellij.refactoring.move.moveMembers.MoveMembersDialog" timestamp="1594389169547">
       <screen x="0" y="0" width="1920" height="1080" />
@@ -1067,10 +700,10 @@
       <screen x="0" y="24" width="1920" height="1056" />
     </state>
     <state x="693" y="301" width="524" height="494" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.24.1920.1056@0.24.1920.1056" timestamp="1595759097844" />
-    <state width="494" height="455" key="DebuggerActiveHint" timestamp="1595787155101">
-      <screen x="0" y="24" width="1920" height="1056" />
+    <state width="463" height="465" key="DebuggerActiveHint" timestamp="1599331142672">
+      <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state width="433" height="465" key="DebuggerActiveHint/0.0.1920.1080@0.0.1920.1080" timestamp="1594452786477" />
+    <state width="463" height="465" key="DebuggerActiveHint/0.0.1920.1080@0.0.1920.1080" timestamp="1599331142672" />
     <state width="494" height="455" key="DebuggerActiveHint/0.24.1920.1056@0.24.1920.1056" timestamp="1595787155101" />
     <state x="100" y="100" width="1720" height="880" key="DiffContextDialog" timestamp="1596894209613">
       <screen x="0" y="0" width="1920" height="1080" />
@@ -1080,60 +713,60 @@
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state x="743" y="297" width="424" height="478" key="FileChooserDialogImpl/0.0.1920.1080@0.0.1920.1080" timestamp="1596959389491" />
-    <state width="1868" height="440" key="GridCell.Tab.0.bottom" timestamp="1597122306194">
+    <state width="1878" height="305" key="GridCell.Tab.0.bottom" timestamp="1599417180978">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state width="1868" height="440" key="GridCell.Tab.0.bottom/0.0.1920.1080@0.0.1920.1080" timestamp="1597122306194" />
+    <state width="1878" height="305" key="GridCell.Tab.0.bottom/0.0.1920.1080@0.0.1920.1080" timestamp="1599417180978" />
     <state width="1878" height="431" key="GridCell.Tab.0.bottom/0.24.1920.1056@0.24.1920.1056" timestamp="1596650226445" />
-    <state width="1868" height="440" key="GridCell.Tab.0.center" timestamp="1597122306189">
+    <state width="1878" height="305" key="GridCell.Tab.0.center" timestamp="1599417180977">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state width="1868" height="440" key="GridCell.Tab.0.center/0.0.1920.1080@0.0.1920.1080" timestamp="1597122306189" />
+    <state width="1878" height="305" key="GridCell.Tab.0.center/0.0.1920.1080@0.0.1920.1080" timestamp="1599417180977" />
     <state width="1878" height="431" key="GridCell.Tab.0.center/0.24.1920.1056@0.24.1920.1056" timestamp="1596650226440" />
-    <state width="1868" height="440" key="GridCell.Tab.0.left" timestamp="1597122306188">
+    <state width="1878" height="305" key="GridCell.Tab.0.left" timestamp="1599417180976">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state width="1868" height="440" key="GridCell.Tab.0.left/0.0.1920.1080@0.0.1920.1080" timestamp="1597122306188" />
+    <state width="1878" height="305" key="GridCell.Tab.0.left/0.0.1920.1080@0.0.1920.1080" timestamp="1599417180976" />
     <state width="1878" height="431" key="GridCell.Tab.0.left/0.24.1920.1056@0.24.1920.1056" timestamp="1596650226439" />
-    <state width="1868" height="440" key="GridCell.Tab.0.right" timestamp="1597122306191">
+    <state width="1878" height="305" key="GridCell.Tab.0.right" timestamp="1599417180977">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state width="1868" height="440" key="GridCell.Tab.0.right/0.0.1920.1080@0.0.1920.1080" timestamp="1597122306191" />
+    <state width="1878" height="305" key="GridCell.Tab.0.right/0.0.1920.1080@0.0.1920.1080" timestamp="1599417180977" />
     <state width="1878" height="431" key="GridCell.Tab.0.right/0.24.1920.1056@0.24.1920.1056" timestamp="1596650226444" />
-    <state width="1868" height="344" key="GridCell.Tab.1.bottom" timestamp="1597121632868">
+    <state width="1878" height="371" key="GridCell.Tab.1.bottom" timestamp="1599416262041">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state width="1868" height="344" key="GridCell.Tab.1.bottom/0.0.1920.1080@0.0.1920.1080" timestamp="1597121632868" />
+    <state width="1878" height="371" key="GridCell.Tab.1.bottom/0.0.1920.1080@0.0.1920.1080" timestamp="1599416262041" />
     <state width="1878" height="335" key="GridCell.Tab.1.bottom/0.24.1920.1056@0.24.1920.1056" timestamp="1596649062697" />
-    <state width="1868" height="344" key="GridCell.Tab.1.center" timestamp="1597121632865">
+    <state width="1878" height="371" key="GridCell.Tab.1.center" timestamp="1599416262038">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state width="1868" height="344" key="GridCell.Tab.1.center/0.0.1920.1080@0.0.1920.1080" timestamp="1597121632865" />
+    <state width="1878" height="371" key="GridCell.Tab.1.center/0.0.1920.1080@0.0.1920.1080" timestamp="1599416262038" />
     <state width="1878" height="335" key="GridCell.Tab.1.center/0.24.1920.1056@0.24.1920.1056" timestamp="1596649062694" />
-    <state width="1868" height="344" key="GridCell.Tab.1.left" timestamp="1597121632864">
+    <state width="1878" height="371" key="GridCell.Tab.1.left" timestamp="1599416262037">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state width="1868" height="344" key="GridCell.Tab.1.left/0.0.1920.1080@0.0.1920.1080" timestamp="1597121632864" />
+    <state width="1878" height="371" key="GridCell.Tab.1.left/0.0.1920.1080@0.0.1920.1080" timestamp="1599416262037" />
     <state width="1878" height="335" key="GridCell.Tab.1.left/0.24.1920.1056@0.24.1920.1056" timestamp="1596649062693" />
-    <state width="1868" height="344" key="GridCell.Tab.1.right" timestamp="1597121632866">
+    <state width="1878" height="371" key="GridCell.Tab.1.right" timestamp="1599416262041">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state width="1868" height="344" key="GridCell.Tab.1.right/0.0.1920.1080@0.0.1920.1080" timestamp="1597121632866" />
+    <state width="1878" height="371" key="GridCell.Tab.1.right/0.0.1920.1080@0.0.1920.1080" timestamp="1599416262041" />
     <state width="1878" height="335" key="GridCell.Tab.1.right/0.24.1920.1056@0.24.1920.1056" timestamp="1596649062696" />
-    <state x="747" y="238" width="735" height="585" key="RollbackChangesDialog" timestamp="1596893341341">
+    <state x="747" y="238" width="735" height="585" key="RollbackChangesDialog" timestamp="1598766183629">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state x="747" y="238" width="735" height="585" key="RollbackChangesDialog/0.0.1920.1080@0.0.1920.1080" timestamp="1596893341341" />
+    <state x="747" y="238" width="735" height="585" key="RollbackChangesDialog/0.0.1920.1080@0.0.1920.1080" timestamp="1598766183629" />
     <state x="747" y="257" width="415" height="582" key="RollbackChangesDialog/0.24.1920.1056@0.24.1920.1056" timestamp="1596521803361" />
     <state x="464" y="194" width="1024" height="839" key="SettingsEditor" timestamp="1595643884513">
       <screen x="0" y="24" width="1920" height="1056" />
     </state>
     <state x="464" y="174" width="1024" height="839" key="SettingsEditor/0.0.1920.1080@0.0.1920.1080" timestamp="1594463154057" />
     <state x="464" y="194" key="SettingsEditor/0.24.1920.1056@0.24.1920.1056" timestamp="1595643884513" />
-    <state x="555" y="269" width="800" height="525" key="Vcs.Push.Dialog.v2" timestamp="1597086329710">
+    <state x="555" y="269" width="800" height="525" key="Vcs.Push.Dialog.v2" timestamp="1599207901008">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state x="555" y="269" width="800" height="525" key="Vcs.Push.Dialog.v2/0.0.1920.1080@0.0.1920.1080" timestamp="1597086329710" />
+    <state x="555" y="269" width="800" height="525" key="Vcs.Push.Dialog.v2/0.0.1920.1080@0.0.1920.1080" timestamp="1599207901008" />
     <state x="555" y="287" width="800" height="522" key="Vcs.Push.Dialog.v2/0.24.1920.1056@0.24.1920.1056" timestamp="1596650869944" />
     <state x="100" y="100" width="1720" height="880" key="com.intellij.history.integration.ui.views.DirectoryHistoryDialog" timestamp="1596894209614">
       <screen x="0" y="0" width="1920" height="1080" />
@@ -1144,10 +777,10 @@
     </state>
     <state x="666" y="109" width="587" height="860" key="find.popup/0.0.1920.1080@0.0.1920.1080" timestamp="1597072045690" />
     <state x="666" y="131" width="587" height="840" key="find.popup/0.24.1920.1056@0.24.1920.1056" timestamp="1594971512743" />
-    <state x="623" y="238" width="672" height="678" key="search.everywhere.popup" timestamp="1596971113887">
+    <state x="623" y="238" width="672" height="678" key="search.everywhere.popup" timestamp="1598766780613">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state x="623" y="238" width="672" height="678" key="search.everywhere.popup/0.0.1920.1080@0.0.1920.1080" timestamp="1596971113887" />
+    <state x="623" y="238" width="672" height="678" key="search.everywhere.popup/0.0.1920.1080@0.0.1920.1080" timestamp="1598766780613" />
     <state x="623" y="257" width="672" height="663" key="search.everywhere.popup/0.24.1920.1056@0.24.1920.1056" timestamp="1596521704122" />
   </component>
   <component name="XDebuggerManager">
@@ -1460,7 +1093,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/data_structures/tree/binary_search_tree/binary_search_tree_impl/BinarySearchTree.java</url>
-          <line>393</line>
+          <line>391</line>
           <option name="timeStamp" value="205" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
@@ -1470,7 +1103,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/data_structures/tree/binary_search_tree/binary_search_tree_impl/BinarySearchTree.java</url>
-          <line>462</line>
+          <line>461</line>
           <option name="timeStamp" value="208" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
@@ -1485,12 +1118,12 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/data_structures/tree/binary_search_tree/problems/ConvertBstToCircularDll.java</url>
-          <line>32</line>
+          <line>40</line>
           <option name="timeStamp" value="218" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/data_structures/tree/binary_search_tree/problems/ConvertBstToCircularDll.java</url>
-          <line>54</line>
+          <line>62</line>
           <option name="timeStamp" value="221" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
@@ -1557,6 +1190,79 @@
           <url>file://$PROJECT_DIR$/src/multi_threading/ProducerConsumerDemo2.java</url>
           <line>91</line>
           <option name="timeStamp" value="244" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/test.java</url>
+          <line>43</line>
+          <option name="timeStamp" value="245" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/data_structures/tree/binary_search_tree/problems/FindInRange.java</url>
+          <line>30</line>
+          <option name="timeStamp" value="254" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/data_structures/tree/binary_search_tree/problems/ContainsSameElements.java</url>
+          <line>88</line>
+          <option name="timeStamp" value="260" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/data_structures/tree/binary_search_tree/problems/ContainsSameElements.java</url>
+          <line>116</line>
+          <option name="timeStamp" value="261" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/data_structures/tree/binary_search_tree/problems/ContainsSameElements.java</url>
+          <line>51</line>
+          <option name="timeStamp" value="264" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/streams/problems/CartesianProductOfLists.java</url>
+          <line>21</line>
+          <properties>
+            <option name="lambda-ordinal" value="-1" />
+          </properties>
+          <option name="timeStamp" value="269" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>jar://$USER_HOME$/.jdks/openjdk-14.0.1-1/lib/src.zip!/java.base/java/util/stream/ReferencePipeline.java</url>
+          <line>557</line>
+          <option name="timeStamp" value="270" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/streams/problems/DistinctLimitCount.java</url>
+          <line>12</line>
+          <option name="timeStamp" value="271" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/data_structures/tree/balanced_binary_tree/avl_tree_impl/AVLTreeImpl.java</url>
+          <line>49</line>
+          <option name="timeStamp" value="316" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/test.java</url>
+          <line>11</line>
+          <option name="timeStamp" value="317" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/miscellaneous/FindingNthHighestNumber.java</url>
+          <line>42</line>
+          <option name="timeStamp" value="321" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/miscellaneous/StringToInteger.java</url>
+          <line>55</line>
+          <option name="timeStamp" value="322" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/data_structures/linked_list/problems/MergeKSortedLinkedLists.java</url>
+          <line>54</line>
+          <option name="timeStamp" value="324" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/data_structures/linked_list/problems/MergeKSortedLinkedLists.java</url>
+          <line>30</line>
+          <option name="timeStamp" value="327" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/src/testing/Banking.java</url>

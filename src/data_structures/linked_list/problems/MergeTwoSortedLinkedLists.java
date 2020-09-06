@@ -33,8 +33,9 @@ public class MergeTwoSortedLinkedLists {
             }
         }
 
-        if(firsthead == null && secondhead != null)
-             firsthead = secondhead;
+        if(firsthead == null && secondhead != null) {
+            firsthead = secondhead;
+        }
 
         while(firsthead != null){
             third.addLast(firsthead.getData());

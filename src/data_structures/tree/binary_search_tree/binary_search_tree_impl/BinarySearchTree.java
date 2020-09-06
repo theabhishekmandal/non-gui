@@ -427,18 +427,19 @@ public class BinarySearchTree<T extends Comparable<? super T>>{
             }
 
             /*
-            first if condition
-                  65                                76
+            first if condition i.e the parent node has it's leftmost inorder successor
+                  65 <- node                        76
                     \                                 \
-                     82         -> delete 65 ->       82
+          parent ->  82         -> delete 65 ->       82
                     /  \                             /  \
-                   76   88                          78   88
+          succ  -> 76   88                          78   88
                      \   \                                \
                      78   89                              89
-             else condition
-                  65                                82
+
+             else condition i.e the parent node do not has it's leftmost inorder successor
+                  65 <- node, parent                 82
                     \                                 \
-                     82         -> delete 65 ->       88
+             succ -> 82         -> delete 65 ->       88
                        \                                \
                         88                               89
                          \
@@ -457,9 +458,9 @@ public class BinarySearchTree<T extends Comparable<? super T>>{
 
 
     // iterative solution of above problem
-    public void deleteNodeFromTree(T data) {
+    public Node<T> deleteNodeFromTree(T data) {
         if(this.root == null) {
-            return;
+            return null;
         }
 
         var curr = this.root;
@@ -479,8 +480,9 @@ public class BinarySearchTree<T extends Comparable<? super T>>{
             }
         }
 
+        // if the given value node is not present then return
         if(curr == null) {
-            return;
+            return null;
         }
         // this means root is not your data node to be deleted
         if(prev != null) {
@@ -494,6 +496,8 @@ public class BinarySearchTree<T extends Comparable<? super T>>{
         else {
             this.root = deleteNode(this.root);
         }
+        this.size--;
+        return curr;
     }
 
     private Node<T> deleteNode(Node<T> curr) {
