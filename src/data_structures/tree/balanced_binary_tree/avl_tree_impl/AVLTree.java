@@ -78,6 +78,7 @@ public class AVLTree<T extends Comparable<? super T>> {
 
     private Node<T> root;
     private int size;
+    private final int balanceFactor = 2;
 
     public AVLTree() {
         this.root = null;
@@ -106,7 +107,7 @@ public class AVLTree<T extends Comparable<? super T>> {
         }
         if(node.data.compareTo(data) >= 1) {
             node.left = insert(node.left, data);
-            if(getBalance(node) == 2) {
+            if(getBalance(node) == this.balanceFactor) {
                 if(getHeight(node.left.left) > getHeight(node.left.right)) {
                     node = rightRotate(node);
                 }
@@ -117,7 +118,7 @@ public class AVLTree<T extends Comparable<? super T>> {
         }
         else {
             node.right = insert(node.right, data);
-            if(getBalance(node) == 2) {
+            if(getBalance(node) == this.balanceFactor) {
                 if(getHeight(node.right.right) > getHeight(node.right.left)) {
                     node = leftRotate(node);
                 }
@@ -138,6 +139,16 @@ public class AVLTree<T extends Comparable<? super T>> {
                2
                 \
                  2
+        - Inserting In a AVL tree is similar to that of binary search tree, accept that at last we need to balance
+          all the nodes that were encountered during the path
+          eg:  if in the below tree, 6 is inserted then it becomes unbalanced, then we have to re balance all the nodes
+               again that were encountered
+                    4            4            5
+                     \      ->    \   ->     /  \
+                      5            5        4    6
+                                    \
+                                     6
+
      */
     private Deque<Node<T>> balancingStack;
     public void insertNew(T data) {
@@ -172,72 +183,10 @@ public class AVLTree<T extends Comparable<? super T>> {
     }
 
     /*
-            A                      B
-           / \                    / \
-          B   C                  Bl  A
-         / \       -->          /   / \
-        Bl  Br                 UB Br  C
-       /
-     UB
-    UB = unbalanced node
-
-    */
-    private Node<T> rightRotate(Node<T> node) {
-        var leftNode = node.left;
-        node.left = leftNode.right;
-        leftNode.right = node;
-
-        node.height = Math.max(getHeight(node.left), getHeight(node.right)) + 1;
-        node.height = calculateHeight(node);
-        leftNode.height = calculateHeight(leftNode);
-
-        return leftNode;
-    }
-
-    // similar to Right rotate
-    private Node<T> leftRotate(Node<T> node) {
-        var rightNode = node.right;
-        node.right = rightNode.left;
-        rightNode.left = node;
-
-        node.height = calculateHeight(node);
-        rightNode.height = calculateHeight(rightNode);
-
-        return rightNode;
-    }
-
-
-    /*
-            A              A                    Br
-           / \            / \                  /  \
-          B   C    LR    Br  C       RR       B    A
-         / \       -->  /  \         -->    /     / \
-        Bl  Br         B   UB              Bl    UB  C
-             \        /
-             UB     Bl
-    RR = right_rotation   LR = left_rotation
+        -   To delete a node first find the appropriate node that is to be deleted
+        -   deleting the node here means, we are replacing it's value with new appropriate value which is calculated below
+        -   after node is deleted re balancing of tree is required
      */
-    private Node<T> leftRightRotate(Node<T> node) {
-        node.left = leftRotate(node.left);
-        return rightRotate(node);
-    }
-
-    // similar to left Right rotate just the mirror image
-    private Node<T> rightLeftRotate(Node<T> node) {
-        node.right = rightRotate(node.right);
-        return leftRotate(node);
-    }
-
-    private int getHeight(Node<T> node) {
-        if(node == null) {
-            return 0;
-        }
-        return node.height;
-    }
-
-    private int getBalance(Node<T> node) {
-        return Math.abs(getHeight(node.left) - getHeight(node.right));
-    }
 
     public Node<T> deleteNode(T data) {
         if(data == null) {
@@ -287,46 +236,33 @@ public class AVLTree<T extends Comparable<? super T>> {
         return nodeToBeDeleted;
     }
 
-    private void balanceTree(Deque<Node<T>> stack) {
-       while(!stack.isEmpty()) {
-           var temp = stack.pop();
-           if(getBalance(temp) == 2) {
-               if(getHeight(temp.right) >= getHeight(temp.left)) {
-                   if(getHeight(temp.right.right) > getHeight(temp.right.left)) {
-                        temp = leftRotate(temp);
-                   }
-                   else {
-                        temp = rightLeftRotate(temp);
-                   }
-               }
-               else {
-                   if(getHeight(temp.left.left) > getHeight(temp.left.right)) {
-                       temp = rightRotate(temp);
-                   }
-                   else {
-                       temp = leftRightRotate(temp);
-                   }
-               }
+    /*
+        -   This method finds which node will become the new node that is passed as a parameter, in other words
+            it finds the successor of the current node passed as parameter
+        -   If the node left is null or right is null return the other side value
+        -   If both left and right sides are present, then we find the next nearest inorder successor, that will
+            take it's place
+        -  This is the case if both left and right child are present
+            first if condition i.e the parent node has it's leftmost inorder successor,
+            here you can see height of node 82 is changing.
 
-               if(stack.isEmpty()) {
-                   this.root = temp;
-               }
-               else {
-                   var peekNode = stack.peek();
-                   if(peekNode.data.compareTo(temp.data) <= 0) {
-                       peekNode.right = temp;
-                   }
-                   else {
-                       peekNode.left = temp;
-                   }
-               }
-           }
-           else {
-               temp.height = Math.max(getHeight(temp.left), getHeight(temp.right)) + 1;
-           }
-       }
-    }
+                  65 <- node                        76
+                    \                                 \
+          parent ->  82         -> delete 65 ->       82
+                    /  \                             /  \
+          succ  -> 76   88                          78   88
+                     \   \                                \
+                     78   89                              89
 
+             else condition i.e the parent node do not has it's leftmost inorder successor
+                  65 <- node, parent                 82
+                    \                                 \
+             succ -> 82         -> delete 65 ->       88
+                       \                                \
+                        88                               89
+                         \
+                          89
+     */
     private Node<T> delete(Node<T> node) {
         if(node.left == null) {
             var temp = node.right;
@@ -352,15 +288,141 @@ public class AVLTree<T extends Comparable<? super T>> {
             else {
                 parent.right = succ.right;
             }
+            // calculate the new height, it's important for re balancing, because this operation removes nodes
+            // so new height is to be calculated
             parent.height = calculateHeight(parent);
             node.data = succ.data;
             return node;
         }
     }
 
+    /*
+        -   To balance a tree, a stack of nodes is used, this stack is created while inserting or deleting nodes
+        -   HERE ALL THE NODES ARE INSERTED EXCEPT THE NODE THAT IS INSERTED IN THE TREE OR DELETED FROM TREE
+        -   Balancing is done when the balance factor is 2
+            -   If right subtree has more height then balancing is done on right side, otherwise left side
+                -   In this also we have different rotations based on which side they lie
+
+                -   If node unbalanced is on the right side of right subtree then LEFT ROTATION
+                -   If node unbalanced is on the left side of right subtree then RIGHT LEFT ROTATION
+                -   If node unbalanced is on the left side of left subtree then RIGHT ROTATION
+                -   If node unbalanced is on the right side of left subtree then LEFT RIGHT ROTATION
+        -   It is important to note that after rotation, the new node that becomes the parent of the subtree,
+            must be linked with top of the stack or the root
+
+        -   If node is already balanced then update it's new height
+
+     */
+    private void balanceTree(Deque<Node<T>> stack) {
+        while(!stack.isEmpty()) {
+            var temp = stack.pop();
+            if(getBalance(temp) == this.balanceFactor) {
+                if(getHeight(temp.right) >= getHeight(temp.left)) {
+                    if(getHeight(temp.right.right) > getHeight(temp.right.left)) {
+                        temp = leftRotate(temp);
+                    }
+                    else {
+                        temp = rightLeftRotate(temp);
+                    }
+                }
+                else {
+                    if(getHeight(temp.left.left) > getHeight(temp.left.right)) {
+                        temp = rightRotate(temp);
+                    }
+                    else {
+                        temp = leftRightRotate(temp);
+                    }
+                }
+
+                if(stack.isEmpty()) {
+                    this.root = temp;
+                }
+                else {
+                    var peekNode = stack.peek();
+                    if(peekNode.data.compareTo(temp.data) <= 0) {
+                        peekNode.right = temp;
+                    }
+                    else {
+                        peekNode.left = temp;
+                    }
+                }
+            }
+            else {
+                temp.height = calculateHeight(temp);
+            }
+        }
+    }
+
+    /*
+            A                      B
+           / \                    / \
+          B   C                  Bl  A
+         / \       -->          /   / \
+        Bl  Br                 UB Br  C
+       /
+     UB
+    UB = unbalanced node
+
+    */
+    private Node<T> rightRotate(Node<T> node) {
+        var leftNode = node.left;
+        node.left = leftNode.right;
+        leftNode.right = node;
+
+        node.height = calculateHeight(node);
+        leftNode.height = calculateHeight(leftNode);
+
+        return leftNode;
+    }
+
+    // similar to Right rotate
+    private Node<T> leftRotate(Node<T> node) {
+        var rightNode = node.right;
+        node.right = rightNode.left;
+        rightNode.left = node;
+
+        node.height = calculateHeight(node);
+        rightNode.height = calculateHeight(rightNode);
+
+        return rightNode;
+    }
+
+
+    /*
+            A              A                    Br
+           / \            / \                  /  \
+          B   C    LR    Br  C       RR       B    A
+         / \       -->  /  \         -->    /     / \
+        Bl  Br         B   UB              Bl    UB  C
+             \        /
+             UB     Bl
+    RR = right_rotation   LR = left_rotation
+     */
+    private Node<T> leftRightRotate(Node<T> node) {
+        node.left = leftRotate(node.left);
+        return rightRotate(node);
+    }
+
+    // similar to left Right rotate just the mirror image
+    private Node<T> rightLeftRotate(Node<T> node) {
+        node.right = rightRotate(node.right);
+        return leftRotate(node);
+    }
+
+    private int getHeight(Node<T> node) {
+        return node == null ? 0 : node.height;
+    }
+
+    // balance is checked by taking the absolute of the left and right subtree
+    private int getBalance(Node<T> node) {
+        return Math.abs(getHeight(node.left) - getHeight(node.right));
+    }
+
+    // height is calculated as the max height of left or right + 1 for the parent
     private int calculateHeight(Node<T> node) {
         return Math.max(getHeight(node.left), getHeight(node.right)) + 1;
     }
+
     public String inOrder() {
         if(this.root == null) {
             return "[]";

@@ -90,11 +90,19 @@ public class BinaryTree<T>{
         -   if both children are not present then insert the parent node on the left side of queue
      */
     private Deque<Node<T>> queue;
+
+    // this is to store the parents of given node
+    private Map<Node<T>, Node<T>> parentMap;
     public void insertInBinaryTreeLevelOrder(T data){
         if(this.root == null) {
             this.root = new Node<>(data);
+
             this.queue = new LinkedList<>();
+            this.parentMap = new HashMap<>();
+
             this.queue.add(this.root);
+            this.parentMap.put(this.root, null);
+
             this.size++;
             return;
         }
@@ -103,13 +111,19 @@ public class BinaryTree<T>{
             temp = queue.poll();
             if(temp.left == null){
                 temp.left = new Node<>(data);
+
+                parentMap.put(temp.left, temp);
                 queue.add(temp.left);
+
                 this.size++;
                 break;
             }
             if(temp.right == null){
                 temp.right = new Node<>(data);
+
+                parentMap.put(temp.right, temp);
                 queue.add(temp.right);
+
                 this.size++;
                 break;
             }
@@ -117,6 +131,55 @@ public class BinaryTree<T>{
         if(temp != null && (temp.left == null || temp.right == null)) {
             queue.addFirst(temp);
         }
+    }
+
+    public boolean deleteNode(T data) {
+        if(this.root == null || data == null) {
+            return false;
+        }
+
+        Node<T> nodeToBeDeleted = null;
+        Node<T> lastNode = null;
+        boolean firstTime = true;
+
+        Deque<Node<T>> nodeQueue = new ArrayDeque<>();
+        nodeQueue.add(this.root);
+
+        while(!nodeQueue.isEmpty()) {
+            lastNode = nodeQueue.poll();
+
+            // using flag to detect the first matching node
+            if(lastNode.data.equals(data) && firstTime) {
+                firstTime = false;
+                nodeToBeDeleted = lastNode;
+            }
+
+            // saving the parent node also
+            if(lastNode.left != null) {
+                nodeQueue.add(lastNode.left);
+            }
+            if(lastNode.right != null) {
+                nodeQueue.add(lastNode.right);
+            }
+        }
+
+        if(lastNode != null && nodeToBeDeleted != null) {
+            nodeToBeDeleted.data = lastNode.data;
+            var parentOfLastNode = parentMap.remove(lastNode);
+            if(parentOfLastNode == null) {
+                this.root = null;
+            }
+            else {
+                if(parentOfLastNode.left == lastNode) {
+                    parentOfLastNode.left = null;
+                }
+                else {
+                    parentOfLastNode.right = null;
+                }
+            }
+            return true;
+        }
+        return false;
     }
 
     /*

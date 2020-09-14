@@ -6,7 +6,7 @@ import java.util.stream.Collectors;
 public class AVLTreeImpl {
     public static void main(String[] args) {
         Random random = new Random();
-        List<Integer> integerList = random.ints(0, 20).limit(20).boxed().collect(Collectors.toList());
+        List<Integer> integerList = random.ints(0, 100000).limit(20).boxed().collect(Collectors.toList());
 //        integerList = Arrays.asList(4, 7, 6, 17, 11, 9, 14, 18, 1, 11, 6, 10, 1, 2, 16, 16, 2, 10, 3, 15);
 //        integerList = Arrays.asList(3, 17, 18, 3, 12, 1, 3, 15, 12, 14, 12, 8 , 16, 19, 6, 2, 12, 8, 15, 19);
         StringBuilder br = new StringBuilder();
@@ -50,7 +50,7 @@ public class AVLTreeImpl {
             System.out.println("node to be deleted " + i);
             avl2.deleteNode(i);
             System.out.println("level order traversal\n" + avl2.levelOrderPretty());
-            System.out.println("inorder traversal" + avl2.inOrder());
+            System.out.println("inorder traversal\n" + avl2.inOrder());
             System.out.println();
         }
 
