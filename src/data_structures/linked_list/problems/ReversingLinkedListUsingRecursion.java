@@ -3,6 +3,7 @@ package data_structures.linked_list.problems;
 import data_structures.linked_list.node.SinglyLinkedList;
 import static data_structures.linked_list.node.SinglyLinkedList.Node;
 
+import java.util.ArrayDeque;
 import java.util.Random;
 import java.util.stream.IntStream;
 
@@ -16,6 +17,14 @@ public class ReversingLinkedListUsingRecursion {
         reverseTheList(first);
         System.out.println("list after reversing " + first + "\nlist head " + first.getHead() +
                 "\nlist tail " + first.getTail());
+
+        var second = new SinglyLinkedList<Integer>();
+        IntStream.range(0, random.nextInt(20)).forEach(second::addLast);
+        System.out.println("list before reversing " + second + "\nlist head " + second.getHead() +
+                "\nlist tail " + second.getTail());
+        reverseTheList2(second);
+        System.out.println("list after reversing " + second + "\nlist head " + second.getHead() +
+                "\nlist tail " + second.getTail());
     }
 
     // here we are interchanging the head and tail
@@ -50,5 +59,34 @@ public class ReversingLinkedListUsingRecursion {
         node.getNext().setNext(node);
         node.setNext(null);
         return nodetemp;
+    }
+
+    // same as above but without using recursion and using stack
+    private static<T> void reverseTheList2(SinglyLinkedList<T> first) {
+        first.setTail(first.getHead());
+        first.setHead(reverseLinkedListUsingStack(first.getHead()));
+    }
+
+    private static <T> Node<T> reverseLinkedListUsingStack(Node<T> node) {
+        if(node == null) {
+            return null;
+        }
+        var stack = new ArrayDeque<Node<T>>();
+        while(node != null) {
+            stack.push(node);
+            node = node.getNext();
+        }
+        node = stack.peek();
+        Node<T> temp;
+        while(!stack.isEmpty()) {
+           temp = stack.pop();
+           if(stack.isEmpty()) {
+               temp.setNext(null);
+           }
+           else {
+               temp.setNext(stack.peek());
+           }
+        }
+       return node;
     }
 }

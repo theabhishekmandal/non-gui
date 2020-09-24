@@ -78,7 +78,7 @@ public class AVLTree<T extends Comparable<? super T>> {
 
     private Node<T> root;
     private int size;
-    private final int balanceFactor = 2;
+    private static final int BALANCE_FACTOR  = 2;
 
     public AVLTree() {
         this.root = null;
@@ -107,7 +107,7 @@ public class AVLTree<T extends Comparable<? super T>> {
         }
         if(node.data.compareTo(data) >= 1) {
             node.left = insert(node.left, data);
-            if(getBalance(node) == this.balanceFactor) {
+            if(getBalance(node) == BALANCE_FACTOR) {
                 if(getHeight(node.left.left) > getHeight(node.left.right)) {
                     node = rightRotate(node);
                 }
@@ -118,7 +118,7 @@ public class AVLTree<T extends Comparable<? super T>> {
         }
         else {
             node.right = insert(node.right, data);
-            if(getBalance(node) == this.balanceFactor) {
+            if(getBalance(node) == BALANCE_FACTOR) {
                 if(getHeight(node.right.right) > getHeight(node.right.left)) {
                     node = leftRotate(node);
                 }
@@ -316,7 +316,7 @@ public class AVLTree<T extends Comparable<? super T>> {
     private void balanceTree(Deque<Node<T>> stack) {
         while(!stack.isEmpty()) {
             var temp = stack.pop();
-            if(getBalance(temp) == this.balanceFactor) {
+            if(getBalance(temp) == BALANCE_FACTOR) {
                 if(getHeight(temp.right) >= getHeight(temp.left)) {
                     if(getHeight(temp.right.right) > getHeight(temp.right.left)) {
                         temp = leftRotate(temp);

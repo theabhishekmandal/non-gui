@@ -1,6 +1,8 @@
 package data_structures.tree.binary_tree.binary_tree_impl;
 
 
+import data_structures.tree.balanced_binary_tree.avl_tree_impl.AVLTree;
+
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -365,37 +367,61 @@ public class BinaryTree<T>{
      */
     public String levelOrder(){
        if(this.root == null) return "";
-       Queue<Node<T>> nodeQueue = new LinkedList<>();
+       return "[" + levelOrderPrivate().stream()
+               .map(list -> "(" + String.join(", ", list) + ")")
+               .collect(Collectors.joining(", \n")) + "]";
+    }
 
-       nodeQueue.add(this.root);
-       nodeQueue.add(null);
+    private List<List<String>> levelOrderPrivate() {
+        if(this.root == null) return Collections.emptyList();
+        Queue<Node<T>> nodeQueue = new LinkedList<>();
 
-       List<List<String>> finalList = new ArrayList<>();
-       List<String> nodeList = new ArrayList<>();
-       while(!nodeQueue.isEmpty()){
-           Node<T> curr = nodeQueue.poll();
-           if(curr != null){
-              nodeList.add(curr.data.toString());
-              if(curr.left != null)
-                  nodeQueue.add(curr.left);
-              if(curr.right != null)
-                  nodeQueue.add(curr.right);
-           }
-           else{
-               // creating new list because, if we clear nodeList then nodeList will be cleared
-               // from the final list
-                List<String> tempList = new ArrayList<>(nodeList);
-                finalList.add(tempList);
+        nodeQueue.add(this.root);
+        nodeQueue.add(null);
+
+        List<List<String>> finalList = new ArrayList<>();
+        List<String> nodeList = new ArrayList<>();
+        Node<T> emptyObject = new Node<>(null);
+        while(!nodeQueue.isEmpty()){
+            Node<T> curr = nodeQueue.poll();
+            if(curr != null){
+                if(curr != emptyObject) {
+                    nodeList.add(curr.data.toString());
+                    nodeQueue.add(Objects.requireNonNullElse(curr.left, emptyObject));
+                    nodeQueue.add(Objects.requireNonNullElse(curr.right, emptyObject));
+                }
+                else {
+                    nodeList.add("*");
+                }
+            }
+            else{
+                // creating new list because, if we clear nodeList then nodeList will be cleared
+                // from the final list
+                finalList.add(new ArrayList<>(nodeList));
 
                 // clearing the list for next level
                 nodeList.clear();
                 if(!nodeQueue.isEmpty())
                     nodeQueue.add(null);
 
-           }
-       }
-       return "[" + finalList.stream()
-               .map(list -> "(" + String.join(", ", list) + ")")
-               .collect(Collectors.joining(", \n")) + "]";
+            }
+        }
+        return finalList;
+    }
+    public String levelOrderPretty() {
+        List<List<String>> finalAnswer = levelOrderPrivate();
+        if(finalAnswer.isEmpty()) {
+            return "[]";
+        }
+        StringBuilder br = new StringBuilder();
+        int maxSize = finalAnswer.get(finalAnswer.size() - 2).size();
+        for(int i = 0; i < finalAnswer.size() - 1; i++) {
+            var list = finalAnswer.get(i);
+            int rem = ((maxSize - list.size()) + 1) >> 1;
+            br.append(" ".repeat(Math.max(0, rem)));
+            list.forEach(x -> br.append(x).append(" "));
+            br.append("\n");
+        }
+        return br.toString();
     }
 }
