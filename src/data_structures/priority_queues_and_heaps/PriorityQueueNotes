@@ -1,0 +1,110 @@
+What is a Priority Queue?
+    -   In some situations we may need to find the minimum and maximum element among a collection of
+        elements.
+    -   We can do this with the help of priority queues
+    -   A priority queue is an data structure that supports the operations Insert, DeleteMin(which
+        returns and removes the minimum element) and DeleteMax(which returns and removes the maximum element)
+
+    -   These operations are equivalent to EnQueue and DeQueue operations of queue. The difference
+        is that, in priority queues, the order in which the elements enter the queue may not be the same
+        in which they were processed.
+
+    -   A priority queue is called ascending priority queue when the smallest key has the highest priority
+    -   A priority queue is called descending priority queue when the largest key has the highest priority
+
+
+Main operations of PriorityQueue
+    -   Insert(key, data) : Inserts data with key to the priority queue. Elements are ordered based on key.
+    -   DeleteMin/DeleteMax : Remove and return the element with smallest/largest key
+    -   GetMinimum/GetMaximum : Return the element with the smallest/largest key without deleting it.
+
+Auxiliary operations of Priority Queue
+    -   kth Smallest/ kth Largest : Return the kth largest or the kth smallest key in priority queue.
+    -   Size : Returns number of elements in priority queue.
+    -   HeapSort : Sorts the elements in the priority queue based on priority (key).
+
+
+Priority Queue Applications
+    -   Data compression: Huffman Coding algorithm
+    -   Shortest path algorithms: Dijkstra's algorithm
+    -   Minimum spanning tree algorithms: Prim's algorithm
+    -   Event-driven simulation: customers in line
+    -   Selection problem: Finding kth smallest element
+
+
+Priority Queue Implementations
+    -   Unordered Array Implementation
+        -   Elements are inserted into the array without bothering about the order.
+        -   Deletions are performed by searching the key and then deleting.
+        -   Insertions complexity O(1)
+        -   Deletions(DeleteMin) complexity O(n)
+
+    -   Ordered Array Implementation
+        -   Elements are inserted into the array in sorted order based on key field.
+        -   Deletions are performed at only one end.
+        -   Insertions complexity O(n)
+        -   Deletions(DeleteMin) complexity O(1)
+
+    -   Ordered List Implementation
+        -   Elements are inserted into the list in sorted order based on key field
+        -   Deletions are performed at only one end hence preserving the status of priority queue
+        -   Insertions complexity O(n)
+        -   Deletions(DeleteMin) complexity O(1)
+
+    -   Binary Search Tree Implementation
+        -   Both insertions and deletions take O(logn) on average if insertions are random
+
+    -   Balanced Binary Search Tree Implementation
+        -   Both insertions and deletion take O(logn) in worst case
+
+    -   Binary Heap Implementation
+        -   searching takes in O(logn)
+        -   Insertions takes in O(logn)
+        -   deletions takes in O(logn)
+        -   finding the maximum or minimum takes place in O(1)
+
+
+Comparing Implementations
+                        Insertions      Deletion(Delete Max)    Find Min
+    Unordered array     1                   n                   n
+    Unordered list      1                   n                   n
+    Ordered array       n                   1                   1
+    Ordered list        n                   1                   1
+    BST                 logn                logn                logn
+    Balanced BST        logn                logn                logn
+    Binary Heaps        logn                logn                1
+
+
+What is a Heap?
+    -   A heap is a tree with some special properties
+    -   The special property is that it's value should be <= or >= to it's children, this is called heap property
+    -   A heap also has a property that all leaves should be at h or h - 1 levels, for some h > 0
+    -   That means heap should form complete binary tree.
+        eg:         1
+                   2  3
+                 4   5
+
+        In the examples below, the left tree is a heap(each element is greater than its children) and
+        the right tree is not a heap(since 11 is greater than 2)
+
+                7                     11
+             3     6               5       2
+           1   2 4              6    17  14   13
+
+Types of Heaps?
+    -   Min heap: The value of a node must be less than or equal to the values of tis children
+                             11
+                         15       12
+                      16    17  14    13
+
+    -   Max heap: The value of a node must be greater than or equal to the values of tis children
+                             17
+                         13       6
+                      1     4  2     5
+
+Binary Heaps
+    -   In binary heap each node may have to two children. In practice, binary heaps are enough and we
+        concentrate on binary min heaps and binary max heaps.
+
+    -   Representing heaps
+        -   Heaps can be represented using arrays
