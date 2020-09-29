@@ -25,6 +25,17 @@ import java.util.Arrays;
  *      -   A new element is inserted at the end
  *      -   But this may result in unbalanced heap, so heapify is done from the current
  *          element to the root element i.e bottom to top heapify
+ *      -   In this type of bottom to top heapify we only take the path from the current inserted
+ *          node till the root node, because only this path is unbalanced rest of the nodes are already
+ *          balanced
+ *      -   this takes O(n log n) time, log n time for insertion and there are n keys
+ *
+ *
+ *  creating heap from array
+ *      -   If we have predefined set of keys for which a new heap is to be created then we
+ *          can create the heap in O(n) time
+ *      -   Inserting a single key at a time, takes O(log n) operations and inserting n keys
+ *          takes O(n log n) time
  */
 public class BinaryMinHeap {
     private int[] array;
@@ -148,6 +159,23 @@ public class BinaryMinHeap {
         this.capacity *= 2;
         this.array = new int[this.capacity];
         System.arraycopy(oldArray, 0, this.array, 0, this.count);
+    }
+
+    public void buildHeap(int[] arr) {
+        if(arr == null || arr.length == 0) {
+            throw new NullPointerException("input array is empty");
+        }
+        if(this.count != 0) {
+            throw new ArrayIndexOutOfBoundsException("heap is already built cannot be built with existing array");
+        }
+        if(arr.length > this.capacity) {
+            this.resizeHeap();
+        }
+        System.arraycopy(arr, 0, this.array, 0, arr.length);
+        this.count += arr.length;
+        for(int i = (this.count - 1) / 2; i >= 0; i--) {
+            heapify(i);
+        }
     }
 
     @Override

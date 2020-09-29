@@ -30,5 +30,24 @@ public class BinaryHeapImpl {
         while((y = binaryMinHeap.deleteMin()) != -1) {
             System.out.println(y);
         }
+
+        var inputArray = new int[inputList.size()];
+        for(int i = 0; i < inputList.size(); i++) {
+            inputArray[i] = inputList.get(i);
+        }
+
+        System.out.println("\nBinary Max Heap insertion and deletion");
+        var binaryMaxHeap2 = new BinaryMaxHeap();
+        binaryMaxHeap2.buildHeap(inputArray);
+        while((y = binaryMaxHeap2.deleteMax()) != -1) {
+            System.out.println(y);
+        }
+
+        System.out.println("\nBinary Min Heap insertion and deletion");
+        var binaryMinHeap2 = new BinaryMinHeap();
+        binaryMinHeap2.buildHeap(inputArray);
+        while((y = binaryMinHeap2.deleteMin()) != -1) {
+            System.out.println(y);
+        }
     }
 }
