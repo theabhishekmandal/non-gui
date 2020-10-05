@@ -173,6 +173,7 @@ public class BinaryMaxHeap {
         }
         System.arraycopy(arr, 0, this.array, 0, arr.length);
         this.count += arr.length;
+        // to get to the first non leaf node in reverse order use (length - 1) / 2
         for(int i = (this.count - 1) / 2; i >= 0; i--) {
             heapify(i);
         }

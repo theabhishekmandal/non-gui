@@ -6,7 +6,86 @@ import java.util.*;
 public class test {
     public static void main(String[] args) {
         Scanner s = new Scanner(System.in);
-        System.out.println(atoi(s.next()));
+//        System.out.println(atoi(s.next()));
+
+//        System.out.println(findPeakElement(new int[]{3, 2, 1}));
+        System.out.println(Arrays.deepToString(kClosest(new int[][]{{3, 3}, {5, -1}, {-2, 4}}, 2)));
+    }
+
+    static class pair {
+        int a;
+        int b;
+        public pair(int a, int b) {
+            this.a = a;
+            this.b = b;
+        }
+        public static pair of(int a , int b) {
+           return new pair(a, b);
+        }
+        public int getFirst() {
+            return a;
+        }
+        public int getSecond() {
+            return b;
+        }
+    }
+    public static int[][] kClosest(int[][] points,int k)  {
+        int counter = 0;
+        pair[] arr = new pair[k];
+        Arrays.fill(arr, pair.of(10001, 10001));
+            for (int[] point : points) {
+            double distance = getDistance(point[0], point[1]);
+            for (int j = arr.length - 1; j >= 0; j--) {
+                if (distance < getDistance(arr[j].getFirst(), arr[j].getSecond())) {
+                    System.arraycopy(arr, 1, arr, 0, j);
+                    arr[j] = pair.of(point[0], point[1]);
+                    break;
+                }
+            }
+        }
+        int[][] temp = new int[k][2];
+        for(int i = 0; i < k; i++) {
+            temp[i][0] = arr[i].getFirst();
+            temp[i][1] = arr[i].getSecond();
+        }
+        return temp;
+    }
+
+    private static double getDistance(int x, int y) {
+        double distance = Math.sqrt((double)(x * x) + (y * y));
+        return distance;
+    }
+
+    public static int findPeakElement(int[] nums) {
+        int low = 0;
+        int high = nums.length - 1;
+        int mid = 0;
+        while(low <= high) {
+            mid = low + ((high - low) >> 1);
+            if(mid - 1 >= 0 && nums[mid - 1] > nums[mid]) {
+                high = mid - 1;
+            }
+            else if(mid + 1 < nums.length && nums[mid + 1] > nums[mid]) {
+                low = mid + 1;
+            }
+            else {
+                break;
+            }
+        }
+        return mid;
+    }
+
+
+    public boolean repeatedSubstringPattern(String s) {
+        for(int i = 1; i < s.length(); i++) {
+            if(s.length() % i == 0) {
+               String subString = s.substring(0, i).repeat(s.length() / i);
+               if(s.equals(subString)) {
+                   return true;
+               }
+            }
+        }
+        return false;
     }
     static int atoi(String str) {
         if(str == null) {

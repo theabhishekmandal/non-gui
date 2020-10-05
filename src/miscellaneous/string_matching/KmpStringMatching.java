@@ -1,4 +1,4 @@
-package miscellaneous.StringMatching;
+package miscellaneous.string_matching;
 /**
  * http://www.mathcs.emory.edu/~cheung/Courses/323/Syllabus/Text/Matching-KMP1.html
  * The KMP matching algorithm uses degenerating property (pattern having same sub
@@ -84,7 +84,7 @@ public class KmpStringMatching {
             if j is greater than 0, then the new value of j would be lps[j - 1], this lps[j - 1]
             will provide two things, first the length of the substring which is suffix and prefix
             and the next index of j from which we will start again the match. if the current j
-            index dosen't match then we will get new value of j = lps[j - 1] and matching continues.
+            index doesn't match then we will get new value of j = lps[j - 1] and matching continues.
 
             example: pattern = "a  c  a  c  a  b  a  c  a  c  a  b  a  c  a   c   a  c"
                                 0  1  2  3  4  5  6  7  8  9 10 11 12 13 14  15  16 17

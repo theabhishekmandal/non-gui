@@ -42,9 +42,6 @@ package miscellaneous.dynamic_programming;
 import java.util.*;
 import static java.lang.System.*;
 public class LongestCommonSubsequence {
-    private static void debug(Object...a){
-        System.err.println(Arrays.deepToString(a));
-    }
     private static int getlength(String one, String two){
         int found = 0;
         int[][] arr = new int[one.length() + 1][two.length() + 1];
@@ -54,7 +51,7 @@ public class LongestCommonSubsequence {
                 if(i == 0 || j ==0) {
                     continue;
                 }
-                else if(one.charAt(i - 1) == two.charAt(j - 1)){
+                if(one.charAt(i - 1) == two.charAt(j - 1)){
                     arr[i][j] = 1 + arr[i - 1][j - 1];
                 }
                 else{

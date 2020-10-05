@@ -2,6 +2,8 @@ package data_structures.tree.binary_tree.problems;
 
 import data_structures.tree.binary_tree.binary_tree_impl.BinaryTree;
 
+import static data_structures.tree.binary_tree.binary_tree_impl.BinaryTree.Node;
+
 import java.util.Deque;
 import java.util.LinkedList;
 import java.util.Random;
@@ -30,15 +32,13 @@ public class CreateMirrorTree {
     }
 
     // using top down approach
-    private static void createMirrorTree(BinaryTree.Node<Integer> node){
+    private static void createMirrorTree(Node<Integer> node){
         if(node == null) return;
-        Deque<BinaryTree.Node<Integer>> stack = new LinkedList<>();
+        Deque<Node<Integer>> stack = new LinkedList<>();
         stack.push(node);
         while(!stack.isEmpty()){
-            BinaryTree.Node<Integer> curr = stack.pop();
-            BinaryTree.Node<Integer> temp = curr.getRight();
-            curr.setRight(curr.getLeft());
-            curr.setLeft(temp);
+            Node<Integer> curr = stack.pop();
+            swap(curr);
             if(curr.getRight() != null){
                 stack.push(curr.getRight());
             }
@@ -49,12 +49,18 @@ public class CreateMirrorTree {
         }
     }
 
+    private static void swap(Node<Integer> curr) {
+        Node<Integer> temp = curr.getRight();
+        curr.setRight(curr.getLeft());
+        curr.setLeft(temp);
+    }
+
     // using bottom up approach
-    private static void createMirrorTreeRecursion(BinaryTree.Node<Integer> node){
+    private static void createMirrorTreeRecursion(Node<Integer> node){
         if(node == null) return;
         createMirrorTreeRecursion(node.getLeft());
         createMirrorTreeRecursion(node.getRight());
-        BinaryTree.Node<Integer> temp = node.getRight();
+        Node<Integer> temp = node.getRight();
         node.setRight(node.getLeft());
         node.setLeft(temp);
     }

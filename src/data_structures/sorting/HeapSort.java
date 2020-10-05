@@ -1,13 +1,15 @@
 package data_structures.sorting;
 import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 public class HeapSort {
     public static void main(String[] args) {
-        Scanner s = new Scanner(System.in);
-        int t = s.nextInt();
-        int[] arr = new int[t];
-        for(int i = 0; i < arr.length ; i++)
-            arr[i] = s.nextInt();
+        var random = new Random();
+        List<Integer> integerList = IntStream.range(0, 10)
+                .boxed().map(x -> random.nextInt(100)).collect(Collectors.toList());
+        System.out.println(integerList);
+        int[] arr = integerList.stream().mapToInt(x -> x).toArray();
         heapsort(arr);
         System.out.println(Arrays.toString(arr));
     }
