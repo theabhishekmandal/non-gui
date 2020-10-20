@@ -25,7 +25,7 @@ package miscellaneous.string_matching;
  *
  * so in this way we precompute the lps array
  *
- * in the findsubstring()
+ * in the findSubstring()
  *  initially we take two counter i = 0 for the text and j = 0  for the pattern
  *
  *  if T.charAt(i) == P.charAt(j) then we increment both
@@ -42,13 +42,11 @@ import java.util.*;
 public class KmpStringMatching {
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
-       // System.out.println("enter a text ");
         String text = in.next();
-       // System.out.println("enter a pattern");
         String pattern = in.next();
-        findsubstring(text, pattern);
+        findSubstring(text, pattern);
     }
-    private static void findsubstring(String arr, String pattern) {
+    private static void findSubstring(String arr, String pattern) {
         int[] lps = compute(pattern);
         int i = 0;
         int j = 0;

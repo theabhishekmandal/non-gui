@@ -1,4 +1,4 @@
-package miscellaneous;
+package miscellaneous.heap;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
@@ -34,12 +34,12 @@ import java.util.*;
  */
 public class FindingNthHighestNumber {
     public static void main(String[] args){
-        int[] arr = new int[1000000];
+        int[] arr = new int[20];
         Random random = new Random();
         for(int i = 0; i < arr.length; i++){
             arr[i] = random.nextInt(Integer.MAX_VALUE);
         }
-        int k = 1 + random.nextInt(1000);
+        int k = 1 + random.nextInt(arr.length);
 
         List<String> timeList = new ArrayList<>();
 

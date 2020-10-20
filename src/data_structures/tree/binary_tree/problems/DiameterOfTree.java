@@ -61,7 +61,7 @@ public class DiameterOfTree {
         int left = find(node.getLeft());
         int right = find(node.getRight());
 
-        // adding the deepest left and right node from each current node;
+        // adding the deepest left and right node from each current node
         value = Math.max(value, left + right + 1);
 
         // to find the deepest value take the max between left and right
@@ -89,11 +89,12 @@ public class DiameterOfTree {
                 }
             }
             else{
-                Integer left, right;
+                Integer left;
+                Integer right;
                 left = ((left = map.get(curr.getLeft())) == null)? 0 : left;
                 right = ((right = map.get(curr.getRight())) == null)? 0 : right;
 
-                // adding the deepest left and right node from each current node;
+                // adding the deepest left and right node from each current node
                 maxValue = Math.max(maxValue, left + right + 1);
 
                 // to find the deepest value take the max between left and right
