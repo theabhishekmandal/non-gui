@@ -1,4 +1,4 @@
-package miscellaneous.string_matching;
+package data_structures.strings;
 /**
  * http://www.mathcs.emory.edu/~cheung/Courses/323/Syllabus/Text/Matching-KMP1.html
  * The KMP matching algorithm uses degenerating property (pattern having same sub

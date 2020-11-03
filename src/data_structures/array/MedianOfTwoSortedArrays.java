@@ -1,4 +1,4 @@
-package miscellaneous;
+package data_structures.array;
 
 import java.util.Scanner;
 

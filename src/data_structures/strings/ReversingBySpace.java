@@ -1,4 +1,4 @@
-package miscellaneous;
+package data_structures.strings;
 
 import java.util.*;
 /**

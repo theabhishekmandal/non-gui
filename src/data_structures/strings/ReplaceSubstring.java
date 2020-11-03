@@ -1,4 +1,4 @@
-package miscellaneous;
+package data_structures.strings;
 /**
  * In this program ,I have tried to implement the program for replacing a given substring in
  * with another substring in a given input string .

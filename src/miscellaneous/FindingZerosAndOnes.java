@@ -9,7 +9,9 @@ public class FindingZerosAndOnes {
         int[] arr = new int[10];
         for(int i = 0; i < arr.length; i++) arr[i] = random.nextInt(2);
         System.out.println(Arrays.toString(arr));
-        for(int one = 0, zero = arr.length - 1; one < zero;){
+        int one = 0;
+        int zero = arr.length - 1;
+        while(one < zero){
             if(arr[one] == 0 && arr[zero] == 1){
                 arr[one++] = 1;
                 arr[zero--] = 0;
