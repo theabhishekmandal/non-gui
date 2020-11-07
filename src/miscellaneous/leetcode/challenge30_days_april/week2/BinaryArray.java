@@ -21,12 +21,13 @@ import java.util.Random;
  * Note: The length of the given binary array will not exceed 50,000.
  */
 public class BinaryArray {
+    private static final Random random = new Random();
+
     public static void main(String[] args) {
         solve();
     }
 
     private static void first(){
-        Random random = new Random();
         int[] arr = new int[10  + random.nextInt(10)];
         for(int i = 0; i < arr.length; i++){
             arr[i] = random.nextInt(2);
@@ -41,8 +42,10 @@ public class BinaryArray {
         System.out.println(Arrays.toString(arr));
         System.out.println(count);
     }
+
     private static boolean find(int[] arr, int i, int length) {
-        int zeroCounter = 0, oneCounter = 0;
+        int zeroCounter = 0;
+        int oneCounter = 0;
         for(int k = i; k < length; k++){
            if(arr[k] == 0) zeroCounter++;
            else
@@ -52,7 +55,6 @@ public class BinaryArray {
     }
 
     private static void solve(){
-        Random random = new Random();
         int[] arr = new int[5 + random.nextInt(10)];
         for(int i = 0; i < arr.length; i++){
            arr[i] = random.nextInt(2);

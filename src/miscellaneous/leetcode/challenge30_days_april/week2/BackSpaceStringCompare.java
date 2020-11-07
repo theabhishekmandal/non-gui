@@ -39,8 +39,8 @@ import java.util.Scanner;
  */
 
 public class BackSpaceStringCompare {
+
     public static void main(String[] args) {
-        Scanner s = new Scanner(System.in);
         String[] arr = {"ab#c", "ad#c", "ab##", "c#d#", "a##c", "#a#c", "a#c", "b"};
         for(int i = 0; i < arr.length; i += 2){
             String first = arr[i];
@@ -55,6 +55,7 @@ public class BackSpaceStringCompare {
         second = solveString(second);
         return first.equals(second);
     }
+
     private static String solveString(String string){
         StringBuilder br = new StringBuilder();
         int hashCounter = 0;
