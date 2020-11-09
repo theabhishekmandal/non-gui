@@ -1,4 +1,4 @@
-package miscellaneous.dynamic_programming;
+package data_structures.dynamic_programming;
 
 import java.util.Scanner;
 
@@ -14,7 +14,7 @@ public class LongestCommonSubstring {
                 if(i == 0 || j == 0) {
                     continue;
                 }
-                else if(one.charAt(i - 1) == two.charAt(j - 1)){
+                if(one.charAt(i - 1) == two.charAt(j - 1)){
                     arr[i][j] = 1 + arr[i - 1][j - 1];
                     max = Math.max(max, arr[i][j]);
                 }
@@ -23,7 +23,6 @@ public class LongestCommonSubstring {
                 }
             }
         }
-        //out.println(Arrays.deepToString(arr));
         System.out.println(max);
     }
 }

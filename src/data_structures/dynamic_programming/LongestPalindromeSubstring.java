@@ -1,4 +1,4 @@
-package miscellaneous.dynamic_programming;
+package data_structures.dynamic_programming;
 
 import java.util.Scanner;
 /**

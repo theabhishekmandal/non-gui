@@ -1,4 +1,4 @@
-package miscellaneous.dynamic_programming;
+package data_structures.dynamic_programming;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -29,7 +29,8 @@ public class Fibonacci {
         if(n == 0) return 0;
         if(n == 1 || n == 2) return 1;
         if(arr[n] != 0) return arr[n];
-        return arr[n] = topDownFibo(n - 1) + topDownFibo(n - 2);
+        arr[n] = topDownFibo(n - 1) + topDownFibo(n - 2);
+        return arr[n];
     }
     /*
      This fibonacci method is a bottom up approach. In this we start from the base condition and then go

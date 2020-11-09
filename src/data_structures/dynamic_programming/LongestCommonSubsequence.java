@@ -1,4 +1,4 @@
-package miscellaneous.dynamic_programming;
+package data_structures.dynamic_programming;
 /**
  * This is based on dynamic programming: 1) Overlapping subproblems 2) Optimal substructure
  * This problem can be solved by using dynamic programming as:
@@ -29,7 +29,7 @@ package miscellaneous.dynamic_programming;
  *
  *  2. i and j index represents the length of the two strings, now the current matching value will depend on
  *      the previous i and j values. i.e to find how many characters got matched in "aggt" and "gxtx" we need to find
- *      how many got matched in "agg" and "gxtx" (a length lesser). And similarly for "agg" and "gxtx" we need to find
+ *      how many got matched in "agg" and "gxt" (a length lesser). And similarly for "agg" and "gxt" we need to find
  *      in "ag" "gx".
  *
  *      a[1][5] = 1, it means that for first string of length 1 i.e 'a' matches with one of the character of the
@@ -42,10 +42,8 @@ package miscellaneous.dynamic_programming;
 import java.util.*;
 import static java.lang.System.*;
 public class LongestCommonSubsequence {
-    private static int getlength(String one, String two){
-        int found = 0;
+    private static int getLength(String one, String two){
         int[][] arr = new int[one.length() + 1][two.length() + 1];
-        //out.println(Arrays.deepToString(arr));
         for(int i = 0; i <= one.length(); i++){
             for(int j = 0; j <= two.length(); j++){
                 if(i == 0 || j ==0) {
@@ -66,6 +64,6 @@ public class LongestCommonSubsequence {
         String first = s.next();
         s.nextLine();
         String second = s.next();
-        System.out.println(getlength(first, second));
+        System.out.println(getLength(first, second));
     }
 }
