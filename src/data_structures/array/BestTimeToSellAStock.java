@@ -24,6 +24,8 @@ package data_structures.array;
  *      stock at a cheap price and sell them at higher price
  *  -   So at a given point either there will be a smaller value or a higher value, so when it is smaller value
  *      then save it as new smaller value and when it is higher value then find the profit from it.
+ *  -   Here you cannot do like, find the min value and find the max value and then take the difference. For eg: [7, 5, 3, 6, 4, 1].
+ *      max=7 and min=1 and diff is 7. But this is not true because you cannot sell before you buy stock
  */
 public class BestTimeToSellAStock {
     public static void main(String[] args) {
@@ -35,11 +37,8 @@ public class BestTimeToSellAStock {
         int max = 0;
         int min = Integer.MAX_VALUE;
         for (int j : arr) {
-            if (j < min) {
-                min = j;
-            } else if (j - min > max) {
-                max = j - min;
-            }
+            min = Math.min(j, min);
+            max = Math.max(max, j - min);
         }
         return max;
     }

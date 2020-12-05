@@ -10,7 +10,7 @@ import java.util.List;
  *    - Each student gets one packet
  *    - The difference between the number of chocolates in the packet with maximum chocolates and packet with minimum
  *      chocolates given to the students is minimum.
- *      Basically, the packet with maximum chocolates and a packet with minimum chocolates should be
+ *      Basically, the diff between packet with maximum chocolates and a packet with minimum chocolates should be
  *      minimum.
  *
  *  eg: arr = [3, 4, 1, 9, 56, 7, 9, 12] and m = 5, so the 5 packets are [3, 4, 7, 9, 9] and diff is

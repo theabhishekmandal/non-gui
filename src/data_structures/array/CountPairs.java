@@ -35,6 +35,12 @@ import java.util.Map;
  *  -   now check if i == k - i, if yes then decrease the count, this is done so as to avoid counting twice
  *  -   now at last we divide by 2 because each pair is counted twice.
  *
+ *  eg: if arr = [1, 1, 1, 1] countMap={1, 4}, count = 0
+ *  count += 4, as i == k - i => count - 1 = 3
+ *  count += 7, as i == k - i => count - 1 = 6
+ *  count += 9, as i == k - i => count - 1 = 8
+ *  count += 12, as i == k - i => count - 1 = 8
+ *
  */
 
 public class CountPairs {

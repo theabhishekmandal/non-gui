@@ -77,11 +77,19 @@ public class BestTimeToSellStock3 {
 
         maxTransaction += 1;
         int[][] profit = new int[maxTransaction][prices.length];
+
         for(int i = 1; i < maxTransaction; i++) {
+
 //            int maxDiff = -prices[0] + profit[i - 1][0]; profit[i - 1][0] is 0
             int maxDiff = -prices[0];
+
             for(int j = 1; j < prices.length; j++) {
-                profit[i][j] = Math.max(profit[i][j - 1], prices[j] + maxDiff);
+
+                // It is saying best time to sell
+                int temp = Math.max(profit[i][j - 1], prices[j] + maxDiff);
+                profit[i][j] = temp;
+
+                // It is saying best time to buy
                 maxDiff = Math.max(maxDiff, -prices[j] + profit[i - 1][j]);
             }
         }
