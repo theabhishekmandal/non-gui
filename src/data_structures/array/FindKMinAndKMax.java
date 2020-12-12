@@ -10,7 +10,6 @@ import java.util.Random;
  * element in the array
  */
 
-
 public class FindKMinAndKMax {
     public static void main(String[] args) {
         var random = new Random();
