@@ -3,8 +3,11 @@ package data_structures.linked_list.problems;
 import data_structures.linked_list.node.SinglyLinkedList;
 import static data_structures.linked_list.node.SinglyLinkedList.Node;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.List;
 import java.util.stream.IntStream;
 
 /**
@@ -14,13 +17,18 @@ import java.util.stream.IntStream;
  *  Approach
  *      For a given node check if the next node is in the set or not,
  *      if it is in the set then set the current node next to next node's next
+ *
+ *  -   This will work for both sorted and unsorted linked list
  */
 
 public class RemoveDuplicates {
     public static void main(String[] args) {
         SinglyLinkedList<Integer> first = new SinglyLinkedList<>();
-        IntStream.range(0, 5).forEach(first::addLast);
-        IntStream.range(0, 5).forEach(first::addLast);
+        List<Integer> list = new ArrayList<>();
+        IntStream.range(0, 5).forEach(list::add);
+        IntStream.range(0, 5).forEach(list::add);
+        Collections.shuffle(list);
+        list.forEach(first::addLast);
         System.out.println("list before removing duplicates " + first);
         removeDuplicatesByHashing(first);
         System.out.println("list after removing duplicates " + first);

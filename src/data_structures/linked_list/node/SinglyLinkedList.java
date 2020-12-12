@@ -159,7 +159,7 @@ public class SinglyLinkedList<T>{
         if(list.size >= 0) this.size = this.size + list.size;
         else return;
         this.tail.next = list.head;
-        list.head = this.head;
+//        list.head = this.head; don't change the head of the list to be merged
         this.tail = list.tail;
     }
 

@@ -4,6 +4,7 @@ import java.util.*;
 
 /**
  * Given an array which have only values as 0, 1 and 2. Sort them without using any sorting algorithm
+ * There are three ways to solve this, use the last one, can be done in single iteration
  */
 public class Sort012 {
     public static void main(String[] args) {
@@ -12,9 +13,13 @@ public class Sort012 {
         var arr = new int[n];
         for(int i = 0; i < arr.length; i++) arr[i] = random.nextInt(3);
         int[] brr = Arrays.copyOf(arr, arr.length);
+        int[] crr = Arrays.copyOf(arr, arr.length);
+
+        String string = "Arrays after sorting ";
         System.out.println("Arrays before sorting " + Arrays.toString(arr));
-        System.out.println("Arrays after sorting " + Arrays.toString(sort012(arr)));
-        System.out.println("Arrays after sorting " + Arrays.toString(sort012New(brr)));
+        System.out.println(string + Arrays.toString(sort012(arr)));
+        System.out.println(string + Arrays.toString(sort012New(brr)));
+        System.out.println(string + Arrays.toString(sort012New2(crr)));
     }
 
     // map can be used to count
@@ -43,5 +48,33 @@ public class Sort012 {
            for(int k = 0; k < count[p]; k++) arr[i++] = p;
         }
         return arr;
+    }
+    // using single iteration
+    private static int[] sort012New2(int[] arr) {
+        if(arr == null || arr.length == 0) return new int[]{};
+        int one = 0;
+        int two = 0;
+        int three = arr.length - 1;
+        while(two <= three) {
+            if(arr[two] == 0) {
+                swap(arr, two, one);
+                two++;
+                one++;
+            }
+            else if(arr[two] == 1) {
+                two++;
+            }
+            else {
+                swap(arr, two, three);
+                three--;
+            }
+        }
+        return arr;
+    }
+
+    private static void swap(int[] arr, int i, int j) {
+        int temp = arr[i];
+        arr[i] = arr[j];
+        arr[j] = temp;
     }
 }
