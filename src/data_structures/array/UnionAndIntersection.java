@@ -78,11 +78,8 @@ public class UnionAndIntersection {
             union.add(brr[j]);
             j++;
         }
-
-        int[] un = new int[union.size()];
-        int[] in = new int[intersection.size()];
-        for(int k = 0; k < un.length; k++) un[k] = union.get(k);
-        for(int k = 0; k < in.length; k++) in[k] = intersection.get(k);
+        int[] un = union.stream().mapToInt(Integer::intValue).toArray();
+        int[] in = intersection.stream().mapToInt(Integer::intValue).toArray();
         return Pair.of(un, in);
     }
 

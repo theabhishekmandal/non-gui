@@ -43,9 +43,9 @@ import java.util.List;
 public class SmallestSubArrayWithGreaterKSum {
     public static void main(String[] args) {
         List<Pair<int[], int[]>> list = Arrays.asList(
+                Pair.of(new int[]{1, 11, 100, 1, 0, 200, 3, 2, 1, 250}, new int[]{280}),
                 Pair.of(new int[]{1, 2, 45, 6, 0, 19}, new int[]{51}),
                 Pair.of(new int[]{1, 10, 5, 2, 7}, new int[]{9}),
-                Pair.of(new int[]{1, 11, 100, 1, 0, 200, 3, 2, 1, 250}, new int[]{280}),
                 Pair.of(new int[]{1, 2, 4}, new int[]{8})
         );
         for(var pair : list) {
@@ -74,6 +74,8 @@ public class SmallestSubArrayWithGreaterKSum {
                 count--;
             }
         }
+
+        // return -1 if you reached the end of array and still the sum is smaller than k
         if(count == arr.length && sum < k) {
             return -1;
         }
