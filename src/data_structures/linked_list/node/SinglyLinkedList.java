@@ -94,8 +94,7 @@ public class SinglyLinkedList<T>{
         // the current node rather than previous node
         Node<T> pred = getNode(pos);
         final Node<T> nextNode = pred.next;
-        final Node<T> newNode = new Node<>(data, nextNode);
-        pred.next = newNode;
+        pred.next = new Node<>(data, nextNode);
         size++;
     }
 

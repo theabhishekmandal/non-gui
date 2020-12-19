@@ -19,27 +19,27 @@ public class MergeTwoSortedLinkedLists {
     private static <T extends Comparable<? super T>> SinglyLinkedList<T> mergeTwoSortedLists(SinglyLinkedList<T> first,
                                                                                              SinglyLinkedList<T> second){
         SinglyLinkedList<T> third = new SinglyLinkedList<>();
-        Node<T> firsthead = first.getHead();
-        Node<T> secondhead = second.getHead();
+        Node<T> firstHead = first.getHead();
+        Node<T> secondHead = second.getHead();
 
-        while(firsthead != null && secondhead != null){
-            if(firsthead.getData().compareTo(secondhead.getData()) > 0){
-                third.addLast(secondhead.getData());
-                secondhead = secondhead.getNext();
+        while(firstHead != null && secondHead != null){
+            if(firstHead.getData().compareTo(secondHead.getData()) > 0){
+                third.addLast(secondHead.getData());
+                secondHead = secondHead.getNext();
             }
             else{
-                third.addLast(firsthead.getData());
-                firsthead = firsthead.getNext();
+                third.addLast(firstHead.getData());
+                firstHead = firstHead.getNext();
             }
         }
 
-        if(firsthead == null && secondhead != null) {
-            firsthead = secondhead;
+        if(firstHead == null && secondHead != null) {
+            firstHead = secondHead;
         }
 
-        while(firsthead != null){
-            third.addLast(firsthead.getData());
-            firsthead = firsthead.getNext();
+        while(firstHead != null){
+            third.addLast(firstHead.getData());
+            firstHead = firstHead.getNext();
         }
         return third;
     }

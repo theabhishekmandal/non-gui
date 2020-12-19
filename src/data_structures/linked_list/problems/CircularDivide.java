@@ -5,9 +5,9 @@ import static data_structures.linked_list.node.CircularLinkedList.Node;
 
 import java.util.stream.IntStream;
 
-/*
-    Split the circular linked list in two parts. If the number of nodes in the list are odd then make first list one node
-    extra than second list
+/**
+ *  Split the circular linked list in two parts. If the number of nodes in the list are odd then make first list one node
+ *  extra than second list
  */
 
 public class CircularDivide {
