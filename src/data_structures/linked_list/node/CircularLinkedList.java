@@ -67,8 +67,10 @@ public class CircularLinkedList<T>{
         final Node<T> first = head;
         Node<T> newNode = new Node<>(data, first);
         tail = newNode;
-        if(last == null)
+        if(last == null) {
             head = newNode;
+            tail.next = head;
+        }
         else
             last.next = newNode;
         size++;
@@ -78,7 +80,10 @@ public class CircularLinkedList<T>{
         final Node<T> first = head;
         Node<T> newNode = new Node<>(data, first);
         head = newNode;
-        if(first == null) tail = newNode;
+        if(first == null) {
+            tail = newNode;
+            head.next = tail;
+        }
         else{
             tail.next = newNode;
         }

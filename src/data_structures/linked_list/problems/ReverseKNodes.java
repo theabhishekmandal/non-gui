@@ -1,10 +1,10 @@
 package data_structures.linked_list.problems;
 
 import data_structures.linked_list.node.SinglyLinkedList;
-import static data_structures.linked_list.node.SinglyLinkedList.Node;
 
-import java.util.Arrays;
 import java.util.stream.IntStream;
+
+import static data_structures.linked_list.node.SinglyLinkedList.Node;
 
 /**
  * Given a linked list 1 2 3 4 5 6 and a number k, reverse every k nodes if exists
@@ -15,10 +15,10 @@ import java.util.stream.IntStream;
  */
 public class ReverseKNodes {
     public static void main(String[] args) {
-        int k = 3;
+        int k = 3   ;
         SinglyLinkedList<Integer> first = new SinglyLinkedList<>();
-        IntStream.range(1, 10).forEach(first::addLast);
-        System.out.println("list before reversing " + first);
+        IntStream.range(0, 10).forEach(first::addLast);
+        System.out.println("list before reversing " + first + " and k is = " + k);
         reverseListByKNodes(first, k);
         System.out.println("list after reversing " + first);
     }
@@ -27,9 +27,9 @@ public class ReverseKNodes {
         int length = first.getSize();
         Node<T> curr = first.getHead();
         if(curr.getNext() == null) return;
-        Node<T> prev = null;
+        Node<T> prev;
         Node<T> previous = null;
-        Node<T> next = null;
+        Node<T> next;
 
         // if the current length is not divisible by k then
         // the last element will be the tail automatically
@@ -40,6 +40,9 @@ public class ReverseKNodes {
             // getting the kth node and k+1th node
             Node<T> kthNode = getNode(curr, k);
             Node<T> kthNextNode = kthNode.getNext();
+            if(previous != null) {
+                previous.setNext(kthNode);
+            }
             while(curr != kthNextNode){
 
                 // save the next pointer first
@@ -49,7 +52,6 @@ public class ReverseKNodes {
                 // after reversing every k nodes prev will become null
                 if(prev == null){
                     curr.setNext(kthNextNode);
-                    if(previous != null) previous.setNext(kthNode);
                     previous = curr;
                 }
                 else
@@ -63,7 +65,7 @@ public class ReverseKNodes {
                 first.setHead(prev);
             }
             // if length is divisible and last iteration then set the tail
-            else if(isLengthDivisibleByK && length == k) {
+            if(isLengthDivisibleByK && length == k) {
                 first.setTail(previous);
             }
             length -= k;
