@@ -1,22 +1,26 @@
 package data_structures.sorting;
-import java.util.*;
+
+import java.util.Arrays;
+import java.util.Random;
+
 public class Mergesort {
     public static void main(String[] args) {
         Random random = new Random();
-        int n = random.nextInt(20);
+        int n = 10;
         int[] arr = new int[n];
-        for(int i = 0; i < n; i++)
+        for (int i = 0; i < n; i++) {
             arr[i] = random.nextInt(arr.length);
+        }
         System.out.println("Arrays Before sorting " + Arrays.toString(arr));
-        mergeSort(arr,0,n - 1);
+        mergeSort(arr, 0, n - 1);
         System.out.println("Arrays after sorting " + Arrays.toString(arr));
     }
 
     public static void mergeSort(int[] arr, int p, int r) {
-        if(p < r) {
+        if (p < r) {
             int q = (p + (r - p) / 2);
             mergeSort(arr, p, q);
-            mergeSort(arr,q + 1, r);
+            mergeSort(arr, q + 1, r);
             merge(arr, p, q, r);
         }
     }
@@ -27,20 +31,19 @@ public class Mergesort {
         int i = 0;
         int j = 0;
         int k = p;
-        while(i < left.length && j < right.length) {
-            if(left[i] <= right[j]) {
+        while (i < left.length && j < right.length) {
+            if (left[i] <= right[j]) {
                 arr[k++] = left[i];
                 i++;
-            }
-            else {
+            } else {
                 arr[k++] = right[j];
                 j++;
             }
         }
-        while(i < left.length) {
+        while (i < left.length) {
             arr[k++] = left[i++];
         }
-        while(j < right.length) {
+        while (j < right.length) {
             arr[k++] = right[j++];
         }
     }

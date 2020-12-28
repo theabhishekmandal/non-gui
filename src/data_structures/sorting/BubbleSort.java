@@ -1,6 +1,7 @@
 package data_structures.sorting;
 
-import java.util.Scanner;
+import java.util.Arrays;
+import java.util.Random;
 /*
 This program is an example of bubble sorting example let's check for values on how this algorithm works
 let array a contains following elements
@@ -39,34 +40,28 @@ Bubble sorting is based on swapping the adjacent values if they differ in their 
 
  */
 
-class Bubble {
-    public int[] sort(int[] a) {
-        for(int i = 0; i < a.length - 1; i++) {
-            for(int j = 0; j < a.length - i - 1; j++) {
-                if(a[j] > a[j + 1]) {
-                    int temp = a[j];
-                    a[j] = a[j + 1];
-                    a[j + 1] = temp;
+public class BubbleSort {
+    public static void main(String[] args) {
+        Random random = new Random();
+        int n = 10;
+        int[] arr = new int[n];
+        for (int i = 0; i < arr.length; i++) {
+            arr[i] = 1 + random.nextInt(100);
+        }
+        System.out.println("Arrays Before sorting " + Arrays.toString(arr));
+        sort(arr);
+        System.out.println("Arrays after sorting " + Arrays.toString(arr));
+    }
+
+    private static void sort(int[] arr) {
+        for (int i = 0; i < arr.length - 1; i++) {
+            for (int j = 0; j < arr.length - i - 1; j++) {
+                if (arr[j] > arr[j + 1]) {
+                    int temp = arr[j];
+                    arr[j] = arr[j + 1];
+                    arr[j + 1] = temp;
                 }
             }
-        }
-        return a;
-    }
-}
- class BubbleSort {
-    public static void main(String[] args) {
-        Scanner s = new Scanner(System.in);
-        System.out.println("enter how many elements");
-        int size = s.nextInt();
-        int[] a = new int[size];
-        System.out.println("enter the elements ");
-        for(int i = 0; i < size; i++)
-            a[i] = s.nextInt();
-        Bubble sortobject = new Bubble();
-        a = sortobject.sort(a);
-        System.out.println("values after DataStructures.sorting");
-        for (int j : a) {
-            System.out.println(j);
         }
     }
 }
