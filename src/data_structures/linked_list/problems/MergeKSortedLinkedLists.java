@@ -65,18 +65,16 @@ public class MergeKSortedLinkedLists {
         while(temp != null && temp2 != null) {
             Node<T> toBeAdded;
             if(temp.getData().compareTo(temp2.getData()) >= 0) {
-              toBeAdded = temp2;
-              temp2 = temp2.getNext();
-            }
-            else {
-              toBeAdded = temp;
-              temp = temp.getNext();
+                toBeAdded = temp2;
+                temp2 = temp2.getNext();
+            } else {
+                toBeAdded = temp;
+                temp = temp.getNext();
             }
             toBeAdded.setNext(null);
             if(head == null) {
                 head = tail = toBeAdded;
-            }
-            else {
+            } else {
                 tail.setNext(toBeAdded);
                 tail = toBeAdded;
             }

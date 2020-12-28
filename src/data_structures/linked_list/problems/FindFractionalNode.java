@@ -23,7 +23,7 @@ public class FindFractionalNode {
         SinglyLinkedList<Integer> first = new SinglyLinkedList<>();
         Random random = new Random();
         int n = random.nextInt(20) + 1;
-        int k = random.nextInt(n / 2);
+        int k = 1 + random.nextInt(n / 2);
         IntStream.range(1, n).forEach(first::addLast);
         Node<Integer> node = findFractionalNode(first, k);
         System.out.println("n = " + n + " k = " + k);

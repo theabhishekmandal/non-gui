@@ -24,15 +24,15 @@ public class CloneRandomLinkedList {
         System.out.println("first list " + randomLinkedList + "\nhead is " + randomLinkedList.getHead() +
                 "\ntail is " + randomLinkedList.getTail());
 
-        RandomLinkedList<Integer> randomLinkedList1 = new RandomLinkedList<>();
-        cloneRandomLinkedList(randomLinkedList, randomLinkedList1);
+        RandomLinkedList<Integer> randomLinkedList1 = cloneRandomLinkedList(randomLinkedList);
         System.out.println("second list " + randomLinkedList1 + "\nhead is " + randomLinkedList1.getHead() +
                 "\ntail is " + randomLinkedList1.getTail());
     }
 
-    private static <T> void cloneRandomLinkedList(RandomLinkedList<T> first, RandomLinkedList<T> second){
+    private static <T> RandomLinkedList<T> cloneRandomLinkedList(RandomLinkedList<T> first){
         Map<Node<T>, Node<T>> map = new HashMap<>();
         Node<T> firstNode = first.getHead();
+        RandomLinkedList<T> second = new RandomLinkedList<>();
         while(firstNode != null){
             Node<T> secondNode = new Node<>(firstNode.getData(), null);
             map.put(firstNode, secondNode);
@@ -50,7 +50,7 @@ public class CloneRandomLinkedList {
             previous = firstNode;
             firstNode = firstNode.getNext();
         }
-
         second.setTail(previous);
+        return second;
     }
 }

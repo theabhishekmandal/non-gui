@@ -2,13 +2,10 @@ package data_structures.linked_list.problems;
 
 import data_structures.linked_list.node.DoublyLinkedList;
 import data_structures.linked_list.node.SinglyLinkedList;
-import static data_structures.linked_list.node.SinglyLinkedList.Node;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
 import java.util.Random;
-import java.util.stream.IntStream;
+
+import static data_structures.linked_list.node.SinglyLinkedList.Node;
 
 /**
  * Insert a node in a sorted singly linked list and insert a node in doubly linked list
@@ -16,25 +13,12 @@ import java.util.stream.IntStream;
 
 public class InsertingInSortedList {
     public static void main(String[] args) {
-        solve();
-    }
-
-    private static void solve(){
-        Random random = new Random();
         SinglyLinkedList<Integer> sll = new SinglyLinkedList<>();
         DoublyLinkedList<Integer> dll = new DoublyLinkedList<>();
 
-        List<Integer> list = new ArrayList<>();
-
-        IntStream.range(1, 11).forEach(x -> list.add(random.nextInt(11)));
-        list.sort(Comparator.naturalOrder());
-        list.forEach(sll::addLast);
-        list.clear();
-
-        IntStream.range(1, 11).forEach(x -> list.add(random.nextInt(11)));
-        list.sort(Comparator.naturalOrder());
-        list.forEach(dll::addLast);
-        list.clear();
+        Random random = new Random();
+        random.ints(0, 11).limit(10).sorted().forEach(sll::addLast);
+        random.ints(0, 11).limit(10).sorted().forEach(dll::addLast);
 
         Integer value = random.nextInt(10);
 

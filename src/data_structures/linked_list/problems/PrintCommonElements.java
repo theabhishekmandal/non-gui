@@ -1,12 +1,12 @@
 package data_structures.linked_list.problems;
 
 import data_structures.linked_list.node.SinglyLinkedList;
-import static data_structures.linked_list.node.SinglyLinkedList.Node;
 
 import java.util.HashSet;
 import java.util.Random;
-import java.util.Scanner;
 import java.util.Set;
+
+import static data_structures.linked_list.node.SinglyLinkedList.Node;
 
 /**
  * Find common elements in two linked list.

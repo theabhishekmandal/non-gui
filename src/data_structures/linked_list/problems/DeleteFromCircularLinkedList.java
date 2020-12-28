@@ -56,7 +56,7 @@ public class DeleteFromCircularLinkedList {
         while (!temp.getNext().getData().equals(k) && temp.getNext() != cl.getHead()) {
            temp = temp.getNext();
         }
-        if(!temp.getNext().getData().equals(k)) {
+        if (!temp.getNext().getData().equals(k)) {
             return;
         }
         Node<T> toBeDel = temp.getNext();
@@ -67,8 +67,7 @@ public class DeleteFromCircularLinkedList {
         toBeDel.setNext(null);
         if (toBeDel == tail) {
             cl.setTail(temp);
-        }
-        else if (toBeDel == head) {
+        } else if (toBeDel == head) {
             cl.setHead(temp.getNext());
         }
         cl.setSize(cl.getSize() - 1);

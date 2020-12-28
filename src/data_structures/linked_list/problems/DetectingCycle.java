@@ -1,6 +1,7 @@
 package data_structures.linked_list.problems;
 
 import data_structures.linked_list.node.SinglyLinkedList;
+import static data_structures.linked_list.node.SinglyLinkedList.Node;
 
 /**
  * Given a linked list find that if a loop exists, and remove the loop
@@ -53,8 +54,8 @@ public class DetectingCycle {
         }
     }
     private static void detectAndRemoveCycle(SinglyLinkedList<?> arr){
-        SinglyLinkedList.Node<?> fastNode = arr.getHead();
-        SinglyLinkedList.Node<?> slowNode = arr.getHead();
+        Node<?> fastNode = arr.getHead();
+        Node<?> slowNode = arr.getHead();
         boolean isCycle = false;
         while(fastNode != null && fastNode.getNext() != null){
             fastNode = fastNode.getNext().getNext();

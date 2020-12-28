@@ -1,10 +1,10 @@
 package data_structures.linked_list.problems;
 
-import data_structures.Pair;
 import data_structures.linked_list.node.DoublyLinkedList;
 import static data_structures.linked_list.node.DoublyLinkedList.Node;
 
 import java.util.ArrayList;
+import java.util.AbstractMap.SimpleEntry;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
@@ -29,18 +29,18 @@ public class FindPairsInDll {
         System.out.println("list of pairs are = " + list);
     }
 
-    private static List<Pair<Integer, Integer>> getPairs(DoublyLinkedList<Integer> dl, int k) {
+    private static List<SimpleEntry<Integer, Integer>> getPairs(DoublyLinkedList<Integer> dl, int k) {
         if(dl == null || dl.getHead() == null) {
             return Collections.emptyList();
         }
         Node<Integer> first = dl.getHead();
         Node<Integer> last = dl.getTail();
 
-        var list = new ArrayList<Pair<Integer, Integer>>();
+        var list = new ArrayList<SimpleEntry<Integer, Integer>>();
         while(first.getData() < last.getData()) {
             int temp = first.getData() + last.getData();
             if(temp == k) {
-                list.add(Pair.of(first.getData(), last.getData()));
+                list.add(new SimpleEntry<>(first.getData(), last.getData()));
                 first = first.getNext();
                 last = last.getPrevious();
             }

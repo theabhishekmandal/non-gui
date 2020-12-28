@@ -11,7 +11,7 @@ import java.util.stream.IntStream;
  *  Find the first node from the end of the list that satisfies n % k == 0, where n is the index
  *  starting from 1 from end of the list.
  *
- *  Basically find the first node from the last whose's position is multiple of k in a list of length n
+ *  Basically find the first node from the last who's position is multiple of k in a list of length n
  *
  *  if 2->4->3->8->9->10->11 and k = 2,
  *  2nd position node from the last is the first node that is divisible by 2 so answer is 10

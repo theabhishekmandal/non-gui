@@ -3,6 +3,7 @@ package data_structures.linked_list.problems;
 import data_structures.linked_list.node.CircularLinkedList;
 import static data_structures.linked_list.node.CircularLinkedList.Node;
 
+import java.util.function.BiFunction;
 import java.util.stream.IntStream;
 
 /**
@@ -15,20 +16,20 @@ public class CircularDivide {
         CircularLinkedList<Integer> arr = new CircularLinkedList<>();
         IntStream.range(1, 6).forEach(arr::addLast);
 
-        System.out.println("head is " + arr.getHead()  + "\nlinked list before reversing " + arr + "\ntail is " + arr.getTail()
-            + "\ntail next is" + arr.getTail().getNext() + "\ntotal elements " + arr.getSize());
-        CircularLinkedList<Integer> second = divideCircularList(arr, new CircularLinkedList<>());
+        // before
+        System.out.println(function.apply(true, arr));
 
-        System.out.println("\nhead is " + arr.getHead()  + "\nlinked list before reversing " + arr + "\ntail is " + arr.getTail()
-                + "\ntail next is" + arr.getTail().getNext() + "\ntotal elements " + arr.getSize());
+        // after
+        CircularLinkedList<Integer> second = divideCircularList(arr);
+        System.out.println(function.apply(false, arr));
+        System.out.println(function.apply(false, second));
 
-        System.out.println("\nhead is " + second.getHead()  + "\nlinked list before reversing " + second + "\ntail is " + second.getTail()
-                + "\ntail next is" + second.getTail().getNext() + "\ntotal elements " + second.getSize());
     }
-    private static <T> CircularLinkedList<T> divideCircularList(CircularLinkedList<T> first, CircularLinkedList<T> second){
+    private static <T> CircularLinkedList<T> divideCircularList(CircularLinkedList<T> first){
         Node<T> slow = first.getHead();
         Node<T> fast = first.getHead();
         boolean isCycle = false;
+        CircularLinkedList<T> second = new CircularLinkedList<>();
         while(fast != null && fast.getNext() != null){
             slow = slow.getNext();
             fast = fast.getNext().getNext();
@@ -65,4 +66,11 @@ public class CircularDivide {
 
         return second;
     }
+
+    static BiFunction<Boolean, CircularLinkedList<?>, String> function = (flag, arr) -> {
+        String beforeFormat = "head is %s\nlinked list before reversing %s\ntail is %s\ntail next is %s\ntotal elements %d";
+        String afterFormat = "head is %s\nlinked list after reversing %s\ntail is %s\ntail next is %s\ntotal elements %d";
+        String temp = (Boolean.TRUE.equals(flag))? beforeFormat : afterFormat;
+        return String.format(temp, arr.getHead(), arr, arr.getTail(), arr.getTail().getNext(), arr.getSize());
+    };
 }
