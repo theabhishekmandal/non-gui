@@ -1,6 +1,8 @@
 package data_structures.array;
 
-import java.util.Scanner;
+import java.util.Arrays;
+import java.util.Random;
+import java.util.function.IntFunction;
 
 /**
  * The problem statement is that given two arrays of different sizes which are sorted in ascending order.
@@ -32,48 +34,90 @@ import java.util.Scanner;
  *     there may be a condition when the partitionx and partitiony might be at a position where there might be
  *     no elements then at that case we can use +INF and -INF.
  *     https://www.geeksforgeeks.org/median-two-sorted-arrays-different-sizes-ologminn-m/
+ *
+ *     Important points to note
+ *     -    smaller length array should be used
+ *     -    Here total length is calculated as (x + y + 1) as it works well in both even and odd lengths
+ *     -    low = 0 and high = arr.length
+ *     -    high and low values are calculated using partitionx only
  */
 public class MedianOfTwoSortedArrays {
-    private static float getMedianOfTwoSortedArrays(int[] first, int[] second) throws Exception{
-        if(first.length > second.length) return getMedianOfTwoSortedArrays(second, first);
+    public static void main(String[] args) {
+        Random random = new Random();
+        IntFunction<int[]> randomSortedSup = size -> random.ints(1, 1000).limit(size).sorted().toArray();
+        int n = 11;
+        int[] first = randomSortedSup.apply(n);
+        int m = 11;
+        int[] second = randomSortedSup.apply(m);
+        System.out.println("Array first = " + Arrays.toString(first) + "\nArray second = " + Arrays.toString(second));
+        System.out.println(getMedianOfTwoSortedArrays2(first, second));
+        System.out.println(getMedianOfTwoSortedArrays(first, second));
+    }
+
+    // complex time complexity is O(log(min(m, n))) space complexity O(1)
+    private static float getMedianOfTwoSortedArrays(int[] first, int[] second) {
+        if (first.length > second.length) {
+            int[] temp = first;
+            first = second;
+            second = temp;
+        }
         int x = first.length;
         int y = second.length;
         int low = 0;
         int high = x;
-        while(low <= high){
+        int negInf = Integer.MIN_VALUE;
+        int posInf = Integer.MAX_VALUE;
+        while (low <= high) {
             int partitionx = low + ((high - low) >> 1);
             int partitiony = ((x + y + 1) >> 1) - partitionx;
 
-            int maxLeftx = (partitionx == 0)? (int)-1e9 : first[partitionx - 1];
-            int minRightx = (partitionx == x)? (int)1e9 : first[partitionx];
+            int maxLeftx = (partitionx == 0)? negInf : first[partitionx - 1];
+            int minRightx = (partitionx == x)? posInf : first[partitionx];
 
-            int maxLefty = (partitiony == 0)? (int)-1e9 : second[partitiony - 1];
-            int minRighty = (partitiony == y)? (int)1e9 : second[partitiony];
+            int maxLefty = (partitiony == 0)? negInf : second[partitiony - 1];
+            int minRighty = (partitiony == y)? posInf : second[partitiony];
 
-            if(maxLeftx <= minRighty && maxLefty <= minRightx){
-                if(((x + y) & 1) == 0){
+            if (maxLeftx <= minRighty && maxLefty <= minRightx) {
+                if (((x + y) & 1) == 0) {
                     return (Math.max(maxLeftx, maxLefty) + Math.min(minRightx, minRighty)) / (float)2;
-                }
-                else
+                } else {
                     return (float)Math.max(maxLeftx, maxLefty);
-            }
-            else if(maxLeftx > minRighty){
+                }
+            } else if (maxLeftx > minRighty) {
                 high = partitionx - 1;
-            }
-            else if(maxLefty > minRightx){
+            } else if (maxLefty > minRightx) {
                 low = partitionx + 1;
             }
         }
-        throw new Exception("arrays are not sorted");
+        throw new AssertionError("arrays are not sorted");
     }
-    public static void main(String[] args) throws Exception {
-        Scanner s = new Scanner(System.in);
-        int n = s.nextInt();
-        int[] first = new int[n];
-        for(int i = 0; i < first.length; i++) first[i] = s.nextInt();
-        int m = s.nextInt();
-        int[] second = new int[m];
-        for(int i = 0; i < second.length; i++) second[i] = s.nextInt();
-        System.out.println(getMedianOfTwoSortedArrays(first, second));
+
+    // simple time complexity O(m + n) and space Complexity is O(m + n)
+    private static float getMedianOfTwoSortedArrays2(int[] arr, int[] brr) {
+        int[] crr = new int[arr.length + brr.length];
+        int i = 0;
+        int k = 0;
+        int j = 0;
+        while (i < arr.length && j < brr.length) {
+            if (arr[i] < brr[j]) {
+                crr[k++] = arr[i++];
+            } else {
+                crr[k++] = brr[j++];
+            }
+        }
+        while (i < arr.length) {
+            crr[k++] = arr[i++];
+        }
+
+        while (j < brr.length) {
+            crr[k++] = brr[j++];
+        }
+
+        System.out.println(Arrays.toString(crr));
+        if (crr.length % 2 == 0) {
+            return (crr[crr.length / 2] + crr[crr.length / 2 - 1]) / (float)2;
+        } else {
+            return (float)crr[crr.length / 2];
+        }
     }
 }

@@ -1,4 +1,4 @@
-package data_structures.array;
+package data_structures.array.dutch_national_flag;
 
 import java.util.*;
 
@@ -49,7 +49,8 @@ public class Sort012 {
         }
         return arr;
     }
-    // using single iteration
+
+    // using single iteration, approach based on dutch national flag algorithm
     private static int[] sort012New2(int[] arr) {
         if(arr == null || arr.length == 0) return new int[]{};
         int one = 0;
