@@ -56,16 +56,18 @@ public class QuickSortLinkedList {
         while(head != end) {
             if(head.data <= pivot) {
                 prev = traver;
-                int temp = traver.data;
-                traver.data = head.data;
-                head.data = temp;
+                swap(traver, head);
                 traver = traver.next;
             }
             head = head.next;
         }
-        int temp = traver.data;
-        traver.data = pivot;
-        end.data = temp;
+        swap(traver, end);
         return prev;
+    }
+
+    private static void swap(Node one, Node two) {
+        int temp = one.data;
+        one.data = two.data;
+        two.data = temp;
     }
 }
