@@ -1,4 +1,4 @@
-package data_structures.dynamic_programming;
+package data_structures.dynamic_programming.string;
 /**
  * This is based on dynamic programming: 1) Overlapping subproblems 2) Optimal substructure
  * This problem can be solved by using dynamic programming as:

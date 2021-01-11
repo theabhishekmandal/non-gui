@@ -1,4 +1,4 @@
-package data_structures.dynamic_programming;
+package data_structures.dynamic_programming.string;
 
 import java.util.Scanner;
 /**
