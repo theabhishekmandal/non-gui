@@ -1,4 +1,4 @@
-package miscellaneous.recursion;
+package data_structures.strings;
 import java.io.PrintWriter;
 import java.util.*;
 
@@ -39,11 +39,10 @@ import java.util.*;
  * by following the below one you can preserve the original value.
  */
 public class Permutation {
-    private static PrintWriter out =  new PrintWriter(System.out);
+    private static final PrintWriter out =  new PrintWriter(System.out);
     public static void main(String[] args) {
-        Scanner s = new Scanner(System.in);
-        char a[] = s.next().toCharArray();
-        permute1(0, a);
+        char[] a = "abc".toCharArray();
+        permute(0, a);
         out.flush();
     }
 
@@ -56,20 +55,6 @@ public class Permutation {
                 swap(a, i, j);
                 permute(i + 1, a);
                 swap(a, i, j);
-            }
-        }
-    }
-
-    private static void permute1(int i, char[] a) {
-        if(i == a.length - 1) {
-            out.println(new String(a));
-        }
-        else {
-            for(int j = i; j < a.length; j++) {
-                char[] arr = Arrays.copyOf(a, a.length);
-                arr[j] = a[i];
-                arr[i] = a[j];
-                permute1(i + 1, arr);
             }
         }
     }

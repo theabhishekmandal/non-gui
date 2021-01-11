@@ -1,0 +1,1373 @@
+Hi folks,
+#Letest #update 2020
+#Spring #boot #problems #and #solutions
+Q.How to add default value to Spring Boot @Value annotation?
+Ans-Spring Boot @Value annotation injects property values from application.properties file into spring bean.
+ Here is the syntax to inject property value into spring bean:
+
+@Value("${property_name}")
+An example of above syntax is:
+
+@Value("${io.retry.times}")
+private int retryCount;
+Incase we forget to add this property into application.properties file, spring will throw an exception. To avoid this, @Value annotation allows us to provide default value, the syntax is as shown below:
+
+@Value("${property_name:default_value}")
+And the sample code is: In the below case, by default, 5 will be assinged to retryCount variable.
+
+@Value("${io.retry.times:5}")
+private int retryCount;
+
+Assign NULL value as a default value
+
+@Value("${property_name:#{null}}")
+
+Q.My Spring boot application is not scaning my components (controllers)
+
+Ans-Many Spring Boot developers have annotated their spring boot application class with @SpringBootApplication annotation. But we noticed that sometimes it failed to scan components.
+ We might have added @ComponentScan annotation too. But we see still the component scan is not happening. What is the reason?
+
+In fact, The @SpringBootApplication annotation is equivalent to using @Configuration, @EnableAutoConfiguration and @ComponentScan with their default attributes.
+
+If we get into these kind of situations, just remember that the component scan default behaviour happens only in the same package and in its sub package. If your controllers or components are in different,
+ dont forget to override your component scan default configurations. Here is the sample code on how to override the default behavour.
+
+@SpringBootApplication(scanBasePackages = "com.java2novice")
+Or you can specify multiple packages as shown below:
+
+@SpringBootApplication(scanBasePackages = {"com.java2novice", "com.simplebro"})
+
+Q.How to configure Spring Boot without the parent POM (spring-boot-starter-parent)?
+
+Ans-Not everyone likes inheriting from the spring-boot-starter-parent POM. You may have your own corporate standard parent that you need to use, or you may just prefer to explicitly declare all your Maven configuration.
+
+If you don’t want to use the spring-boot-starter-parent, you can still keep the benefit of the dependency management (but not the plugin management) by using a scope=import dependency:
+<dependencyManagement>
+     <dependencies>
+        <dependency>
+            <!-- Import dependency management from Spring Boot -->
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-dependencies</artifactId>
+            <version>1.5.8.RELEASE</version>
+            <type>pom</type>
+            <scope>import</scope>
+        </dependency>
+    </dependencies>
+</dependencyManagement>
+
+
+
+Hi folks,
+Letest update 2020 3+ #experience
+Spring Interview Questions.
+------------------------------------
+
+ 1. what is IOC (inversion of control) Container.
+------------------------------------------------------
+ -> Ioc is a principle or paradigm. we have some set of rules or guidelines to develop a application in a decouple manner.
+ -> ioc is a collabrating the object and managing the lifecycle of those objects is called ioc container.
+ -> Ioc container says that you don't bother about object creation or you don't create your objects only describe how they should be created i will manage it.
+ -> The basic concept of the Dependency Injection or Inversion of Control is that, programmer do not need to create the objects,
+   instead just describe how it should be created.
+
+ Benefits of Ioc.
+ --------------------
+ -> minimize the code in our application.
+ -> it provides loose coupling between components in our application.
+ -> if any modification have to do then it doesnt effect other components.
+ -> it supports eager instantiation and lazy instantiation of services.
+ -> enhancement will be easy.
+
+ 2. what is dependency injection. types of dependency injection.
+ --------------------------------------------------------------------
+ -> dependency injection is a software design pattern that deals with how components are orgnizing their dependencies.
+ -> it is the process of injecting the dependencies in dependent class automatically. we no need to create obj and no need to map with obj.
+ -> Dependency Injection means injecting the dependency between two object as per as our requirement in our application,
+    this help to reducing the dependency to each other.
+ -> Dependency Injection (DI) is a design pattern that removes the dependency from the programming code so that it can be easy to manage and test the application.
+    Dependency Injection makes our programming code loosely coupled
+ -> it is internally follow strategy design pattern .
+    menas. favour composition over inheritance.
+        . always design to interface never code to implementation.
+
+ 3. diff between setter injection and constructor injection.
+ -------------------------------------------------------------------
+ -> Setter Injection.
+ ------------------------
+ -> to perform setter injection we will use <property> tag.
+ -> partial dependencies is possible. means if we have 3 dependencies like int, long, String it is not necessary to inject all values.
+ -> if we have more dependencies eg 15 to 20 are there in our bean class then in this case setter injection is not recomended to use as we need to
+    write almost 20 setters right bean lenght will be increased.
+ -> setter injection makes bean class object as mutable( we can change).
+ -> setter injection support cyclic dependencies.
+
+ Constructor injection.
+ ---------------------------
+ -> to perform constructor injection <constructor-arg> tag is required.
+ -> partial injection of dependencies cannot be possible becoz for calling a constructor we must pass all the arguments.
+ -> if we have more dependencies in this case constructor injection is highly recomended to use becoz we can inject all the dependencies with in
+    the 3 to 4 lines (by calling one constructor).
+ -> constructor injection makes bean class obj is immutable( we cannot change).
+ -> constructor injection doesnt support cyclic dependencies.
+
+ 4. diff between BeanFactory and application context.
+-----------------------------------------------------------
+ BeanFactory
+----------------
+ -> BeanFactory is a basic container. it can only manage a bean life cycle. but it can not provide service like transaction, security etc.
+ -> if we developing small scale application like mobile application embeded system then we use beanfactory.
+ -> Beanfactory is lazy initializer. beanfactory container will not create a bean obj upto the request time.
+ -> Beanfactory container supports only two scope(singeltone & prototype).
+ -> Beanfactory doesnt support internationalization, event handling, event processing.
+
+ Application Context
+ -----------------------
+ -> ApplicationContext is a advanced container it manage bean life cycle and also provide transaction security etc.
+ -> if we are developing enterprise application like(web application, distributed application) then ApplicationContext is recomended to use.
+ -> ApplicationContext container creates bean object of singelton bean at the time of loading only.it is eager initialzer.
+ -> ApplicationContext container support all the bean scope (singletone,prototype, session,request).
+ -> it supports internationalization, event handling, event processing also.
+
+ 5. what is bean autowiring and types of autowire modes.
+ ------------------------------------------------------------
+ -> injecting the dependencies between the obj is called wiring.
+ -> instead of telling the spring to manage the dependency by writting <property> or <constructor> tag in spring bean configuration file.
+ -> if we instruct the spring to automatically detect the dependencies and perform the injection between them it is called bean autowiring.
+ -> it is used only when rapid application development is required.
+ -> In Spring framework, you can wire beans automatically with auto-wiring feature. To enable it, just define the “autowire” attribute in.
+ -> The Spring container can autowire relationships between collaborating beans without using and elements which helps cut down on the amount of XML configuration.
+  <bean id="countryBean" class="org.arpit.java2blog.Country" autowire="byName">
+
+  Modes of Autowire
+ ------------------------
+ 1. Autowire= "byname"
+--------------------------
+ -> if u enable autowiring byname, spring will inject the bean based on property name. it uses setter method.
+ -> Autowiring by property name. Spring container looks at the properties of the beans on which autowire attribute is set to byName in the XML configuration file
+    and it tries to match it with name of bean in xml configuration file.
+
+ 2. Autowire= "bytype"
+---------------------------
+ -> if u enable autowire bytype, spring will inject the beans based on the property type. it uses setter method.
+ -> Autowiring by property datatype. Spring container looks at the properties of the beans on which autowire attribute is set to byType in the XML configuration file.
+ -> It then tries to match and wire a property if its type matches with exactly one of the beans name in configuration file
+
+ 3. Autowire= "byconstructor"
+-------------------------------
+ -> if u enable autowire byconstructor, spring will injects the beans uses constructor.
+ -> byType mode in constructor argument.
+
+ 4. Autowire="byautodetect"
+------------------------------
+ -> Spring first tries to wire using autowire by constructor, if it does not work, Spring tries to autowire by byType.
+
+ 6. what is bean scope. and types of bean scope. diff between singletone and prototype bean scope.
+ --------------------------------------------------------------------------------------------------------------
+ -> Beanscope is a concept which is provided by spring people. in spring when u declare a class as a bean by default the bean will be created under
+   the singleton scope.
+
+ Types of beanscope
+-------------------------
+ 1. singleton
+----------------
+ -> bydefault every bean declared in the configuration file is singleton.
+ -> Scopes a single bean definition to a single object instance per Spring IoC container.
+ -> singleton is default scope of a bean in Spring. You have to explicitly change scope of a bean if you want different scope.
+ -> if beanscope is singleton then Ioc container creates the bean class obj and keeps in the HashMap element as value by having bean 'id' as key and
+   uses that obj across the multiple "factory.getBean() method.
+
+ 2. Prototype
+-----------------
+ -> prototype – Return a new bean instance each time when requested.
+ -> when we declare a beanscope as a prototype then Ioc container doesnt keep the created bean class object in HashMap so it returns new obj for every
+   factory.getBean().
+
+ 3. Request
+----------------
+ -> request – Return a single bean instance per HTTP request.
+ -> when we declare a beanscope as request ,for every Http request new bean instance will be injected.
+
+ 4. Session
+---------------
+ -> session – Return a single bean instance per HTTP session.
+ -> for every new Http session ,new bean instance will be injected.
+
+ 5. Global session
+---------------------
+ -> the global session scope is depricated in the market from spring 3.0.
+ -> Return a single bean instance per global HTTP session.
+
+ 7. what is bean life cycle .
+-------------------------------------------
+ -> every obj in this world have life cycle. whatever the obj is performing after the birth and before the death is known as life cycle of the obj.
+ -> the spring container find the beans defination from the xml file and instantiate the bean .
+ -> using dependency injection spring populates all of the properties as specified in the bean defination.
+ -> in servlet life cycle we are used following life cycle methods . 1> init() 2> service() 3> destroy().
+ -> spring bean allows two life cycle methods. 1> init() 2> destroy().
+
+ Spring Aop
+-----------------
+ 1. what is Aop. what is the principles of Aop. and where we apply Aop in projects.
+----------------------------------------------------------------------------------------
+ -> Aop is not a programming language. it is a methodlogy or principles like oops. we have some set of rules or guidelines to make our application
+   in decouple manner.
+ -> Aop is the process of separating the primary logic from the secondry logic (crosscutting logic).
+ -> in every application there will be two types of logic, one is called primary buisness logic and other one is helper logic which makes your
+   primary buisness logic work better.
+ -> in the enterprise level application we used to add diff crosscutting functionlaties (means adding diff types of services to the application at runtime).
+
+ We can apply Aop
+--------------------
+ -> Logging.
+ -> Auditing.
+ -> Security.
+ -> transaction.
+ -> caching.
+ -> performance monitoring.
+
+ Principles of Aop
+----------------------
+ -> Aspect
+ -> Advice
+ -> joinpoint
+ -> pointcut
+ -> weaving
+ -> target
+ -> proxy
+
+ 1.> Aspect.
+---------------
+ -> it is the piece of code which will be separate from the primary logic. aspect represent secondry or crosscutting logic.
+ -> it is the piece of code that has to be applied across various classes of the application.
+ -> An Aspect is a class that implements concerns that cut across different classes such as logging. It is just a name.
+
+ 2.> Advice.
+----------------
+ -> Action taken by  aspect at particular join point. For example: Before execution of getEmployeeName() method, put logging. So here, we are using before advice.
+ -> this principles talks about where actually we can apply that aspect.
+ a.> before advice.
+ b.> around advice.
+ 3.> after returning advice
+ d.> throws advice.
+
+ 3.> pointcut.
+ -------------------
+ ->  Pointcut is an expression that decides execution of advice at matched joint point. Spring uses the AspectJ pointcut expression language by default.
+ -> it is the set of joinpoint where advice are applied to excute the aspect.
+
+ 4.> joinpoint.
+ ---------------------
+ -> this principles will talks about how many places we can advice the aspect .generally in spring you can apply an aspect of method execution.
+ -> It is a point in execution of program such as execution of method. In Spring AOP, a join point always represents a method execution.
+
+ 5.> Target.
+ --------------------
+ -> the class on which you want to advice the aspect.
+
+ 6.> weaving.
+ --------------------
+ -> the process of advising a target class with an aspect based on a pointcut to build proxy.
+
+ 7.> proxy.
+ ------------
+ -> the outcome of weaving is called proxy.
+
+ Spring MVC
+---------------
+
+ 1. what do you mean by MVC.
+---------------------------------
+ -> it is a software design pattern. it is a structural (creational) design pattern comes in gang of four design pattern.
+ -> it provides loose coupling between model, view and controller.
+
+ model
+---------
+ -> it is responsible for data storage related logic.
+
+ view
+-------
+ -> it is representation for presentation logic.
+
+ Controller.
+--------------
+ -> it is responsible for application execution logic or processing logic. it acts as a mediator between model and view.
+
+ 2. what is spring MVC flow. how it works.
+-----------------------------------------------
+ -> spring mvc is used for making a web application development faster, cost effective and flexiable.
+ -> in case of spring mvc user has send the request to the dispather servlet. dispatcher servlet acts as a front conroller with extension .mvc,.html etc.
+ -> the dispatcher servlet forward the request to the handler mapping.
+ -> handler mapping identify the appropriate handler or controller class for the given url request and sends to the dispatcher servlet.
+ -> the controller class perform operation like dao or buisness method according to the buisness requirement.then the resultant page with data will be forward to
+   dispatcher servlet.
+ -> the dispatcher servlet forward it with logical view name to view resolver.
+ -> view resolver resolves it and create the view obj.
+ -> it calls the render method on view obj then the view page will be displayed.
+
+ 3. what is controller. how many types of controller. which controller u are used in project. and how to create controller class in spring mvc.
+----------------------------------------------------------------------------------------------------------------------------------------------------
+ -> controller is a simple java class.
+ -> the controller class is act as a mediator between front controller to service components.
+ -> the controller classes are creating by application developer to communicate with service layer.
+ -> the controller classs method always returns model and view.
+
+ types of controller.
+--------------------------
+ a> simple form controller.
+ b> abstract controller.
+ c> abstract command controller.
+
+ -> To create a Controller in Spring MVC, create a class and annotate it with @Controller and @RequestMapping.
+
+ @Controller
+@RequestMapping("/page")
+public class PersonController {
+ @Autowired
+ private IPersonService personService;
+ @RequestMapping("/login")
+        public String hello(@RequestParam(value="userId", required=false) String userId,
+     @RequestParam(value="location", required=false) String location,
+     Model model) {
+         model.addAttribute("msg", "Hello "+personService.getPersonName() );
+         model.addAttribute("userId", userId);
+         model.addAttribute("location", location);
+                return "result";
+ }
+}
+
+ 4. whtat is dispather servlet.
+-----------------------------------
+ -> dispatcher servlet act as a front controller.
+ -> every incoming http request is accepting and proceesing by dispatcher servlet.
+ -> the dispatcher servlet we will configure in web.xml just like a normal servlet.
+ -> To work with Spring MVC, we need to define it in our web.xml .
+    <servlet>
+    <servlet-name>dispatcher</servlet-name>
+    <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+    <load-on-startup>1</load-on-startup>
+    </servlet>
+
+ 5. what is handler mapping . and which handler mapping u are used in project.
+----------------------------------------------------------------------------------
+ -> handler mapping are used to map an incomming http request url with a controller class.
+ -> whenever the request coming from client.the dispatcher servlet will delegate the request obj to handler mapping to identify the appropriate controller class.
+ -> handler mapping beans we can configure in spring configuration class.
+
+ types of handler mapping.
+------------------------------
+ 1.> simple url handlere mapping.
+ 2.> bean name url handler mapping.
+ 3.>. handler interceptors.
+
+ 6. what is view resolver. and which view resolver u are used in project.
+-----------------------------------------------------------------------------
+ -> the view resolver are used to find out the actual view obj for the given logical view name.
+ -> after getting the model & view object, the dispatcher servlet will delegate the logical view name to view resolver to identify actual view object.
+
+ types of view resolver.
+-------------------------------
+ a.> xml view resolver.
+ b.> url based view resolver.
+ c.> resource bundle view resolver.
+
+ 7.> what is model and view.
+------------------------------------
+ -> model and view is predefined classes. the model and view object is holding model data and logical view name.
+
+ How to handle views in Spring MVC using XML.
+------------------------------------------------------
+ Ans: To handle views in Spring MVC, we need to configure InternalResourceViewResolver bean in spring XML where we need to define prefix and suffix of our views name.
+      Find the sample declaration.
+      <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+      <property name="prefix" value="/pages/"/>
+      <property name="suffix" value=".jsp"/>
+      </bean>
+
+ What is minimum web.xml configuration to run Spring MVC.
+----------------------------------------------------------------
+ -> To run the Spring MVC, we need to define DispatcherServlet, contextConfigLocation and ContextLoaderListener in web.xml. Find the sample web.xml.
+    <servlet>
+ <servlet-name>dispatcher</servlet-name>
+ <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+ <load-on-startup>1</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+ <servlet-name>dispatcher</servlet-name>
+ <url-pattern>/</url-pattern>
+     </servlet-mapping>
+     <context-param>
+ <param-name>contextConfigLocation</param-name>
+ <param-value>/WEB-INF/dispatcher-servlet.xml</param-value>
+     </context-param>
+     <listener>
+ <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+     </listener>
+
+ 8. which annotation u are used in project. can us list them.
+-----------------------------------------------------------------
+ -> 1.> @Autowired
+-----------------------
+ -> this annotation can be applied at field level,setter method level,constructor level and orbitary level .
+ -> when we write @Autowire then bydefault an attribute become true ie required =true, if we use @Autowire annotations then that setter or constructor or
+   attributes become mandatory.
+
+ 2.> @Qualifier
+------------------------
+ -> it is used to control which bean should be autowire on a field.
+ -> You can have more than one bean of same type in your XML configuration but you want to autowire only one of them ,
+   so @Qualifier removes confusion created by @Autowired by declaring exactly which bean is to autowired.
+
+ @Required
+---------------------
+ -> This annotation simply indicates that the affected bean property must be populated at configuration time:
+   either through an explicit property value in a bean definition or through autowiring.
+ -> Suppose you have very large application and you get NullPointerExceptions because required dependency has not been injected then .
+   it is very hard to find out what goes wrong.So this annotation helps us in debugging the code.
+
+ Streotype Annotations
+----------------------------
+ -> streotype annotation are used to class level. it mean we can write these annotations only at on the top of the class.
+ -> these annotations are used to detect classes and creates object without xml <bean> code.
+ -> another way to make our class as bean and place into ioc container we have to use streotype annotations.
+
+ 1.> @Ccomponent (utils, validator).
+-------------------------------------------
+ -> by using @Component we can make our class as bean and ioc container will take the class and places to the ioc container as a bean.
+
+ 2.> @Service (service layer).
+---------------------------------
+ -> @Service annotation also used for making our class as bean into ioc container.
+ -> it indicates a service component in the buisness layer.
+
+ 3.> @Repositry (data access layer)
+--------------------------------------
+ -> it indicates Dao component in the presentation layer.
+ -> @Repositry annotation also used for making our class as a bean into ioc container.
+ -> @Repositry indicates the class contains dao persistency logic.
+
+ 4.> @Controller (presentation layer)
+--------------------------------------------
+ -> it indicates a class has presentation logic.
+ -> it is also used for making our class as beans into ioc container.
+ -> it is Used at the class level.
+ -> it Tells the spring framework that the marked class acts as a controller.
+    @Controller
+    public class EmployeeController{
+     }
+
+ @RequestMapping
+-------------------
+ -> it Can be used at the class level and method level in controllers.
+
+
+
+ Spring Security
+----------------------
+
+ 1. what is spring security. how it works.
+------------------------------------------------
+-> spring security provides various security features like: authentication, autherization to create secure java enterprise application.
+-> authentication is the process of knowing and identifying the user that wants to access.
+-> autherization is the process to allow authority to perform actions in the application.
+-> username - identification.
+   password - verification.
+-> dependencies needed developing spring boot security application.
+
+ step-1 -> add spring security dependencies in pom.xml.
+--------------------------------------------------------------
+
+   1.> spring-security-core.
+   2.> spring-security-web.
+   3.> spring-security-config.
+
+ step-2 -> create a separate xml file for security configurations (security-context.xml).
+
+ <!-- we will be defining all security related confuguration in this file-->
+ <http use-expressions = "true">
+ <intercept-url pattern="/** access = "isAuthenticated()">
+ <!--this means all url in this app will be checked if user is authenticated-->
+ <form-login/>
+ <!-- we will just use the built in form login page in spring-->
+ <logout logout-url = "/logout" logout-success-url="/index"/>
+ <!--the logout url we wil use in jsp-->
+ </http>
+ <authentication-manager>
+ <authentication-provider>
+
+ <user-service>
+ <user name = "mohan" password = "kumar" authorities = "admin, user"/>
+ <user name = "gandhi" password = "rakesh" authorities ="user"/>
+ </user-service>
+ <authentication-manager>
+ <authentication-provider>
+
+ step-3 -> configure web.xml to include spring security.
+
+ <filter>
+ <filter-name>springSecurityFilterChain</filter-name>
+ <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+ </filter>
+ <filter-mapping>
+ <filter-name>springFilterChain</filter-name>
+ <url-pattern>/*</url-pattern>
+ </filter-mapping>
+-> all request now will go through "sprigSecurityFilterChain" filter which will apply app security.
+
+ LDAP (light weight directory access protocol) important dependencies.
+-----------------------------------------------------------------------
+-> spring-ldap-core.
+-> spring-security-ldap.
+-> unbound id-ldap sdk.
+
+ what is delagating filter proxy.
+------------------------------------------
+-> it provides the link between web.xml and the application context.
+   <filter>
+   <filter-name>myFilter</filter-name>
+   <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+   </filter>
+   <filter-mapping>
+   <filter-name>myFilter</filter-name>
+   <url-pattern>/*</url-pattern>
+   </filter-mapping>
+
+
+
+19. what is inheritance mapping in hibernate .and how many types of inheritance mapping.
+
+
+
+
+[1:54 PM, 2/21/2020] Mahesh Kumar Sharma Optum: Hi folks,
+#Letest #update #real_time  2020
+#Spring #boot #Interview #Questions And #Answers
+Q1) What are the advantages of using Spring boot over spring framework?
+Answer:
+Some advantage points are listed below:
+Spring boot provides a configuration which is opinionated, thus avoiding lots of boilerplate code and configuration.
+Its applications can be easily integrated into the Spring ecosystem like Spring Security, Spring AOP, Spring transaction, and cache etc.
+It provides embedded HTTP servers like Tomcat etc. to enhance the development process.
+Spring boot offers a command-line interface i.e. CLI tool to develop and test the application, which is prompt and less intrusive.
+Spring boot reduces a lot of development time, by reducing the configuration to minimal or “no-configuration” approach, thus enhances productivity.
+Q2) What is @SpringBootApplication annotation?
+Answer:
+Before Spring BOOT 1.2, it was very common to use annotations like @Configuration, @EnableAutoConfiguration, @ComponentScan. The @SpringBootApplication annotation is equal to all of the three annotations mentioned before with their default attributes. Means a single annotation is enough now for multiple features like enabling auto configuration and performing a component scan of beans.
+@SpringBootApplication
+public class MyApp {
+……….
+}
+Q3) Explain about Spring boot starter POM file?
+
+Answer:
+Starter POM file actually contains a lot of dependencies, so that project can be up and running quickly within in a very short span of time. It is basically a combination of dependency descriptors that anyone can include in their application and automatically all project related dependency would be available. Starter POM files also manage transitive dependencies of the project. POM file structure is arriving from Maven based application. In other words, a developer creating a project that uses Spring REST for creating rest APIs, just have to include relevant starter POM file, which will import all required dependencies for Spring rest application. All the tedious task of searching and configuring dependencies, required for a framework is now no more needed.
+Q4) Explain the Actuator in Spring Boot?
+
+Answer:
+Actuator brings production-ready features to the table for Spring boot application. Production-ready features like application monitoring, gathering metrics, understanding traffic, and the database state, become very crucial to keep the application in a healthy state. A major benefit of utilizing Actuator like a library is that a developer can have access to production-grade tools, without having to implement any one of these tools. To enable Spring Boot Actuator dependency to our package manager, add below to your POM file
+
+<dependency>
+<groupId>org.springframework.boot</groupId>
+<artifactId>spring-boot-starter-actuator</artifactId>
+</dependency>
+
+Once this dependency is in the classpath, multiple endpoints are available with the developer.
+
+Q5) What is the way to reload changes on Spring boot without server-restart?
+
+Answer:
+Any changes are reloaded in spring boot without starting the server by using dev tools.
+
+<dependency>
+<groupId>org.springframework.boot</groupId>
+<artifactId>spring-boot-devtools</artifactId>
+<optional>true</optional>
+</dependency>
+
+Spring boot provides module called DevTools, which can enhance the productivity of a spring boot developer. It can auto-deploy the changes to the server, with auto-restarting the server. This is the common Spring Boot Interview Questions asked in an interview. Thus, a developer can reload his changes on Spring boot without having to restart the server. This package is provided in development mode only, but not in production mode.
+
+Q6) What is the way to run the Spring boot application on a custom port?
+
+Answer:
+There is a file called application.properties in Spring boot. This file can be customized to bring in any change, to alter the behavior of a running spring boot application. If a developer wants to run a spring boot application on a custom port, he can specify the port in an application.properties file:
+
+server.port = 8080
+
+This entry will ensure that application would run on 8080 port.
+
+Q7) What is the way to implement Spring batch in Spring boot?
+
+Answer:
+batch processing involves large volumes of data records processing. Spring boot batch provides a function which can be reused, and essential for doing batch processing. It also provides services and features, which helps in optimization and partition techniques, resulting in high volume and high-performance batch jobs.
+
+<dependency>
+<groupId>org.springframework.boot</groupId>
+<artifactId>spring-boot-starter-batch</artifactId>
+<optional>true</optional>
+</dependency>
+
+Above changes in POM file, will include the necessary packages in an application, which are required to do the batch processing in spring boot project.
+
+Let us move to the next Spring Boot Interview Questions
+
+Q8) What is the way to configure logging in Spring boot application?
+
+Answer:
+The developer can easily specify logging level in an application.properties files:
+Logging.level.spring.framework = Debug
+This single line in application properties file will let the spring framework logs to the debug level.
+In case, a developer wants to put logs to the file, he can specify logger.file in application properties
+
+Logging.file = ${java.io.tempdirectory}/sample.log
+
+Apart from the above two approaches, a developer can also create a logback.xml file under main/java/resources and specify the logging configuration in the file. Spring boot will automatically pick this file.
+
+Q9) What is a benefit of including spring-boot-maven-plugin?
+
+Answer:
+This is the advanced Spring Boot Interview Questions asked in an interview. spring-boot-maven-plugin provides a list of commands which are helpful in enabling the developer to package the code as a jar file to run the application.
+Spring-boot: run, it will run spring boot application.
+Spring-boot: repackage, it will repackage jar or war file
+Spring-boot: build, generate build information
+Spring-boot: start, stop – to manage the lifecycle of spring boot application.
+
+Q10) What is the way to add custom JS code in Spring boot application?
+
+Answer:
+A developer can create a folder by the name of “static”, under the resources folder. Then all the static content can be put into this folder.
+Any JavaScript file i.e. test.js would reside in /resources/static/js/test.js
+Developer can then refer to this file in JSP like:
+<script src = “/js/test.js”></script>
+[1:54 PM, 2/21/2020] Mahesh Kumar Sharma Optum: Hi folks,
+#Letest #update 2020 3+ #experience
+Hibernate interview questions.
+---------------------------------
+ 1. what is diff between jdbc and hibernate. and why we are used hibernate.
+-------------------------------------------------------------------------------
+ JDBC
+--------
+ -> it is database dependent.
+ -> jdbc does not send the data in the form of object. it will allow to send the data in form of text or value.
+ -> jdbc is an api provided by third party vendor. its throw sql exception i.e checked exception so we need to write lot of try catch block.its a boiler plate code.
+ -> jdbc does not support cache mechanism so performance of application is low.
+ -> jdbc code is very tightly coupled with the application.
+ -> jdbc does not support relationships.
+
+ Hibernate
+--------------
+ -> hibernate is a database independent so we can run any platform.
+ -> but in real-time we need to transfer the data in the form of objs. in hibernate we can send the data in the form of object.
+ -> hibernate is an ORM framework. its throw uncheked exception so we no need to write try catch an throws exception.hibernate builts in transaction managemnet
+    system.it removes the usage of try catch blocks.
+ -> hibernate support caching mechanism .it improves the performance of the application for efficient data retrieval.
+ -> hibernate support jpa annotaions. so it removes lot of boiler plate code that comes jdbc api the code looks like more readable and clears.
+ -> its support inheritance or association relationship.
+
+ 2. what is ORM (object relational mapping).
+------------------------------------------------
+ -> Hibernate is the most-popular persistence framework and ORM tool for Java Applications.
+ -> ORM (Object/Relational Mapping) is a methodology where objects in Java Applications are persisted transparently in the relational database tables.
+ -> ORM stands for Object Relational mapping. It is programming paradigm which is used to persist java objects  to database tables.
+
+ 3. what is session.
+-----------------------------
+ -> session is an interface present in "org.hibernate.package".
+ -> it is used to perform db operation. session provide methods to perform create, read, update, and delete operations for a persistent obj.
+ -> we can execute hql quries, sql native quires and create criteria using session obj.
+
+ 4. what is Session Factory.
+-----------------------------------
+ -> session factory is an interface present in "org.hibernate package".
+ -> session factory is a state which contain mapping file & configuration file information and create the connection to perform the db operation.
+ -> Session Factory is a heavy weight object and it should be created one per database. SessionFactory object is shared by multiple sessions.
+ -> session factory is a heavy weight obj that has to be created only once per application.
+ -> when u have multiple db in your application you should create multiple session factory objects. eg if u are using two db called mysql & oracle in your
+    hibernate application then u need to build 2 session factory objects.
+             sessionfactory factory = newconfiguration().buildsessionfactory();.
+
+ 5. what is diff between session and session factory.
+---------------------------------------------------------
+ -> session
+--------------
+ -> session is not a threadsafe.
+ -> it is mutable.
+ -> it is a lightweight.
+ -> performance wise it is high compare to session factory.
+
+ sessionfactory
+--------------------------
+ -> sessionfactory is threadsafe so, many thread can access it concurrently or simulteniously.
+ -> it is immutable and it will be created as singleton while the server initialize itself.
+ -> it is heavy weight becoz it maintain datasource, mapping file, and configuration file information.
+ -> performance wise it is low compare to session.
+
+ why should we need to make sessionfactory obj of hibernate as singleton.
+----------------------------------------------------------------------------------
+ -> in hibernate a sessionfactory obj is the only one heavy obj becoz it stores configuration data and all the mapping data of a project.
+ -> if our project is a desktop application, then there is no need to make sessionfactory obj as a singleton, becoz only one user can access the
+    application at a time.
+ -> if a proj is a distributed application, it means it is a web application, remoting application, then at a time multiple clients can send a request
+    to the server application. if multiple sessionfactory objets are creted then the burden on the server will be increased. so we should make session
+    factory obj as a singletone.
+ -> by default sessionfactory obj of hibernate is not a singleton, it is the programmer responsibility to make it as a singleton.
+
+    public class HibernateUtil{
+    private static SessionFactory factory;
+    private HibernateUtil()
+    {}
+    public static synchronized SessionFactory getSessionFactory{
+    if(factory==null)
+    {
+    factory=new configuration().configure("hibernate.cfg.xml").buildSessionFactory();
+    }
+     return factory;
+   }
+   }
+
+ 6. what is dialect in hibernate. and how it works.
+------------------------------------------------------------
+ -> dialect is a simple java class present in org.hibernate.dialect package.
+ -> every configuration file contains dialect which is very important while performing the db operation.
+ -> dialect class is used to convert hql queries into db specific queries.
+ -> if u want to shift from one db to another db just change the dialect class name and connection details in hibernate cfg file.
+
+ Lazy loading & Eager loading.
+---------------------------------------
+ -> it is also an important feature of hibernate which improves performance of the application by reducing network round trips between java application and database .
+ -> in lazy loading hibernate doesnt load an object from database immediately. an object will be loaded on demand basis.
+ -> if an object is immediately loaded then that obj is called as eager/early loading.
+ -> hibernate lazy loading is true by default.
+ -> since hibernate 3 lazy loading is by deafult enabled so that child objs are not loaded when parent is loaded.
+          Fetch=FetchType.LAZY.
+ -> in lazy loading, hibernate creates a proxy object returns proxy obj to the appicaion.
+ -> when application is accessing the proxy object, then internally the data is selected from the database.
+ -> with lazy loading feature, no of trips with the database are going to be reduced and performance will be improved.
+    Lazy loading means when you load parent obj, child objects won’t get loaded until requested.
+
+ what is Caching in hibernate.
+---------------------------------------
+ -> it is the most important features of hibernate.
+ -> caching is a mechanism to store the object which are loaded from the databse.
+ -> Caching is facility provided by ORM frameworks which help users to get fast running web application.
+ ->  Hibernate also provide this caching functionality, in two layers.
+
+   the main advantage of caching is
+--------------------------------------
+ -> it is reduce/save the number of round trips between java application and the database and it improves the performance of an application.
+ -> when an application wants an object from database, then hibernate looks for that object at level 1 cache, if not found then it looks for that obj at level2 cache.
+    even though if it is not found, then only it goes for database.
+ -> hibernate maintains cache at two levels hence hibernate gives better performance.
+ -> cache is a temperory(buffer) memory that is allocated to RAM.
+ -> in hibernate cache is managed by two objects.
+    1.> session object
+    2.> session factory object.
+ -> a cache managed by session obj is called as level 1 cache or local cache.
+ -> a cache managed by session factory obj is level 2 cache.
+
+ 7. what is first level cache .
+------------------------------------------
+ -> first level cache is automatically created by hibernate when a session is opened and it will be automatically closed when a session will be closed.
+ -> by default, for each hibernate application the first level cache is bydefault enabled and as a programmer we are not able to enable or disable first level cache.
+ -> first level cache is associated with "session" object and other session object in application can not see it.
+ -> first level of cache has a session scope.
+ -> first level cache session is not sharable with other session, so it is called local cache.
+ -> as a programmer we don't need to add any special tags in .hbm file or in .cfg file.
+ -> first level cache is not in the hands of a programmer. it is in hands of hibernate only.
+ -> each session will have its own cache. a session cannot read an obj from another session cache.
+
+ 8. what is second level cache.
+---------------------------------------
+ -> second level cache is introduced in hibernate 3.0 and it is associated with session factory object.
+ -> and its scope is application level. its called global cache.
+ -> second level cache is created in session factory scope and it is sharable with other session, so it is called global cache.
+ -> when we are loading an object from the db, then hibernate will search for the obj in the first level cache, if exist then it is loaded from first level cache.
+ -> if not exist, then hibernate will search for second level cache if exist then the object will be copied to first level cache .
+ -> there are multiple second level cache s/w are avialable but widely used second level cache is ehcache(EasyHibernateCache), os cache, jboss cache.
+ -> second level cache is not by default enabled, we need to enabled by adding following two properties hibernate cfg.xml file.
+ -> add provider class in configuration file.
+    <property name:"hibernate.cache.providers_class>
+      org.hibernate.cache.EHcacheProvider
+    </property>
+ -> add cache tag in mapping of pojo class.
+    <cache usage="read-only"> or read-write value.
+ -> create a xml file called ehcache.xml and place in classpath.
+    ehcache.xml it contains.
+     1.> behaviour of cache
+     2.> time setting.
+     3.> update setting.
+     4.> life time of pojo class
+       1>. cache:use_second_level_cache.
+       2>. cache:provider_class.
+ -> in order to do setting for a second level cache, we need to create ehcache.xml along with hibernate jars, we need to add a third party jar ehcache-1.2.3 jar.
+ -> hibernate has provided, provider classes to get the cache from third party cache providers.
+   1> org.hibernate.cache.ehcache.providers.
+   2> org.hibernate.cache.oscache.providers.
+ -> while performing second level cache we should also choose caching strtegy they are.
+     1.> read only.
+     2.> read/write.
+     3.> non strict read/write.
+ -> we should know different strategies for caching an object.
+ -> 1.> Read Only: This caching strategy should be used for persistent objects that will always read but never updated. It’s good for reading and
+    caching application configuration and other static data that are never updated. This is the simplest strategy with best performance because
+    there is no overload to check if the object is updated in database or not.
+ -> 2.> Read Write: It’s good for persistent objects that can be updated by the hibernate application. However if the data is updated either through
+    backend or other applications, then there is no way hibernate will know about it and data might be stale. So while using this strategy,
+    make sure you are using Hibernate API for updating the data.
+
+ configuring of ehcache
+--------------------------
+ -> in hibernate cfg.xml, we need to configure following properties.
+
+   <property name= "cache.provider_class"> org.hibernate.cache.ehcacheprovider </property>
+   <property name= "cache.use_secondlevel_cache"> true </propery>
+
+ ehcache.xml
+-----------------
+ <ehcache>
+ <default cache maxElementMemory="100" eternal="false" timeToIdleSeconds="120"timeToLiveseconds="200"/>
+ <cache name="Employee" maxElementInMemory="10" eternal="false"timeToIdleSeconds="8" TimeToLiveSeconds="300"/>
+ <ehcache>
+ -> in the above xml IdleSeconds indicates waiting time before an object is going to be removed from cache.
+ -> LiveSeconds indicates a complete lifetime of an object, before it is going to be deleted from cache.
+ -> to make IdleSeconds and LiveSeconds as working, we need to disable eternal by using eternal="false".
+ -> in ehcache.xml,if eternal="true" then we should not write timeToIdleSeconds,TimeToLiveSeconds, hibernate will take care by about those values.
+ -> so,if u want to give values manually better use eternal="false" always, so that we can assign values into timeToIdleSeconds,TimeToLiveSeconds manually.
+
+ 9. what is diff between first level cache and second level cache.
+ ----------------------------------------------------------------------------
+ -> first level cache
+ -----------------------------
+ -> first level cache is associated with session obj.
+ -> first level cache is by default enabled.
+ -> first level cache scope is session level.
+ -> first level cache is not sharable.
+ -> first level cache is avilable only untill the session is opened, once the session is closed. the first level cache is destroyed.
+
+ second level cache
+ --------------------------------
+ -> second level cache is associated with session factory obj.
+ -> it is optional. if u want then enabled hibernate.cfg.xml.
+ -> second level cache scope is application level.
+ -> second level cache is sharable.
+ -> second level cache is avilable through the application life cycle. it is only destroy when your application is restart.
+
+ what is mapping file how to write this.
+------------------------------------------------
+ -> mapping file is a mechanism of placing an object properties into column of a table.
+ -> a java application can have multiple classes and a database can have multiple tables.
+ -> hibernate knows how to store an object and how to read it, but it doesn't know which java class object need to be persisted in which table of database.
+ -> it is the programmer responsbility to tell hibernate that which java class obj need to be stored in which table. to pass this information to hibernate ,
+    as a programmer we need to construct the mapping files. we can map multiple classes in a single hbm file.
+ -> mapping can be done by using annotation also. if we use annotations for mapping then we no need to write mapping file. from hibernate 3.0 version its support.
+ -> each hibernate mapping file must contain one <id> tag property.
+ -> in mapping file class names & property name are case sensetive.
+ -> but table name and column name are not case sensative.
+ -> we can map multiple classes in a single hbm file.
+   <hibernate-mapping>
+   <class name="Employee" table="emp">
+   <id name="emp_no" column="empno"/>
+   <property name="emp-name" column="ename"/>
+   <property name="emp-sal" column="esal"/>
+   <property name="dept-number" column="deptno"/>
+   </class>
+   <hibernate-mapping>
+
+ what is configuration file and how to write this.
+------------------------------------------------------
+ -> It is used to bootstrap hibernate and it is used to locate to hibernate mapping file.
+ -> configuration file is an xml file, this configuration file contains 3 types of information.
+   1> connection properties.
+   2> hibernate properties.
+   3> mapping resource (file name).
+ -> we can create one configuration file for each database. it means the number of configuration files in a project depends on number of databases.
+ -> suppose if we want to connect with 2 database like oracle, mysql then we must create 2 configuration file.
+ -> in hibernate, it internally opens a connection with the database and also it closes automatically.
+ -> as a programmer we need to provide connection properties to hibernate through configuration file,
+  <hibernate-configuration>
+  <session-factory>
+  <property name="connection.driver_class">driver class name </property>
+  <property name="connection.url"> url</property>
+  <property name="connection.username">username</property>
+  <property name="connection.password>password</property>
+  <propert name="show-sql">true</property>
+  <mapping resource="Employee.hbm.xml/>
+  </session-factory>
+  </hibernate-configuration>
+
+ 10. what is cascade in hibernate.
+-----------------------------------------
+ -> cascade is an attribute. it is a mandatory when we apply parent child relationship between the objects.
+ -> when we have relationship between entities, then we need to define how the diff operations will affect the other entity.
+ -> this is done by cascading and there are diff types of it.
+ -> cascade attributes takes multiple values none, all, save-update, all-delete-orphan.
+ -> whenever we perform any operation on parent table it perform the operation on child table also.
+ -> by default values of cascade="none" means no operation will tranfer to the child class.
+ -> eg if we apply insert(update or delete) operation on parent class obj, then child class obj will also be stored into the database.
+ -> eg if we apply insert(update or delete) on parent class object will not be effected,if cascade="none".
+    import.hibernate.annotations.cascade;
+    @Entity
+    @Table(name="EMPLOYEE")
+    public class Employee {
+    @OneToOne(mappedBy="employee")
+    @Cascade(value=org.hibernate.annotations.CascadeType.ALL)
+     private Address address;
+     }
+
+  what is orphan record
+--------------------------------
+ -> it is a record in child table but it doesnt have association with its parent in the application.
+ -> in an application, if a child record is removed from the collection and if we want to remove that child record immediately from the database, then we need
+    to set the cascade="all-delete-orphan".
+
+ 11. what is inverse in hibernate.
+-----------------------------------------
+ -> default value of inverse="false".
+ -> if inverse="false" hibernate will not check the bi-directional relationships between the tables. in this scenario if we try to send multiple insert queries,
+   and update queries.
+ -> if inverse="false", parent class is responsible for saving/updating the child and its relationships.
+ -> if the inverse is="true" and associated subclass is responsible for saving/updating itself.
+
+  NOTE
+---------
+ -> An inverse keyword is always used with the one-to-many and many-to-many relationships.
+ -> it doesnt work with many to one relationships.
+
+12. what is lifecycle of hibernate or state of an object.
+------------------------------------------------------------------------
+
+1. transient state.
+-----------------------------
+ -> in programming world every object has life cycle after birth and before death.
+ -> there are three states in hibernate obj will perform the persistency.
+ -> when obj has been created then that state is called as transient state.
+ -> if we perform any operation also it will not effect into the database or session cache.
+ -> If object is in transient state, it means it was never associated with session and just created.
+
+ 2. persistent state.
+-----------------------
+ -> an object is said to be a persistent state, when it is associated with session as well as obj present in database to perform operation.
+ -> When an object is saved to database using hibernate session via Session.save() or Session.persist() method, then this object is called to be in persistent state.
+ -> there are several method provided by hibernate to get obj into persistency state eg save, persist, saveorupdate.
+
+ 3. Detached state.
+-------------------------
+ -> an obj is said to be detached state, when the obj is not associated with session but present in the database.
+ -> there are several method which can easily detached the obj from persistency state to detached state. eg-close, evict, clear.
+ -> If object is in detached state, it means session is closed and object is no more part of session.
+ -> If you call merge or update, object goes back to persistent state.
+
+ 13. what is HQL.(hibernate Query language).
+-------------------------------------------------
+ -> by calling save(), update(), delete() we can perform bulk operation.
+ -> we can perform CURD operation on a single obj at a time. if we want to perform CURD operations on multiple objects at a time, we use bulk operation
+    technique of hibernate at a time. ex- HQL, criteria, Native Sql.
+ -> hibernate has introduce its own query language with the name of HQL.
+ -> Hql is a database independent query language. it means we no need of changing a query while connecting with another database.
+ -> HQL is an Object-Oriented Query language, simillar to database SQL. But instead of working with tables and columns, HQL uses Java Objects to manipulate queries.
+ -> hql doesn't provide any burden on the developer, becoz its looks like simillar to sql only. so it is easy to learn.
+ -> a diff between sql and hql is, sql commands are database dependent but hql commands are database independent.
+ -> to construct Hql queries, we use variable names in place of column names and class names in places of table names.
+ -> we call hql as object oriented form of sql.
+ -> HQL is an Object-Oriented Query language, simillar to database SQL. But instead of working with tables and columns, HQL uses Java Objects to manipulate queries.
+ -> HQL supports:
+    – FROM Clause.
+    – AS Clause.
+    – SELECT Clause.
+    – WHERE Clause.
+    – ORDER BY Clause.
+    – GROUP BY Clause.
+    – Using Named Paramters.
+    – UPDATE Clause.
+    – DELETE Clause.
+    – INSERT Clause.
+    – Aggregate Methods.
+    – Pagination using Query.
+ -> using hql, we can perform both select and non-select operations on database.
+     eg. sql > select *from emp
+         hql > from Employee e
+ -> in hibernate, reading a complete row is called reading a complete entity.
+ -> to load a complete entity, we need to begin hql command with from keyword.
+    ex. sql > select empno, sal from emp
+        hql > select e.employeeNumber,
+              e.employeeSalary from Employee e
+ -> reading the values of a specific columns is called reading partial entity.
+ -> in hibernate, to read a partial entity, a query begins with select keyword.
+ -> if we want to execute hql command, first we need a query object.
+
+     ex 1. Query query=session.createQuery("from Employee e");
+         List list=query.list();
+         Iterator it=list.iterator();
+         while(it.hasNext())
+       {
+        Employee e=(Employee)it.next();
+ }
+    ex 2. Query query= session.createQuery("select e.employeeNumber, e.employeeSalary from Employeen e");
+          List list=query.list();
+          Iterator it=list.iterator();
+          while(it.hasNext())
+        {
+         Object[] obj=(Object[]it.next();
+         sopln(obj[1]);
+  }
+  Hql for non-select operaions
+-------------------------------------
+ -> update and delete operations of hql are simillar to sql, but insert operation is different.
+ -> in hql, insert operation is used to copy the records from one table to another table.
+
+    ex. sql > update emp set sal = 9000 where deptno= 10.
+        Hql > update Employee e set e.employeeSalary=9000 where e.deptNumber=10.
+ ex.2
+      sql> delete from emp where sal>1000
+      hql> delete from employee e where e.employeeSalary >1000.
+
+  what is Criteria in hibernate.
+---------------------------------------
+ -> It is an alternative to HQL, it is very useful for the search query involving the multiple conditions.
+ -> we cannot use criteria to run update or delete quries or any ddl statemnts. its only used to fetch the results from the database using more obj oriented approch.
+ -> we can read the same output from a database by executing the diff sql commands.
+    for eg. select *from emp;
+            select empno, ename, esal from emp;
+ -> the above two sql commands will return same output. but second query gives better performance.
+ -> while reading the data from the database, tuned queries are important to improve the performance.
+ -> as a java developer, creating tuned queries will increase the burden on the developer.
+ -> to decrease the burden hibernate has provided criteria API, it internally creates tuned queries and execute them on the database. so a developer is no
+    need to prepare tuned quries explicitly.
+
+ Diff between getOpen session and getCurrent session.
+-------------------------------------------------------------
+ -> getOpen session
+-----------------------------
+ -> It always create new Session object.
+ -> You need to explicitly flush and close session objects.
+ -> In single threaded environment, It is slower than getCurrentSession.
+
+ getCurrent session.
+---------------------------
+ -> It creates a new Session if not exists , else use same session which is in current hibernate context.
+ -> You do not need to flush and close session objects, it will be automatically taken care by Hibernate internally.
+ -> In single threaded environment , It is faster than getOpenSession.
+
+ 15. what is diff between session.Get() method and session.Load() method.
+--------------------------------------------------------------------------------------
+ -> get() and load() both are session class method used for retrieving the data from the database.
+ -> get() and load() return the data in the object format.
+
+ get()
+----------
+ -> if the record is not present in the database then get() always returns null.
+ -> get() not create proxy obj its always return actual object.
+ -> get() always hits the database.
+ -> performance wise get() is not good.
+ -> get() is eager initializer, get() reads or loads an obj early. so it is called early loading.
+ -> If you are not sure if object with id exists or not, you can use get.
+
+ load()
+-------------
+ -> if the record is not present in the database then it returns object not found exception.
+ -> load() returns proxy objects and loads data only when it is actually required . so load() is better becoz its support lazy loading.
+ -> load() doesnt hits the database every time.
+ -> performance wise it is better to get().
+ -> load() lazy initializer.load() reads or loads an object lazely.
+ -> If you are sure about existence of object, you can use load.
+
+ 16. what is session.save() and session.persist().
+-----------------------------------------------------------
+ -> save() and persist() both method which we are mainly used for saves the object in the database.
+
+ save()
+-------------
+ -> save() method will save an obj to the database and returns the id of the saved objects(primary key) in the form of serializable type.
+ -> save() can be used inside or outside the transaction boundries. save() is not fit for long time running transaction.
+ -> its take more time to execute.
+ -> save() method return type is serializable.
+
+ persist()
+------------------
+ -> save/persist both the methods we can use to save/store an obj to database.
+ -> persist() will save an obj into database but it doesnt return id of saved obj. it doesnt return anything. its return type is void.
+ -> persist() can be used only within the boundary of transaction. persist() is suitable for long time running transaction. It saves data when flush is called.
+ -> persist() takes less time to execute.
+ -> persist() method return type is void.
+
+ 17. what is session.upadate().
+----------------------------------------
+ -> update() just update the record & throws hibernate exception. if record is not avialable to update.
+ -> this method doesnt return anything becoz its return type is void.
+ -> this method cannot update primary key value.
+
+ 18. what is session.save or saveorupadate().
+---------------------------------------------
+ -> save() perform only insert but saveorupdate() update the record if record is avialable otherwise insert the record in the database table.
+ -> this method doesnot return anything becoz its return type is void.
+ -> this method we can update primary key column value.
+
+ save -> Save stores object in database. It generates id for the object and returns it. If object already exists in database, it will throw an error.
+
+ saveorUpdate -> SaveOrUpdate method save the object if id does not exist. If it exists , it calls update method.
+
+ Merge()
+----------------
+-> merge() update the record if record is avialable otherwise insert the record in database table. it is used to add a specified obj to the first level cache.
+-> through this method we can update primary key column value also.
+
+ Hibernate jpa annotation
+---------------------------------
+ 1> @Entity
+-------------------
+-> it is used to mark the class as persistent java class.
+
+ 2> @Table
+-------------------
+-> it is used to provide the details of the table.
+
+3> @Id
+-----------
+-> it is used to define the primary key.
+
+ 4> @GeneratedValue
+-------------------------
+-> it is used to define the primary key generation strategy.
+
+ 5> @Column
+-----------------
+-> it is used to define the properties of the column that will be mapped to the annotated field. you can define several properties like name, length, nullable etc.
+
+ 6> @OneToOne
+---------------------
+-> @OneToOne annotation is used to create one to one relationship between Country and Capital entities.
+
+ 7> @joinColumn
+------------------------
+-> it is used to specify a mapped column for joining an entity association.
+
+ 8> @Inheritance
+------------------------
+-> For implementing inheritance in hiberante, @Inheritance annotation is used.It defines inheritance strategy to be implement for entity class hierarchy.
+-> For one table per class hierarhcy,we have used Single_Table as inheritance strategy.This annotation is defined at root level or sub hierarchy level
+    where different strategy is to be applied.
+
+ 9> @DescriminatorColumn
+--------------------------
+-> This annotation is used to define discriminator column for Single_Table and joined strategy.It is used to distinguish between different class instances.
+-> This annotation is defined at root level or sub hierarchy level where different strategy is to be applied.
+-> If @DiscriminatorColumn annotation is not specified,then hibernate will create a column named as “DType” and DiscriminatorType will be string.
+
+10> @DescriminatorValue
+------------------------------
+-> This annotation defines value in discriminator column for that class.This can only be applied on entity concrete class.
+
+ why relationships in database.
+--------------------------------------
+ -> we can store our application data in a database table to make it as a persistent data.
+ -> for eg. consider we have an application which contains doctors and patients data and we can store that data in single table. then data redundancy problem arises.
+ -> to reduce the data redundancy, we need to store in a two different tables.
+ -> in order to get the relation between the data, we also need to take the column of one table as a column in another table.
+ -> in hibernate application, if we create a single pojo class and if we set the data to that obj, then there is a chance of getting data redundancy.
+ -> data redundancy means, some data in multiple objs of a pojo class can be duplicated.
+ -> in order to avoid (or reduce), we divide properties of one class into(multiple) two classes and then we apply a relationship between objs of the two classes.
+ -> in hibernate, we can apply four types of relationships between pojo classes.
+
+ Association relationship
+-------------------------------
+ -> in hibernate to put relations between entities i.e one obj with multiple objs we use association relationship.
+ -> if we want to implement association relationship there must be foriegn key relationship between child to parent.
+
+   the main advantage of association relationship is
+----------------------------------------------------------
+ -> to perform operations on one object we can transfer that operation on another obj.
+ -> e.g if we want to retrieve the data from more than one table complusory we put assosiation in hibernate.
+ -> to create assosiation relationship with object to object complusory their a must be foreign key relationship in the database table.
+
+ there are 4 types of Association in hibernate.
+----------------------------------------------------
+ one-to-many relationship
+------------------------------
+-> in this relationship one parent has multiple child object.
+-> one user has multiple task.
+-> country and state. One Country can have n number of states. and team and player one team has multiple players. customer and items.
+-> to create this kind of association relationships in hibernate we need to perform two modification.
+   1.> in parent pojo class we must take child class as a collection properties. eg set properties, list properties, map properties.
+   2.> in parent class mapping file we must take one coressponding collection properties to map this child properties.
+
+ many-to-one relationship
+---------------------------------
+-> multiple tasks for one user.
+
+ many-to-many relationship
+----------------------------------
+-> Lets take example of Country and Language. One Country can have n number of languages and one language can be spoken by n number of countries.
+
+ Inheritance Mapping (or) inheritance Strategies
+---------------------------------------------------------
+ -> through inheritance we can save both parent object and child obj in to the db.
+ -> in a hibernate application, if there are multiple POJO classes and if they have common properties, then to get reusability we apply inheritance.
+ -> common properties, we separate and we create in super class and we extend that super class to multiple sub classes.
+
+   CreditCard.java
+----------------------
+
+ public class CreditCard {
+ private int paymentID;
+ private double amount;
+ private Date paymentDate;
+ private int cardNumber;
+ private String cardType;
+
+ getters & setters
+ }
+
+  Cheque.java
+-----------------
+
+ public class Cheque {
+ private int paymentID;
+ private Date paymentDate;
+ private int chequeNumber;
+ private String chequeType;
+
+ getters & setters
+ }
+ -> in the above two POJO classes, there are three common properties. so in order to get Resuability, we apply inheritance by separating common properties
+    to a super class (payment) like this following.
+
+ Payment.java
+------------------
+ public class Payment {
+ private int paymentID;
+ private double amount;
+ private Date paymentDate;
+ getters & setters
+ }
+ CreditCard.java
+------------------
+ public class CreditCard extends Payment {
+ private int cardNumber;
+ private String cardType;
+
+ getters & setters
+ }
+ Cheque.java
+---------------
+
+ public class Cheque extends Payment {
+ private int chequeNumber;
+ private String chequeType;
+
+ getters & setters
+}
+
+ -> hibernate has provided three inheritance strategies, to map the classes of hierarchy to database tables.
+
+   1.> table per class:
+--------------------------------
+-> in this hierarchy we store both parent data and child data in a single data.
+-> we need to choose this strategy, if we want to map all the classes of hierrachy to a single table of database.
+-> through descriminator column we can identify which employee it is.
+-> descriminator column help us to is identified which child is.
+
+         payment              payment (single table)
+          /\
+  credit    cheque
+  card
+
+ 2.> table per concrete class
+--------------------------------------
+-> if we want to map each concrete class hierarchy to a separate table of database then we need to choose this strategy.
+
+          payment             credit card (separte table)        cheque (separate table)
+            /\
+    credit   cheque
+    card
+
+ 3.> table per concrete class
+----------------------------------
+ -> if we want to map each class of hierarchy to a separate table of database, then we need to choose this strategy.
+
+          payment             payment(separate table) credit card(separate table) cheque(separate table)
+            /\
+     credit cheque
+     card
+
+ Hql queries.
+--------------------
+ 1.> FROM Clause - FROM clause is used to load all objects into memory.
+Example:
+   String hql = "FROM Customer";
+   Query<Customer> query = session.createQuery(hql, Customer.class);
+   List<Customer> custList = query.list();
+   String hql = "FROM Customer";
+   Query<Customer> query = session.createQuery(hql, Customer.class);
+   List<Customer> custList = query.list();
+
+ 2.> AS Clause - AS clause is an optional keyword, used to create an aliases for a classes in HQL queries.
+ example:
+  String hql = "FROM Customer AS C";
+
+  // Above statement is the same with statement: String hql = "FROM Customer C";
+  Query<Customer> query = session.createQuery(hql, Customer.class);
+  List<Customer> custList = query.list();
+  String hql = "FROM Customer AS C";
+  // Above statement is the same with statement: String hql = "FROM Customer C";
+  Query<Customer> query = session.createQuery(hql, Customer.class);
+  List<Customer> custList = query.list();
+
+ 3.> SELECT Clause - SELECT clause is used to obtain few properties of returned objects.
+
+    String hql = "SELECT C.firstName, C.age FROM Customer C";
+    Query query = session.createQuery(hql);
+    List<Object[]> objectList= query.list();
+    String hql = "SELECT C.firstName, C.age FROM Customer C";
+    Query query = session.createQuery(hql);
+    List<Object[]> objectList= query.list();
+
+ 4.> WHERE Clause - WHERE clause is used to narrow selected objects which must meet some conditions.
+
+  String hql = "FROM Customer C WHERE C.age = 20";
+  Query<Customer> query = session.createQuery(hql, Customer.class);
+  List<Customer> custList = query.list();
+  String hql = "FROM Customer C WHERE C.age = 20";
+  Query<Customer> query = session.createQuery(hql, Customer.class);
+  List<Customer> custList = query.list();
+
+ 5.>  ORDER BY Clause - ORDER BY clause is used to sort HQL query’s results.
+
+      String hql = "FROM Customer C WHERE C.age > 25 ORDER BY C.id DESC";
+      Query<Customer> query = session.createQuery(hql, Customer.class);
+      List<Customer> custList = query.list();
+      String hql = "FROM Customer C WHERE C.age > 25 ORDER BY C.id DESC";
+      Query<Customer> query = session.createQuery(hql, Customer.class);
+      List<Customer> custList = query.list();
+
+ 6.> GROUP BY Clause - GROUP BY clause is used with aggregate functions.
+
+    String hql = "SELECT COUNT(*), C.firstName FROM Customer C " + "GROUP BY C.firstName";
+    Query query = session.createQuery(hql);
+    List<Object[]> objLst = query.list();
+    String hql = "SELECT COUNT(*), C.firstName FROM Customer C " + "GROUP BY C.firstName";
+    Query query = session.createQuery(hql);
+    List<Object[]> objLst = query.list();
+
+ 7.> Named Parameters - Named Parameters is used to get inputs from users and helpful to defend against SQL injection attacks.
+
+     String hql = "FROM Customer C WHERE C.id = :customerId";
+     Query<Customer> query = session.createQuery(hql, Customer.class);
+     query.setParameter("customerId",1);
+     List<Customer> custList = query.list();
+     String hql = "FROM Customer C WHERE C.id = :customerId";
+     Query<Customer> query = session.createQuery(hql, Customer.class);
+     query.setParameter("customerId",1);
+     List<Customer> custList = query.list();
+
+ 8.> UPDATE Clause - UPDATE clause is used to modify properties of objects.
+
+     String hql = "UPDATE Customer set age = :custAge WHERE id = :customerId";
+     Query query = session.createQuery(hql);
+     query.setParameter("custAge",26);
+     query.setParameter("customerId",3);
+     int affectedRows = query.executeUpdate();
+
+ 9.> DELETE Clause - DELETE clause is used to delete objects.
+
+     String hql = "DELETE FROM Customer WHERE id = :customerId";
+     Query query = session.createQuery(hq0l);
+     query.setParameter("customerId", 2);
+     int affectedRows = query.executeUpdate();

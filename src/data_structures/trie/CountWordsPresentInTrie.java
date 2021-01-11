@@ -1,4 +1,4 @@
-package data_structures.tree.binary_tree.problems;
+package data_structures.trie;
 
 import java.util.*;
 
@@ -50,56 +50,58 @@ Explanation 1:
 
  sorted reviews are ["cool_wifi_speed", "water_is_cool", "cold_ice_drink"]
  */
-class TrieNode{
-    private boolean isWord;
-    private final Map<Character, TrieNode> children;
-    public TrieNode(){
-        this.isWord = false;
-        this.children = new HashMap<>();
-    }
-    public boolean getWord(){
-        return this.isWord;
-    }
-    public void setWord(){
-        this.isWord = true;
-    }
-    public Map<Character, TrieNode> getChildren(){
-        return this.children;
-    }
-}
-
-class StoreWords {
-    private final int order;
-    private final String word;
-    private final int numberOfWords;
-    public String getWord(){
-        return this.word;
-    }
-    public int getNumberOfWords(){
-        return this.numberOfWords;
-    }
-    public int getOrder(){
-        return this.order;
-    }
-    public StoreWords(String word, int num, int order){
-        this.word = word;
-        this.numberOfWords = num;
-        this.order = order;
-    }
-    public static StoreWords of(String word, int numberOfWords, int order){
-        return new StoreWords(word, numberOfWords, order);
-    }
-}
-
 public class CountWordsPresentInTrie {
+
+    static class TrieNode{
+        private boolean isWord;
+        private final Map<Character, TrieNode> children;
+        public TrieNode(){
+            this.isWord = false;
+            this.children = new HashMap<>();
+        }
+        public boolean getWord(){
+            return this.isWord;
+        }
+        public void setWord(){
+            this.isWord = true;
+        }
+        public Map<Character, TrieNode> getChildren(){
+            return this.children;
+        }
+    }
+
+    static class StoreWords {
+        private final int order;
+        private final String word;
+        private final int numberOfWords;
+        public String getWord(){
+            return this.word;
+        }
+        public int getNumberOfWords(){
+            return this.numberOfWords;
+        }
+        public int getOrder(){
+            return this.order;
+        }
+        public StoreWords(String word, int num, int order){
+            this.word = word;
+            this.numberOfWords = num;
+            this.order = order;
+        }
+        public static StoreWords of(String word, int numberOfWords, int order){
+            return new StoreWords(word, numberOfWords, order);
+        }
+    }
+
     private static final TrieNode root = new TrieNode();
 
     // insert the character if not present and make it the new temp
     private static void insert(String str){
         TrieNode temp = root;
         for(int i = 0; i < str.length(); i++){
-            temp.getChildren().putIfAbsent(str.charAt(i), new TrieNode());
-            temp = temp.getChildren().get(str.charAt(i));
+            var childrenMap = temp.getChildren();
+            childrenMap.putIfAbsent(str.charAt(i), new TrieNode());
+            temp = childrenMap.get(str.charAt(i));
         }
         temp.setWord();
     }

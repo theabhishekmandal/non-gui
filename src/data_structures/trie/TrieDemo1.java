@@ -1,4 +1,4 @@
-package data_structures;
+package data_structures.trie;
 /**
  * This program is an implementation of the TRIE data structure.
  * A Trie is tree in which the nodes represents the alphabets.

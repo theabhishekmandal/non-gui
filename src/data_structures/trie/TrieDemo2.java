@@ -1,4 +1,4 @@
-package data_structures;
+package data_structures.trie;
 
 /**
  *  This is a further optimisation for TrieDemo1. Here instead of using array we can use hashMap thereby saving space

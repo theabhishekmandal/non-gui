@@ -39,16 +39,12 @@ package data_structures.dynamic_programming;
  *
  *
  */
-import java.util.*;
-import static java.lang.System.*;
+
 public class LongestCommonSubsequence {
     private static int getLength(String one, String two){
         int[][] arr = new int[one.length() + 1][two.length() + 1];
-        for(int i = 0; i <= one.length(); i++){
-            for(int j = 0; j <= two.length(); j++){
-                if(i == 0 || j ==0) {
-                    continue;
-                }
+        for(int i = 1; i <= one.length(); i++){
+            for(int j = 1; j <= two.length(); j++){
                 if(one.charAt(i - 1) == two.charAt(j - 1)){
                     arr[i][j] = 1 + arr[i - 1][j - 1];
                 }
@@ -60,10 +56,8 @@ public class LongestCommonSubsequence {
         return arr[one.length()][two.length()];
     }
     public static void main(String[] args) {
-        Scanner s = new Scanner(in);
-        String first = s.next();
-        s.nextLine();
-        String second = s.next();
+        String first = "aggtab";
+        String second = "gxtxayb";
         System.out.println(getLength(first, second));
     }
 }
