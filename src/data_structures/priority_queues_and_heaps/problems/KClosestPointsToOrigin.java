@@ -1,9 +1,10 @@
-package miscellaneous.heap;
+package data_structures.priority_queues_and_heaps.problems;
 
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.PriorityQueue;
 import java.util.Random;
+import static java.util.AbstractMap.SimpleEntry;
 
 /**
  * Medium
@@ -67,48 +68,25 @@ public class KClosestPointsToOrigin {
         System.out.println("kClosest2 pair = " + Arrays.deepToString(kClosest2(arr, k)));
     }
 
-    static class Pair<T, V> {
-
-        T first;
-        V second;
-
-        Pair(T first, V second) {
-            this.first = first;
-            this.second = second;
-        }
-
-        static <T, V> Pair<T, V> of(T first, V second) {
-            return new Pair<>(first, second);
-        }
-
-        public T getFirst() {
-            return first;
-        }
-
-        public V getSecond() {
-            return second;
-        }
-    }
-
     private static int[][] kClosest(int[][] arr, int k) {
         if(k == arr.length) return arr;
         // Comparator on the basis of max euclidean distance
-        Comparator<Pair<Double, Pair<Integer, Integer>>> comparator = (x, y) -> (int) (y.first - x.first);
-        PriorityQueue<Pair<Double, Pair<Integer, Integer>>> queue = new PriorityQueue<>(comparator);
+        Comparator<SimpleEntry<Double, SimpleEntry<Integer, Integer>>> comparator = (x, y) -> (int) (y.getKey() - x.getKey());
+        var queue = new PriorityQueue<>(comparator);
 
         for (int[] ints : arr) {
             int x = ints[0];
             int y = ints[1];
-            queue.add(Pair.of(getEuclideanDistance(x, y), Pair.of(x, y)));
+            queue.add(new SimpleEntry<>(getEuclideanDistance(x, y), new SimpleEntry<>(x, y)));
             if (queue.size() > k) {
                 queue.poll();
             }
         }
         int[][] temp = new int[k][2];
         for(int i = 0; i < temp.length; i++) {
-            Pair<Double, Pair<Integer, Integer>> pair = queue.poll();
+            var pair = queue.poll();
             assert pair != null;
-            temp[i] = new int[]{pair.getSecond().getFirst(), pair.getSecond().getSecond()};
+            temp[i] = new int[]{pair.getValue().getKey(), pair.getValue().getKey()};
         }
         return temp;
     }

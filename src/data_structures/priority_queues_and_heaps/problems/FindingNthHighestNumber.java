@@ -1,4 +1,4 @@
-package miscellaneous.heap;
+package data_structures.priority_queues_and_heaps.problems;
 
 import java.time.Duration;
 import java.time.LocalDateTime;

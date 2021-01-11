@@ -29,15 +29,17 @@ public class Quicksort {
         int pivot = arr[high];
         for (int i = low; i < high; i++) {
             if (arr[i] <= pivot) {
-                int temp = arr[i];
-                arr[i] = arr[pindex];
-                arr[pindex] = temp;
+                swap(arr, pindex, i);
                 pindex++;
             }
         }
-        int temp = arr[pindex];
-        arr[pindex] = arr[high];
-        arr[high] = temp;
+        swap(arr, pindex, high);
         return pindex;
+    }
+
+    private static void swap(int[] arr, int i, int j) {
+        int temp = arr[i];
+        arr[i] = arr[j];
+        arr[j] = temp;
     }
 }
