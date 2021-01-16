@@ -7,13 +7,17 @@ import java.util.Deque;
 import java.util.LinkedList;
 import java.util.Random;
 
+/**
+ * Given a binary tree, find the sum of the left leave nodes
+ */
+
 public class LeftLeavesSum {
     public static void main(String[] args) {
         Random random = new Random();
         BinaryTree<Integer> binaryTree = new BinaryTree<>();
         int size = 1 + random.nextInt(10);
         for(int i = 0; i < size; i++) binaryTree.insertInBinaryTreeLevelOrder(i + 1);
-        System.out.println("binary Tree " + binaryTree.levelOrderPretty() + "\nsum of left leaves are = " +
+        System.out.println("binary Tree\n" + binaryTree.levelOrderPretty() + "\nsum of left leaves are =" +
                 getLeftLeavesSum(binaryTree.getRoot()));
     }
 

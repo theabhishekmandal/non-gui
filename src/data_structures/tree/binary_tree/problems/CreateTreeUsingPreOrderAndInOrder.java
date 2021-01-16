@@ -1,6 +1,7 @@
 package data_structures.tree.binary_tree.problems;
 
 import data_structures.tree.binary_tree.binary_tree_impl.BinaryTree;
+import static data_structures.tree.binary_tree.binary_tree_impl.BinaryTree.Node;
 
 /**
  * Construct a binary Tree from given InOrder and PreOrder traversals
@@ -15,8 +16,8 @@ import data_structures.tree.binary_tree.binary_tree_impl.BinaryTree;
  */
 public class CreateTreeUsingPreOrderAndInOrder {
     public static void main(String[] args) {
-        char[] in = new char[] { 'D', 'B', 'E', 'A', 'F', 'C' };
-        char[] pre = new char[] { 'A', 'B', 'D', 'E', 'C', 'F' };
+        char[] in = { 'D', 'B', 'E', 'A', 'F', 'C' };
+        char[] pre = { 'A', 'B', 'D', 'E', 'C', 'F' };
         BinaryTree<Character> binaryTree = createTree(in, pre);
         System.out.println(binaryTree.levelOrder());
         System.out.println(binaryTree.preOrder());
@@ -36,16 +37,16 @@ public class CreateTreeUsingPreOrderAndInOrder {
          * @param preStart 0
          * @param preEnd pre.length - 1
          */
-        BinaryTree.Node<Character> node = getBinaryTree(in, 0, in.length - 1, pre, 0, pre.length - 1);
+        Node<Character> node = getBinaryTree(in, 0, in.length - 1, pre, 0, pre.length - 1);
         binaryTree.setRoot(node);
         return binaryTree;
     }
 
-    private static BinaryTree.Node<Character> getBinaryTree(char[] in, int inStart, int inEnd, char[] pre, int preStart, int preEnd) {
+    private static Node<Character> getBinaryTree(char[] in, int inStart, int inEnd, char[] pre, int preStart, int preEnd) {
         if(inStart > inEnd || preStart > preEnd) return null;
 
         // get the current node
-        BinaryTree.Node<Character> curr = new BinaryTree.Node<>(pre[preStart]);
+        Node<Character> curr = new Node<>(pre[preStart]);
 
         // find the above current node above in inorder array, within the index range
         int index = getIndex(in, pre[preStart], inStart, inEnd);

@@ -1,6 +1,7 @@
 package data_structures.tree.binary_tree.problems;
 
 import data_structures.tree.binary_tree.binary_tree_impl.BinaryTree;
+import static data_structures.tree.binary_tree.binary_tree_impl.BinaryTree.Node;
 
 import java.util.*;
 import java.util.stream.IntStream;
@@ -15,6 +16,7 @@ import java.util.stream.IntStream;
  */
 
 public class PrintAllPathsFromRootToLeaf {
+
     public static void main(String[] args) {
         Random random = new Random();
         BinaryTree<Integer> binaryTree = new BinaryTree<>();
@@ -29,6 +31,7 @@ public class PrintAllPathsFromRootToLeaf {
         getAllPathFromRootToLeafRecursion(binaryTree.getRoot(), 0, new String[20]);
         System.out.println(nodeListForRecursion);
     }
+
     static class pair<T, U>{
         private T first;
         private U second;
@@ -57,8 +60,10 @@ public class PrintAllPathsFromRootToLeaf {
             return new pair<>(first, second);
         }
     }
+
     private static final List<String> nodeListForRecursion = new ArrayList<>();
-    private static <T> void getAllPathFromRootToLeafRecursion(BinaryTree.Node<T> node, int number, String[] arr){
+
+    private static <T> void getAllPathFromRootToLeafRecursion(Node<T> node, int number, String[] arr){
         if(node == null)
             return;
         arr[number] = node.getData().toString();
@@ -77,21 +82,20 @@ public class PrintAllPathsFromRootToLeaf {
             }
             br.append("]");
             nodeListForRecursion.add(br.toString());
+            return;
         }
-        else{
-            getAllPathFromRootToLeafRecursion(node.getLeft(), number + 1, arr);
-            getAllPathFromRootToLeafRecursion(node.getRight(), number + 1, arr);
-        }
+        getAllPathFromRootToLeafRecursion(node.getLeft(), number + 1, arr);
+        getAllPathFromRootToLeafRecursion(node.getRight(), number + 1, arr);
     }
-    private static <T> List<String> getAllPathFromRootToLeaf(BinaryTree.Node<T> root){
+    private static <T> List<String> getAllPathFromRootToLeaf(Node<T> root){
         if(root == null) return Collections.singletonList("[]");
         List<String> list = new LinkedList<>();
-        Deque<pair<BinaryTree.Node<T>, String>> stack = new LinkedList<>();
+        Deque<pair<Node<T>, String>> stack = new LinkedList<>();
         stack.push(new pair<>(root, "[" + root.getData().toString()));
 
         while(!stack.isEmpty()){
-           pair<BinaryTree.Node<T>, String> pair = stack.pop();
-           BinaryTree.Node<T> curr = pair.getFirst();
+           pair<Node<T>, String> pair = stack.pop();
+           Node<T> curr = pair.getFirst();
            String string = pair.getSecond();
 
            if(curr.getLeft() == null && curr.getRight() == null){

@@ -133,13 +133,15 @@ public class WidthOfBinaryTree {
                 }
 
                 TreeNode curr = queue.poll();
-                if(curr.left != null) {
-                    queue.add(curr.left);
-                    intDeque.add(2 * index + 1);
-                }
-                if(curr.right != null) {
-                    queue.add(curr.right);
-                    intDeque.add(2 * index + 2);
+                if (curr != null) {
+                    if(curr.left != null) {
+                        queue.add(curr.left);
+                        intDeque.add(2 * index + 1);
+                    }
+                    if(curr.right != null) {
+                        queue.add(curr.right);
+                        intDeque.add(2 * index + 2);
+                    }
                 }
             }
             if(length != 1) {

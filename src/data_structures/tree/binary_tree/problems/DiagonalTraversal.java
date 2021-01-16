@@ -4,11 +4,26 @@ import data_structures.tree.binary_tree.binary_tree_impl.BinaryTree;
 import static data_structures.tree.binary_tree.binary_tree_impl.BinaryTree.Node;
 
 import java.util.*;
+import java.util.stream.Collectors;
 import java.util.stream.IntStream;
+
+/**
+ * Given a binary tree do diagonal traversal.
+ *              0
+ *           1      2
+ *        3     4 5    6
+ *      7   8  9
+ *
+ * Approach:
+ *  -   first initialise a counter = 0, and a list of list
+ *  -   the counter is used for to which list the node will be added, and list of list denotes number of lists required
+ *      for each level
+ *  -   Basically, if the current node is left node then add it to next level and if current node is the right node
+ *      then add it to the same level as that of the parent.
+ */
 
 public class DiagonalTraversal {
     public static void main(String[] args) {
-        Random random = new Random();
         BinaryTree<Integer> tree = new BinaryTree<>();
         IntStream.range(0, 10).forEach(tree::insertInBinaryTreeLevelOrder);
         System.out.println(tree.levelOrder());
@@ -16,18 +31,18 @@ public class DiagonalTraversal {
         System.out.println(arr);
     }
 
-    private static <T> ArrayList<T> getDiagonal(Node<T> root){
+    private static <T> List<T> getDiagonal(Node<T> root){
         List<List<T>> arr = new ArrayList<>();
         Deque<Node<T>> stack = new LinkedList<>();
         Node<T> curr = root;
-        int counter = 1;
+        int counter = 0;
         while(!stack.isEmpty() || curr != null){
             if(curr != null){
                 stack.push(curr);
                 if(arr.size() <= counter){
                     arr.add(new ArrayList<>());
                 }
-                arr.get(counter - 1).add(curr.getData());
+                arr.get(counter).add(curr.getData());
                 counter++;
                 curr = curr.getLeft();
             }
@@ -37,8 +52,6 @@ public class DiagonalTraversal {
                 curr = temp.getRight();
             }
         }
-        ArrayList<T> ans = new ArrayList<>();
-        arr.forEach(ans::addAll);
-        return ans;
+        return arr.stream().flatMap(Collection::stream).collect(Collectors.toList());
     }
 }

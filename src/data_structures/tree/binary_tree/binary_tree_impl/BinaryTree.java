@@ -1,16 +1,7 @@
 package data_structures.tree.binary_tree.binary_tree_impl;
 
 
-import java.util.ArrayDeque;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Deque;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
-import java.util.Queue;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class BinaryTree<T>{
@@ -98,48 +89,25 @@ public class BinaryTree<T>{
         after inserting the node we have to check whether both of it's child are present or not
         -   if both children are not present then insert the parent node on the left side of queue
      */
-    private Deque<Node<T>> queue;
+    private final Deque<Node<T>> queue = new LinkedList<>();
 
-    // this is to store the parents of given node
-    private Map<Node<T>, Node<T>> parentMap;
-    public void insertInBinaryTreeLevelOrder(T data){
-        if(this.root == null) {
-            this.root = new Node<>(data);
-
-            this.queue = new LinkedList<>();
-            this.parentMap = new HashMap<>();
-
-            this.queue.add(this.root);
-            this.parentMap.put(this.root, null);
-
-            this.size++;
-            return;
-        }
-        Node<T> temp = null;
-        while(!queue.isEmpty()){
-            temp = queue.poll();
-            if(temp.left == null){
-                temp.left = new Node<>(data);
-
-                parentMap.put(temp.left, temp);
-                queue.add(temp.left);
-
-                this.size++;
-                break;
+    public void insertInBinaryTreeLevelOrder(T data) {
+        Node<T> newNode = new Node<>(data);
+        if (queue.isEmpty()) {
+            root = newNode;
+        } else {
+            Node<T> temp = queue.peek();
+            if (temp.left == null) {
+                temp.left = newNode;
+            } else if(temp.right == null) {
+                temp.right = newNode;
             }
-            if(temp.right == null){
-                temp.right = new Node<>(data);
-
-                parentMap.put(temp.right, temp);
-                queue.add(temp.right);
-
-                this.size++;
-                break;
+            if (temp.right != null) {
+                queue.poll();
             }
         }
-        if(temp != null && (temp.left == null || temp.right == null)) {
-            queue.addFirst(temp);
-        }
+        queue.add(newNode);
+        size++;
     }
 
     public boolean deleteNode(T data) {
@@ -149,46 +117,59 @@ public class BinaryTree<T>{
 
         Node<T> nodeToBeDeleted = null;
         Node<T> lastNode = null;
-        boolean firstTime = true;
+        boolean firstMatch = true;
 
-        Deque<Node<T>> nodeQueue = new ArrayDeque<>();
-        nodeQueue.add(this.root);
+        Deque<Node<T>> tempQueue = new ArrayDeque<>();
+        tempQueue.add(root);
 
-        while(!nodeQueue.isEmpty()) {
-            lastNode = nodeQueue.poll();
+        List<Node<T>> allNodesInPath = new ArrayList<>();
+
+        while(!tempQueue.isEmpty()) {
+            lastNode = tempQueue.poll();
+            allNodesInPath.add(lastNode);
 
             // using flag to detect the first matching node
-            if(lastNode.data.equals(data) && firstTime) {
-                firstTime = false;
+            if(lastNode.data.equals(data) && firstMatch) {
+                firstMatch = false;
                 nodeToBeDeleted = lastNode;
             }
 
             // saving the parent node also
             if(lastNode.left != null) {
-                nodeQueue.add(lastNode.left);
+                tempQueue.add(lastNode.left);
             }
             if(lastNode.right != null) {
-                nodeQueue.add(lastNode.right);
+                tempQueue.add(lastNode.right);
             }
         }
 
-        if(lastNode != null && nodeToBeDeleted != null) {
+        if (lastNode != null && nodeToBeDeleted != null) {
             nodeToBeDeleted.data = lastNode.data;
-            var parentOfLastNode = parentMap.remove(lastNode);
-            if(parentOfLastNode == null) {
-                this.root = null;
-            }
-            else {
-                if(parentOfLastNode.left == lastNode) {
+            var parentOfLastNode = getParent(allNodesInPath, lastNode);
+            if (parentOfLastNode == null) {
+                root = null;
+            } else {
+                if (parentOfLastNode.left == lastNode) {
                     parentOfLastNode.left = null;
-                }
-                else {
+                } else {
                     parentOfLastNode.right = null;
                 }
             }
+            size--;
             return true;
         }
         return false;
+    }
+
+    private Node<T> getParent(List<Node<T>> allNodesInPath, Node<T> lastNode) {
+        ListIterator<Node<T>> iter = allNodesInPath.listIterator(allNodesInPath.size());
+        while (iter.hasPrevious()) {
+            var curr = iter.previous();
+            if (curr.left == lastNode || curr.right == lastNode) {
+                return curr;
+            }
+        }
+        return null;
     }
 
     /*
@@ -204,7 +185,7 @@ public class BinaryTree<T>{
         if(this.root == null) return "";
 
         Deque<Node<T>> stack = new ArrayDeque<>();
-        stack.push(this.root);
+        stack.push(root);
 
         List<String> finalAnswer = new ArrayList<>();
         while(!stack.isEmpty()){
@@ -230,7 +211,7 @@ public class BinaryTree<T>{
      */
     public String preOrderRecursive(){
         List<String> finalAnswer = new ArrayList<>();
-        preOrderRec(this.root, finalAnswer);
+        preOrderRec(root, finalAnswer);
         return "[" + String.join(", ", finalAnswer) + "]";
     }
 
@@ -267,7 +248,7 @@ public class BinaryTree<T>{
         List<String> finalAnswer = new ArrayList<>();
 
         Deque<Node<T>> stack = new ArrayDeque<>();
-        Node<T> curr = this.root;
+        Node<T> curr = root;
 
         while(curr != null || !stack.isEmpty()){
             if(curr != null){
@@ -292,7 +273,7 @@ public class BinaryTree<T>{
      */
     public String inOrderRecursive(){
         List<String> finalAnswer = new ArrayList<>();
-        inOrderRec(this.root, finalAnswer);
+        inOrderRec(root, finalAnswer);
         return "[" + String.join(", ", finalAnswer) + "]";
     }
 
@@ -325,8 +306,8 @@ public class BinaryTree<T>{
         List<String> finalAnswer = new ArrayList<>();
 
         Deque<Node<T>> stack = new ArrayDeque<>();
-        stack.push(this.root);
-        stack.push(this.root);
+        stack.push(root);
+        stack.push(root);
         while(!stack.isEmpty()){
             Node<T> curr = stack.pop();
             if(!stack.isEmpty() && stack.peek() == curr){

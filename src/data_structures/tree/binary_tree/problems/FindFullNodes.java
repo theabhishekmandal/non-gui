@@ -1,6 +1,7 @@
 package data_structures.tree.binary_tree.problems;
 
 import data_structures.tree.binary_tree.binary_tree_impl.BinaryTree;
+import static data_structures.tree.binary_tree.binary_tree_impl.BinaryTree.Node;
 
 import java.util.LinkedList;
 import java.util.Queue;
@@ -24,15 +25,15 @@ public class FindFullNodes {
         System.out.println( "full nodes are " + output[1]);
     }
 
-    private static <T> Object[] numberOfLeafNodes(BinaryTree.Node<T> root) {
+    private static <T> Object[] numberOfLeafNodes(Node<T> root) {
         if(root == null) return new Object[]{0, new StringBuilder("[]")};
         StringBuilder br = null;
-        Queue<BinaryTree.Node<T>> queue = new LinkedList<>();
+        Queue<Node<T>> queue = new LinkedList<>();
         queue.add(root);
 
         int fullNodes = 0;
         while(!queue.isEmpty()){
-            BinaryTree.Node<T> curr = queue.poll();
+            Node<T> curr = queue.poll();
             if(curr.getLeft() != null && curr.getRight() != null){
                 br = addFullNodesValue(br, curr.getData());
                 fullNodes++;

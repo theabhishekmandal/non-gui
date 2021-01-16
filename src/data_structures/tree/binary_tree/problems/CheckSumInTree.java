@@ -102,7 +102,7 @@ public class CheckSumInTree {
 
            if(curr.getRight() == null && curr.getLeft() == null && innerPair.fst == 0){
                found = true;
-              finalList.add(innerPair.snd + " ]");
+               finalList.add(innerPair.snd + " ]");
            }
 
            if(curr.getRight() != null){

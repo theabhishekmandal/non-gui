@@ -1,6 +1,7 @@
 package data_structures.tree.binary_tree.problems;
 
 import data_structures.tree.binary_tree.binary_tree_impl.BinaryTree;
+import static data_structures.tree.binary_tree.binary_tree_impl.BinaryTree.Node;
 
 import java.util.*;
 import java.util.stream.IntStream;
@@ -34,10 +35,10 @@ public class DiameterOfTree {
         IntStream.range(0, random.nextInt(20))
                 .forEach(x -> binaryTree.insertInBinaryTreeLevelOrder(random.nextInt(100)));
         try{
+            System.out.println(binaryTree.levelOrder());
             int diameterOfTreeRecursion = findDiameterOfTreeRecursion(binaryTree.getRoot());
             int diameterOfTreeIteration = findDiameterOfTreeIteration(binaryTree.getRoot());
 
-            System.out.println(binaryTree.levelOrder());
             System.out.println(diameterOfTreeRecursion);
             System.out.println(diameterOfTreeIteration);
         }
@@ -49,13 +50,13 @@ public class DiameterOfTree {
     }
 
     private static int value;
-    private static int findDiameterOfTreeRecursion(BinaryTree.Node<Integer> root) {
+    private static int findDiameterOfTreeRecursion(Node<Integer> root) {
         value = 1;
         find(root);
         return value - 1;
     }
 
-    private static <T> int  find(BinaryTree.Node<T> node) {
+    private static <T> int  find(Node<T> node) {
         if(node == null)
             return 0;
         int left = find(node.getLeft());
@@ -68,16 +69,16 @@ public class DiameterOfTree {
         return Math.max(left, right) + 1;
     }
 
-    private static <T> int findDiameterOfTreeIteration(BinaryTree.Node<T> root){
+    private static <T> int findDiameterOfTreeIteration(Node<T> root){
         if(root == null || (root.getLeft() == null && root.getRight() == null))
             return 0;
         int maxValue = 0;
-        Map<BinaryTree.Node<T>, Integer> map = new HashMap<>();
-        Deque<BinaryTree.Node<T>> stack = new LinkedList<>();
+        Map<Node<T>, Integer> map = new HashMap<>();
+        Deque<Node<T>> stack = new LinkedList<>();
         stack.push(root);
         stack.push(root);
         while(!stack.isEmpty()){
-            BinaryTree.Node<T> curr = stack.pop();
+            Node<T> curr = stack.pop();
             if(!stack.isEmpty() && curr == stack.peek()){
                 if(curr.getRight() != null){
                     stack.push(curr.getRight());
@@ -91,8 +92,8 @@ public class DiameterOfTree {
             else{
                 Integer left;
                 Integer right;
-                left = ((left = map.get(curr.getLeft())) == null)? 0 : left;
-                right = ((right = map.get(curr.getRight())) == null)? 0 : right;
+                left = map.getOrDefault(curr.getLeft(), 0);
+                right = map.getOrDefault(curr.getRight(), 0);
 
                 // adding the deepest left and right node from each current node
                 maxValue = Math.max(maxValue, left + right + 1);

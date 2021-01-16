@@ -1,6 +1,7 @@
 package data_structures.tree.binary_tree.problems;
 
 import data_structures.tree.binary_tree.binary_tree_impl.BinaryTree;
+import data_structures.tree.binary_tree.binary_tree_impl.BinaryTree.Node;
 
 import java.util.Deque;
 import java.util.LinkedList;
@@ -35,20 +36,20 @@ public class CheckMirrorTree {
         System.out.println("binaryTree1 " + binaryTree1.levelOrder());
     }
 
-    private static boolean areMirrors(BinaryTree.Node<Integer> root, BinaryTree.Node<Integer> root1) {
+    private static boolean areMirrors(Node<Integer> root, Node<Integer> root1) {
         if(root == null && root1 == null) return true;
         if(root == null || root1 == null) return false;
 
-        Deque<BinaryTree.Node<Integer>> stack = new LinkedList<>();
+        Deque<Node<Integer>> stack = new LinkedList<>();
         stack.push(root);
 
-        Deque<BinaryTree.Node<Integer>> stack1 = new LinkedList<>();
+        Deque<Node<Integer>> stack1 = new LinkedList<>();
         stack1.push(root1);
 
         boolean flag = true;
         while(!stack.isEmpty() && !stack1.isEmpty()){
-            BinaryTree.Node<Integer> first = stack.pop();
-            BinaryTree.Node<Integer> second = stack1.pop();
+            Node<Integer> first = stack.pop();
+            Node<Integer> second = stack1.pop();
             if(!first.getData().equals(second.getData())){
                 flag = false;
                 break;
@@ -67,13 +68,13 @@ public class CheckMirrorTree {
     }
 
     // using top down approach
-    private static void createMirrorTree(BinaryTree.Node<Integer> node){
+    private static void createMirrorTree(Node<Integer> node){
         if(node == null) return;
-        Deque<BinaryTree.Node<Integer>> stack = new LinkedList<>();
+        Deque<Node<Integer>> stack = new LinkedList<>();
         stack.push(node);
         while(!stack.isEmpty()){
-            BinaryTree.Node<Integer> curr = stack.pop();
-            BinaryTree.Node<Integer> temp = curr.getRight();
+            Node<Integer> curr = stack.pop();
+            Node<Integer> temp = curr.getRight();
             curr.setRight(curr.getLeft());
             curr.setLeft(temp);
             if(curr.getRight() != null){

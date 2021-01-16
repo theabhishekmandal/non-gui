@@ -2,14 +2,12 @@ package data_structures.tree.binary_tree.problems;
 
 
 import data_structures.tree.binary_tree.binary_tree_impl.BinaryTree;
+import static data_structures.tree.binary_tree.binary_tree_impl.BinaryTree.Node;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Deque;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -66,16 +64,16 @@ public class ZigZagTraversal {
         }
     }
 
-    private static <T> String printInZigZagPatternNew(BinaryTree.Node<T> root){
-        LinkedList<String> nodeList = new LinkedList<>();
+    private static <T> String printInZigZagPatternNew(Node<T> root){
+        List<String> nodeList = new ArrayList<>();
         List<List<String>> finalList = new ArrayList<>();
-        Deque<BinaryTree.Node<T>> queue = new LinkedList<>();
+        Deque<Node<T>> queue = new LinkedList<>();
         queue.add(root);
         queue.add(null);
 
         boolean leftToRight = true;
         while(!queue.isEmpty()){
-            BinaryTree.Node<T> curr = queue.poll();
+            Node<T> curr = queue.poll();
             if(curr != null){
                 nodeList.add(curr.getData().toString());
                 if(curr.getLeft() != null){
@@ -87,12 +85,10 @@ public class ZigZagTraversal {
             }
             else{
                 if (!leftToRight) {
-                    Deque<String> stack = new LinkedList<>();
-                    while (!nodeList.isEmpty()) stack.push(nodeList.removeFirst());
-                    while (!stack.isEmpty()) nodeList.addLast(stack.pop());
+                    Collections.reverse(nodeList);
                 }
                 finalList.add(nodeList);
-                nodeList = new LinkedList<>();
+                nodeList = new ArrayList<>();
                 if(!queue.isEmpty()){
                     leftToRight = !leftToRight;
                     queue.add(null);
@@ -107,15 +103,15 @@ public class ZigZagTraversal {
         List<String> nodeList = new ArrayList<>();
         List<List<String>> finalList = new ArrayList<>();
 
-        Deque<BinaryTree.Node<T>> leftQueue = new LinkedList<>();
-        Deque<BinaryTree.Node<T>> rightQueue = new LinkedList<>();
+        Deque<Node<T>> leftQueue = new LinkedList<>();
+        Deque<Node<T>> rightQueue = new LinkedList<>();
         leftQueue.addFirst(null);
         leftQueue.addFirst(root);
 
         while(true){
             if(!leftQueue.isEmpty()){
                 while (!leftQueue.isEmpty()){
-                    BinaryTree.Node<T> node = leftQueue.pollFirst();
+                    Node<T> node = leftQueue.pollFirst();
                     if(node != null){
                         nodeList.add(node.getData().toString());
                         addToQueueUsingFlag(rightQueue, node.getLeft(), node.getRight(), true);
@@ -131,7 +127,7 @@ public class ZigZagTraversal {
             }
             else if(!rightQueue.isEmpty()){
                 while(!rightQueue.isEmpty()){
-                    BinaryTree.Node<T> node = rightQueue.pollLast();
+                    Node<T> node = rightQueue.pollLast();
                     if(node != null){
                         nodeList.add(node.getData().toString());
                         addToQueueUsingFlag(leftQueue, node.getLeft(), node.getRight(), false);
@@ -154,7 +150,7 @@ public class ZigZagTraversal {
                 .collect(Collectors.joining(", \n")) + "]";
     }
 
-    private static <T> void addToQueueUsingFlag(Deque<BinaryTree.Node<T>> queue, BinaryTree.Node<T> left, BinaryTree.Node<T> right, boolean addLast) {
+    private static <T> void addToQueueUsingFlag(Deque<Node<T>> queue, Node<T> left, Node<T> right, boolean addLast) {
         if(addLast){
            if(left != null){
                queue.addLast(left);

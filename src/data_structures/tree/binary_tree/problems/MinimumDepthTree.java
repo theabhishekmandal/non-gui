@@ -1,6 +1,7 @@
 package data_structures.tree.binary_tree.problems;
 
 import data_structures.tree.binary_tree.binary_tree_impl.BinaryTree;
+import static data_structures.tree.binary_tree.binary_tree_impl.BinaryTree.Node;
 
 import java.util.Deque;
 import java.util.LinkedList;
@@ -41,18 +42,18 @@ public class MinimumDepthTree {
         System.out.println(minimumDepthLevelOrder);
     }
 
-    private static <T> int minimumDepth(BinaryTree.Node<T> node){
+    private static <T> int minimumDepth(Node<T> node){
         if(node == null) return 0;
 
         int minDepth = Integer.MAX_VALUE;
         int depthCounter = 0;
 
-        Deque<BinaryTree.Node<T>> stack = new LinkedList<>();
+        Deque<Node<T>> stack = new LinkedList<>();
         stack.push(node);
         stack.push(node);
 
         while(!stack.isEmpty()){
-            BinaryTree.Node<T> curr = stack.pop();
+            Node<T> curr = stack.pop();
             if(!stack.isEmpty() && curr == stack.peek()){
                 if(curr.getRight() != null){
                     stack.push(curr.getRight());
@@ -74,20 +75,20 @@ public class MinimumDepthTree {
         return minDepth;
     }
 
-    private static <T> int minimumDepthLevelOrder(BinaryTree.Node<T> node){
+    private static <T> int minimumDepthLevelOrder(Node<T> node){
         if(node == null) return 0;
 
         int minDepth = 1;
 
-        Queue<BinaryTree.Node<T>> queue = new LinkedList<>();
+        Queue<Node<T>> queue = new LinkedList<>();
         queue.add(node);
         queue.add(null);
 
         while(!queue.isEmpty()){
-            BinaryTree.Node<T> curr = queue.poll();
+            Node<T> curr = queue.poll();
             if(curr != null){
-                BinaryTree.Node<T> left = curr.getLeft();
-                BinaryTree.Node<T> right = curr.getRight();
+                Node<T> left = curr.getLeft();
+                Node<T> right = curr.getRight();
                 if(right == null && left == null){
                     return minDepth;
                 }
