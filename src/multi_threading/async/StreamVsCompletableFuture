@@ -1,0 +1,8 @@
+Stream                      CompletableFuture
+pipeline                    pipeline
+lazy                        lazy
+zero, one or more data      zero or one
+only data channel           data channel and error channel
+forEach                     thenAccept
+map                         thenApply
+exception - oops            error channel
