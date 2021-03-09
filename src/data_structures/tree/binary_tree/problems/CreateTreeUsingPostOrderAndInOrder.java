@@ -50,7 +50,7 @@ public class CreateTreeUsingPostOrderAndInOrder {
            return null;
 
         // get the current node
-       Node<Integer> curr = new Node<>(post[postEnd]);
+       Node<Integer> curr = Node.of(post[postEnd]);
 
         // find the above current node above in inorder array, within the index range
        int index = getIndex(in, inStart, inEnd, post[postEnd]);

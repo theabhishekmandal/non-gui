@@ -46,7 +46,7 @@ public class CreateTreeUsingPreOrderAndInOrder {
         if(inStart > inEnd || preStart > preEnd) return null;
 
         // get the current node
-        Node<Character> curr = new Node<>(pre[preStart]);
+        Node<Character> curr = Node.of(pre[preStart]);
 
         // find the above current node above in inorder array, within the index range
         int index = getIndex(in, pre[preStart], inStart, inEnd);

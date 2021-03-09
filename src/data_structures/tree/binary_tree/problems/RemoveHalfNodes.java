@@ -104,7 +104,7 @@ public class RemoveHalfNodes {
     private static final Random random = new Random();
     private static <T> void randomInsert(T data, BinaryTree<T> binaryTree) {
         if(binaryTree.getRoot() == null) {
-            binaryTree.setRoot(new Node<>(data));
+            binaryTree.setRoot(Node.of(data));
             return;
         }
         Node<T> temp = binaryTree.getRoot();
@@ -112,7 +112,7 @@ public class RemoveHalfNodes {
             boolean addToRight = random.nextBoolean();
             if(addToRight) {
                 if(temp.getRight() == null) {
-                    temp.setRight(new Node<>(data));
+                    temp.setRight(Node.of(data));
                     return;
                 }
                 else {
@@ -121,7 +121,7 @@ public class RemoveHalfNodes {
             }
             else {
                 if(temp.getLeft() == null) {
-                    temp.setLeft(new Node<>(data));
+                    temp.setLeft(Node.of(data));
                     return;
                 }
                 else {

@@ -4,7 +4,7 @@ package data_structures.tree.binary_tree.binary_tree_impl;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class BinaryTree<T>{
+public class BinaryTree<T> {
     public static class Node<T> {
         private T data;
         private Node<T> left;
@@ -12,6 +12,10 @@ public class BinaryTree<T>{
 
         public Node(T data){
             this.data = data;
+        }
+
+        public static <T> Node<T> of(T data) {
+            return new Node<>(data);
         }
 
         public T getData(){
@@ -92,14 +96,14 @@ public class BinaryTree<T>{
     private final Deque<Node<T>> queue = new LinkedList<>();
 
     public void insertInBinaryTreeLevelOrder(T data) {
-        Node<T> newNode = new Node<>(data);
+        Node<T> newNode = Node.of(data);
         if (queue.isEmpty()) {
             root = newNode;
         } else {
             Node<T> temp = queue.peek();
             if (temp.left == null) {
                 temp.left = newNode;
-            } else if(temp.right == null) {
+            } else if (temp.right == null) {
                 temp.right = newNode;
             }
             if (temp.right != null) {
@@ -111,7 +115,7 @@ public class BinaryTree<T>{
     }
 
     public boolean deleteNode(T data) {
-        if(this.root == null || data == null) {
+        if (this.root == null || data == null) {
             return false;
         }
 
@@ -124,21 +128,21 @@ public class BinaryTree<T>{
 
         List<Node<T>> allNodesInPath = new ArrayList<>();
 
-        while(!tempQueue.isEmpty()) {
+        while (!tempQueue.isEmpty()) {
             lastNode = tempQueue.poll();
             allNodesInPath.add(lastNode);
 
             // using flag to detect the first matching node
-            if(lastNode.data.equals(data) && firstMatch) {
+            if (lastNode.data.equals(data) && firstMatch) {
                 firstMatch = false;
                 nodeToBeDeleted = lastNode;
             }
 
             // saving the parent node also
-            if(lastNode.left != null) {
+            if (lastNode.left != null) {
                 tempQueue.add(lastNode.left);
             }
-            if(lastNode.right != null) {
+            if (lastNode.right != null) {
                 tempQueue.add(lastNode.right);
             }
         }
@@ -182,22 +186,22 @@ public class BinaryTree<T>{
                 in stack the left node will be processed first.
     */
     public String preOrder(){
-        if(this.root == null) return "";
+        if (this.root == null) return "";
 
         Deque<Node<T>> stack = new ArrayDeque<>();
         stack.push(root);
 
         List<String> finalAnswer = new ArrayList<>();
-        while(!stack.isEmpty()){
+        while (!stack.isEmpty()){
             Node<T> temp = stack.pop();
 
             // adding the answer
             finalAnswer.add(temp.toString());
 
-            if(temp.right != null) {
+            if (temp.right != null) {
                 stack.push(temp.right);
             }
-            if(temp.left != null){
+            if (temp.left != null){
                 stack.push(temp.left);
             }
         }
@@ -216,7 +220,7 @@ public class BinaryTree<T>{
     }
 
     private void preOrderRec(Node<T> node, List<String> answer){
-        if(node == null) return;
+        if (node == null) return;
         answer.add(node.toString());
         preOrderRec(node.left, answer);
         preOrderRec(node.right, answer);
@@ -244,18 +248,17 @@ public class BinaryTree<T>{
 
     */
     public String inOrder(){
-        if(this.root == null) return "";
+        if (this.root == null) return "";
         List<String> finalAnswer = new ArrayList<>();
 
         Deque<Node<T>> stack = new ArrayDeque<>();
         Node<T> curr = root;
 
-        while(curr != null || !stack.isEmpty()){
-            if(curr != null){
+        while (curr != null || !stack.isEmpty()) {
+            if (curr != null) {
                 stack.push(curr);
                 curr = curr.left;
-            }
-            else{
+            } else {
                 curr = stack.pop();
 
                 // adding the answer
@@ -278,7 +281,7 @@ public class BinaryTree<T>{
     }
 
     private void inOrderRec(Node<T> node, List<String> answer){
-        if(node == null) return;
+        if (node == null) return;
         inOrderRec(node.left, answer);
         answer.add(node.toString());
         inOrderRec(node.right, answer);
@@ -302,26 +305,27 @@ public class BinaryTree<T>{
                     it can be added to answer.
      */
     public String postOrder(){
-        if(this.root == null) return "";
+        if (this.root == null) return "";
         List<String> finalAnswer = new ArrayList<>();
 
         Deque<Node<T>> stack = new ArrayDeque<>();
         stack.push(root);
         stack.push(root);
-        while(!stack.isEmpty()){
+        while (!stack.isEmpty()) {
             Node<T> curr = stack.pop();
-            if(!stack.isEmpty() && stack.peek() == curr){
-                if(curr.right != null){
+            if (!stack.isEmpty() && stack.peek() == curr) {
+                if (curr.right != null) {
                     stack.push(curr.right);
                     stack.push(curr.right);
                 }
-                if(curr.left != null){
+                if (curr.left != null) {
                     stack.push(curr.left);
                     stack.push(curr.left);
                 }
             }
-            else
-               finalAnswer.add(curr.data.toString());
+            else {
+                finalAnswer.add(curr.data.toString());
+            }
         }
         return "[" + String.join(", ", finalAnswer) + "]";
     }
@@ -354,14 +358,18 @@ public class BinaryTree<T>{
                     and then go to level l + 1
      */
     public String levelOrder(){
-       if(this.root == null) return "";
+       if (this.root == null) {
+           return "";
+       }
        return "[" + levelOrderPrivate().stream()
                .map(list -> "(" + String.join(", ", list) + ")")
                .collect(Collectors.joining(", \n")) + "]";
     }
 
     private List<List<String>> levelOrderPrivate() {
-        if(this.root == null) return Collections.emptyList();
+        if (this.root == null) {
+            return Collections.emptyList();
+        }
         Queue<Node<T>> nodeQueue = new LinkedList<>();
 
         nodeQueue.add(this.root);
@@ -369,41 +377,39 @@ public class BinaryTree<T>{
 
         List<List<String>> finalList = new ArrayList<>();
         List<String> nodeList = new ArrayList<>();
-        Node<T> emptyObject = new Node<>(null);
-        while(!nodeQueue.isEmpty()){
+        Node<T> emptyObject = Node.of(null);
+        while (!nodeQueue.isEmpty()) {
             Node<T> curr = nodeQueue.poll();
-            if(curr != null){
-                if(curr != emptyObject) {
+            if (curr != null) {
+                if (curr != emptyObject) {
                     nodeList.add(curr.data.toString());
                     nodeQueue.add(Objects.requireNonNullElse(curr.left, emptyObject));
                     nodeQueue.add(Objects.requireNonNullElse(curr.right, emptyObject));
-                }
-                else {
+                } else {
                     nodeList.add("*");
                 }
-            }
-            else{
+            } else {
                 // creating new list because, if we clear nodeList then nodeList will be cleared
                 // from the final list
                 finalList.add(new ArrayList<>(nodeList));
 
                 // clearing the list for next level
                 nodeList.clear();
-                if(!nodeQueue.isEmpty())
+                if (!nodeQueue.isEmpty()) {
                     nodeQueue.add(null);
-
+                }
             }
         }
         return finalList;
     }
     public String levelOrderPretty() {
         List<List<String>> finalAnswer = levelOrderPrivate();
-        if(finalAnswer.isEmpty()) {
+        if (finalAnswer.isEmpty()) {
             return "[]";
         }
         StringBuilder br = new StringBuilder();
         int maxSize = finalAnswer.get(finalAnswer.size() - 2).size();
-        for(int i = 0; i < finalAnswer.size() - 1; i++) {
+        for (int i = 0; i < finalAnswer.size() - 1; i++) {
             var list = finalAnswer.get(i);
             int rem = ((maxSize - list.size()) + 1) >> 1;
             br.append(" ".repeat(Math.max(0, rem)));
