@@ -8,6 +8,7 @@ public class GenericRandomLinkedListImpl {
     public static void main(String[] args) {
         RandomLinkedList<Integer> randomLinkedList = new RandomLinkedList<>();
         IntStream.range(1, 10).forEach(randomLinkedList::addLast);
+        randomLinkedList.assignRandomPointers();
         System.out.println(randomLinkedList);
     }
 }

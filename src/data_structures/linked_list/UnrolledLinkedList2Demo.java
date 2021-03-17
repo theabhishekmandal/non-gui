@@ -1,19 +1,21 @@
 package data_structures.linked_list;
+import org.jetbrains.annotations.NotNull;
+
 import java.util.*;
 import java.io.Serializable;
 
 class UnrolledLinkedListFast<E> extends AbstractList<E> implements List<E>, Serializable{
     //The maximum number of elements that can be stored in single node
-    private int nodeCapacity;
+    private final int nodeCapacity;
 
     //the current size of this list.
     private int size = 0;
 
     //The first node of this list.
-    private ListNode firstNode;
+    private final ListNode firstNode;
 
     //The  last node of this list.
-    private ListNode lastNode;
+    private transient ListNode lastNode;
 
     //Constructs an empty list with specified capacity
     public UnrolledLinkedListFast(int nodeCapacity) throws IllegalArgumentException{
@@ -41,6 +43,7 @@ class UnrolledLinkedListFast<E> extends AbstractList<E> implements List<E>, Seri
         return (indexOf(o) != -1);
     }
 
+    @NotNull
     public Iterator<E> iterator(){
         return new ULLIterator(firstNode, -1, 0);
     }
@@ -366,15 +369,14 @@ public class UnrolledLinkedList2Demo {
         
         UnrolledLinkedListFast<String> list = new UnrolledLinkedListFast<>(8);
         String[] stringarr = "Hello I am Abhishek good morning friends my name is abhishek".split(" ");
-        for(String str : stringarr)
-            list.add(str);
+        list.addAll(Arrays.asList(stringarr));
         list.remove("morning");
         list.remove("friends");
         list.remove("abhishek");
         list.remove("name");
         System.out.println(list);
-        for(int i = 0; i < list.size(); i++){
-            System.out.println(list.get(i));
+        for (String s : list) {
+            System.out.println(s);
         }
     }
 }

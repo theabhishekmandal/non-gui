@@ -1,6 +1,7 @@
 package data_structures.linked_list.node;
 
 import java.util.NoSuchElementException;
+import java.util.StringJoiner;
 
 public class DoublyLinkedList<T>{
     private Node<T> head;
@@ -110,7 +111,7 @@ public class DoublyLinkedList<T>{
     }
 
     public Node<T> getNode(int pos){
-        if(pos < 1 || pos > size) throw new IndexOutOfBoundsException();
+        if(pos < 0 || pos > size) throw new IndexOutOfBoundsException();
         Node<T> temp = null;
         if(pos < size >> 1){
             temp = head;
@@ -187,10 +188,10 @@ public class DoublyLinkedList<T>{
 
     @Override
     public String toString(){
-        StringBuilder br = new StringBuilder();
+        StringJoiner joiner = new StringJoiner("-->", "", "-->");
         for(Node<T> temp = head; temp != null; temp = temp.next){
-            br.append(temp).append("-->");
+            joiner.add(temp.toString());
         }
-        return br.toString();
+        return joiner.toString();
     }
 }

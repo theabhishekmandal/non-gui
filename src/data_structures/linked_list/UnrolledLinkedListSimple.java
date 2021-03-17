@@ -1,9 +1,12 @@
 package data_structures.linked_list;
 
+import java.util.StringJoiner;
+import java.util.stream.IntStream;
+
 class Ull<T>{
-    private int nodeCapacity;
+    private final int nodeCapacity;
     private int size = 0;
-    private ListNode firstNode;
+    private final ListNode firstNode;
     private ListNode lastNode;
 
     // using private class becuase static class
@@ -21,13 +24,13 @@ class Ull<T>{
             StringBuilder br = new StringBuilder("[");
             for(int i = 0; i < elements.length; i++){
                 br.append(elements[i]);
-               if(i != elements.length - 1) br.append(" ,"); 
+                if(i != elements.length - 1) br.append(" ,");
             }
             br.append("]");
             return br.toString();
         }
     }
-        
+
     //Constructs an empty list with specified capacity
     public Ull(int nodeCapacity) throws IllegalArgumentException{
         if(nodeCapacity < 8)
@@ -119,7 +122,7 @@ class Ull<T>{
                     if(node.elements[i] == null){
                         removeFromNode(node, i);
                         return true;
-                    }           
+                    }
                 }
                 node = node.next;
             }
@@ -130,7 +133,7 @@ class Ull<T>{
                     if(o.equals(node.elements[i])){
                         removeFromNode(node, i);
                         return true;
-                    }           
+                    }
                 }
                 node = node.next;
             }
@@ -144,9 +147,8 @@ class Ull<T>{
      */
     public void removeFromNode(ListNode node, int index){
         node.numElements--;
-        for(int i = index; i < node.numElements;  i++){
-            node.elements[i] = node.elements[i + 1];
-        }
+        if (node.numElements - index >= 0)
+            System.arraycopy(node.elements, index + 1, node.elements, index, node.numElements - index);
         node.elements[node.numElements] = null;
         if(node.next != null && node.numElements + node.next.numElements <= nodeCapacity){
             mergeWithNextNode(node);
@@ -213,28 +215,23 @@ class Ull<T>{
         // if you want to insert at given index
         // i.e in between the elements then this will be used
         // to shift the elements to make space
-        for(int i = node.numElements; i > ptr; i--){
-            node.elements[i] = node.elements[i - 1];
-        }
+        if (node.numElements - ptr >= 0)
+            System.arraycopy(node.elements, ptr, node.elements, ptr + 1, node.numElements - ptr);
         node.elements[ptr] = element;
         size++;
         node.numElements++;
     }
     @Override
     public String toString(){
-        StringBuilder string = new StringBuilder("[");
+        StringJoiner joiner = new StringJoiner(", ", "[", "]");
         ListNode temp = firstNode;
-        int index = 0;
-        while(temp != null){
-            for(int i = 0; i < temp.numElements; i++){
-                string.append(temp.elements[i]);
-                if(index != this.size - 1) string.append(", ");
-                index++;
-            }
+        while (temp != null) {
+            ListNode finalTemp = temp;
+            IntStream.range(0, temp.numElements).mapToObj(x -> String.valueOf(finalTemp.elements[x])).forEach(joiner::add);
             temp = temp.next;
         }
-        string.append("]");
-        return string.toString();
+        return joiner.toString();
+
     }
 
 }
@@ -251,8 +248,6 @@ public class UnrolledLinkedListSimple{
         list.remove("friends");
         System.out.println(list);
 
-        for(int i = 0; i < list.size(); i++){
-            System.out.println(list.get(i));
-        }
+        IntStream.range(0, list.size()).mapToObj(list::get).forEach(System.out::println);
     }
 }

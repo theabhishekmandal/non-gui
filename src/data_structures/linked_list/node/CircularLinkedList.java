@@ -1,6 +1,7 @@
 package data_structures.linked_list.node;
 
 import java.util.NoSuchElementException;
+import java.util.StringJoiner;
 
 public class CircularLinkedList<T>{
     private Node<T> head;
@@ -106,7 +107,7 @@ public class CircularLinkedList<T>{
     }
 
     public Node<T> getNode(int pos){
-        if(pos < 1 || pos > size) throw new IndexOutOfBoundsException();
+        if(pos < 0 || pos > size) throw new IndexOutOfBoundsException();
         Node<T> temp = head;
         if(head == tail) return null;
         for(int i = 0; i < pos - 1; i++){
@@ -120,11 +121,11 @@ public class CircularLinkedList<T>{
         final Node<T> newNode = tail;
         tail = getNode(size - 1);
 
-        // deleting the next pointer to null
-        newNode.next = null;
-
-        if(tail == null) head = null;
-        else{
+        if(tail == null) {
+            head = null;
+        } else {
+            // deleting the next pointer to null
+            newNode.next = null;
             tail.next = head;
         }
         size--;
@@ -177,12 +178,15 @@ public class CircularLinkedList<T>{
 
     @Override
     public String toString(){
-        StringBuilder br = new StringBuilder();
-        for(Node<T> temp = head; temp != tail; temp = temp.next){
-            br.append(temp).append("-->");
+        if (head == null) {
+            return "";
+        }
+        StringJoiner joiner = new StringJoiner("-->", "", "-->");
+        for(Node<T> temp = head; temp != null && temp != tail; temp = temp.next){
+            joiner.add(temp.toString());
         }
 
         // printing tail here because it won't work in loop
-        return br.append(tail).append("-->").toString();
+        return joiner.add(tail.toString()).toString();
     }
 }

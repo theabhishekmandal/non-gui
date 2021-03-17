@@ -1,6 +1,8 @@
 package data_structures.linked_list.node;
 
 import java.util.NoSuchElementException;
+import java.util.StringJoiner;
+import java.util.stream.IntStream;
 
 public class SinglyLinkedList<T>{
     private Node<T> head;
@@ -99,9 +101,13 @@ public class SinglyLinkedList<T>{
     }
 
     public Node<T> getNode(int pos){
-        if(pos < 1 || pos > size) throw new IndexOutOfBoundsException();
+        if (pos < 0 || pos > size) {
+            throw new IndexOutOfBoundsException();
+        }
         Node<T> temp = head;
-        if(head == tail) return null;
+        if (head == tail) {
+            return null;
+        }
         for(int i = 0; i < pos - 1; i++){
             temp = temp.next;
         }
@@ -113,8 +119,9 @@ public class SinglyLinkedList<T>{
         final Node<T> newNode = tail;
         tail = getNode(size - 1);
 
-        if(tail == null) head = null;
-        else{
+        if (tail == null) {
+            head = null;
+        } else {
             tail.next = null;
         }
         size--;
@@ -164,9 +171,10 @@ public class SinglyLinkedList<T>{
 
     @Override
     public String toString(){
-        StringBuilder br = new StringBuilder();
-        for(Node<T> temp = head; temp != null; temp = temp.next)
-            br.append(temp).append("-->");
+        StringJoiner br = new StringJoiner("-->");
+        for(Node<T> temp = head; temp != null; temp = temp.next) {
+            br.add(String.valueOf(temp));
+        }
         return br.toString();
     }
 }

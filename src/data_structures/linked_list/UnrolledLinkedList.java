@@ -5,8 +5,10 @@ import data_structures.linked_list.node.DoublyLinkedList;
 
 import java.util.Arrays;
 import java.util.LinkedList;
+import java.util.StringJoiner;
 
-import static java.lang.System.*;
+import static java.lang.System.currentTimeMillis;
+import static java.lang.System.err;
 
 /**
  * Unrolled linked list stores multiple elements in each node.
@@ -19,32 +21,36 @@ import static java.lang.System.*;
  * 2. Number of outerBlocks should be no more than floor(root(n)).
  * @param <T>
  */
-class UlinkedList<T>{
+class ULinkedList<T>{
     private DoublyLinkedList<CircularLinkedList<T>> outerList;
     private LinkedList<LinkedList<T>> list;
     private int size;
-    private int innerblocks;
-    private int outerblocks;
+    private int innerBlocks;
+    private int outerBlocks;
 
-    private static long start, stop;
+    private static long start;
+    private static long stop;
     private static void debug(Object... a){
         System.err.println(Arrays.deepToString(a));
     }
-    static void starttime(){start = currentTimeMillis();}
-    static void stoptime(){stop = currentTimeMillis();}
-    static void gettime(){err.println(((double)(stop - start) / 1000.0) + " seconds");}
+    static void startTime(){start = currentTimeMillis();}
+    static void stopTime(){stop = currentTimeMillis();}
+    static void getTime(){err.println(((double)(stop - start) / 1000.0) + " seconds");}
 
-    public UlinkedList(Boolean bool){
-        if(bool) outerList = new DoublyLinkedList<>();
-        else list = new LinkedList<>();
+    public ULinkedList(boolean bool){
+        if (bool) {
+            outerList = new DoublyLinkedList<>();
+        } else {
+            list = new LinkedList<>();
+        }
     }
 
-    public int getInnerblocks(){
-        return this.innerblocks;
+    public int getInnerBlocks(){
+        return this.innerBlocks;
     }
 
-    public int getOuterblocks(){
-        return this.outerblocks;
+    public int getOuterBlocks(){
+        return this.outerBlocks;
     }
 
     // this one is slow
@@ -52,11 +58,11 @@ class UlinkedList<T>{
         size++;
 
         // getting the innerList and outerList size
-        innerblocks = getInnerblocks(size);
-        outerblocks = getOuterblocks(size);
+        innerBlocks = getInnerBlocks(size);
+        outerBlocks = getOuterBlocks(size);
 
         // adding a new node at the outerList if it's size is less
-        if(outerList.getSize() < outerblocks){
+        if(outerList.getSize() < outerBlocks){
             outerList.addLast(new CircularLinkedList<>());
         }
 
@@ -74,14 +80,14 @@ class UlinkedList<T>{
              2. Number of outerBlocks should be no more than floor(root(n)).
          */
         for(DoublyLinkedList.Node<CircularLinkedList<T>> temp = outerList.getHead(); temp.getData() != null; temp = temp.getNext()){
-            if(temp.getData().getSize() < innerblocks){
+            if(temp.getData().getSize() < innerBlocks){
                 DoublyLinkedList.Node<CircularLinkedList<T>> succOuterListNode = temp.getNext();
-                while(temp.getData().getSize() != innerblocks)
+                while(temp.getData().getSize() != innerBlocks)
                     temp.getData().addLast(succOuterListNode.getData().deleteFirst().getData());
             }
-            else if(temp.getData().getSize() > innerblocks){
+            else if(temp.getData().getSize() > innerBlocks){
                 DoublyLinkedList.Node<CircularLinkedList<T>> succOuterListNode = temp.getNext();
-                while(succOuterListNode.getData().getSize() != innerblocks)
+                while(succOuterListNode.getData().getSize() != innerBlocks)
                     succOuterListNode.getData().addFirst(temp.getData().deleteLast().getData());
             }
         }
@@ -90,22 +96,22 @@ class UlinkedList<T>{
     // this one is faster
     public void add1(T data){
         size++;
-        innerblocks = getInnerblocks(size);
-        outerblocks = getOuterblocks(size);
-        if(list.size() < outerblocks){
+        innerBlocks = getInnerBlocks(size);
+        outerBlocks = getOuterBlocks(size);
+        if(list.size() < outerBlocks){
             list.addLast(new LinkedList<>());
         }
         list.getLast().add(data);
         for(int i = 0; i < list.size() - 1; i++){
             LinkedList<T> innerTempList = list.get(i);
             LinkedList<T> innerNextList = list.get(i + 1);
-            if(innerTempList.size() < innerblocks){
-                while(innerTempList.size() != innerblocks){
+            if(innerTempList.size() < innerBlocks){
+                while(innerTempList.size() != innerBlocks){
                     innerTempList.addLast(innerNextList.removeFirst());
                 }
             }
-            else if(innerTempList.size() > innerblocks){
-                while(innerTempList.size() != innerblocks){
+            else if(innerTempList.size() > innerBlocks){
+                while(innerTempList.size() != innerBlocks){
                     innerNextList.addFirst(innerTempList.removeLast());
                 }
             }
@@ -114,12 +120,12 @@ class UlinkedList<T>{
 
     public T get(int index){
         if (index < 0 || index > size) throw new IndexOutOfBoundsException();
-        int innerblockSize = getInnerblocks();
-        int outerblockSize = getOuterblocks();
+        int innerBlockSize = getInnerBlocks();
+        int outerBlockSize = getOuterBlocks();
 
         // getting in which outerBlock will the node lie, so it can be found by
         // ceil(k / innerblocksSize)
-        int mod = (int) Math.ceil((double)index / (double)innerblockSize);
+        int mod = (int) Math.ceil((double)index / (double)innerBlockSize);
 
         /* there can be a possibility when mod is greater than outerBlock size
         For eg: [[[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12, 13, 14, 15]]]
@@ -131,8 +137,8 @@ class UlinkedList<T>{
         Also we subtract if the flag is true because we want to ensure 15 and 12
         should have the same block number
         */
-        boolean isGreaterThanOuterblockSize = mod > outerblockSize;
-        int indexFound = (isGreaterThanOuterblockSize)? mod - 2 : mod - 1;
+        boolean isGreaterThanOuterBlockSize = mod > outerBlockSize;
+        int indexFound = (isGreaterThanOuterBlockSize)? mod - 2 : mod - 1;
 
         /*
         now to find where inside the outerBlock does the element resides.
@@ -143,18 +149,18 @@ class UlinkedList<T>{
 
         Also subtract by 1 for zero based indexing.
          */
-        int rem = index % innerblockSize;
-        rem = (rem == 0) ? innerblockSize : rem;
-        int increment = (isGreaterThanOuterblockSize) ? mod : 0;
+        int rem = index % innerBlockSize;
+        rem = (rem == 0) ? innerBlockSize : rem;
+        int increment = (isGreaterThanOuterBlockSize) ? mod : 0;
         rem += increment - 1;
 
         return list.get(indexFound).get(rem);
         //return  "[" + "Index = " + index + ", OuterBlockIndex = " + indexFound + ", InnerBlockIndex = " + rem + "]";
     }
-    private int getInnerblocks(int size){
+    private int getInnerBlocks(int size){
         return (int)Math.ceil(Math.sqrt(size));
     }
-    private int getOuterblocks(int size){
+    private int getOuterBlocks(int size){
         return (int)Math.floor(Math.sqrt(size));
     }
     @Override
@@ -164,24 +170,24 @@ class UlinkedList<T>{
 }
 public class UnrolledLinkedList {
     public static void main(String[] args) {
-        UlinkedList<Integer> list = new UlinkedList<>(false);
-        StringBuilder br = new StringBuilder();
-        UlinkedList.starttime();
+        ULinkedList<Integer> list = new ULinkedList<>(false);
+        StringJoiner joiner = new StringJoiner("\n");
+        ULinkedList.startTime();
 
         int cal = 15;
         for(int i = 1; i <= cal; i++) {
             list.add1(i);
-            br.append(list).append("\n");
+            joiner.add(list.toString());
         }
-        UlinkedList.stoptime();
-        UlinkedList.gettime();
-        System.out.println(br + "\n");
-        System.out.println(list.getInnerblocks() + " " + list.getOuterblocks());
+        ULinkedList.stopTime();
+        ULinkedList.getTime();
+        System.out.println(joiner);
+        System.out.println(list.getInnerBlocks() + " " + list.getOuterBlocks());
 
-        UlinkedList.starttime();
+        ULinkedList.startTime();
         int ans = list.get(cal);
-        UlinkedList.stoptime();
-        UlinkedList.gettime();
+        ULinkedList.stopTime();
+        ULinkedList.getTime();
         System.out.println(ans);
     }
 }

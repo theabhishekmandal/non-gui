@@ -1,5 +1,7 @@
 package data_structures.linked_list.node;
 
+import java.util.StringJoiner;
+
 public class Sl {
     public Node head;
     public Node tail;
@@ -31,9 +33,9 @@ public class Sl {
     @Override
     public String toString() {
         Node temp = head;
-        StringBuilder br = new StringBuilder();
+        StringJoiner br = new StringJoiner(" ");
         while(temp != null) {
-            br.append(temp.data).append(" ");
+            br.add(String.valueOf(temp.data));
             temp = temp.next;
         }
         return br.toString();

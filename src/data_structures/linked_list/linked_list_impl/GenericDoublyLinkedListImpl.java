@@ -28,7 +28,7 @@ public class GenericDoublyLinkedListImpl {
             print(list3, list3.deleteFirst());
         }
 
-        System.out.println("list4 before deletion from end" +  list4);
+        System.out.println("list4 before deletion from middle" +  list4);
         // using this type of loop because the getsize() keeps on changing
         while (list4.getSize() > 0) {
             print(list4, list4.deleteInTheMiddle(list4.getSize() >> 1));

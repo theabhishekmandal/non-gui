@@ -3,6 +3,7 @@ package data_structures.linked_list.node;
 import java.util.NoSuchElementException;
 import java.util.Objects;
 import java.util.Random;
+import java.util.StringJoiner;
 
 public class RandomLinkedList<T>{
     private Node<T> head;
@@ -200,9 +201,10 @@ public class RandomLinkedList<T>{
 
     @Override
     public String toString(){
-        StringBuilder br = new StringBuilder();
-        for(Node<T> temp = head; temp != null; temp = temp.next)
-            br.append("[").append(temp).append(", ").append(temp.getRandom().getData()).append("]").append("-->");
-        return br.toString();
+        StringJoiner joiner = new StringJoiner(", ", "[", "]");
+        for(Node<T> temp = head; temp != null; temp = temp.next) {
+            joiner.add("[" + temp.getData() + ", random = " + temp.getRandom().getData() + "]");
+        }
+        return joiner.toString();
     }
 }
