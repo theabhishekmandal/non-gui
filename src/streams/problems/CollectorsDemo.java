@@ -1,7 +1,8 @@
 package streams.problems;
 
 import java.util.*;
-import java.util.stream.Collectors;
+import java.util.stream.*;
+import static java.util.stream.Collectors.*;
 
 class Person {
     private final String name;
@@ -52,68 +53,47 @@ public class CollectorsDemo {
         List<Person> list = people
                 .stream()
                 .filter(x -> x.getAge() > 30)
-                .collect(Collectors.toUnmodifiableList());
+                .collect(toUnmodifiableList());
         System.out.println(list);
-
-
-
-
 
 
         // collect to string
         System.out.println(
-                people
-                        .stream()
+                people.stream()
                         .map(Person::getName)
                         .map(String::toUpperCase)
-                        .collect(Collectors.joining(","))
+                        .collect(joining(","))
         );
 
 
-
-
-
-
         // Partitioning on the basis of boolean condition
-        Map<Boolean, Set<Person>> evenOddAgePerson = people
+        var evenOddAgePerson = people
                 .stream()
-                .collect(Collectors.partitioningBy(person -> (person.getAge() & 1) == 0, Collectors.toSet()));
+                .collect(partitioningBy(person -> (person.getAge() & 1) == 0, toSet()));
         System.out.println(evenOddAgePerson);
 
 
-
-
-
-
         //Grouping by example, meaning grouping on the basis of names
-        Map<String, List<Person>> groupByNames = people
+        var groupByNames = people
                 .stream()
-                .collect(Collectors.groupingBy(Person::getName));
+                .collect(groupingBy(Person::getName));
         System.out.println(groupByNames);
-
-
-
-
 
 
         //Grouping by example, collecting all the ages based on the name
         // here we use mapping to convert the type from Person to Integer
         Map<String, List<Integer>> ageByName = people
                 .stream()
-                .collect(Collectors.groupingBy(Person::getName, Collectors.mapping(Person::getAge, Collectors.toList())));
+                .collect(groupingBy(Person::getName, mapping(Person::getAge, toList())));
         // Collector(Function, Collector(Function, Collector)) above example showing recursive form.
         System.out.println(ageByName);
-
-
-
-
 
 
         // counting the number of person with a given name
         //Example 1
         Map<String, Integer> countByName = people
                 .stream()
-                .collect(Collectors.groupingBy(Person::getName, Collectors.summingInt(x -> 1)));
+                .collect(groupingBy(Person::getName, summingInt(x -> 1)));
         System.out.println(countByName);
 
 
@@ -125,20 +105,44 @@ public class CollectorsDemo {
          */
         countByName = people
                 .stream()
-                .collect(Collectors.groupingBy(Person::getName,
-                        Collectors.collectingAndThen(Collectors.counting(), Long::intValue)));
+                .collect(groupingBy(Person::getName,
+                        collectingAndThen(counting(), Long::intValue)));
         System.out.println(countByName);
 
 
-
-
-
-
         // use this to find maxValue on the basis of age, it returns optional as there can be no maxValue present
-        var optionalMaxAge = people.stream().collect(Collectors.maxBy(Comparator.comparing(Person::getAge)))
+        var optionalMaxAge = people.stream().collect(maxBy(Comparator.comparing(Person::getAge)))
                 .map(Person::getName).or(Optional::empty);
         System.out.println(optionalMaxAge);
 
 
+        // we can apply filtering after mapping as well
+        var groupByAgeAndLengthGreaterThan4 = people.stream()
+                .collect(groupingBy(Person::getAge,
+                        mapping(Person::getName, filtering(name -> name.length() > 4, toList()))));
+        System.out.println(groupByAgeAndLengthGreaterThan4);
+
+        // we can convert the above to unmodifiable List
+        var groupByAgeAndLengthGreaterThan4AndUnmodifiable = people.stream()
+                .collect(groupingBy(Person::getAge,
+                        mapping(Person::getName, filtering(name -> name.length() > 4,
+                                collectingAndThen(toList(), Collections::unmodifiableList)))));
+        System.out.println(groupByAgeAndLengthGreaterThan4AndUnmodifiable);
+
+
+        // grouping all the person on the basis of age, but get the list of chars of the Person Name
+        var groupByAgeAndGetListOfChars = people.stream()
+                .collect(groupingBy(Person::getAge,
+                        flatMapping(x -> Stream.of(x.getName().split("")), toSet())));
+        System.out.println(groupByAgeAndGetListOfChars);
+
+
+        // same as above but convert to UpperCase
+        var groupByAgeAndGetListOfCharsInUpperCase = people.stream()
+                .collect(groupingBy(Person::getAge,
+                        mapping(person -> person.getName().toUpperCase(),
+                                flatMapping(name -> Arrays.stream(name.split("")),
+                                        toSet()))));
+        System.out.println(groupByAgeAndGetListOfCharsInUpperCase);
     }
 }
