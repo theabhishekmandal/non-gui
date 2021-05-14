@@ -1,9 +1,11 @@
 package collection_implementation.comparator;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.TreeSet;
-import static java.lang.System.*;
+
+import static java.lang.System.out;
 
 /**
  * This is an implementation on how differently a comparator is defined
@@ -25,25 +27,26 @@ import static java.lang.System.*;
  */
 
 // A Student class implementing the Comparator interface to sort in descending order
-class Student{
+class Student {
     private final String name;
     private final int number;
 
-    Student(String name, int number){
+    Student(String name, int number) {
         this.name = name;
         this.number = number;
     }
 
-    public String getName(){
+    public String getName() {
         return this.name;
     }
 
-    public int getNumber(){
+    public int getNumber() {
         return this.number;
     }
+
     @Override
-    public String toString(){
-        return "[" + this.getNumber() + " " + this.getName()  + "]";
+    public String toString() {
+        return "[" + this.getNumber() + " " + this.getName() + "]";
     }
 }
 

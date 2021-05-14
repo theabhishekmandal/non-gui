@@ -1,7 +1,6 @@
 package collection_implementation.iterator;
 
 import java.util.ArrayList;
-import java.util.ListIterator;
 
 import static java.lang.System.out;
 
@@ -37,7 +36,7 @@ import static java.lang.System.out;
 
 public class ListIteratorDemo {
     public static void main(String[] args) {
-        ArrayList<Integer> arr = new ArrayList<>();
+        ArrayList<Object> arr = new ArrayList<>();
         arr.add(1);
         arr.add(2);
         arr.add(3);
@@ -49,16 +48,16 @@ public class ListIteratorDemo {
         arr.add(9);
         arr.add(10);
 
-        ListIterator it = arr.listIterator();
+        var it = arr.listIterator();
         out.println("traversing in forward direction");
-        while(it.hasNext()){
+        while (it.hasNext()) {
             out.println(it.nextIndex() + " " + it.next());
         }
         out.println();
 
         // now for traversing in reverse direction iterator must be it at last index
         out.println("traversing in reverse direction");
-        while(it.hasPrevious()){
+        while (it.hasPrevious()) {
             out.println(it.previousIndex() + " " + it.previous());
         }
         out.println();
@@ -70,7 +69,7 @@ public class ListIteratorDemo {
         out.println("adding, removing and setting the values using listIterator");
         it = arr.listIterator();
         out.println(arr);
-        while(it.hasNext()){
+        while (it.hasNext()) {
             it.next();
             it.remove();
             it.next();

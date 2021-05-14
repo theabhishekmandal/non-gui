@@ -14,7 +14,7 @@ public class ForEachAlternative {
         arr.add(2.3);
         arr.add(1e9);
 
-        for(Object x : arr){
+        for (var x : arr) {
             out.print(x + " ");
         }
     }

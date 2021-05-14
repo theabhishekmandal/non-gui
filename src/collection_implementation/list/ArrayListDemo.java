@@ -1,6 +1,7 @@
 package collection_implementation.list;
 
 import java.util.*;
+
 import static java.lang.System.out;
 
 /**
@@ -18,12 +19,10 @@ import static java.lang.System.out;
  *
  *  3 ArrayList(int capacity)           :   builds an array list that has the specified initial capacity.
  */
-public class ArrayListDemo
-{
-    public static void main(String[] args)
-    {
+public class ArrayListDemo {
+    public static void main(String[] args) {
         // creating an arrayList
-        ArrayList<Object> arr=new ArrayList<>();
+        ArrayList<Object> arr = new ArrayList<>();
 
         // adding values to arraylist
         arr.add(1);
@@ -53,8 +52,8 @@ public class ArrayListDemo
 
         // using iterator to print the values
         out.println("printing the values using iterator");
-        Iterator it = arr.iterator();
-        while(it.hasNext()) out.print(it.next() + " ");
+        Iterator<Object> it = arr.iterator();
+        while (it.hasNext()) out.print(it.next() + " ");
         out.println();
 
         // removing an object from the arrayslist

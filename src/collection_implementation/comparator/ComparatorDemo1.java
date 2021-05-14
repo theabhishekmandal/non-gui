@@ -40,18 +40,18 @@ import static java.lang.System.*;
  *                                              the comparator that creates custom ordering for the sort key
  */
 public class ComparatorDemo1 {
-    public static void main(String[] args){
+    public static void main(String[] args) {
         // Creating a TreeSet in which elements will be inserted in descending order
         // passing a comparator object and thereby implementing the compare method
         // for customized sorting order.
         out.println("TreeSet with Descending comparator");
-        TreeSet<Integer> arr = new TreeSet<>(new Comparator<Integer>(){
+        TreeSet<Integer> arr = new TreeSet<>(new Comparator<Integer>() {
             @Override
-            public int compare(Integer one, Integer two){
+            public int compare(Integer one, Integer two) {
                 return -one.compareTo(two);
             }
         });
-        for(int i = 1; i < 11; i++) arr.add(i);
+        for (int i = 1; i < 11; i++) arr.add(i);
         out.println(arr);
         out.println();
 
@@ -65,7 +65,7 @@ public class ComparatorDemo1 {
             }
         };
         ArrayList<String> hel = new ArrayList<>();
-        for(char ch = 'a'; ch <= 'z'; ch++) hel.add(ch + "");
+        for (char ch = 'a'; ch <= 'z'; ch++) hel.add(ch + "");
         hel.sort(comparator.reversed());
         out.println(hel);
         out.println();
@@ -100,16 +100,19 @@ public class ComparatorDemo1 {
     }
 }
 
-class City{
+class City {
     private final String name;
-    City(String name){
+
+    City(String name) {
         this.name = name;
     }
-    public String getName(){
+
+    public String getName() {
         return this.name;
     }
+
     @Override
-    public String toString(){
+    public String toString() {
         return "[" + this.name + "]";
     }
 }

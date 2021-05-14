@@ -55,32 +55,29 @@ class Student{
     }
 }
 
-class StudentComparator implements Comparator<Student> {
-    public int compare(Student s1, Student s2){
-        if(s1.getCgpa() < s2.getCgpa()) {
-            return 1;
-        }
-        else if(s1.getCgpa() > s2.getCgpa()) {
-            return -1;
-        }
-        return 0;
-    }
-}
-
 public class PriorityQueueDemo {
     public static void main(String[] args){
+
         // Creating Priority queue constructor having
         // initial capacity = 3 and a StudentComparator instance
         // as its parameters
-        PriorityQueue<Student> pq = new PriorityQueue<>(5, new StudentComparator());
+        var pq = new PriorityQueue<Student>(5, (s1, s2) -> {
+            if(s1.getCgpa() < s2.getCgpa()) {
+                return 1;
+            }
+            else if(s1.getCgpa() > s2.getCgpa()) {
+                return -1;
+            }
+            return 0;
+        });
 
-        Student student1 = new Student("Nandini", 3.2);
+        var student1 = new Student("Nandini", 3.2);
         pq.add(student1);
 
-        Student student2 = new Student("Anmol", 3.6);
+        var student2 = new Student("Anmol", 3.6);
         pq.add(student2);
 
-        Student student3 = new Student("Palak", 4.0);
+        var student3 = new Student("Palak", 4.0);
         pq.add(student3);
 
         // Printing names of student in priority order, poll()
