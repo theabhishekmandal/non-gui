@@ -1,32 +1,56 @@
 package inner_class;
 
 class StaticInnerClassDemo {
-    int a;
     static int c;
+    int a;
+
+    public static void main(String[] args) {
+
+        //one way to create static inner class object
+        Inner1 obj1 = new Inner1();
+
+        //another way to create static inner class object
+        Inner1 obj2 = new Inner1();
+
+        obj1.b++;                               //accessing inner class member directly
+        obj1.show();
+
+        System.out.println("this is outer class static variable c " + (++c));
+        System.out.println("this is outer class static variable c " + (++StaticInnerClassDemo.c));
+        System.out.println("this is outer class static  variable c " + (++new StaticInnerClassDemo().c));
+
+        //how you call a instances variables of a class :by creating a object
+        //similarly to create object of inner class you create object of outer class first and then
+        //object of inner class
+
+        var obj4 = new StaticInnerClassDemo().new Inner2();
+        obj4.innerShow();
+        //calling outer class's static inner class's static method
+        Inner1.hello();
+    }
 
     static class Inner1 {
-        int b;
-
         //we can make a static variable inside a static class
         static int d;
+        int b;
 
-        void show(){
+        static void hello() {
+            System.out.println("hello abhishek");
+        }
+
+        void show() {
 
             //to access outer class members from static class we create objects of outer class and then access it
-            StaticInnerClassDemo obj3 = new StaticInnerClassDemo();
+            var obj3 = new StaticInnerClassDemo();
 
             System.out.println("this is outer class instance variable a " + (++obj3.a));
-            System.out.println("this is outer class static variable c " + (++obj3.c));
+            System.out.println("this is outer class static variable c " + (++c));
             //here we call the static member of outer class directly
             System.out.println("this is outer class static variable c " + (++c));
             System.out.println("this is outer class static variable c " + (++StaticInnerClassDemo.c));
             System.out.println("this is inner class instance variable b " + (++b));
             System.out.println("this is inner class static variable d " + (++d));
 
-        }
-
-        static void hello() {
-            System.out.println("hello abhishek");
         }
     }
 
@@ -43,30 +67,5 @@ class StaticInnerClassDemo {
             //accessing another class
             System.out.println("this is outer  class static variable b " + (++new Inner1().b));
         }
-    }
-
-    public static void main(String[] args) {
-
-        //one way to create static inner class object
-        Inner1 obj1=new Inner1();
-
-        //another way to create static inner class object
-        Inner1 obj2 = new Inner1();
-
-        obj1.b++;                               //accessing inner class member directly
-        obj1.show();
-
-        System.out.println("this is outer class static variable c " + (++c));
-        System.out.println("this is outer class static variable c " + (++StaticInnerClassDemo.c));
-        System.out.println("this is outer class static  variable c " + (++new StaticInnerClassDemo().c));
-
-        //how you call a instances variables of a class :by creating a object
-        //similarly to create object of inner class you create object of outer class first and then
-        //object of inner class
-
-        Inner2 obj4 = new StaticInnerClassDemo().new Inner2();
-        obj4.innerShow();
-        //calling outer class's static inner class's static method
-        Inner1.hello();
     }
 }
