@@ -1,5 +1,6 @@
 package multi_threading;
-import java.util.*;
+
+import java.util.Scanner;
 /**
  This is an example on how to set and get name of your main thread
  */
