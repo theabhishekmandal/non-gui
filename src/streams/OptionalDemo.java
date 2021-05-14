@@ -33,6 +33,14 @@ public class OptionalDemo {
         System.out.println("passing nonEmpty list using optional");
         System.out.println(intlist);
 
+        // Use this method
+        var list = Optional.ofNullable(getNullList());
+        list.ifPresentOrElse(value -> System.out.println("the value is " + value),
+                () -> System.out.println("Value is not present"));
+
+        // Use this method to get Optional as result
+        var list2 = Optional.ofNullable(getNullList()).or(Optional::empty);
+        System.out.println(list2);
     }
     private static List<Integer> getNullList(){
         return null;

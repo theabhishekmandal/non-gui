@@ -1,8 +1,6 @@
 package miscellaneous.leetcode.challenge30_days_april.week2;
 
 
-import java.util.Scanner;
-
 /**
  * Week2 day 2
  * ab#####cd#ba#

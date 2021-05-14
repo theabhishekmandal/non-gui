@@ -30,18 +30,18 @@ public class SumOfOddLengthSubArrays {
      */
     public static int sumOddLengthSubArrays(int[] arr) {
         int sum = 0;
-        int[] temp = new int[arr.length];
+        var temp = new int[arr.length];
 
         // calculate suffix sum array
         temp[0] = arr[0];
-        for(int i = 1; i < arr.length; i++) {
+        for (int i = 1; i < arr.length; i++) {
             temp[i] = arr[i] + temp[i - 1];
         }
 
         // now for odd length
-        for(int i = 1; i <= arr.length; i += 2) {
-            for(int j = 0; j + i - 1 < arr.length; j++) {
-               sum += (j == 0)? temp[j + i - 1] : temp[j + i - 1] - temp[j - 1];
+        for (int i = 1; i <= arr.length; i += 2) {
+            for (int j = 0; j + i - 1 < arr.length; j++) {
+                sum += (j == 0) ? temp[j + i - 1] : temp[j + i - 1] - temp[j - 1];
             }
         }
         return sum;

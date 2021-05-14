@@ -35,7 +35,7 @@ public class ArrayDequeueDemo {
         // methods in arrayDequeue
 
         // adding a group of collections
-        String[] arg = {"ball", "cat", "dog", "pen"};
+        var arg = new String[]{"ball", "cat", "dog", "pen"};
         arr.addAll(Arrays.asList(arg));
 
         // methods is similar to presented in the LinkedList class

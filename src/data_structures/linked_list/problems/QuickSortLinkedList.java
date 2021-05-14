@@ -1,11 +1,10 @@
 package data_structures.linked_list.problems;
 
 import data_structures.linked_list.node.Sl;
-import static data_structures.linked_list.node.Sl.Node;
 
-import java.util.Arrays;
-import java.util.List;
 import java.util.Random;
+
+import static data_structures.linked_list.node.Sl.Node;
 
 /**
  * Given a linked list, apply quicksort to sort them

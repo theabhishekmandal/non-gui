@@ -1,13 +1,14 @@
 package data_structures.linked_list.problems;
 
 import data_structures.linked_list.node.DoublyLinkedList;
-import static data_structures.linked_list.node.DoublyLinkedList.Node;
 
-import java.util.ArrayList;
 import java.util.AbstractMap.SimpleEntry;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
+
+import static data_structures.linked_list.node.DoublyLinkedList.Node;
 
 /**
  * Given a sorted Dll and a value k find pairs such that their sum is equal to k

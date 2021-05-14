@@ -1,28 +1,29 @@
 package data_structures.linked_list.problems;
 
 import data_structures.linked_list.node.SinglyLinkedList;
-import static data_structures.linked_list.node.SinglyLinkedList.Node;
 
 import java.util.HashSet;
 import java.util.Random;
 import java.util.Set;
 
+import static data_structures.linked_list.node.SinglyLinkedList.Node;
+
 /**
- *  Given two linked list combined with each other, find the intersection point of the two lists.
+ * Given two linked list combined with each other, find the intersection point of the two lists.
  */
 
 public class FindingInterSectionPoint {
     public static void main(String[] args) {
-        Random random = new Random();
+        var random = new Random();
 
         SinglyLinkedList<Integer> first = new SinglyLinkedList<>();
-        for(int i = 0; i < 5; i++) first.addLast(random.nextInt(100));
+        for (var i = 0; i < 5; i++) first.addLast(random.nextInt(100));
 
         SinglyLinkedList<Integer> second = new SinglyLinkedList<>();
-        for(int i = 0; i < 5; i++) second.addLast(random.nextInt(100));
+        for (var i = 0; i < 5; i++) second.addLast(random.nextInt(100));
 
         SinglyLinkedList<Integer> merged = new SinglyLinkedList<>();
-        for(int i = 0; i < 5; i++) merged.addLast(random.nextInt(100));
+        for (var i = 0; i < 5; i++) merged.addLast(random.nextInt(100));
 
         System.out.println("first list without merging " + first);
         System.out.println("second list without merging " + second);
@@ -48,14 +49,14 @@ public class FindingInterSectionPoint {
             -   traverse the second list and check if the node is in the set, if it is found then return
      */
     private static <T> Node<T> getIntersectionNodeUsingSet(SinglyLinkedList<T> first,
-                                                           SinglyLinkedList<T> second){
+                                                           SinglyLinkedList<T> second) {
         Set<Node<T>> firstSet = new HashSet<>();
-        for(Node<T> temp = first.getHead(); temp != null; temp = temp.getNext()){
+        for (Node<T> temp = first.getHead(); temp != null; temp = temp.getNext()) {
             firstSet.add(temp);
         }
         Node<T> ans = null;
-        for(Node<T> temp = second.getHead(); temp != null; temp = temp.getNext()){
-            if(firstSet.contains(temp)){
+        for (Node<T> temp = second.getHead(); temp != null; temp = temp.getNext()) {
+            if (firstSet.contains(temp)) {
                 ans = temp;
                 break;
             }
@@ -71,27 +72,27 @@ public class FindingInterSectionPoint {
             -   return if the common node is found
      */
     private static <T> Node<T> getIntersectionNodeUsingArray(SinglyLinkedList<T> first,
-                                                             SinglyLinkedList<T> second){
-        Object[] firstArray = new Object[first.getSize()];
+                                                             SinglyLinkedList<T> second) {
+        var firstArray = new Object[first.getSize()];
         Node<T> temp;
         Node<T> ans = null;
         int i;
-        for(i = 0, temp = first.getHead(); i < firstArray.length; temp = temp.getNext(), i++){
+        for (i = 0, temp = first.getHead(); i < firstArray.length; temp = temp.getNext(), i++) {
             firstArray[i] = temp;
         }
 
-        Object[] secondArray = new Object[second.getSize()];
-        for(i = 0, temp = second.getHead(); i < secondArray.length; temp = temp.getNext(), i++){
+        var secondArray = new Object[second.getSize()];
+        for (i = 0, temp = second.getHead(); i < secondArray.length; temp = temp.getNext(), i++) {
             secondArray[i] = temp;
         }
 
         int minimum = Math.min(firstArray.length, secondArray.length);
-        for(i = 0; i < minimum; i++){
-            Object firstNode = firstArray[firstArray.length - i - 1];
-            Object secondNode = secondArray[secondArray.length - i - 1];
-            if(firstNode != secondNode){
+        for (i = 0; i < minimum; i++) {
+            var firstNode = firstArray[firstArray.length - i - 1];
+            var secondNode = secondArray[secondArray.length - i - 1];
+            if (firstNode != secondNode) {
                 //noinspection unchecked
-                ans = (Node<T>)firstArray[firstArray.length - i];
+                ans = (Node<T>) firstArray[firstArray.length - i];
                 break;
             }
         }
@@ -107,26 +108,25 @@ public class FindingInterSectionPoint {
         -   now traverse in both list one by one and return the common node when found
      */
     private static <T> Node<T> getIntersectionNodeUsingSingleScan(SinglyLinkedList<T> first,
-                                                                  SinglyLinkedList<T> second){
-        SinglyLinkedList<T> tempfirst = first;
-        SinglyLinkedList<T> tempSecond = second;
+                                                                  SinglyLinkedList<T> second) {
+        var tempfirst = first;
+        var tempSecond = second;
         int d;
-        if(first.getSize() > second.getSize()){
+        if (first.getSize() > second.getSize()) {
             d = first.getSize() - second.getSize();
-        }
-        else{
+        } else {
             d = second.getSize() - first.getSize();
             first = tempSecond;
             second = tempfirst;
         }
         Node<T> temp = first.getHead();
-        for(int i = 0; i < d; i++){
+        for (var i = 0; i < d; i++) {
             temp = temp.getNext();
         }
         Node<T> tempanother = second.getHead();
         Node<T> ans = null;
-        while(temp != null){
-            if(temp == tempanother){
+        while (temp != null) {
+            if (temp == tempanother) {
                 ans = temp;
                 break;
             }

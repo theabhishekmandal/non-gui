@@ -1,11 +1,12 @@
 package data_structures.linked_list.problems;
 
 import data_structures.linked_list.node.CircularLinkedList;
-import static data_structures.linked_list.node.CircularLinkedList.Node;
 
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
+
+import static data_structures.linked_list.node.CircularLinkedList.Node;
 
 /**
  * Given a circular linked list and a value k, delete a node of value k from the linked list

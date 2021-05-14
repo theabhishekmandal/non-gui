@@ -1,6 +1,6 @@
 package data_structures.strings;
 
-import java.util.*;
+import java.util.Scanner;
 /**
  This program shows how to reverse the contents of the string such as
  i am happy

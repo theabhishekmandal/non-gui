@@ -36,7 +36,7 @@ class CheckTwo extends CheckOne {
 
 public class AbstractClassDemo {
     public static void main(String[] args) {
-        CheckTwo ob1=new CheckTwo();
+        var ob1 = new CheckTwo();
         ob1.display();
         ob1.show();
     }

@@ -1,6 +1,9 @@
 package miscellaneous.leetcode.challenge30_days_april.week1;
 
-import java.util.*;
+import java.util.HashSet;
+import java.util.Random;
+import java.util.Scanner;
+import java.util.Set;
 
 import static java.lang.System.out;
 

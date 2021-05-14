@@ -1,12 +1,12 @@
 package inheritance;
 
 /**
- *this code is example of :
- *                  when a class with private data members is inherited then how would you access these superclass
- *                  data members which are private
+ * this code is example of :
+ * when a class with private data members is inherited then how would you access these superclass
+ * data members which are private
  *
- *                  you can use super constructor to initialise the superclass members
- *                  but to use the private data member values you must use getter methods
+ * you can use super constructor to initialise the superclass members
+ * but to use the private data member values you must use getter methods
  */
 class Square {
     private final int a;
@@ -15,7 +15,7 @@ class Square {
         this.a = a;
     }
 
-     long squareArea() {
+    long squareArea() {
         System.out.println("i am in base class");
         return (long) a * a;
     }
@@ -42,8 +42,8 @@ class Rectangle extends Square {
 
 public class Inheritance4 {
     public static void main(String[] args) {
-        Square sq = new Rectangle(10,20);
-        Rectangle rec = new Rectangle(10,20);
+        Square sq = new Rectangle(10, 20);
+        Rectangle rec = new Rectangle(10, 20);
         System.out.println("Area of square is " + sq.squareArea());
         System.out.println("Area of rectangle is " + rec.squareArea());
     }

@@ -8,10 +8,10 @@ package abstract_class;
 
 abstract class Hello {
     private int a = 0;
+
     Hello() {
         System.out.println("I am in abstract class constructor");
     }
-
 
     void instance() {
         System.out.println("I am inside the instance method of the abstract class with an instance variable a " + a);
@@ -46,7 +46,7 @@ public class AbstractInnerAnonymousDemo extends Hello {
 
     public static void main(String[] args) {
         //this calls the hello() constructor of the abstract class hello
-        AbstractInnerAnonymousDemo d = new AbstractInnerAnonymousDemo();
+        var d = new AbstractInnerAnonymousDemo();
 
         //this calls the implemented method of the abstract method of the abstract class hello
         d.abstractDemo();
@@ -78,7 +78,7 @@ public class AbstractInnerAnonymousDemo extends Hello {
             You can call the abstract inner class AnotherOne's instance method by using the object of demo1
             and then making the object of AnotherOne using anonymous class
          */
-        d.new AnotherOne() {}.whatTheHell();
+        d.new AnotherOne(){}.whatTheHell();
 
         System.out.println();
     }

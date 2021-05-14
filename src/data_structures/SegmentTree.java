@@ -2,13 +2,14 @@ package data_structures;
 
 import java.util.Arrays;
 
-import static java.lang.System.*;
+import static java.lang.System.err;
+import static java.lang.System.out;
 public class SegmentTree{
-    static int[] SegmentTree;
+    static int[] segmentTree;
     SegmentTree(int[] arr){
         int x = (int)Math.ceil(Math.log(arr.length - 1) / Math.log(2));
         int maxsize = 2 * (int)Math.pow(2, x) - 1;
-        SegmentTree = new int[maxsize];
+        segmentTree = new int[maxsize];
         createtree(arr, 0, arr.length - 1, 0);
     }
     private  int getmid(int one, int two){
@@ -16,17 +17,17 @@ public class SegmentTree{
     }
     private int createtree(int[] arr, int start, int end, int index) {
         if(start == end){
-            SegmentTree[index] = arr[start];
-            return SegmentTree[index];
+            segmentTree[index] = arr[start];
+            return segmentTree[index];
         }
         int mid = getmid(start, end);
-        SegmentTree[index] = createtree(arr, start, mid, 2 * index + 1) +
+        segmentTree[index] = createtree(arr, start, mid, 2 * index + 1) +
                     createtree(arr, mid + 1, end, 2 * index + 2);
-        return SegmentTree[index];
+        return segmentTree[index];
     }
     private int getsumcheck(int segmentstart, int segmentend, int arraystart, int arrayend, int index){
         if(arraystart <= segmentstart && arrayend >= segmentend){
-            return SegmentTree[index];
+            return segmentTree[index];
         }
         if(arraystart > segmentend || segmentstart > arrayend)
             return 0;
@@ -41,12 +42,12 @@ public class SegmentTree{
         return getsumcheck( 0, arr.length - 1, arraystart, arrayend, 0);
     }
     private void printArray(){
-        out.println(Arrays.toString(SegmentTree));
+        out.println(Arrays.toString(segmentTree));
     }
     private void updateutil(int segementstart, int segementend, int arrayindex, int diff, int segindex){
         if(segementend < arrayindex || segementstart > arrayindex)
             return ;
-        SegmentTree[segindex] += diff;
+        segmentTree[segindex] += diff;
         if(segementstart != segementend){
             int mid = getmid(segementstart, segementend);
             updateutil(segementstart, mid, arrayindex, diff, 2 * segindex + 1);

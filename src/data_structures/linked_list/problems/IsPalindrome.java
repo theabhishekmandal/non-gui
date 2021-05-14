@@ -1,9 +1,10 @@
 package data_structures.linked_list.problems;
 
 import data_structures.linked_list.node.SinglyLinkedList;
-import  static data_structures.linked_list.node.SinglyLinkedList.Node;
 
 import java.util.Arrays;
+
+import static data_structures.linked_list.node.SinglyLinkedList.Node;
 
 /**
  * Check whether a given list is palindromic or not

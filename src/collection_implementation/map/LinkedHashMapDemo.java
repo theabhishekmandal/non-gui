@@ -36,7 +36,7 @@ import java.util.*;
  * 
  */
 public class LinkedHashMapDemo {
-	private static final int max = 6;
+	private static final int MAX = 6;
 	public static void main(String[] args) {
 		
 		// creating a LinkedHashMap in which access order is preserved
@@ -45,8 +45,9 @@ public class LinkedHashMapDemo {
 		// in this method if number of elements inserted is greater than 6 
 		// then the last accessed element is removed from the LinkedHashMap
     	LinkedHashMap<Integer, String> arr = new LinkedHashMap<Integer, String>(16, 0.75f, true){
-    		protected boolean removeEldestEntry(Map.Entry<Integer, String> e){
-    			return size() > max;
+    		@Override
+    		public boolean removeEldestEntry(Map.Entry<Integer, String> e){
+    			return size() > MAX;
     		}
     	};	
     	arr.put(1, "one");

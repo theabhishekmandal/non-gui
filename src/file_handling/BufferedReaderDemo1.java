@@ -18,8 +18,11 @@ package file_handling;
  * for the next variable .So to avoid this we escape it using the  readLine() method. See line number 39
  *
  */
+
+import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.*;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
 public class BufferedReaderDemo1 {
     public static void main(String[] args)throws IOException {
        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));

@@ -1,11 +1,12 @@
 package data_structures.tree.binary_tree.problems;
 
 import data_structures.tree.binary_tree.binary_tree_impl.BinaryTree;
-import static data_structures.tree.binary_tree.binary_tree_impl.BinaryTree.Node;
 
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
+
+import static data_structures.tree.binary_tree.binary_tree_impl.BinaryTree.Node;
 
 /**
  * Given a binary Tree remove all the leaf nodes from the tree

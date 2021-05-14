@@ -6,7 +6,9 @@ package file_handling;
  * in this the read method read upto numbytes bytes and put it to the byte array starting from the offset index
  */
 
-import java.io.*;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 public class ReadingFileAsBytesDemo1 {
     public static void main(String[] args) throws IOException {
 

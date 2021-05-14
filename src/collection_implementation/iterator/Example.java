@@ -1,8 +1,11 @@
 package collection_implementation.iterator;
-import java.util.*;
-import static java.lang.System.*;
+
+import java.util.ArrayList;
+
+import static java.lang.System.out;
+
 /**
- *  Demonstrate iterators
+ * Demonstrate iterators
  */
 public class Example {
     public static void main(String[] args) {
@@ -20,22 +23,22 @@ public class Example {
 
         // use iterator to display contents of al.
         out.print("Original contents of al: ");
-        Iterator<String> itr = al.iterator();
-        while(itr.hasNext()){
+        var itr = al.iterator();
+        while (itr.hasNext()) {
             String element = itr.next();
             out.print(element + " ");
         }
         out.println();
 
         // Modify objects being iterated.
-        ListIterator<String> litr = al.listIterator();
-        while(litr.hasNext()){
+        var litr = al.listIterator();
+        while (litr.hasNext()) {
             String element = litr.next();
             litr.set(element + "+");
         }
         out.print("Modified contents of al: ");
         itr = al.iterator();
-        while(itr.hasNext()){
+        while (itr.hasNext()) {
             String element = itr.next();
             out.print(element + " ");
         }
@@ -43,7 +46,7 @@ public class Example {
 
         // Now display the list backwards
         out.print("Modified list backwards: ");
-        while(litr.hasPrevious()){
+        while (litr.hasPrevious()) {
             String element = litr.previous();
             out.print(element + " ");
         }

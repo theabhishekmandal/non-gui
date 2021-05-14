@@ -1,11 +1,12 @@
 package data_structures.linked_list.problems;
 
 import data_structures.linked_list.node.RandomLinkedList;
-import static data_structures.linked_list.node.RandomLinkedList.Node;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.IntStream;
+
+import static data_structures.linked_list.node.RandomLinkedList.Node;
 
 /**
  * clone a singly linked list in which there are random pointers that point to random nodes in the linked list

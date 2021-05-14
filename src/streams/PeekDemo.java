@@ -9,8 +9,8 @@ package streams;
  */
 
 import java.util.Arrays;
-import java.util.stream.Collectors;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class PeekDemo {
     public static void main(String[] args) {

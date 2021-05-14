@@ -1,7 +1,6 @@
 package abstract_interfaces;
 
 /**
- *
  * When extending a class which implements a interface, if the same interface is implemented on the sub class
  * then there is no need to define the implementation of the interface, because it is already defined in
  * the base class
@@ -11,7 +10,7 @@ interface Example {
 }
 
 class ExampleClass implements Example {
-    public void method(){
+    public void method() {
         System.out.println("hello from super class");
     }
 }

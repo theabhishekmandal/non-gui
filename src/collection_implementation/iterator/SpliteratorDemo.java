@@ -1,6 +1,7 @@
 package collection_implementation.iterator;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Spliterator;
 
 import static java.lang.System.out;
 
@@ -41,6 +42,7 @@ import static java.lang.System.out;
  *                                              iterates over one portion of the sequence and the returned
  *                                              spliterator iterates over the ther portion.
  */
+
 public class SpliteratorDemo {
     public static void main(String[] args) {
         ArrayList<String> arr = new ArrayList<>();
@@ -72,12 +74,12 @@ public class SpliteratorDemo {
         //out.println();
 
         out.println("implementing tryAdvance to print values");
-        while(split.tryAdvance(out::println));
+        while (split.tryAdvance(out::println)) ;
         out.println();
 
         split = arr.spliterator();
         out.println("implementing tryAdvance to reversing");
-        while(split.tryAdvance((n) -> out.println(new StringBuilder(n).reverse().toString())));
+        while (split.tryAdvance((n) -> out.println(new StringBuilder(n).reverse().toString()))) ;
         out.println();
 
         out.println("using forEach to print the values");

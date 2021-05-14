@@ -1,7 +1,8 @@
 package data_structures.stack;
 
 import java.io.PrintWriter;
-import java.util.*;
+import java.util.Arrays;
+import java.util.Scanner;
 class StackIt {
     PrintWriter out = new PrintWriter(System.out);
     PrintWriter err = new PrintWriter(System.err);

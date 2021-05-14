@@ -1,7 +1,5 @@
 package streams;
 
-import java.util.List;
-
 import java.util.Arrays;
 import java.util.stream.Collectors;
 /**
@@ -10,8 +8,8 @@ import java.util.stream.Collectors;
 
 public class DistinctDemo {
     public static void main(String[] args) {
-        List<Integer> intList = Arrays.asList(2, 5, 3, 2, 4, 3);
-        List<Integer> distinctIntList = intList.stream()
+        var intList = Arrays.asList(2, 5, 3, 2, 4, 3);
+        var distinctIntList = intList.stream()
                                         .distinct()
                                         .collect(Collectors.toList());
 

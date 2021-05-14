@@ -1,9 +1,10 @@
 package data_structures.linked_list.problems;
 
 import data_structures.linked_list.node.SinglyLinkedList;
-import static data_structures.linked_list.node.SinglyLinkedList.Node;
 
 import java.util.stream.IntStream;
+
+import static data_structures.linked_list.node.SinglyLinkedList.Node;
 
 /**
  * Given a singly Linked List L: L1->L2->L3->...->Ln-1->Ln reorder it to:L1->Ln->L2->Ln-1->.....

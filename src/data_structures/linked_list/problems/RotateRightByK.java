@@ -1,10 +1,11 @@
 package data_structures.linked_list.problems;
 
 import data_structures.linked_list.node.SinglyLinkedList;
-import static data_structures.linked_list.node.SinglyLinkedList.Node;
 
 import java.util.Random;
 import java.util.stream.IntStream;
+
+import static data_structures.linked_list.node.SinglyLinkedList.Node;
 
 /**
  * Given a linked list 1, 2, 3, 4, 5 and a value k is non-negative, rotate the list to the right by k places.

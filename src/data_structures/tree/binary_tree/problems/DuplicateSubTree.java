@@ -1,9 +1,12 @@
 package data_structures.tree.binary_tree.problems;
 
 import data_structures.tree.binary_tree.binary_tree_impl.BinaryTree;
-import static data_structures.tree.binary_tree.binary_tree_impl.BinaryTree.Node;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Optional;
+
+import static data_structures.tree.binary_tree.binary_tree_impl.BinaryTree.Node;
 
 /**
  * Given a binary tree find out if it contains a duplicate subtree of size two or more.

@@ -1,10 +1,11 @@
 package data_structures.linked_list.problems;
 
 import data_structures.linked_list.node.SinglyLinkedList;
-import static data_structures.linked_list.node.SinglyLinkedList.Node;
 
 import java.util.Random;
 import java.util.stream.IntStream;
+
+import static data_structures.linked_list.node.SinglyLinkedList.Node;
 
 /**
  *  Given a singly linked list, find the last element from the beginning whose n % k == 0

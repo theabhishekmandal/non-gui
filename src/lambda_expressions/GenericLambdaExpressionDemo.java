@@ -1,5 +1,6 @@
 package lambda_expressions;
-import static java.lang.System.*;
+
+import static java.lang.System.out;
 
 /**
  * Although the lambda expressions cannot be generic but the interfaces which use them can

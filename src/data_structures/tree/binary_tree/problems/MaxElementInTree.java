@@ -1,11 +1,12 @@
 package data_structures.tree.binary_tree.problems;
 
 import data_structures.tree.binary_tree.binary_tree_impl.BinaryTree;
-import static data_structures.tree.binary_tree.binary_tree_impl.BinaryTree.Node;
 
 import java.util.Deque;
 import java.util.LinkedList;
 import java.util.Random;
+
+import static data_structures.tree.binary_tree.binary_tree_impl.BinaryTree.Node;
 
 /**
  * Find the maximum value node in the tree.

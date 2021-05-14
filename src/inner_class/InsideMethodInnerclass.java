@@ -1,18 +1,22 @@
 package inner_class;
+
 /**
  * this program shows a inner class inside a method
  * generally we don't use it because we cannot create object of this type of inner
  * class from other place because this class is local to that method
  */
 class A {
-    private int x;
+    private final int x;
+
     A() {
         x = 10;
     }
+
     void hell() {
-        int hello = 300;
+        var hello = 300;
         class B {
             private int y;
+
             void display() {
                 System.out.println("this is outer class object" + x);
                 System.out.println("this is inner class object" + y);
@@ -23,6 +27,7 @@ class A {
         new B().display();
     }
 }
+
 public class InsideMethodInnerclass {
     public static void main(String[] args) {
         new A().hell();

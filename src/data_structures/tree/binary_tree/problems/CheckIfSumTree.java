@@ -1,12 +1,13 @@
 package data_structures.tree.binary_tree.problems;
 
-import data_structures.tree.binary_tree.binary_tree_impl.BinaryTree;
-import static data_structures.tree.binary_tree.binary_tree_impl.BinaryTree.Node;
 import data_structures.Pair;
+import data_structures.tree.binary_tree.binary_tree_impl.BinaryTree;
 
 import java.util.Arrays;
-import java.util.Optional;
 import java.util.List;
+import java.util.Optional;
+
+import static data_structures.tree.binary_tree.binary_tree_impl.BinaryTree.Node;
 
 /**
  * Given a binary tree check if it is sum tree or not.

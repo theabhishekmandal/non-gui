@@ -1,11 +1,12 @@
 package data_structures.linked_list.problems;
 
 import data_structures.linked_list.node.SinglyLinkedList;
-import static data_structures.linked_list.node.SinglyLinkedList.Node;
 
 import java.util.ArrayDeque;
 import java.util.Random;
 import java.util.stream.IntStream;
+
+import static data_structures.linked_list.node.SinglyLinkedList.Node;
 
 public class ReversingLinkedListUsingRecursion {
     public static void main(String[] args) {

@@ -1,9 +1,10 @@
 package data_structures.tree.binary_tree.problems;
 
 import data_structures.tree.binary_tree.binary_tree_impl.BinaryTree;
-import static data_structures.tree.binary_tree.binary_tree_impl.BinaryTree.Node;
 
 import java.util.*;
+
+import static data_structures.tree.binary_tree.binary_tree_impl.BinaryTree.Node;
 
 /**
  * Given a binary tree check if all the leaves are at same level or not

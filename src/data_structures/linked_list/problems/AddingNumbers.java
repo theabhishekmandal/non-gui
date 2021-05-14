@@ -1,10 +1,13 @@
 package data_structures.linked_list.problems;
 
 import data_structures.linked_list.node.SinglyLinkedList;
-import static data_structures.linked_list.node.SinglyLinkedList.Node;
 
-import java.util.*;
-import static java.lang.System.*;
+import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.Random;
+
+import static data_structures.linked_list.node.SinglyLinkedList.Node;
+import static java.lang.System.out;
 
 /**
  * Given two number a and b, add them using linked list.

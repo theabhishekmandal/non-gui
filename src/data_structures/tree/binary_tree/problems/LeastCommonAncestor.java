@@ -41,7 +41,7 @@ public class LeastCommonAncestor {
         IntStream.range(0, 10000).forEach(binaryTree::insertInBinaryTreeLevelOrder);
         int first = random.nextInt(binaryTree.getSize());
         int second = random.nextInt(binaryTree.getSize());
-        System.out.println(binaryTree.levelOrder() + "\nfirst value = " + first  + "\nsecond value = " + second);
+        System.out.println(binaryTree.levelOrder() + "\nfirst value = " + first + "\nsecond value = " + second);
 
         getOutputWithTimeDifference(x -> getLeastCommonAncestor(x.fst, x.snd.fst, x.snd.snd), binaryTree.getRoot(), first, second);
         getOutputWithTimeDifference(x -> getLeastCommonAncestor3(x.fst, x.snd.fst, x.snd.snd), binaryTree.getRoot(), first, second);
@@ -50,18 +50,20 @@ public class LeastCommonAncestor {
 
     private static boolean v1;
     private static boolean v2;
+
     private static Integer getLeastCommonAncestor(Node<Integer> root, int first, int second) {
-        if(root == null) return null;
-        v1 = false; v2 = false;
+        if (root == null) return null;
+        v1 = false;
+        v2 = false;
         Node<Integer> node = getAncestor(root, first, second);
-        if(v1 && v2)
+        if (v1 && v2)
             return node.getData();
         return null;
     }
 
     // use this to find the least common ancestor
-    private static Node<Integer> getAncestor(Node<Integer> root, int first, int second){
-        if(root == null)
+    private static Node<Integer> getAncestor(Node<Integer> root, int first, int second) {
+        if (root == null)
             return null;
 
         Node<Integer> temp = null;
@@ -72,33 +74,34 @@ public class LeastCommonAncestor {
 
         // Also, value of temp will change according to first and second.
         // we don't return after assigning temp = root because, suppose if first=5 and second=6
-        // and 5 is parent of 6, then we have to traverse 6 also, we can't return if we found first
+        // and 5 is parent of 6, then we have to traverse 6 also, we can't return if we found first as we have
+        // to set the flag for 5 also.
 
-        // Also, don't use this statement after recursion call, because suppose if left and right both are same value
-        // then both flags won't be set
-        if(root.getData() == first){
+        if (root.getData() == first) {
             v1 = true;
             temp = root;
         }
-        if(root.getData() == second){
+        if (root.getData() == second) {
             v2 = true;
             temp = root;
         }
         Node<Integer> left = getAncestor(root.getLeft(), first, second);
         Node<Integer> right = getAncestor(root.getRight(), first, second);
-        if(temp != null){
+
+        // if the current Node is first or second then return after setting the flag above
+        if (temp != null) {
             return temp;
         }
-        if(left != null && right != null){
+        // if both are not null, this means one key is present in one subTree and one is present in the other subTree
+        if (left != null && right != null) {
             return root;
-        }
-        else{
-           return (left != null)? left : right;
+        } else {
+            return (left != null) ? left : right;
         }
     }
 
     // don't use this
-    private static Integer getLeastCommonAncestor3(Node<Integer> root, int first, int second){
+    private static Integer getLeastCommonAncestor3(Node<Integer> root, int first, int second) {
         Deque<Node<Integer>> stack = new ArrayDeque<>();
         stack.push(root);
         stack.push(root);
@@ -134,8 +137,8 @@ public class LeastCommonAncestor {
                         flag2 = true;
                     }
                     if (!leftNull && !rightNull) {
-                       ans.pop();
-                       ans.pop();
+                        ans.pop();
+                        ans.pop();
                     } else if (!leftNull || !rightNull) {
                         ans.pop();
                     }
@@ -148,7 +151,7 @@ public class LeastCommonAncestor {
                     if (left.snd != null && right.snd != null) {
                         ans.push(Pair.of(curr, curr.getData()));
                     } else {
-                        ans.push(Pair.of(curr, (left.snd == null)? right.snd : left.snd));
+                        ans.push(Pair.of(curr, (left.snd == null) ? right.snd : left.snd));
                     }
                 } else {
                     var leftOrRight = ans.pop();
@@ -165,7 +168,7 @@ public class LeastCommonAncestor {
     private static void getOutputWithTimeDifference(ToIntFunction<Pair<Node<Integer>, Pair<Integer, Integer>>> func,
                                                     Node<Integer> root, Integer first, Integer second) {
         var start = System.currentTimeMillis();
-        Integer output = func.applyAsInt(Pair.of(root, Pair.of(first, second)));
+        int output = func.applyAsInt(Pair.of(root, Pair.of(first, second)));
         var stop = System.currentTimeMillis();
         System.out.println("time taken = " + (stop - start) + " output = " + output);
     }

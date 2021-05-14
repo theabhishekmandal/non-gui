@@ -5,7 +5,8 @@ package data_structures.strings;
  * For example : if the input string is "abcdef" and i want to replace "cd" with "abhi" then it will
  * show ouput as "ababhief"
  */
-import java.util.*;
+
+import java.util.Scanner;
 
 public class ReplaceSubstring {
     private static boolean ismatch(String s, String hel, int k) {

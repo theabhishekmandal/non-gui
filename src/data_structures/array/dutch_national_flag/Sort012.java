@@ -1,6 +1,9 @@
 package data_structures.array.dutch_national_flag;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.Map;
+import java.util.Random;
+import java.util.TreeMap;
 
 /**
  * Given an array which have only values as 0, 1 and 2. Sort them without using any sorting algorithm

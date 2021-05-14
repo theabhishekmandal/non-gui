@@ -4,7 +4,8 @@ package file_handling;
  * if it is a directory then we store the directory items in a String array objects
  * then we separately check if whether the given  item is file or a directory
  */
-import java.io.*;
+
+import java.io.File;
 import java.util.Arrays;
 import java.util.Objects;
 

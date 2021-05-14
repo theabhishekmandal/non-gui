@@ -5,17 +5,17 @@ import java.util.Map;
 import java.util.Scanner;
 
 /**
- *  This is not a dynamic programming based question.
+ * This is not a dynamic programming based question.
  */
 
 public class LongestSubstringWithoutRepeatingCharacters {
-    public static void main(String[] args){
+    public static void main(String[] args) {
         Scanner s = new Scanner(System.in);
         String hel = s.next();
         Map<Character, Integer> map = new HashMap<>();
         int len = 0;
         int startIndex = 0;
-        for(int i = 0; i < hel.length(); i++){
+        for (int i = 0; i < hel.length(); i++) {
             char c = hel.charAt(i);
 
             // if the char is present it means it is already visited
@@ -36,7 +36,7 @@ public class LongestSubstringWithoutRepeatingCharacters {
 
 
              */
-            if(map.containsKey(c)){
+            if (map.containsKey(c)) {
                 startIndex = Math.max(startIndex, map.get(c) + 1);
             }
 
@@ -55,11 +55,12 @@ public class LongestSubstringWithoutRepeatingCharacters {
 
 
         int[] arr = new int[26];
-        startIndex = 0; len = 0;
-        for(int i = 0; i < hel.length(); i++){
+        startIndex = 0;
+        len = 0;
+        for (int i = 0; i < hel.length(); i++) {
             char c = hel.charAt(i);
-            if(arr[c - 'a'] > 0)
-                startIndex = Math.max(startIndex,arr[c - 'a'] + 1);
+            if (arr[c - 'a'] > 0)
+                startIndex = Math.max(startIndex, arr[c - 'a'] + 1);
             arr[c - 'a'] = i + 1;
             len = Math.max(len, i - startIndex + 1);
         }

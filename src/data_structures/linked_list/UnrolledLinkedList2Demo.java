@@ -1,8 +1,9 @@
 package data_structures.linked_list;
+
 import org.jetbrains.annotations.NotNull;
 
-import java.util.*;
 import java.io.Serializable;
+import java.util.*;
 
 class UnrolledLinkedListFast<E> extends AbstractList<E> implements List<E>, Serializable{
     //The maximum number of elements that can be stored in single node

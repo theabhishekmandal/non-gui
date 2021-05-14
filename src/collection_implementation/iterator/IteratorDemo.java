@@ -32,8 +32,8 @@ public class IteratorDemo {
         out.println(arr);
 
         // it.remove() will throw illegalStateException if remove() is called without calling next()
-        Iterator it = arr.iterator();
-        while(it.hasNext()){
+        var it = arr.iterator();
+        while(it.hasNext()) {
             out.println(it.next());
             it.remove();
         }

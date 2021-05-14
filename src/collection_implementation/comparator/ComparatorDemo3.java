@@ -1,6 +1,10 @@
 package collection_implementation.comparator;
-import java.util.*;
-import static java.lang.System.*;
+
+import java.util.ArrayList;
+import java.util.Comparator;
+
+import static java.lang.System.out;
+
 
 /**
  *  Further implementation of Comparator Methods:
@@ -21,29 +25,35 @@ import static java.lang.System.*;
  *                                              the ordering of the elements using the keyComp
  */
 
-class Person{
+class Person {
     private final int number;
     private final String name;
     private final int age;
-    Person(int number, String name, int age){
+
+    Person(int number, String name, int age) {
         this.number = number;
         this.name = name;
         this.age = age;
     }
-    public int getNumber(){
+
+    public int getNumber() {
         return this.number;
     }
-    public String getName(){
+
+    public String getName() {
         return this.name;
     }
-    public int getAge(){
+
+    public int getAge() {
         return this.age;
     }
+
     @Override
-    public String toString(){
+    public String toString() {
         return "[" + this.number + " " + this.name + " " + this.age + "]";
     }
 }
+
 public class ComparatorDemo3 {
     public static void main(String[] args) {
 
@@ -55,14 +65,14 @@ public class ComparatorDemo3 {
 
         out.println("implementing the first way of thenComparing Method");
         Comparator<Person> personComparator = Comparator.comparing(Person::getNumber)
-                                                .thenComparing(Comparator.comparing(Person::getName));
+                .thenComparing(Comparator.comparing(Person::getName));
         arr.sort(personComparator);
         out.println(arr);
         out.println();
 
         out.println("implementing the second way of thenComparing Method");
         Comparator<Person> personComparator1 = Comparator.comparing(Person::getNumber)
-                                                .thenComparing(Person::getName);
+                .thenComparing(Person::getName);
         arr.sort(personComparator1);
         out.println(arr);
         out.println();
@@ -71,7 +81,7 @@ public class ComparatorDemo3 {
         // here the lambda expression allows to define the ordering of the elements based on
         // getAge method
         Comparator<Person> personComparator2 = Comparator.comparing(Person::getNumber)
-                    .thenComparing(Person::getAge, Comparator.reverseOrder());
+                .thenComparing(Person::getAge, Comparator.reverseOrder());
         arr.sort(personComparator2);
         out.println(arr);
         out.println();
