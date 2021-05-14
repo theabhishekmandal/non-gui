@@ -2,6 +2,7 @@ package data_structures.queue.queue_impl;
 
 
 import java.util.NoSuchElementException;
+import java.util.StringJoiner;
 
 public class SLLQueue<T> {
     private Node<T> front;
@@ -18,17 +19,21 @@ public class SLLQueue<T> {
         final Node<T> temp = rear;
         Node<T> newNode = new Node<>(data, null);
         rear = newNode;
-        if (temp == null)
+        if (temp == null) {
             front = newNode;
-        else
+        }
+        else {
             temp.next = newNode;
+        }
         ++this.size;
     }
 
     public T deQueue() {
         if (isEmpty()) throw new NoSuchElementException("empty queue");
         Node<T> temp = front;
-        if (front == rear) rear = rear.next;
+        if (front == rear) {
+            rear = rear.next;
+        }
         front = front.next;
         temp.next = null;
         --this.size;
@@ -55,16 +60,13 @@ public class SLLQueue<T> {
 
     @Override
     public String toString() {
-        StringBuilder br = new StringBuilder("[");
-        Node<T> temp = this.front;
+        var joiner = new StringJoiner(", ", "[", "]");
+        var temp = this.front;
         while (temp != null && temp != this.rear.next) {
-            br.append(temp.data);
-            if (temp.next != null)
-                br.append(", ");
+            joiner.add(String.valueOf(temp.data));
             temp = temp.next;
         }
-        br.append("]");
-        return br.toString();
+        return joiner.toString();
     }
 
     public static class Node<T> {
