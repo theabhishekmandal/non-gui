@@ -41,7 +41,7 @@ class Cache {
 
 public class LRUCache {
     public static void main(String[] args) {
-        Cache lru = new Cache(4);
+        var lru = new Cache(4);
         lru.refer(1);
         lru.refer(2);
         lru.refer(3);

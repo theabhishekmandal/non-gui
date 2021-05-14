@@ -33,18 +33,18 @@ import java.util.stream.Collectors;
  */
 public class NonRepeatingCharacter {
     public static void main(String[] args) {
-        String arr = "g d q r n l l u i e a z v m w n u u f n n x v l o y v g m l i u q a n d l y a v f a u a o s n l n v a c s v p i u m o i a w c q x s w k q w g x y a z n t n a i k a m e y b n u q b c q a g g x a c h r y n q x q q m l f o t p q h v o k i i a m m q m v x j v b s o a i f z y x n j c b e r r n m i x x s y j h o v e n g b p y q r i x q g w d r y g x r x k f h i c a i n h w i l k q m b p e s z d i g z n z x t z q s j w a t y c b m j a w w m n i n e p f d u p l u c l t x m k p v g r r g t u s e u r a g e l t k c a p w p b q r o m q a w i x e z q k v l";
-        Character[] temp = arr.chars().mapToObj(x -> (char)x).filter(x -> x != ' ').toArray(Character[]::new);
-        String tempString = Arrays.stream(temp).map(x -> "" + x).collect(Collectors.joining());
-        String answer = getNonRepeatingCharacterString(tempString.toCharArray());
-        String answer2 = getNonRepeatingCharacterString2(tempString.toCharArray());
+        var arr = "g d q r n l l u i e a z v m w n u u f n n x v l o y v g m l i u q a n d l y a v f a u a o s n l n v a c s v p i u m o i a w c q x s w k q w g x y a z n t n a i k a m e y b n u q b c q a g g x a c h r y n q x q q m l f o t p q h v o k i i a m m q m v x j v b s o a i f z y x n j c b e r r n m i x x s y j h o v e n g b p y q r i x q g w d r y g x r x k f h i c a i n h w i l k q m b p e s z d i g z n z x t z q s j w a t y c b m j a w w m n i n e p f d u p l u c l t x m k p v g r r g t u s e u r a g e l t k c a p w p b q r o m q a w i x e z q k v l";
+        var temp = arr.chars().mapToObj(char.class::cast).filter(x -> x != ' ').toArray(Character[]::new);
+        var tempString = Arrays.stream(temp).map(String::valueOf).collect(Collectors.joining());
+        var answer = getNonRepeatingCharacterString(tempString.toCharArray());
+        var answer2 = getNonRepeatingCharacterString2(tempString.toCharArray());
 
         System.out.println(arr.length());
         System.out.println(answer.length());
         System.out.println(arr);
         System.out.println(answer);
 
-        String expected = "g g g g g g g g g g g g g g g g g g g g g g g g g g g d d d d d d d d r r r r r r r r r r r r r r r r r r r r r r r r r r r r r r r r r r r r r r r r r r r r r r r r r r r r r r r r r r r r r r r r p p p p p p p p p p p p h h -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 j j j j j j j j j j j j -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1";
+        var expected = "g g g g g g g g g g g g g g g g g g g g g g g g g g g d d d d d d d d r r r r r r r r r r r r r r r r r r r r r r r r r r r r r r r r r r r r r r r r r r r r r r r r r r r r r r r r r r r r r r r r p p p p p p p p p p p p h h -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 j j j j j j j j j j j j -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1";
         System.out.println(expected);
         System.out.println(expected.equals(answer));
         System.out.println(answer2);
@@ -52,10 +52,10 @@ public class NonRepeatingCharacter {
 
     // this one has more complexity
     private static String getNonRepeatingCharacterString(char[] arr) {
-        StringBuilder br = new StringBuilder();
+        var br = new StringBuilder();
         Queue<Character> queue = new ArrayDeque<>();
         Map<Character, Integer> map = new HashMap<>();
-        String one = "-1";
+        var one = "-1";
         for (char c : arr) {
             map.merge(c, 1, Integer::sum);
 
@@ -104,9 +104,9 @@ public class NonRepeatingCharacter {
 
     // this one is easy
     private static String getNonRepeatingCharacterString2(char[] arr) {
-        char[] count = new char[26];
+        var count = new char[26];
         Queue<Character> queue = new LinkedList<>();
-        StringBuilder br = new StringBuilder();
+        var br = new StringBuilder();
         for (char c : arr) {
             queue.add(c);
             count[c - 'a']++;

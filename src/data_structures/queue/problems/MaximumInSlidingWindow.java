@@ -42,16 +42,16 @@ import java.util.stream.IntStream;
 
 public class MaximumInSlidingWindow {
     public static void main(String[] args) {
-        Random random = new Random();
-        List<Integer> list = IntStream.range(0, 10 + random.nextInt(20))
-                            .map(x -> random.nextInt(100))
-                            .boxed().collect(Collectors.toList());
+        var random = new Random();
+        var list = IntStream.range(0, 10 + random.nextInt(20))
+                .map(x -> random.nextInt(100))
+                .boxed().collect(Collectors.toList());
         int k;
         do {
             k = 2 + random.nextInt(list.size());
         } while (list.size() % k != 0);
-        System.out.println( "list size is " + list.size() + "\nlist is\n" + list + "\nwindow size is\n" + k + "\n");
-        List<Integer> maxSumList = getMaxSumInThisWindow(list, k);
+        System.out.println("list size is " + list.size() + "\nlist is\n" + list + "\nwindow size is\n" + k + "\n");
+        var maxSumList = getMaxSumInThisWindow(list, k);
 
         // debug this for better clarification
         // List<Integer> maxSumList = getMaxSumInThisWindow(IntStream.range(0,10).boxed().sorted(Comparator.reverseOrder()).collect(Collectors.toList()), 4);
@@ -59,23 +59,25 @@ public class MaximumInSlidingWindow {
     }
 
     private static List<Integer> getMaxSumInThisWindow(List<Integer> list, int maxSize) {
-        if(list == null || list.isEmpty() || maxSize < 1) return new ArrayList<>();
+        if (list == null || list.isEmpty() || maxSize < 1) {
+            return new ArrayList<>();
+        }
 
-        DoublyLinkedList<Integer> dll = new DoublyLinkedList<>();
+        var dll = new DoublyLinkedList<Integer>();
         List<Integer> answerList = new ArrayList<>();
 
-        for(int i = 0; i < list.size(); i++){
+        for (int i = 0; i < list.size(); i++) {
 
             // for checking if front of the queue has maximum element
-            while(dll.getSize() != 0 && list.get(i) > list.get(dll.getTail().getData())){
+            while (dll.getSize() != 0 && list.get(i) > list.get(dll.getTail().getData())) {
                 dll.deleteLast();
             }
 
             // for checking if the current element should reside in the given window
             // if queue size increases the maxsize then remove index from the front
-            if(dll.getSize() != 0){
+            if (dll.getSize() != 0) {
                 int headIndex = dll.getHead().getData();
-                if(headIndex + maxSize == i){
+                if (headIndex + maxSize == i) {
                     dll.deleteFirst();
                 }
             }
@@ -84,7 +86,7 @@ public class MaximumInSlidingWindow {
             // appending the result
             // here if i + 1 = maxSize, this means we have reached queue size of maxSize
             // from this point and for next iterations, we need to add the indices in the answerList
-            if(i + 1 >= maxSize) {
+            if (i + 1 >= maxSize) {
                 answerList.add(list.get(dll.getHead().getData()));
             }
         }

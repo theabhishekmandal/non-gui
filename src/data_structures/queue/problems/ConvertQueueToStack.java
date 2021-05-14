@@ -12,16 +12,22 @@ import java.util.stream.IntStream;
  */
 public class ConvertQueueToStack {
     public static void main(String[] args) {
-        Random random = new Random();
+        var random = new Random();
 
-        SLLQueue<Integer> sll = new SLLQueue<>();
+        var sll = new SLLQueue<Integer>();
         IntStream.range(0, 10).forEach(x -> sll.enQueue(random.nextInt(10)));
         System.out.println("queue is " + sll);
 
-        SLLStack<Integer> sllStack = new SLLStack<>();
-        while(!sll.isEmpty()) sllStack.push(sll.deQueue());
-        while(!sllStack.isEmpty()) sll.enQueue(sllStack.pop());
-        while(!sll.isEmpty()) sllStack.push(sll.deQueue());
+        var sllStack = new SLLStack<Integer>();
+        while(!sll.isEmpty()) {
+            sllStack.push(sll.deQueue());
+        }
+        while(!sllStack.isEmpty()) {
+            sll.enQueue(sllStack.pop());
+        }
+        while(!sll.isEmpty()) {
+            sllStack.push(sll.deQueue());
+        }
 
         System.out.println("stack is " + sllStack);
     }

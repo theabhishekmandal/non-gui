@@ -9,12 +9,12 @@ import java.util.stream.IntStream;
 /**
  * Given a Queue reverse it's elements using enqueue and dequeue operations
  * Approach:
- *  Stack is used because it helps in reversing the elements
+ * Stack is used because it helps in reversing the elements
  */
 public class ReverseQueue {
     public static void main(String[] args) {
-        Random random = new Random();
-        SLLQueue<Integer> queue = new SLLQueue<>();
+        var random = new Random();
+        var queue = new SLLQueue<Integer>();
         IntStream.range(0, 10).forEach(x -> queue.enQueue(random.nextInt(100)));
         System.out.println("queue before reversing " + queue);
         reverseQueue(queue);
@@ -23,9 +23,11 @@ public class ReverseQueue {
 
     private static <T> void reverseQueue(SLLQueue<T> queue) {
         SLLStack<T> stack = new SLLStack<>();
-        while(!queue.isEmpty())
+        while (!queue.isEmpty()) {
             stack.push(queue.deQueue());
-        while(!stack.isEmpty())
+        }
+        while (!stack.isEmpty()) {
             queue.enQueue(stack.pop());
+        }
     }
 }
