@@ -31,22 +31,26 @@ class NestTry {
     public static void main(String[] args) {
 
         try {
-            int len = new Scanner(System.in).nextInt();
-            int a = 0 / len;
-            try {
-                if(len == 1){
-                    len = len / (len - 1);
-                }
-                else {
-                    int[] c = new int[1];
-                    c[99] = 2;
-                }
-            }
-            catch(ArrayIndexOutOfBoundsException e) {
-                e.printStackTrace();
-            }
+            var len = new Scanner(System.in).nextInt();
+            var a = 0 / len;
+            solve(len);
         }
         catch(ArithmeticException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private static void solve(int len) {
+        try {
+            if(len == 1){
+                len = len / (len - 1);
+            }
+            else {
+                int[] c = new int[1];
+                c[99] = 2;
+            }
+        }
+        catch(ArrayIndexOutOfBoundsException e) {
             e.printStackTrace();
         }
     }
