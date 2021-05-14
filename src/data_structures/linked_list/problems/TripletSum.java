@@ -1,9 +1,10 @@
 package data_structures.linked_list.problems;
 
 import data_structures.linked_list.node.DoublyLinkedList;
-import static data_structures.linked_list.node.DoublyLinkedList.Node;
 
 import java.util.*;
+
+import static data_structures.linked_list.node.DoublyLinkedList.Node;
 
 /**
  * Given a sorted doubly linked list of distinct nodes(no two nodes have the same data) and a value x.

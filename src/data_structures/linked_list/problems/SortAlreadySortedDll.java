@@ -1,10 +1,11 @@
 package data_structures.linked_list.problems;
 
 import data_structures.linked_list.node.DoublyLinkedList;
-import static data_structures.linked_list.node.DoublyLinkedList.Node;
 
 import java.util.PriorityQueue;
 import java.util.stream.Stream;
+
+import static data_structures.linked_list.node.DoublyLinkedList.Node;
 
 /**
  * Given a doubly linked list containing n nodes, where each node is at most k away from its target position in the list.

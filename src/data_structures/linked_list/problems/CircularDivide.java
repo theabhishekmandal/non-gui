@@ -1,10 +1,11 @@
 package data_structures.linked_list.problems;
 
 import data_structures.linked_list.node.CircularLinkedList;
-import static data_structures.linked_list.node.CircularLinkedList.Node;
 
 import java.util.function.BiFunction;
 import java.util.stream.IntStream;
+
+import static data_structures.linked_list.node.CircularLinkedList.Node;
 
 /**
  *  Split the circular linked list in two parts. If the number of nodes in the list are odd then make first list one node

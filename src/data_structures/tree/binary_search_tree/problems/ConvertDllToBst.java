@@ -2,11 +2,12 @@ package data_structures.tree.binary_search_tree.problems;
 
 import data_structures.Pair;
 import data_structures.linked_list.node.DoublyLinkedList;
-import static data_structures.linked_list.node.DoublyLinkedList.Node;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.stream.IntStream;
+
+import static data_structures.linked_list.node.DoublyLinkedList.Node;
 
 /**
  * Given a sorted doubly linked list convert it into a Binary Search tree

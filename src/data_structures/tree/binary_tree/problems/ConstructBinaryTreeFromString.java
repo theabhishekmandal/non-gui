@@ -1,12 +1,13 @@
 package data_structures.tree.binary_tree.problems;
 
 import data_structures.tree.binary_tree.binary_tree_impl.BinaryTree;
-import static data_structures.tree.binary_tree.binary_tree_impl.BinaryTree.Node;
 
 import java.util.ArrayDeque;
 import java.util.Deque;
 import java.util.Objects;
 import java.util.stream.Stream;
+
+import static data_structures.tree.binary_tree.binary_tree_impl.BinaryTree.Node;
 
 /**
  * Given a String of numbers with brackets convert them to binary tree

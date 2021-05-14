@@ -1,10 +1,13 @@
 package data_structures.tree.binary_search_tree.problems;
 
 import data_structures.tree.binary_search_tree.binary_search_tree_impl.BinarySearchTree;
-import static data_structures.tree.binary_search_tree.binary_search_tree_impl.BinarySearchTree.Node;
 
-import java.util.*;
+import java.util.Deque;
+import java.util.LinkedList;
+import java.util.Random;
 import java.util.stream.IntStream;
+
+import static data_structures.tree.binary_search_tree.binary_search_tree_impl.BinarySearchTree.Node;
 
 /**
  * Given a BST, convert it into circular sorted dll.

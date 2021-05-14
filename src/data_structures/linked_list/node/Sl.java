@@ -33,11 +33,11 @@ public class Sl {
     @Override
     public String toString() {
         Node temp = head;
-        StringJoiner br = new StringJoiner(" ");
+        var joiner = new StringJoiner(" ");
         while(temp != null) {
-            br.add(String.valueOf(temp.data));
+            joiner.add(String.valueOf(temp.data));
             temp = temp.next;
         }
-        return br.toString();
+        return joiner.toString();
     }
 }

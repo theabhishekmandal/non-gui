@@ -6,7 +6,8 @@ package generics;
  * and can also pass arrays to it.
  *
  */
-import java.util.*;
+
+import java.util.Arrays;
 public class GenericMethodDemo5 {
     @SafeVarargs
     private static <T> void debug(T... ob) {

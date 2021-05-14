@@ -3,8 +3,8 @@ package data_structures.stack.problems;
 import data_structures.stack.stack_impl.SLLStack;
 
 import java.util.ArrayList;
-import java.util.Random;
 import java.util.List;
+import java.util.Random;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 

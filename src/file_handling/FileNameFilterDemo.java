@@ -11,7 +11,8 @@ package file_handling;
  * which match the given pattern.
  */
 
-import java.io.*;
+import java.io.File;
+import java.io.FilenameFilter;
 import java.util.Arrays;
 import java.util.Objects;
 

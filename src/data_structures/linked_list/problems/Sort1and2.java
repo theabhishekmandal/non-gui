@@ -8,8 +8,10 @@ package data_structures.linked_list.problems;
  * linked list in the same order
  */
 
-import java.util.*;
-import static java.lang.System.*;
+import java.util.Scanner;
+
+import static java.lang.System.in;
+import static java.lang.System.out;
 public class Sort1and2 {
 
     // static class containing the properties of the doubly linked list

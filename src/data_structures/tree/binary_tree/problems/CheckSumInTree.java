@@ -2,10 +2,10 @@ package data_structures.tree.binary_tree.problems;
 
 import data_structures.tree.binary_tree.binary_tree_impl.BinaryTree;
 
-import static data_structures.tree.binary_tree.binary_tree_impl.BinaryTree.Node;
-
 import java.util.*;
 import java.util.stream.IntStream;
+
+import static data_structures.tree.binary_tree.binary_tree_impl.BinaryTree.Node;
 
 /**
  * Given an algorithm for checking the existence of path with given sum. That means, given a sum,

@@ -1,5 +1,6 @@
 package data_structures.array;
-import java.util.*;
+
+import java.util.Random;
 
 /**
  * Find factorial of a large number.

@@ -1,6 +1,8 @@
 package miscellaneous.leetcode.challenge30_days_april.week1;
 
-import java.util.*;
+import java.util.Map;
+import java.util.Scanner;
+import java.util.TreeMap;
 
 /**
  * Week 1 day 7

@@ -2,7 +2,10 @@ package data_structures.linked_list.problems;
 
 import data_structures.linked_list.node.SinglyLinkedList;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Random;
 
 import static data_structures.linked_list.node.SinglyLinkedList.Node;
 

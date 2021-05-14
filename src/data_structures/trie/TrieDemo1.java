@@ -23,8 +23,9 @@ package data_structures.trie;
  *   and marking the complete word as TRUE.
  */
 
-import java.util.*;
-import static java.lang.System.*;
+import java.util.Arrays;
+
+import static java.lang.System.out;
 public class TrieDemo1 {
     // Total words
     private static final int ALPHABET_SIZE = 26;

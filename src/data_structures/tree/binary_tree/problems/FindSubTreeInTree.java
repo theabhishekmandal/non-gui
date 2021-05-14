@@ -3,9 +3,9 @@ package data_structures.tree.binary_tree.problems;
 import data_structures.tree.binary_tree.binary_tree_impl.BinaryTree;
 import data_structures.tree.binary_tree.binary_tree_impl.CreateSubTree;
 
-import static data_structures.tree.binary_tree.binary_tree_impl.BinaryTree.Node;
-
 import java.util.*;
+
+import static data_structures.tree.binary_tree.binary_tree_impl.BinaryTree.Node;
 
 /**
  * Given a subTree and a Tree, find whether the subTree exists in the given tree.

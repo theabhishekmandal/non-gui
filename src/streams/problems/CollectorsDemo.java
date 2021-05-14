@@ -1,7 +1,8 @@
 package streams.problems;
 
 import java.util.*;
-import java.util.stream.*;
+import java.util.stream.Stream;
+
 import static java.util.stream.Collectors.*;
 
 class Person {

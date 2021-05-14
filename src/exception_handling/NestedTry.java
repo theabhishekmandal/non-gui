@@ -1,6 +1,6 @@
 package exception_handling;
 
-import java.util.*;
+import java.util.Scanner;
 
 /**
  An example of nested try statements.

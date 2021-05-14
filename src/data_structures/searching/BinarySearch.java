@@ -20,7 +20,9 @@ package data_structures.searching;
  in that case we return "Nothing Found"
 
  */
-import java.util.*;
+
+import java.util.Arrays;
+import java.util.Scanner;
 public class BinarySearch {
     public static void main(String[] args) {
         Scanner s = new Scanner(System.in);

@@ -38,7 +38,7 @@ package data_structures.strings;
  *
  */
 
-import java.util.*;
+import java.util.Scanner;
 public class KmpStringMatching {
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);

@@ -1,5 +1,8 @@
 package miscellaneous.leetcode.challenge30_days_april.week1;
-import java.util.*;
+
+import java.util.Arrays;
+import java.util.Random;
+import java.util.Scanner;
 
 /**
  * Week 1 day 4

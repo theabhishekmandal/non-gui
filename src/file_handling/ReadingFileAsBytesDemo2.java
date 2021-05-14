@@ -12,7 +12,9 @@ package file_handling;
  *  have been successfully read .Look line number 39
  */
 
-import java.io.*;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 public class ReadingFileAsBytesDemo2 {
     public static void main(String[] args) throws IOException {
 

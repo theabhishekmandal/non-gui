@@ -4,6 +4,7 @@ import data_structures.linked_list.node.SinglyLinkedList;
 
 import java.util.Random;
 import java.util.stream.IntStream;
+
 import static data_structures.linked_list.node.SinglyLinkedList.Node;
 
 public class OddOrEvenLengthLinkedList {

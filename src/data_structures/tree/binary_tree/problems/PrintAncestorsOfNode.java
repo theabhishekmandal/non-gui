@@ -1,10 +1,13 @@
 package data_structures.tree.binary_tree.problems;
 
 import data_structures.tree.binary_tree.binary_tree_impl.BinaryTree;
-import static data_structures.tree.binary_tree.binary_tree_impl.BinaryTree.Node;
 
-import java.util.*;
+import java.util.Deque;
+import java.util.LinkedList;
+import java.util.Random;
 import java.util.stream.IntStream;
+
+import static data_structures.tree.binary_tree.binary_tree_impl.BinaryTree.Node;
 
 /**
  * Give an algorithm for printing all the ancestors of a node in a Binary tree.

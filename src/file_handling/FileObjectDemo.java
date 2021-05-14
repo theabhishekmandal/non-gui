@@ -1,5 +1,6 @@
 package file_handling;
-import java.io.*;
+
+import java.io.File;
 
 /**
  * IN this program we are creating File object and checking it's various methods

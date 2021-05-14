@@ -1,13 +1,14 @@
 package data_structures.tree.binary_search_tree.problems;
 
 import data_structures.tree.binary_search_tree.binary_search_tree_impl.BinarySearchTree;
-import static data_structures.tree.binary_search_tree.binary_search_tree_impl.BinarySearchTree.Node;
 
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Random;
 import java.util.stream.IntStream;
+
+import static data_structures.tree.binary_search_tree.binary_search_tree_impl.BinarySearchTree.Node;
 
 /**
  * Given a Bst and two separate pointers, find the least common ancestor of the two nodes.

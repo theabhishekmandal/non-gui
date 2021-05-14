@@ -1,10 +1,11 @@
 package data_structures.linked_list.problems;
 
 import data_structures.linked_list.node.DoublyLinkedList;
-import static data_structures.linked_list.node.DoublyLinkedList.Node;
 
 import java.util.Random;
 import java.util.stream.Stream;
+
+import static data_structures.linked_list.node.DoublyLinkedList.Node;
 
 /**
  * Given a doubly linked list, rotate the linked list counter-clockwise by N nodes.
