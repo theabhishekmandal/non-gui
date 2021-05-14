@@ -1,59 +1,76 @@
 package miscellaneous.recursion;
-class linkedList<T>{
-    node<T> first;
-    node<T> last;
-    static class node<T>{
+
+import java.util.StringJoiner;
+
+class LinkedList<T> {
+    private Node<T> first;
+    private Node<T> last;
+
+    public void addLast(T ob) {
+        final Node<T> l = last;
+        final Node<T> newnode = new Node<>(l, ob, null);
+        last = newnode;
+        if (l == null)
+            first = newnode;
+        else
+            l.next = newnode;
+    }
+
+    @Override
+    public String toString() {
+        if (first == null) {
+            return "[]";
+        }
+        if (first == last) {
+            return "[" + this.first.value + "]";
+        }
+        var joiner = new StringJoiner("[", ", ", "]");
+        Node<T> f = first;
+        while (f != null) {
+            joiner.add(f.value.toString());
+            f = f.next;
+        }
+        return joiner.toString();
+    }
+
+    public Node<T> getFirst() {
+        return first;
+    }
+
+    public Node<T> getLast() {
+        return last;
+    }
+
+    static class Node<T> {
         T value;
-        node<T> next;
-        node<T> previous;
-        public node(node<T> prev, T value, node<T> last){
+        Node<T> next;
+        Node<T> previous;
+
+        public Node(Node<T> prev, T value, Node<T> last) {
             this.value = value;
             this.next = last;
             this.previous = prev;
         }
     }
-    public linkedList(){
-
-    }
-    public void addLast(T ob){
-        final node<T> l = last;
-        final node<T> newnode = new node<>(l, ob, null);
-        last = newnode;
-        if(l == null)
-            first = newnode;
-        else
-            l.next = newnode;
-    }
-    @Override
-    public String toString(){
-        if(first == null) return "[]";
-        if(first == last) return "[" + this.first.value + "]";
-        StringBuilder br = new StringBuilder("[");
-        node<T> f = first;
-        while(f != null){
-            br.append(f.value).append(", ");
-            f = f.next;
-        }
-        br.append("]");
-        return br.toString();
-    }
 }
+
 public class ReversingDoublyLinkedList {
-    public static <T> linkedList<T> reverseTheList(linkedList<T> list2, linkedList.node<T> last){
-        if(last == null)
+    public static <T> LinkedList<T> reverseTheList(LinkedList<T> list2, LinkedList.Node<T> last) {
+        if (last == null)
             return list2;
         list2.addLast(last.value);
         last = last.previous;
         return reverseTheList(list2, last);
     }
+
     public static void main(String[] args) {
         int[] arr = {1, 2, 3, 4, 5};
-        linkedList<Integer> list = new linkedList<>();
-        for(int i : arr){
+        LinkedList<Integer> list = new LinkedList<>();
+        for (int i : arr) {
             list.addLast(i);
         }
         System.out.println(list);
-        linkedList<?> list2 = reverseTheList(new linkedList<>(), list.last);
+        LinkedList<?> list2 = reverseTheList(new LinkedList<>(), list.getLast());
         System.out.println(list2);
     }
 }

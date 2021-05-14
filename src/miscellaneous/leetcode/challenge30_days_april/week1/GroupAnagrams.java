@@ -1,6 +1,7 @@
 package miscellaneous.leetcode.challenge30_days_april.week1;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * Week 1 day 6
@@ -22,8 +23,8 @@ import java.util.*;
  */
 
 public class GroupAnagrams {
+    private static final Random random = new Random();
     public static void main(String[] args) {
-        Scanner s = new Scanner(System.in);
         Random random = new Random();
         int n = 10;
         String[] strings = getRandomPermutedStringArray(n, random.nextInt(n));
@@ -42,7 +43,6 @@ public class GroupAnagrams {
     // for input output
     private static String[] getRandomPermutedStringArray(int n, int stringLength){
         String[] strings = new String[n];
-        Random random = new Random();
         for (int i = 0; i < strings.length;) {
             strings[i] = generateRandomLowerCaseString(stringLength);
             boolean bool = random.nextBoolean();
@@ -67,7 +67,6 @@ public class GroupAnagrams {
 
     // for input output
     private static String generateRandomLowerCaseString(int length){
-        Random random = new Random();
         char[] arr = new char[length];
         int a = 97;
         for(int i = 0; i < arr.length; i++)
@@ -93,24 +92,15 @@ public class GroupAnagrams {
     // This is the main logic for grouping anagrams together
     private static List<List<String>> solve(String[] strings) {
         long startime = System.currentTimeMillis();
-        List<List<String>> finalList = new ArrayList<>();
+        List<List<String>> finalList;
         Map<String, List<String>> map = new HashMap<>();
         for(String string : strings){
             char[] crr = string.toCharArray();
             Arrays.sort(crr);
             String newString = new String(crr);
-            if(map.get(newString) == null){
-                List<String> list = new ArrayList<>();
-                list.add(string);
-                map.put(newString, list);
-            }
-            else{
-                map.get(newString).add(string);
-            }
+            map.computeIfAbsent(newString, key -> new ArrayList<>()).add(string);
         }
-        for(String string : map.keySet()){
-            finalList.add(map.get(string));
-        }
+        finalList = new ArrayList<>(map.values());
         System.err.println("in solve1 time is " + (System.currentTimeMillis() - startime));
         return finalList;
     }
@@ -118,22 +108,17 @@ public class GroupAnagrams {
     // This is the second logic for grouping anagrams together
     private static List<List<String>> solve2(String[] strings){
         long startime = System.currentTimeMillis();
-        List<List<String>> finalList = new ArrayList<>();
-        Map<String, List<String>> map = new HashMap<>();
+        List<List<String>> finalList;
+        var map = new HashMap<String, List<String>>();
         for(String string : strings){
             int[] p = new int[26];
-            for(int i = 0; i < string.length(); i++) p[string.charAt(i) - 'a']++;
-            StringBuilder br = new StringBuilder();
-            for(int i : p){
-                br.append(i).append("#");
+            for(char c : string.toCharArray()) {
+                p[c - 'a']++;
             }
-            String ans = br.toString();
-            if(!map.containsKey(ans)) map.put(ans, new ArrayList<>());
-            map.get(ans).add(string);
+            String ans = Arrays.stream(p).mapToObj(String::valueOf).collect(Collectors.joining("#"));
+            map.computeIfAbsent(ans, k -> new ArrayList<>()).add(string);
         }
-        for(String string : map.keySet()){
-            finalList.add(map.get(string));
-        }
+        finalList = new ArrayList<>(map.values());
         System.err.println("in solve2 time is " + (System.currentTimeMillis() - startime));
         return finalList;
     }
