@@ -1,4 +1,4 @@
-package method_overriding;
+package method_overriding_and_overloading;
 
 /**
  * This is an example of method overriding.
@@ -9,6 +9,7 @@ package method_overriding;
  */
 class A {
     protected final int a = 10;
+
     protected void showA() {
         System.out.println("I am saying hello from the Class A");
     }
@@ -31,14 +32,15 @@ class B extends A {
         System.out.println("this method will override the superclass method");
     }
 
-    public void superShow(){
+    public void superShow() {
         super.show();
     }
 
-    public int getSuperVariable(){
+    public int getSuperVariable() {
         return super.a;
     }
 }
+
 public class MethodOverridingDemo2 {
     public static void main(String[] args) {
 
