@@ -10,8 +10,9 @@ package abstract_interfaces;
  */
 interface A {
     void aHello();
-    interface B{
-         void bHello();
+
+    interface B {
+        void bHello();
     }
 }
 
@@ -19,16 +20,18 @@ interface A {
     a class which implements the method of interface A
     and also implements the method of the inner interface by using the outer interface name
 */
-class C implements A,A.B {
+class C implements A, A.B {
 
     public void aHello() {
         System.out.println("aHello");
     }
+
     public void bHello() {
         System.out.println("bHello");
     }
-    interface D{
-         void dHello();
+
+    interface D {
+        void dHello();
     }
 }
 /*
@@ -39,11 +42,14 @@ class C implements A,A.B {
  */
 
 public class NestedInterfacesDemo extends C implements C.D {
-    public void dHello(){
-        System.out.println("hello D");
+    public static void main(String[] args) {
+        var ob = new NestedInterfacesDemo();
+        ob.dHello();
+        ob.aHello();
+        ob.bHello();
     }
-    public static void main(String[] args){
-        NestedInterfacesDemo ob=new NestedInterfacesDemo();
-        ob.dHello();ob.aHello();ob.bHello();
+
+    public void dHello() {
+        System.out.println("hello D");
     }
 }
