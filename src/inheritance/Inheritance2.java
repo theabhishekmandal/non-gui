@@ -32,9 +32,9 @@ public class Inheritance2 extends C {
           AR RUN TIME THE METHOD OF CLASS C WILL BE CALLED AND NOT THAT OF A
 
          */
-        C c=new C();
+        var c = new C();
         c.showABC();
-        A a=new C();
+        A a = new C();
         a.sayHello();
     }
 }

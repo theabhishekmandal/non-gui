@@ -37,7 +37,7 @@ class BoxWeight extends Box {
 
 public class Inheritance3 {
     public static void main(String[] args) {
-        BoxWeight ob = new BoxWeight(10,20,30,40);
+        var ob = new BoxWeight(10, 20, 30, 40);
         System.out.println("volume of the box weight is " + ob.volume());
         System.out.println("weight of the box is " + ob.getWeight());
     }
