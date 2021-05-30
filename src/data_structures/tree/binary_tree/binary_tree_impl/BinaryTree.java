@@ -5,85 +5,6 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class BinaryTree<T> {
-    public static class Node<T> {
-        private T data;
-        private Node<T> left;
-        private Node<T> right;
-
-        public Node(T data){
-            this.data = data;
-        }
-
-        public static <T> Node<T> of(T data) {
-            return new Node<>(data);
-        }
-
-        public T getData(){
-            return this.data;
-        }
-
-        public void setData(T data){
-            this.data = data;
-        }
-
-        public Node<T> getLeft(){
-            return this.left;
-        }
-
-        public void setLeft(Node<T> left){
-            this.left = left;
-        }
-
-        public Node<T> getRight(){
-            return this.right;
-        }
-
-        public void setRight(Node<T> right){
-            this.right = right;
-        }
-
-        @Override
-        public String toString(){
-            return this.data.toString();
-        }
-
-        @Override
-        public boolean equals(Object o) {
-            if (this == o) return true;
-            if (!(o instanceof BinaryTree.Node)) return false;
-            Node<?> node = (Node<?>) o;
-            return data.equals(node.data) &&
-                    (left != null && left.equals(node.left)) &&
-                    (right != null && right.equals(node.right));
-        }
-
-        @Override
-        public int hashCode() {
-            return Objects.hash(data, left, right);
-        }
-    }
-
-    private Node<T> root;
-    private int size;
-    public Node<T> getRoot(){
-        return this.root;
-    }
-    public void setRoot(Node<T> root) {
-        this.root = root;
-    }
-    public int getSize(){
-        return this.size;
-    }
-    public BinaryTree(){
-        this.size = 0;
-        this.root = null;
-    }
-
-    public void deleteTree(){
-        this.root = null;
-        this.size = 0;
-    }
-
     /*
         Queue is used as a data structure while inserting to the tree
         after inserting every node we need to break because,
@@ -94,8 +15,68 @@ public class BinaryTree<T> {
         -   if both children are not present then insert the parent node on the left side of queue
      */
     private final Deque<Node<T>> queue = new LinkedList<>();
+    private Node<T> root;
+    private boolean isSetThroughRootMethod = false;
+    private int size;
+
+    public BinaryTree() {
+        this.size = 0;
+        this.root = null;
+    }
+
+    public BinaryTree(Node<T> root) {
+        setRoot(root);
+    }
+
+    public Node<T> getRoot() {
+        return this.root;
+    }
+
+    public void setRoot(Node<T> root) {
+        this.root = root;
+        this.isSetThroughRootMethod = root != null;
+        this.size = calculateSize(this.root);
+    }
+
+    private void isSetThroughRoot() {
+        if (this.isSetThroughRootMethod) {
+            throw new UnsupportedOperationException();
+        }
+    }
+
+    public int getSize() {
+        return this.size;
+    }
+
+    public int calculateSize(Node<T> root) {
+        if (root == null) {
+            return 0;
+        }
+        Queue<Node<T>> tempQueue = new ArrayDeque<>();
+        tempQueue.add(root);
+        var tempSize = 0;
+        while (!tempQueue.isEmpty()) {
+            var curr = tempQueue.poll();
+            if (curr != null) {
+                ++tempSize;
+                if (curr.left != null) {
+                    tempQueue.add(curr.left);
+                }
+                if (curr.right != null) {
+                    tempQueue.add(curr.right);
+                }
+            }
+        }
+        return tempSize;
+    }
+
+    public void deleteTree() {
+        this.root = null;
+        this.size = 0;
+    }
 
     public void insertInBinaryTreeLevelOrder(T data) {
+        isSetThroughRoot();
         Node<T> newNode = Node.of(data);
         if (queue.isEmpty()) {
             root = newNode;
@@ -115,13 +96,14 @@ public class BinaryTree<T> {
     }
 
     public boolean deleteNode(T data) {
+        isSetThroughRoot();
         if (this.root == null || data == null) {
             return false;
         }
 
         Node<T> nodeToBeDeleted = null;
         Node<T> lastNode = null;
-        boolean firstMatch = true;
+        var firstMatch = true;
 
         Deque<Node<T>> tempQueue = new ArrayDeque<>();
         tempQueue.add(root);
@@ -185,14 +167,14 @@ public class BinaryTree<T> {
                 Remember to add the right node first in the stack and then the left node, because
                 in stack the left node will be processed first.
     */
-    public String preOrder(){
+    public String preOrder() {
         if (this.root == null) return "";
 
         Deque<Node<T>> stack = new ArrayDeque<>();
         stack.push(root);
 
         List<String> finalAnswer = new ArrayList<>();
-        while (!stack.isEmpty()){
+        while (!stack.isEmpty()) {
             Node<T> temp = stack.pop();
 
             // adding the answer
@@ -201,7 +183,7 @@ public class BinaryTree<T> {
             if (temp.right != null) {
                 stack.push(temp.right);
             }
-            if (temp.left != null){
+            if (temp.left != null) {
                 stack.push(temp.left);
             }
         }
@@ -213,13 +195,13 @@ public class BinaryTree<T> {
 
         Preorder traversal using recursion
      */
-    public String preOrderRecursive(){
+    public String preOrderRecursive() {
         List<String> finalAnswer = new ArrayList<>();
         preOrderRec(root, finalAnswer);
         return "[" + String.join(", ", finalAnswer) + "]";
     }
 
-    private void preOrderRec(Node<T> node, List<String> answer){
+    private void preOrderRec(Node<T> node, List<String> answer) {
         if (node == null) return;
         answer.add(node.toString());
         preOrderRec(node.left, answer);
@@ -247,7 +229,7 @@ public class BinaryTree<T> {
                         of popped value the new current node.
 
     */
-    public String inOrder(){
+    public String inOrder() {
         if (this.root == null) return "";
         List<String> finalAnswer = new ArrayList<>();
 
@@ -269,18 +251,19 @@ public class BinaryTree<T> {
 
         return "[" + String.join(", ", finalAnswer) + "]";
     }
+
     /*
         process left, current and right
 
         InOrder traversal using recursion
      */
-    public String inOrderRecursive(){
+    public String inOrderRecursive() {
         List<String> finalAnswer = new ArrayList<>();
         inOrderRec(root, finalAnswer);
         return "[" + String.join(", ", finalAnswer) + "]";
     }
 
-    private void inOrderRec(Node<T> node, List<String> answer){
+    private void inOrderRec(Node<T> node, List<String> answer) {
         if (node == null) return;
         inOrderRec(node.left, answer);
         answer.add(node.toString());
@@ -304,7 +287,7 @@ public class BinaryTree<T> {
                 -   If it is not equal, then it means processing of it's children has been done and now
                     it can be added to answer.
      */
-    public String postOrder(){
+    public String postOrder() {
         if (this.root == null) return "";
         List<String> finalAnswer = new ArrayList<>();
 
@@ -322,31 +305,30 @@ public class BinaryTree<T> {
                     stack.push(curr.left);
                     stack.push(curr.left);
                 }
-            }
-            else {
+            } else {
                 finalAnswer.add(curr.data.toString());
             }
         }
         return "[" + String.join(", ", finalAnswer) + "]";
     }
+
     /*
         process left, right and current
 
         PostOrder traversal using recursion
      */
-    public String postOrderRecursive(){
+    public String postOrderRecursive() {
         List<String> finalAnswer = new ArrayList<>();
         postOrderRec(this.root, finalAnswer);
         return "[" + String.join(", ", finalAnswer) + "]";
     }
 
-    private void postOrderRec(Node<T> node, List<String> answer){
-        if(node == null) return;
+    private void postOrderRec(Node<T> node, List<String> answer) {
+        if (node == null) return;
         postOrderRec(node.left, answer);
         postOrderRec(node.right, answer);
         answer.add(node.toString());
     }
-
 
     /*
         Level Order traversal is same as the insertion above,
@@ -357,13 +339,13 @@ public class BinaryTree<T> {
                 -   Here after every level we are adding null, null is added to first process the nodes of level l
                     and then go to level l + 1
      */
-    public String levelOrder(){
-       if (this.root == null) {
-           return "";
-       }
-       return "[" + levelOrderPrivate().stream()
-               .map(list -> "(" + String.join(", ", list) + ")")
-               .collect(Collectors.joining(", \n")) + "]";
+    public String levelOrder() {
+        if (this.root == null) {
+            return "";
+        }
+        return "[" + levelOrderPrivate().stream()
+                .map(list -> "(" + String.join(", ", list) + ")")
+                .collect(Collectors.joining(", \n")) + "]";
     }
 
     private List<List<String>> levelOrderPrivate() {
@@ -402,14 +384,15 @@ public class BinaryTree<T> {
         }
         return finalList;
     }
+
     public String levelOrderPretty() {
         List<List<String>> finalAnswer = levelOrderPrivate();
         if (finalAnswer.isEmpty()) {
             return "[]";
         }
-        StringBuilder br = new StringBuilder();
+        var br = new StringBuilder();
         int maxSize = finalAnswer.get(finalAnswer.size() - 2).size();
-        for (int i = 0; i < finalAnswer.size() - 1; i++) {
+        for (var i = 0; i < finalAnswer.size() - 1; i++) {
             var list = finalAnswer.get(i);
             int rem = ((maxSize - list.size()) + 1) >> 1;
             br.append(" ".repeat(Math.max(0, rem)));
@@ -417,5 +400,63 @@ public class BinaryTree<T> {
             br.append("\n");
         }
         return br.toString();
+    }
+
+    public static class Node<T> {
+        private T data;
+        private Node<T> left;
+        private Node<T> right;
+
+        public Node(T data) {
+            this.data = data;
+        }
+
+        public static <T> Node<T> of(T data) {
+            return new Node<>(data);
+        }
+
+        public T getData() {
+            return this.data;
+        }
+
+        public void setData(T data) {
+            this.data = data;
+        }
+
+        public Node<T> getLeft() {
+            return this.left;
+        }
+
+        public void setLeft(Node<T> left) {
+            this.left = left;
+        }
+
+        public Node<T> getRight() {
+            return this.right;
+        }
+
+        public void setRight(Node<T> right) {
+            this.right = right;
+        }
+
+        @Override
+        public String toString() {
+            return this.data.toString();
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (!(o instanceof BinaryTree.Node)) return false;
+            Node<?> node = (Node<?>) o;
+            return data.equals(node.data) &&
+                    (left != null && left.equals(node.left)) &&
+                    (right != null && right.equals(node.right));
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(data, left, right);
+        }
     }
 }

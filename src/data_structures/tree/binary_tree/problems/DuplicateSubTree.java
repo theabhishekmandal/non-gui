@@ -4,7 +4,6 @@ import data_structures.tree.binary_tree.binary_tree_impl.BinaryTree;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Optional;
 
 import static data_structures.tree.binary_tree.binary_tree_impl.BinaryTree.Node;
 
@@ -67,7 +66,7 @@ public class DuplicateSubTree {
     }
 
     private static boolean findDuplicateSubTree(BinaryTree<Integer> binaryTree) {
-        if (Optional.ofNullable(binaryTree).map(BinaryTree::getRoot).isEmpty()) {
+        if (binaryTree == null || binaryTree.getRoot() == null) {
             return false;
         }
         Map<String, Integer> map = new HashMap<>();
@@ -76,10 +75,12 @@ public class DuplicateSubTree {
     }
 
     private static String findDup(Node<Integer> root, Map<String, Integer> map) {
-        String end = "$";
+        var end = "$";
         if (root == null) {
             return end;
         }
+
+        // returning because won't store leaves in map, as subTree size should be greater than 1
         if (root.getLeft() == null && root.getRight() == null) {
             return root.getData() + end + end;
         }

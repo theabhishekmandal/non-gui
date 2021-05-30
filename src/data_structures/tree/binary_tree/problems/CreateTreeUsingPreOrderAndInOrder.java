@@ -17,8 +17,8 @@ import static data_structures.tree.binary_tree.binary_tree_impl.BinaryTree.Node;
  */
 public class CreateTreeUsingPreOrderAndInOrder {
     public static void main(String[] args) {
-        char[] in = { 'D', 'B', 'E', 'A', 'F', 'C' };
-        char[] pre = { 'A', 'B', 'D', 'E', 'C', 'F' };
+        var in = new char[]{ 'D', 'B', 'E', 'A', 'F', 'C' };
+        var pre = new char[]{ 'A', 'B', 'D', 'E', 'C', 'F' };
         BinaryTree<Character> binaryTree = createTree(in, pre);
         System.out.println(binaryTree.levelOrder());
         System.out.println(binaryTree.preOrder());
@@ -27,7 +27,7 @@ public class CreateTreeUsingPreOrderAndInOrder {
 
     private static BinaryTree<Character> createTree(char[] in, char[] pre){
         BinaryTree<Character> binaryTree = new BinaryTree<>();
-        if(in == null || pre == null || (in.length == 0  && in.length == pre.length) || in.length != pre.length)
+        if(in == null || pre == null || (in.length == 0 && in.length == pre.length) || in.length != pre.length)
             return binaryTree;
         /**
          * Using inclusive ranges and not exclusive
