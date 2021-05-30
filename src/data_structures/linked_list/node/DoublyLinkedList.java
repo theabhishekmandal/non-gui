@@ -155,7 +155,7 @@ public class DoublyLinkedList<T> {
 
     @Override
     public String toString() {
-        StringJoiner joiner = new StringJoiner("-->", "", "-->");
+        var joiner = new StringJoiner("-->", "", "-->");
         for (Node<T> temp = head; temp != null; temp = temp.next) {
             joiner.add(temp.toString());
         }
