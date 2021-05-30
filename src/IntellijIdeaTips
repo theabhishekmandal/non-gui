@@ -1,8 +1,105 @@
 To bring up new menu    - Alt + Insert/ Cmd + n
-find action             - ctrl + shift + a / cmd + shift + a
 to maximize window      - ctrl + shift + f12/ cmd + shift + f12
 to run                  - ctrl + shift + f10/ cmd + shift + R
-to go to highlighted
-Error                   - f2
-to give suggestions     - alt + enter/ option + enter
 to move code up & down  - ctrl + shift + up/down / ctrl + shift + up/down
+
+
+
+to give suggestions     - alt + enter/ option + enter
+
+SEARCH EVERYWHERE
+to find everywhere      - double shift
+to find all the classes - ctrl + n
+to find files           - ctrl + shift + n
+to find symbols(methods
+/ global variable)      - ctrl + shift + alt + n
+find action             - ctrl + shift + a / cmd + shift + a
+
+BASIC COMPLETION
+to activate basic completion    -   ctrl + space
+to complete a statement         -   ctrl + shift + enter
+to see suggestions of static
+constants or methods            -   ctrl + double space
+
+EXPAND OR SHRINK THE CODE SELECTION
+to select the word or expand
+selection                       -   ctrl + w
+to shrink the selection         -   ctrl + shift + w
+
+COMMENTING
+ctrl + slash
+
+DUPLICATE OR DELETE LINES
+to duplicate line               -   ctrl + d
+to delete lines                 -   ctrl + y
+
+MOVE CODE FRAGMENTS
+to pull a line up/down          -   alt + shift + up/down
+to pull a method up/down
+(caret should be at method)     -   ctrl + shift + up/down
+
+COLLAPSE
+to collapse                     -   ctrl + minus
+to collapse all                 -   ctrl + shift + minus
+
+to expand                       -   ctrl + equals
+to expand all                   -   ctrl + shift + equals
+
+SURROUND AND UNWRAP
+to surround/wrap the code
+with some template              -   ctrl + alt + t
+
+to unwrap to previous selection -   ctrl + shift + del
+
+MULTIPLE SELECTIONS
+to select symbol at caret
+and next occurrence of symbol   -   alt + j
+
+to deselect the last occurrence -   alt + shift + j
+
+to select all occurrence of     -   ctrl + alt + shift + j
+a symbol
+
+TYPE MATCHING COMPLETION
+to suggest or complete typ
+matching syntax                 -   ctrl + shift + space
+
+POSTFIX COMPLETION
+to see postfix completion
+suggestions                     -   .
+
+COMPLETION WITH TAB
+to replace the current value
+with suggestion                 -   ctrl + space for suggestion and then press tab
+
+
+RENAMING
+to rename a file or a variable  -   shift + f6
+
+EXTRACTING A VARIABLE
+to extract a variable from
+expression                      -   ctrl + alt + v
+
+EXTRACT METHOD
+to extract a method             -   ctrl + alt + m
+
+REFACTORING MENU
+to see a list of suggestions
+for refactoring                 -   ctrl + alt + shift + t
+to inline variable              -   ctrl + alt + n
+to make variable constant       -   ctrl + alt + c
+
+CODE FORMAT
+to refactor a file or a block   -   ctrl + alt + l
+to show refactor settings       -   ctrl + alt + shift + l
+
+PARAMETER INFO
+to see parameter info           -   ctrl + p
+
+QUICK POPUPS
+to see documentation            -   ctrl + q
+to see method definition        -   ctrl + shift + i
+
+EDITOR CODING ASSISTANCE
+to go to highlighted
+Error                           -   f2
