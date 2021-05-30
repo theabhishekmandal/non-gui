@@ -1,7 +1,7 @@
 package data_structures.array.dutch_national_flag;
 
-import java.util.AbstractMap.SimpleEntry;
 import java.util.Arrays;
+import java.util.List;
 
 /**
  * Given an array and a range[a, b], partition the array around the range such that array is divided in three parts.
@@ -20,14 +20,14 @@ import java.util.Arrays;
  */
 public class ThreeWayPartitioning {
     public static void main(String[] args) {
-        var list = Arrays.asList(
-                new SimpleEntry<>(new int[]{1, 14, 5, 20, 4, 2, 54, 20, 87, 98, 3, 1, 32}, new SimpleEntry<>(10, 20)),
-                new SimpleEntry<>(new int[]{76, 8, 75, 22, 59, 96, 30, 38, 36}, new SimpleEntry<>(44, 62))
+        var list = List.of(
+                new Triplet(new int[]{1, 14, 5, 20, 4, 2, 54, 20, 87, 98, 3, 1, 32}, 10, 20),
+                new Triplet(new int[]{76, 8, 75, 22, 59, 96, 30, 38, 36}, 44, 62)
         );
         for (var entry : list) {
-            int[] arr = entry.getKey();
-            int a = entry.getValue().getKey();
-            int b = entry.getValue().getValue();
+            var arr = entry.arr;
+            var a = entry.first;
+            var b = entry.second;
             System.out.println("a = " + a + " b = " + b + "\narray before partitioning  " + Arrays.toString(arr));
             partitionArray(arr, a, b);
             System.out.println("array after partitioning " + Arrays.toString(arr));
@@ -36,9 +36,9 @@ public class ThreeWayPartitioning {
     }
 
     private static void partitionArray(int[] arr, int a, int b) {
-        int start = 0;
-        int end = arr.length - 1;
-        for (int i = 0; i <= end;) {
+        var start = 0;
+        var end = arr.length - 1;
+        for (var i = 0; i <= end; ) {
             if (arr[i] < a) {
                 swap(arr, i, start);
                 i++;
@@ -53,8 +53,20 @@ public class ThreeWayPartitioning {
     }
 
     private static void swap(int[] arr, int i, int j) {
-        int temp = arr[i];
+        var temp = arr[i];
         arr[i] = arr[j];
         arr[j] = temp;
+    }
+
+    static class Triplet {
+        final int first;
+        final int second;
+        final int[] arr;
+
+        public Triplet(int[] arr, int one, int two) {
+            this.arr = arr;
+            this.first = one;
+            this.second = two;
+        }
     }
 }
