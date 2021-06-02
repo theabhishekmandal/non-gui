@@ -5,15 +5,20 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class BinaryTree<T> {
+    private static final String DELIMITER = ", ";
+    private static final String PREFIX = "[";
+    private static final String SUFFIX = "]";
+    private static final String EMPTY_BRACES = "[]";
+    private static final String START = "*";
     /*
-        Queue is used as a data structure while inserting to the tree
-        after inserting every node we need to break because,
-            -   after inserting in left side we don't want to insert it in right side
-            -   after inserting in the right side we don't want to want to process other elements in the queue
-                until next data comes for insertion
-        after inserting the node we have to check whether both of it's child are present or not
-        -   if both children are not present then insert the parent node on the left side of queue
-     */
+                Queue is used as a data structure while inserting to the tree
+                after inserting every node we need to break because,
+                    -   after inserting in left side we don't want to insert it in right side
+                    -   after inserting in the right side we don't want to want to process other elements in the queue
+                        until next data comes for insertion
+                after inserting the node we have to check whether both of it's child are present or not
+                -   if both children are not present then insert the parent node on the left side of queue
+             */
     private final Deque<Node<T>> queue = new LinkedList<>();
     private Node<T> root;
     private boolean isSetThroughRootMethod = false;
@@ -103,21 +108,24 @@ public class BinaryTree<T> {
 
         Node<T> nodeToBeDeleted = null;
         Node<T> lastNode = null;
+        Node<T> parent = null;
         var firstMatch = true;
 
         Deque<Node<T>> tempQueue = new ArrayDeque<>();
         tempQueue.add(root);
 
-        List<Node<T>> allNodesInPath = new ArrayList<>();
-
         while (!tempQueue.isEmpty()) {
             lastNode = tempQueue.poll();
-            allNodesInPath.add(lastNode);
 
             // using flag to detect the first matching node
             if (lastNode.data.equals(data) && firstMatch) {
                 firstMatch = false;
                 nodeToBeDeleted = lastNode;
+            }
+
+            // saving the parent of lastNode
+            if (lastNode.left != null || lastNode.right != null) {
+                parent = lastNode;
             }
 
             // saving the parent node also
@@ -131,31 +139,19 @@ public class BinaryTree<T> {
 
         if (lastNode != null && nodeToBeDeleted != null) {
             nodeToBeDeleted.data = lastNode.data;
-            var parentOfLastNode = getParent(allNodesInPath, lastNode);
-            if (parentOfLastNode == null) {
+            if (parent == null) {
                 root = null;
             } else {
-                if (parentOfLastNode.left == lastNode) {
-                    parentOfLastNode.left = null;
+                if (parent.left == lastNode) {
+                    parent.left = null;
                 } else {
-                    parentOfLastNode.right = null;
+                    parent.right = null;
                 }
             }
             size--;
             return true;
         }
         return false;
-    }
-
-    private Node<T> getParent(List<Node<T>> allNodesInPath, Node<T> lastNode) {
-        ListIterator<Node<T>> iter = allNodesInPath.listIterator(allNodesInPath.size());
-        while (iter.hasPrevious()) {
-            var curr = iter.previous();
-            if (curr.left == lastNode || curr.right == lastNode) {
-                return curr;
-            }
-        }
-        return null;
     }
 
     /*
@@ -168,17 +164,19 @@ public class BinaryTree<T> {
                 in stack the left node will be processed first.
     */
     public String preOrder() {
-        if (this.root == null) return "";
+        if (this.root == null) {
+            return EMPTY_BRACES;
+        }
 
         Deque<Node<T>> stack = new ArrayDeque<>();
         stack.push(root);
 
-        List<String> finalAnswer = new ArrayList<>();
+        var joiner = new StringJoiner(DELIMITER, PREFIX, SUFFIX);
         while (!stack.isEmpty()) {
             Node<T> temp = stack.pop();
 
             // adding the answer
-            finalAnswer.add(temp.toString());
+            joiner.add(temp.toString());
 
             if (temp.right != null) {
                 stack.push(temp.right);
@@ -187,7 +185,7 @@ public class BinaryTree<T> {
                 stack.push(temp.left);
             }
         }
-        return "[" + String.join(", ", finalAnswer) + "]";
+        return joiner.toString();
     }
 
     /*
@@ -196,13 +194,15 @@ public class BinaryTree<T> {
         Preorder traversal using recursion
      */
     public String preOrderRecursive() {
-        List<String> finalAnswer = new ArrayList<>();
-        preOrderRec(root, finalAnswer);
-        return "[" + String.join(", ", finalAnswer) + "]";
+        var joiner = new StringJoiner(DELIMITER, PREFIX, SUFFIX);
+        preOrderRec(root, joiner);
+        return joiner.toString();
     }
 
-    private void preOrderRec(Node<T> node, List<String> answer) {
-        if (node == null) return;
+    private void preOrderRec(Node<T> node, StringJoiner answer) {
+        if (node == null) {
+            return;
+        }
         answer.add(node.toString());
         preOrderRec(node.left, answer);
         preOrderRec(node.right, answer);
@@ -230,8 +230,10 @@ public class BinaryTree<T> {
 
     */
     public String inOrder() {
-        if (this.root == null) return "";
-        List<String> finalAnswer = new ArrayList<>();
+        if (this.root == null) {
+            return EMPTY_BRACES;
+        }
+        var joiner = new StringJoiner(DELIMITER, PREFIX, SUFFIX);
 
         Deque<Node<T>> stack = new ArrayDeque<>();
         Node<T> curr = root;
@@ -244,12 +246,12 @@ public class BinaryTree<T> {
                 curr = stack.pop();
 
                 // adding the answer
-                finalAnswer.add(curr.data.toString());
+                joiner.add(curr.data.toString());
                 curr = curr.right;
             }
         }
 
-        return "[" + String.join(", ", finalAnswer) + "]";
+        return joiner.toString();
     }
 
     /*
@@ -258,13 +260,15 @@ public class BinaryTree<T> {
         InOrder traversal using recursion
      */
     public String inOrderRecursive() {
-        List<String> finalAnswer = new ArrayList<>();
-        inOrderRec(root, finalAnswer);
-        return "[" + String.join(", ", finalAnswer) + "]";
+        var joiner = new StringJoiner(DELIMITER, PREFIX, SUFFIX);
+        inOrderRec(root, joiner);
+        return joiner.toString();
     }
 
-    private void inOrderRec(Node<T> node, List<String> answer) {
-        if (node == null) return;
+    private void inOrderRec(Node<T> node, StringJoiner answer) {
+        if (node == null) {
+            return;
+        }
         inOrderRec(node.left, answer);
         answer.add(node.toString());
         inOrderRec(node.right, answer);
@@ -288,9 +292,11 @@ public class BinaryTree<T> {
                     it can be added to answer.
      */
     public String postOrder() {
-        if (this.root == null) return "";
-        List<String> finalAnswer = new ArrayList<>();
+        if (this.root == null) {
+            return EMPTY_BRACES;
+        }
 
+        var joiner = new StringJoiner(DELIMITER, PREFIX, SUFFIX);
         Deque<Node<T>> stack = new ArrayDeque<>();
         stack.push(root);
         stack.push(root);
@@ -306,10 +312,10 @@ public class BinaryTree<T> {
                     stack.push(curr.left);
                 }
             } else {
-                finalAnswer.add(curr.data.toString());
+                joiner.add(curr.data.toString());
             }
         }
-        return "[" + String.join(", ", finalAnswer) + "]";
+        return joiner.toString();
     }
 
     /*
@@ -318,13 +324,15 @@ public class BinaryTree<T> {
         PostOrder traversal using recursion
      */
     public String postOrderRecursive() {
-        List<String> finalAnswer = new ArrayList<>();
-        postOrderRec(this.root, finalAnswer);
-        return "[" + String.join(", ", finalAnswer) + "]";
+        var joiner = new StringJoiner(DELIMITER, PREFIX, SUFFIX);
+        postOrderRec(this.root, joiner);
+        return joiner.toString();
     }
 
-    private void postOrderRec(Node<T> node, List<String> answer) {
-        if (node == null) return;
+    private void postOrderRec(Node<T> node, StringJoiner answer) {
+        if (node == null) {
+            return;
+        }
         postOrderRec(node.left, answer);
         postOrderRec(node.right, answer);
         answer.add(node.toString());
@@ -341,14 +349,14 @@ public class BinaryTree<T> {
      */
     public String levelOrder() {
         if (this.root == null) {
-            return "";
+            return EMPTY_BRACES;
         }
-        return "[" + levelOrderPrivate().stream()
-                .map(list -> "(" + String.join(", ", list) + ")")
-                .collect(Collectors.joining(", \n")) + "]";
+        return PREFIX + levelOrderPrivate().stream()
+                .map(StringJoiner::toString)
+                .collect(Collectors.joining(", \n")) + SUFFIX;
     }
 
-    private List<List<String>> levelOrderPrivate() {
+    private List<StringJoiner> levelOrderPrivate() {
         if (this.root == null) {
             return Collections.emptyList();
         }
@@ -357,26 +365,26 @@ public class BinaryTree<T> {
         nodeQueue.add(this.root);
         nodeQueue.add(null);
 
-        List<List<String>> finalList = new ArrayList<>();
-        List<String> nodeList = new ArrayList<>();
+        List<StringJoiner> finalList = new ArrayList<>();
+        var joiner = new StringJoiner(DELIMITER, PREFIX, SUFFIX);
         Node<T> emptyObject = Node.of(null);
         while (!nodeQueue.isEmpty()) {
             Node<T> curr = nodeQueue.poll();
             if (curr != null) {
                 if (curr != emptyObject) {
-                    nodeList.add(curr.data.toString());
+                    joiner.add(curr.data.toString());
                     nodeQueue.add(Objects.requireNonNullElse(curr.left, emptyObject));
                     nodeQueue.add(Objects.requireNonNullElse(curr.right, emptyObject));
                 } else {
-                    nodeList.add("*");
+                    joiner.add(START);
                 }
             } else {
-                // creating new list because, if we clear nodeList then nodeList will be cleared
+                // creating new list because, if we clear joiner then joiner will be cleared
                 // from the final list
-                finalList.add(new ArrayList<>(nodeList));
+                finalList.add(joiner);
 
                 // clearing the list for next level
-                nodeList.clear();
+                joiner = new StringJoiner(DELIMITER, PREFIX, SUFFIX);
                 if (!nodeQueue.isEmpty()) {
                     nodeQueue.add(null);
                 }
@@ -386,18 +394,17 @@ public class BinaryTree<T> {
     }
 
     public String levelOrderPretty() {
-        List<List<String>> finalAnswer = levelOrderPrivate();
+        List<StringJoiner> finalAnswer = levelOrderPrivate();
         if (finalAnswer.isEmpty()) {
-            return "[]";
+            return EMPTY_BRACES;
         }
         var br = new StringBuilder();
-        int maxSize = finalAnswer.get(finalAnswer.size() - 2).size();
+        int maxSize = finalAnswer.get(finalAnswer.size() - 2).length();
         for (var i = 0; i < finalAnswer.size() - 1; i++) {
-            var list = finalAnswer.get(i);
-            int rem = ((maxSize - list.size()) + 1) >> 1;
+            var joiner = finalAnswer.get(i);
+            int rem = ((maxSize - joiner.length()) + 1) >> 1;
             br.append(" ".repeat(Math.max(0, rem)));
-            list.forEach(x -> br.append(x).append(" "));
-            br.append("\n");
+            br.append(joiner).append("\n");
         }
         return br.toString();
     }

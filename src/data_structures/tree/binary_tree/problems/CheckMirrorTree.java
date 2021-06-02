@@ -3,8 +3,8 @@ package data_structures.tree.binary_tree.problems;
 import data_structures.tree.binary_tree.binary_tree_impl.BinaryTree;
 import data_structures.tree.binary_tree.binary_tree_impl.BinaryTree.Node;
 
+import java.util.ArrayDeque;
 import java.util.Deque;
-import java.util.LinkedList;
 import java.util.Random;
 
 /**
@@ -19,71 +19,92 @@ import java.util.Random;
  */
 public class CheckMirrorTree {
     public static void main(String[] args) {
-        Random random = new Random();
-        BinaryTree<Integer> binaryTree = new BinaryTree<>();
-        BinaryTree<Integer> binaryTree1 = new BinaryTree<>();
-        for(int i = 0; i < random.nextInt(20); i++){
-            int num = random.nextInt(20);
+        var random = new Random();
+        var binaryTree = new BinaryTree<Integer>();
+        var binaryTree1 = new BinaryTree<Integer>();
+
+        for (var i = 0; i < random.nextInt(20); i++) {
+            var num = random.nextInt(20);
             binaryTree.insertInBinaryTreeLevelOrder(num);
             binaryTree1.insertInBinaryTreeLevelOrder(num);
         }
-        if(random.nextBoolean()){
-           createMirrorTree(binaryTree1.getRoot());
+
+        if (random.nextBoolean()) {
+            createMirrorTree(binaryTree1.getRoot());
         }
+
         boolean isMirrorImage = areMirrors(binaryTree.getRoot(), binaryTree1.getRoot());
         System.out.println(isMirrorImage);
-        System.out.println("binaryTree " + binaryTree.levelOrder());
-        System.out.println("binaryTree1 " + binaryTree1.levelOrder());
+        System.out.println("binaryTree\n" + binaryTree.levelOrderPretty());
+        System.out.println("binaryTree1\n" + binaryTree1.levelOrderPretty());
     }
 
     private static boolean areMirrors(Node<Integer> root, Node<Integer> root1) {
-        if(root == null && root1 == null) return true;
-        if(root == null || root1 == null) return false;
+        if (root == null && root1 == null) {
+            return true;
+        }
+        if (root == null || root1 == null) {
+            return false;
+        }
 
-        Deque<Node<Integer>> stack = new LinkedList<>();
+        Deque<Node<Integer>> stack = new ArrayDeque<>();
         stack.push(root);
 
-        Deque<Node<Integer>> stack1 = new LinkedList<>();
+        Deque<Node<Integer>> stack1 = new ArrayDeque<>();
         stack1.push(root1);
 
-        boolean flag = true;
-        while(!stack.isEmpty() && !stack1.isEmpty()){
-            Node<Integer> first = stack.pop();
-            Node<Integer> second = stack1.pop();
-            if(!first.getData().equals(second.getData())){
+        var flag = true;
+        while (!stack.isEmpty() && !stack1.isEmpty()) {
+            var first = stack.pop();
+            var second = stack1.pop();
+            if (!first.getData().equals(second.getData())) {
                 flag = false;
                 break;
             }
-
             // adding right child and then left to check for mirror image
-            if(first.getRight() != null) stack.push(first.getRight());
-            if(first.getLeft() != null) stack.push(first.getLeft());
+            addToQueue(stack, first, false);
 
             // adding left child and then right to check for mirror image
-            if(second.getLeft() != null) stack1.push(second.getLeft());
-            if(second.getRight() != null) stack1.push(second.getRight());
+            addToQueue(stack1, second, true);
         }
 
         return flag && stack.size() == stack1.size();
     }
 
+    private static void addToQueue(Deque<Node<Integer>> stack, Node<Integer> curr, boolean leftToRight) {
+        var left = (leftToRight) ? curr.getLeft() : curr.getRight();
+        var right = (leftToRight) ? curr.getRight() : curr.getLeft();
+        if (left != null) {
+            stack.push(left);
+        }
+        if (right != null) {
+            stack.push(right);
+        }
+    }
+
     // using top down approach
-    private static void createMirrorTree(Node<Integer> node){
-        if(node == null) return;
-        Deque<Node<Integer>> stack = new LinkedList<>();
+    private static void createMirrorTree(Node<Integer> node) {
+        if (node == null) {
+            return;
+        }
+        Deque<Node<Integer>> stack = new ArrayDeque<>();
         stack.push(node);
-        while(!stack.isEmpty()){
-            Node<Integer> curr = stack.pop();
-            Node<Integer> temp = curr.getRight();
-            curr.setRight(curr.getLeft());
-            curr.setLeft(temp);
-            if(curr.getRight() != null){
+        while (!stack.isEmpty()) {
+            var curr = stack.pop();
+            swap(curr);
+            if (curr.getRight() != null) {
                 stack.push(curr.getRight());
             }
 
-            if(curr.getLeft() != null){
+            if (curr.getLeft() != null) {
                 stack.push(curr.getLeft());
             }
         }
+    }
+
+    private static void swap(Node<Integer> curr) {
+        var temp = curr.getRight();
+        curr.setRight(curr.getLeft());
+        curr.setLeft(temp);
     }
 }

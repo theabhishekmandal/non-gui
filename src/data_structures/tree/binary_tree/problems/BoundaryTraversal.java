@@ -16,11 +16,11 @@ import static data_structures.tree.binary_tree.binary_tree_impl.BinaryTree.Node;
  *         /   \
  *        8     22
  *      /   \    \
- *     4    12    25
+ *   null    12    25
  *         /  \
  *        10   14
  *
- * Output: 20 8 4 10 14 25 22
+ * Output: 20 8 12 10 14 25 22
  *
  * Approach:
  *  -   Get the leaves as list
@@ -39,61 +39,83 @@ public class BoundaryTraversal {
         if (tree == null || tree.getRoot() == null) {
             return Collections.emptyList();
         }
-        List<T> leavesList = getLeaves(tree.getRoot());
-        List<List<T>> leftRightList = getLeftAndRightView(tree.getRoot());
-        return Stream.of(leftRightList.get(0), leavesList, leftRightList.get(1)).flatMap(Collection::stream).collect(Collectors.toList());
+        var leavesList = getLeaves(tree.getRoot());
+        var leftRightList = getLeftAndRightView(tree.getRoot());
+        return Stream.of(leftRightList.get(0), leavesList, leftRightList.get(1))
+                .flatMap(Collection::stream)
+                .collect(Collectors.toList());
     }
 
-    private static <T> List<T> getLeaves(Node<T> root) {
-        List<T> list = new ArrayList<>();
+    private static <T> Deque<T> getLeaves(Node<T> root) {
+        final Deque<T> deque = new ArrayDeque<>();
 
-        Deque<Node<T>> stack = new ArrayDeque<>();
+        final Deque<Node<T>> stack = new ArrayDeque<>();
         stack.push(root);
         stack.push(root);
 
         while (!stack.isEmpty()) {
-            var curr = stack.pop();
+            final var curr = stack.pop();
             if (!stack.isEmpty() && curr == stack.peek()) {
-                if (Objects.nonNull(curr.getRight())) {
+                if (!isRightNull(curr)) {
                     stack.push(curr.getRight());
                     stack.push(curr.getRight());
                 }
-                if (Objects.nonNull(curr.getLeft())) {
+                if (!isLeftNull(curr)) {
                     stack.push(curr.getLeft());
                     stack.push(curr.getLeft());
                 }
             } else {
-               if (Objects.isNull(curr.getLeft()) && Objects.isNull(curr.getRight())) {
-                   list.add(curr.getData());
+               if (isLeftNull(curr) && isRightNull(curr)) {
+                   deque.add(curr.getData());
                }
             }
         }
-        return list;
+        return deque;
     }
 
-    private static <T> List<List<T>> getLeftAndRightView(Node<T> root) {
+    private static <T> boolean isLeftNull(Node<T> curr) {
+        return curr.getLeft() == null;
+    }
+
+    private static <T> boolean isRightNull(Node<T> curr) {
+        return curr.getRight() == null;
+    }
+
+    private static <T> List<Deque<T>> getLeftAndRightView(Node<T> root) {
+
+        final Deque<T> leftDeque = new ArrayDeque<>();
+        leftDeque.add(root.getData());
+
         Node<T> left = root.getLeft();
+        // add all the left nodes, if left node is not present then add right node, but
+        // leave the leaf nodes
+        while (left != null) {
+            if (isLeftNull(left) && isRightNull(left))  {
+                break;
+            }
+            leftDeque.addLast(left.getData());
+            if (!isLeftNull(left)) {
+                left = left.getLeft();
+            } else {
+                left = left.getRight();
+            }
+        }
+
+        final Deque<T> rightDeque = new ArrayDeque<>();
         Node<T> right = root.getRight();
-
-        List<T> leftList = new ArrayList<>();
-        leftList.add(root.getData());
-
-        List<T> rightList = new ArrayList<>();
-
-        while (Objects.nonNull(left)) {
-            if (Objects.nonNull(left.getLeft()) && Objects.nonNull(left.getRight())) {
-                leftList.add(left.getData());
+        // add all the right nodes, if right node is not present then add left node, but
+        // leave the leaf nodes
+        while (right != null) {
+            if (isLeftNull(right) && isRightNull(right))  {
+                break;
             }
-            left = left.getLeft();
-        }
-
-        while (Objects.nonNull(right)) {
-            if (Objects.nonNull(right.getLeft()) && Objects.nonNull(right.getRight())) {
-                rightList.add(right.getData());
+            rightDeque.addLast(right.getData());
+            if (!isRightNull(right)) {
+                right = right.getRight();
+            } else {
+                right = right.getLeft();
             }
-            right = right.getRight();
         }
-        Collections.reverse(rightList);
-        return List.of(leftList, rightList);
+        return List.of(leftDeque, rightDeque);
     }
 }

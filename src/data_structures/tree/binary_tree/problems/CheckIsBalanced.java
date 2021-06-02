@@ -13,6 +13,9 @@ import static data_structures.tree.binary_tree.binary_tree_impl.BinaryTree.Node;
  * Approach:
  *  -   use recursion to get the left and right height
  *  -   compare those heights, if they differ more than 1 then tree is not balanced
+ *  -   Height is calculated as the max height from root to deepest node. To find, max height calculate left
+ *      and right height and take the max out of left and right. Add 1 to this max which represents the root and return
+ *      back to recursion tree.
  */
 public class CheckIsBalanced {
     public static void main(String[] args) {
@@ -46,31 +49,42 @@ public class CheckIsBalanced {
     // for input to generate random tree
     private static final Random random = new Random();
     private static Node<Integer> createRandomTree() {
-        int size = random.nextInt(5);
-        Node<Integer> root = Node.of(0);
+        var size = random.nextInt(5);
+        var root = Node.of(0);
         Deque<Node<Integer>> queue = new ArrayDeque<>();
-        for (int i = 0; i < size; i++) {
+        for (var i = 0; i < size; i++) {
             Node<Integer> nodeToBeAdded = Node.of(i + 1);
             queue.add(root);
-            while (!queue.isEmpty()) {
+            var doNotAdd = false;
+            while (!queue.isEmpty() && !doNotAdd) {
                 var temp = queue.poll();
                 if (random.nextBoolean()) {
-                   if (temp.getLeft() == null) {
-                       temp.setLeft(nodeToBeAdded);
-                       break;
-                   } else {
-                       queue.add(temp.getLeft());
-                   }
+                    doNotAdd = addToLeft(queue, nodeToBeAdded,  temp);
                 } else {
-                    if (temp.getRight() == null) {
-                        temp.setRight(nodeToBeAdded);
-                        break;
-                    } else {
-                        queue.add(temp.getRight());
-                    }
+                    doNotAdd = addToRight(queue, nodeToBeAdded, temp);
                 }
             }
         }
         return root;
+    }
+
+    private static boolean addToRight(Deque<Node<Integer>> queue, Node<Integer> nodeToBeAdded, Node<Integer> temp) {
+        if (temp.getRight() == null) {
+            temp.setRight(nodeToBeAdded);
+            return true;
+        } else {
+            queue.add(temp.getRight());
+        }
+        return false;
+    }
+
+    private static boolean addToLeft(Deque<Node<Integer>> queue, Node<Integer> nodeToBeAdded, Node<Integer> temp) {
+        if (temp.getLeft() == null) {
+            temp.setLeft(nodeToBeAdded);
+            return true;
+        } else {
+            queue.add(temp.getLeft());
+        }
+        return false;
     }
 }

@@ -40,35 +40,49 @@ public class AllViewOfTree {
      *  will be added to final list
      */
     private static <T> List<T> getLeftView(Node<T> root) {
-        if (root == null) return Collections.emptyList();
-        Deque<Node<T>> queue = new LinkedList<>();
-        List<T> ans = new ArrayList<>();
+        if (root == null) {
+            return Collections.emptyList();
+        }
+        final Node<T> nullNode = Node.of(null);
+        final Deque<Node<T>> queue = new ArrayDeque<>();
+        final List<T> ans = new ArrayList<>();
 
-        boolean leftView = true;
+        var leftView = true;
         queue.add(root);
-        queue.add(null);
+        queue.add(nullNode);
 
         while (!queue.isEmpty()) {
             var curr = queue.poll();
-            if (curr != null) {
+            if (curr != nullNode) {
                 if (leftView) {
                     leftView = false;
                     ans.add(curr.getData());
                 }
-                if (curr.getLeft() != null) {
-                    queue.add(curr.getLeft());
-                }
-                if (curr.getRight() != null) {
-                    queue.add(curr.getRight());
-                }
+                addToQueue(queue, curr, true);
             } else {
                 if (!queue.isEmpty()) {
                     leftView = true;
-                    queue.add(null);
+                    queue.add(nullNode);
                 }
             }
         }
         return ans;
+    }
+
+    private static <T> void addToQueue(Deque<Node<T>> queue, Node<T> curr, boolean leftToRight) {
+        if (!leftToRight) {
+            addToQueue(queue, curr.getRight(), curr.getLeft());
+        }
+        addToQueue(queue, curr.getLeft(), curr.getRight());
+    }
+
+    private static <T> void addToQueue(Deque<Node<T>> queue, Node<T> left, Node<T> right) {
+        if (left != null) {
+            queue.add(left);
+        }
+        if (right != null) {
+            queue.add(right);
+        }
     }
 
     /**
@@ -88,31 +102,30 @@ public class AllViewOfTree {
      *  will be added to final list
      */
     private static <T> List<T> getRightView(Node<T> root) {
-        if (root == null) return Collections.emptyList();
-        Deque<Node<T>> queue = new LinkedList<>();
-        List<T> ans = new ArrayList<>();
+        if (root == null) {
+            return Collections.emptyList();
+        }
 
-        boolean rightView = true;
+        final Node<T> nullNode = Node.of(null);
+        final Deque<Node<T>> queue = new LinkedList<>();
+        final List<T> ans = new ArrayList<>();
+
+        var rightView = true;
         queue.add(root);
-        queue.add(null);
+        queue.add(nullNode);
 
         while (!queue.isEmpty()) {
             var curr = queue.poll();
-            if (curr != null) {
+            if (curr != nullNode) {
                 if (rightView) {
                     rightView = false;
                     ans.add(curr.getData());
                 }
-                if (curr.getRight() != null) {
-                    queue.add(curr.getRight());
-                }
-                if (curr.getLeft() != null) {
-                    queue.add(curr.getLeft());
-                }
+                addToQueue(queue, curr, false);
             } else {
                 if (!queue.isEmpty()) {
                     rightView = true;
-                    queue.add(null);
+                    queue.add(nullNode);
                 }
             }
         }
@@ -143,37 +156,35 @@ public class AllViewOfTree {
      */
 
     private static <T> List<T> getTopView(Node<T> root) {
-        if (root == null) return Collections.emptyList();
+        if (root == null) {
+            return Collections.emptyList();
+        }
 
-        var queue = new LinkedList<Pair<Node<T>, Pair<Integer, Integer>>>();
-        queue.add(Pair.of(root, Pair.of(0, 0)));
+        final var queue = new ArrayDeque<Container<T>>();
+        queue.add(Container.of(root, 0, 0));
 
-        var map = new HashMap<Integer, Pair<T, Pair<Integer, Integer>>>();
-
+        final var map = new HashMap<Integer, Container<T>>();
         while (!queue.isEmpty()) {
-            var curr = queue.poll();
-            var currNode = curr.fst;
-            var distanceFromRoot = curr.snd.fst;
-            var level = curr.snd.snd;
+            final var curr = queue.poll();
 
             // put only those values which you can see from the top view of tree
-            map.putIfAbsent(distanceFromRoot, Pair.of(currNode.getData(), Pair.of(distanceFromRoot, level)));
+            map.putIfAbsent(curr.distanceFromRoot, Container.of(curr.node, curr.level, curr.distanceFromRoot));
 
-            if (currNode.getLeft() != null) {
-                queue.add(Pair.of(currNode.getLeft(), Pair.of(distanceFromRoot - 1, level + 1)));
+            if (curr.node.getLeft() != null) {
+                queue.add(Container.of(curr.node.getLeft(), curr.level + 1, curr.distanceFromRoot + 1));
             }
-            if (currNode.getRight() != null) {
-                queue.add(Pair.of(currNode.getRight(), Pair.of(distanceFromRoot + 1, level + 1)));
+            if (curr.node.getRight() != null) {
+                queue.add(Container.of(curr.node.getRight(), curr.level + 1, curr.distanceFromRoot - 1));
             }
         }
-        Comparator<Pair<T, Pair<Integer, Integer>>> pair = (x, y) -> {
-            int first = y.snd.fst.compareTo(x.snd.fst);
-            if (first != 0) {
-                return -first;
-            }
-            return x.snd.snd.compareTo(y.snd.snd);
-        };
-        return map.values().stream().sorted(pair).map(x -> x.fst).collect(Collectors.toList());
+        final Comparator<Container<T>> comp = Comparator.comparing(Container<T>::getDistanceFromRoot, Comparator.reverseOrder())
+                .thenComparing(Container::getLevel);
+
+        return map.values()
+                .stream()
+                .sorted(comp)
+                .map(x -> x.getNode().getData())
+                .collect(Collectors.toList());
     }
 
     /**
@@ -194,34 +205,61 @@ public class AllViewOfTree {
      *      there by getting the bottom nodes.
      */
     private static <T> List<T> getBottomView(Node<T> root) {
-        if (root == null) return Collections.emptyList();
+        if (root == null) {
+            return Collections.emptyList();
+        }
 
-        var queue = new LinkedList<Pair<Node<T>, Pair<Integer, Integer>>>();
-        queue.add(Pair.of(root, Pair.of(0, 0)));
+        final var queue = new ArrayDeque<Container<T>>();
+        queue.add(Container.of(root, 0, 0));
 
-        var map = new HashMap<Integer, Pair<T, Pair<Integer, Integer>>>();
+        final var map = new HashMap<Integer, Container<T>>();
         while (!queue.isEmpty()) {
-            var curr = queue.poll();
-            var currNode = curr.fst;
-            var distanceFromRoot = curr.snd.fst;
-            var level = curr.snd.snd;
+            final var curr = queue.poll();
 
-            map.put(distanceFromRoot, Pair.of(currNode.getData(), Pair.of(distanceFromRoot, level)));
+            map.put(curr.distanceFromRoot, Container.of(curr.node, curr.level, curr.distanceFromRoot));
 
-            if (currNode.getLeft() != null) {
-                queue.add(Pair.of(currNode.getLeft(), Pair.of(distanceFromRoot - 1, level + 1)));
+            if (curr.node.getLeft() != null) {
+                queue.add(Container.of(curr.node.getLeft(), curr.level + 1, curr.distanceFromRoot - 1));
             }
-            if (currNode.getRight() != null) {
-                queue.add(Pair.of(currNode.getRight(), Pair.of(distanceFromRoot + 1, level + 1)));
+            if (curr.node.getRight() != null) {
+                queue.add(Container.of(curr.node.getRight(), curr.level + 1, curr.distanceFromRoot + 1));
             }
         }
-        Comparator<Pair<T, Pair<Integer, Integer>>> pair = (x, y) -> {
-            int first = y.snd.fst.compareTo(x.snd.fst);
-            if (first != 0) {
-                return -first;
-            }
-            return x.snd.snd.compareTo(y.snd.snd);
-        };
-        return map.values().stream().sorted(pair).map(x -> x.fst).collect(Collectors.toList());
+        final Comparator<Container<T>> comp = Comparator.comparing(Container<T>::getDistanceFromRoot)
+                .thenComparing(Container::getLevel);
+
+        return map.values()
+                .stream()
+                .sorted(comp)
+                .map(x -> x.getNode().getData())
+                .collect(Collectors.toList());
+    }
+
+    static class Container<T> {
+        private final Node<T> node;
+        private final int level;
+        private final int distanceFromRoot;
+
+        private Container(Node<T> node, int level, int distanceFromRoot) {
+            this.node = node;
+            this.level = level;
+            this.distanceFromRoot = distanceFromRoot;
+        }
+
+        public static <T> Container<T> of(Node<T> node, int level, int distanceFromRoot) {
+            return new Container<>(node, level, distanceFromRoot);
+        }
+
+        public Node<T> getNode() {
+            return node;
+        }
+
+        public int getLevel() {
+            return level;
+        }
+
+        public int getDistanceFromRoot() {
+            return distanceFromRoot;
+        }
     }
 }

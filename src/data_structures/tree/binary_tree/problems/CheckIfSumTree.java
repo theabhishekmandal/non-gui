@@ -3,9 +3,8 @@ package data_structures.tree.binary_tree.problems;
 import data_structures.Pair;
 import data_structures.tree.binary_tree.binary_tree_impl.BinaryTree;
 
-import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
+import java.util.StringJoiner;
 
 import static data_structures.tree.binary_tree.binary_tree_impl.BinaryTree.Node;
 
@@ -15,47 +14,53 @@ import static data_structures.tree.binary_tree.binary_tree_impl.BinaryTree.Node;
  * A leaf node is also a sum tree
  *
  * Approach
- *  -  For every node check if left and right child node sum is equal to current parent node
- *  -  if yes then send the sum of parent, left and right child node back to recursion tree with the flag value.
+ *  -   For base condition i.e if there is a leaf node, then it's left and right child are null, as nulls are equals
+ *      so return true for equal sum
+ *  -   If one of the node is null, then for that node it is equivalent of equal sum.
+ *  -   Otherwise for every left and right node's sum, check if it's equal to it's parent's value or not,
+ *          -   If they are equivalent then return true with sum of it's parent and left and right nodes.
+ *          -   Else return false with the above sum
+ *  -   returning sum is necessary so as to check for above node whether they have equal sum with their parent or not
+ *
  */
 public class CheckIfSumTree {
     public static void main(String[] args) {
-        List<int[]> list = Arrays.asList(
+        List<int[]> list = List.of(
                 new int[]{3, 1, 2},
                 new int[]{10, 20, 30, 10, 10}
         );
 
-        StringBuilder answer = new StringBuilder();
+        var answer = new StringJoiner("\n");
         for (var arr : list) {
             BinaryTree<Integer> binaryTree = new BinaryTree<>();
-            for (int i : arr) {
+            for (var i : arr) {
                 binaryTree.insertInBinaryTreeLevelOrder(i);
             }
-            answer.append(checkIfSumTree(binaryTree)).append("\n");
+            System.out.println(binaryTree.levelOrderPretty());
+            answer.add(String.valueOf(checkIfSumTree(binaryTree)));
         }
         System.out.print(answer);
     }
 
     private static boolean checkIfSumTree(BinaryTree<Integer> binaryTree) {
-        if (Optional.ofNullable(binaryTree).map(BinaryTree::getRoot).isEmpty()) {
+        if (binaryTree == null || binaryTree.getRoot() == null) {
             return false;
         }
         return isSumTree(binaryTree.getRoot()).getSecond();
     }
 
-    private static Pair<Integer, Boolean> isSumTree(Node<Integer> root) {
-        if (root == null) {
+    private static Pair<Integer, Boolean> isSumTree(Node<Integer> curr) {
+        if (curr == null) {
             return Pair.of(0, true);
         }
-        if (isLeaf(root)) {
-            return Pair.of(root.getData(), true);
+        if (isLeaf(curr)) {
+            return Pair.of(curr.getData(), true);
         }
-        var leftPair = isSumTree(root.getLeft());
-        var rightPair = isSumTree(root.getRight());
-        int leftValue = leftPair.getFirst();
-        int rightValue = rightPair.getFirst();
-        boolean isRootSumTree = root.getData().equals(leftValue + rightValue);
-        return Pair.of(root.getData() + leftPair.getFirst() + rightPair.getFirst(), isRootSumTree);
+        var leftPair = isSumTree(curr.getLeft());
+        var rightPair = isSumTree(curr.getRight());
+        var leftRightSum = leftPair.getFirst() + rightPair.getFirst();
+        var isRootSumTree = curr.getData().equals(leftRightSum);
+        return Pair.of(curr.getData() + leftRightSum, isRootSumTree);
     }
 
     private static boolean isLeaf(Node<Integer> root) {

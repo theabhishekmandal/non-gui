@@ -3,8 +3,9 @@ package data_structures.tree.binary_tree.binary_tree_impl;
 public class BinaryTreeImpl {
     public static void main(String[] args) {
         BinaryTree<Integer> binaryTree = new BinaryTree<>();
-        for(int i = 0; i < 7; i++)
+        for (int i = 0; i < 7; i++) {
             binaryTree.insertInBinaryTreeLevelOrder(i);
+        }
 
         String preOrderIter = binaryTree.preOrder();
         String preOrderRec = binaryTree.preOrderRecursive();
