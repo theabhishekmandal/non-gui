@@ -3,6 +3,7 @@ package data_structures.tree.binary_tree.problems;
 import data_structures.tree.binary_tree.binary_tree_impl.BinaryTree;
 
 import java.util.*;
+import java.util.function.IntUnaryOperator;
 import java.util.stream.IntStream;
 
 import static data_structures.tree.binary_tree.binary_tree_impl.BinaryTree.Node;
@@ -23,124 +24,111 @@ import static data_structures.tree.binary_tree.binary_tree_impl.BinaryTree.Node;
  *
  */
 
-class Pair<A, B> {
-    public final A fst;
-    public final B snd;
-
-    public Pair(A fst, B snd) {
-        this.fst = fst;
-        this.snd = snd;
-    }
-
-    public String toString() {
-        return "Pair[" + this.fst + "," + this.snd + "]";
-    }
-
-    @SuppressWarnings("unchecked")
-    public boolean equals(Object other) {
-        return other instanceof Pair &&
-                Objects.equals(this.fst, ((Pair<A, B>)other).fst) &&
-                Objects.equals(this.snd, ((Pair<A, B>)other).snd);
-    }
-
-    public int hashCode() {
-        if (this.fst == null) {
-            return this.snd == null ? 0 : this.snd.hashCode() + 1;
-        } else {
-            return this.snd == null ? this.fst.hashCode() + 2 : this.fst.hashCode() * 17 + this.snd.hashCode();
-        }
-    }
-
-    public static <A, B> Pair<A, B> of(A a, B b) {
-        return new Pair<>(a, b);
-    }
-}
 public class CheckSumInTree {
     public static void main(String[] args) {
-        Random random = new Random();
+        var random = new Random();
         BinaryTree<Integer> binaryTree = new BinaryTree<>();
-        IntStream.range(0, random.nextInt(20)).forEach(binaryTree::insertInBinaryTreeLevelOrder);
-        int number = random.nextInt(20);
+
+        // creating binaryTree and getting a number that's need to be found for sum Tree
+        int number = getNumberToBeFound(random, binaryTree);
         System.out.println("Number to be found " + number + "\n" + binaryTree.levelOrder());
 
         // Using Iteration
-        boolean isSumExists = checkSumInTree(binaryTree.getRoot(), number);
-        if(isSumExists){
-            System.out.println(finalList);
-            finalList.clear();
-        }
-        else{
-            System.out.println("no path exists");
-        }
-
+        checkSumUsingIteration(binaryTree, number);
 
         // Using Recursion
-        checkSumInTreeRecursion(binaryTree.getRoot(), number, "[");
-        if(finalListRecursion.isEmpty()){
-            System.out.println("no path exists");
-        }
-        else{
-            System.out.println(finalListRecursion);
-            finalListRecursion.clear();
-        }
+        checkSumUsingRecursion(binaryTree, number);
     }
 
-    private static final List<String> finalList = new ArrayList<>();
-
-    private static boolean checkSumInTree(Node<Integer> root, int sum) {
-        if(root == null) return false;
-
-        Deque<Pair<Node<Integer>, Pair<Integer, String>>> stack = new LinkedList<>();
-        // adding the node, sum - current node value and current node as string
-        stack.push(Pair.of(root, Pair.of(sum - root.getData(), "[ " + root.getData().toString())));
-
-        boolean found = false;
-        while(!stack.isEmpty()){
-           Pair<Node<Integer>, Pair<Integer, String>> pair = stack.pop();
-           Node<Integer> curr = pair.fst;
-           Pair<Integer, String> innerPair = pair.snd;
-
-           if(curr.getRight() == null && curr.getLeft() == null && innerPair.fst == 0){
-               found = true;
-               finalList.add(innerPair.snd + " ]");
-           }
-
-           if(curr.getRight() != null){
-              stack.push(Pair.of(curr.getRight(), Pair.of(innerPair.fst - curr.getRight().getData(),
-                      innerPair.snd + ", " + curr.getRight().getData().toString())));
-           }
-
-           if(curr.getLeft() != null){
-               stack.push(Pair.of(curr.getLeft(), Pair.of(innerPair.fst - curr.getLeft().getData(),
-                       innerPair.snd + ", " + curr.getLeft().getData().toString())));
-           }
-        }
-        return found;
+    private static int getNumberToBeFound(Random random, BinaryTree<Integer> binaryTree) {
+        List<Integer> list = new ArrayList<>();
+        IntUnaryOperator op = x -> {
+            list.add(x);
+            return x;
+        };
+        IntStream.range(0, random.nextInt(20))
+                .map(op)
+                .forEach(binaryTree::insertInBinaryTreeLevelOrder);
+        var number = random.nextInt(list.size());
+        return list.get(number);
     }
 
-    private static final List<String> finalListRecursion = new ArrayList<>();
-    private static void checkSumInTreeRecursion(Node<Integer> node, int sum, String ans){
-        if(node == null){
+    private static void checkSumUsingRecursion(BinaryTree<Integer> binaryTree, int number) {
+        var joiner = new StringJoiner(", ", "[", "]");
+        checkSumInTreeRecursion(binaryTree.getRoot(), number, "", joiner);
+        System.out.println(joiner);
+    }
+
+    private static void checkSumUsingIteration(BinaryTree<Integer> binaryTree, int number) {
+        var joiner = new StringJoiner(", ", "[", "]");
+        checkSumInTree(binaryTree.getRoot(), number, joiner);
+        System.out.println(joiner);
+    }
+
+    private static void checkSumInTree(Node<Integer> root, int sum, StringJoiner joiner) {
+        if (root == null) {
             return;
         }
 
-        Integer data = node.getData();
-        if(node.getLeft() == null && node.getRight() == null && sum - data == 0){
-            finalListRecursion.add(ans + ", " + node.getData().toString() + " ]");
+        Deque<Container<Integer>> stack = new ArrayDeque<>();
+        // adding the node, sum - current node value and current node as string
+        stack.push(Container.of(root, sum - root.getData(), "[ " + root.getData().toString()));
+
+        while (!stack.isEmpty()) {
+            var container = stack.pop();
+            var curr = container.node;
+            var left = curr.getLeft();
+            var right = curr.getRight();
+
+            if (left == null && right == null && container.sum == 0) {
+                joiner.add(container.pathFromRoot + " ]");
+            }
+
+            pushToStack(stack, container, right);
+            pushToStack(stack, container, left);
+        }
+    }
+
+    private static void pushToStack(Deque<Container<Integer>> stack, Container<Integer> container, Node<Integer> node) {
+        if (node != null) {
+            var data = node.getData();
+            stack.push(Container.of(node, container.sum - data, container.pathFromRoot + ", " + data));
+        }
+    }
+
+    private static void checkSumInTreeRecursion(Node<Integer> node, int sum, String ans, StringJoiner paths) {
+        if (node == null) {
+            return;
+        }
+
+        var data = node.getData();
+        if (node.getLeft() == null && node.getRight() == null && sum - data == 0) {
+            paths.add(ans + ", " + node.getData() + " ]");
             return;
         }
 
         // checking for first time
         String temp = ans;
-        if(ans.length() == 1) {
-            temp += " ";
-        }
-        else{
-           temp += ", ";
-        }
-        temp += node.getData().toString();
+        temp += (ans.isEmpty()) ? "[" : ",";
+        temp += " " + node.getData();
 
-        checkSumInTreeRecursion(node.getLeft(), sum - node.getData(), temp);
-        checkSumInTreeRecursion(node.getRight(), sum - node.getData(), temp);
+        checkSumInTreeRecursion(node.getLeft(), sum - node.getData(), temp, paths);
+        checkSumInTreeRecursion(node.getRight(), sum - node.getData(), temp, paths);
+    }
+
+    static class Container<T> {
+        private final Node<T> node;
+        private final int sum;
+        private final String pathFromRoot;
+
+        public Container(Node<T> node, int sum, String pathFromRoot) {
+            this.node = node;
+            this.sum = sum;
+            this.pathFromRoot = pathFromRoot;
+        }
+
+        public static <T> Container<T> of(Node<T> node, int sum, String distanceFromRoot) {
+            return new Container<>(node, sum, distanceFromRoot);
+        }
     }
 }

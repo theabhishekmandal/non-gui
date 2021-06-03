@@ -9,7 +9,7 @@ public class BinaryTree<T> {
     private static final String PREFIX = "[";
     private static final String SUFFIX = "]";
     private static final String EMPTY_BRACES = "[]";
-    private static final String START = "*";
+    private static final String STAR = "*";
     /*
                 Queue is used as a data structure while inserting to the tree
                 after inserting every node we need to break because,
@@ -18,7 +18,7 @@ public class BinaryTree<T> {
                         until next data comes for insertion
                 after inserting the node we have to check whether both of it's child are present or not
                 -   if both children are not present then insert the parent node on the left side of queue
-             */
+     */
     private final Deque<Node<T>> queue = new LinkedList<>();
     private Node<T> root;
     private boolean isSetThroughRootMethod = false;
@@ -376,7 +376,7 @@ public class BinaryTree<T> {
                     nodeQueue.add(Objects.requireNonNullElse(curr.left, emptyObject));
                     nodeQueue.add(Objects.requireNonNullElse(curr.right, emptyObject));
                 } else {
-                    joiner.add(START);
+                    joiner.add(STAR);
                 }
             } else {
                 // creating new list because, if we clear joiner then joiner will be cleared

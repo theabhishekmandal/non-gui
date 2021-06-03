@@ -69,19 +69,14 @@ public class AllViewOfTree {
         return ans;
     }
 
-    private static <T> void addToQueue(Deque<Node<T>> queue, Node<T> curr, boolean leftToRight) {
-        if (!leftToRight) {
-            addToQueue(queue, curr.getRight(), curr.getLeft());
-        }
-        addToQueue(queue, curr.getLeft(), curr.getRight());
-    }
-
-    private static <T> void addToQueue(Deque<Node<T>> queue, Node<T> left, Node<T> right) {
+    private static <T> void addToQueue(Deque<Node<T>> deque, Node<T> curr, boolean leftToRight) {
+        var left = (leftToRight) ? curr.getLeft() : curr.getRight();
+        var right = (leftToRight) ? curr.getRight() : curr.getLeft();
         if (left != null) {
-            queue.add(left);
+            deque.add(left);
         }
         if (right != null) {
-            queue.add(right);
+            deque.add(right);
         }
     }
 
