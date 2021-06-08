@@ -5,7 +5,7 @@ in Java
 
 ## Prerequisites
 
-Little knowledge of Java classes and Object Oriented Paradigm
+Little knowledge of Java classes, Object Oriented Paradigm and Functional Programming.
 
 ## Built With
 
