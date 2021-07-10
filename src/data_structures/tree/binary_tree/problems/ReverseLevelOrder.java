@@ -17,40 +17,45 @@ import static data_structures.tree.binary_tree.binary_tree_impl.BinaryTree.Node;
  */
 public class ReverseLevelOrder {
     public static void main(String[] args) {
-        BinaryTree<Integer> binaryTree = new BinaryTree<>();
-        Random random = new Random();
-        for(int i = 0; i < random.nextInt(20); i++)
+        var binaryTree = new BinaryTree<Integer>();
+        var random = new Random();
+        for (var i = 0; i < random.nextInt(20); i++) {
             binaryTree.insertInBinaryTreeLevelOrder(random.nextInt(100));
+        }
         String answer = printReverseLevelOrder(binaryTree.getRoot());
         System.out.println(binaryTree.levelOrder());
         System.out.println(answer);
     }
 
     private static <T> String printReverseLevelOrder(Node<T> node) {
-        if(node == null) return "";
-        LinkedList<String> nodeLevelList = new LinkedList<>();
-        LinkedList<LinkedList<String>> finalList = new LinkedList<>();
+        if (node == null) {
+            return "";
+        }
+        var nodeLevelList = new LinkedList<String>();
+        var finalList = new LinkedList<LinkedList<String>>();
         Queue<Node<T>> queue = new LinkedList<>();
         queue.offer(node);
         queue.offer(null);
-        while(!queue.isEmpty()){
+        while (!queue.isEmpty()) {
             Node<T> curr = queue.poll();
-            if(curr != null){
+            if (curr != null) {
                 nodeLevelList.addFirst(curr.getData().toString());
-                if(curr.getLeft() != null)
+                if (curr.getLeft() != null) {
                     queue.offer(curr.getLeft());
-                if(curr.getRight() != null)
+                }
+                if (curr.getRight() != null) {
                     queue.offer(curr.getRight());
-            }
-            else{
-                LinkedList<String> newList = new LinkedList<>(nodeLevelList);
+                }
+            } else {
+                var newList = new LinkedList<String>(nodeLevelList);
                 finalList.addFirst(newList);
 
                 // clearing the list
                 nodeLevelList.clear();
 
-                if(!queue.isEmpty())
+                if (!queue.isEmpty()) {
                     queue.offer(null);
+                }
             }
         }
         return "[" + finalList.stream()

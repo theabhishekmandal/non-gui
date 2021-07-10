@@ -47,8 +47,8 @@ public class TiltTree {
 
     public static void main(String[] args) {
         var random = new Random();
-        int t = 5;
-        while(t-- > 0) {
+        var testCase = 5;
+        while (testCase-- > 0) {
             var tree = new BinaryTree<Integer>();
             IntStream.rangeClosed(0, random.nextInt(10)).forEach(tree::insertInBinaryTreeLevelOrder);
             System.out.println(tree.levelOrder() + "\n the tilt of the tree is = " + getTilt(tree.getRoot()) + "\n");
@@ -56,7 +56,7 @@ public class TiltTree {
     }
 
     private static int getTilt(Node<Integer> root) {
-        if(root == null) {
+        if (root == null) {
             return 0;
         }
 
@@ -65,34 +65,33 @@ public class TiltTree {
         stack.push(root);
         stack.push(root);
 
-        int tilt = 0;
+        var tilt = 0;
 
         // double push for postOrder traversal
-        while(!stack.isEmpty()) {
+        while (!stack.isEmpty()) {
             var curr = stack.pop();
-            if(!stack.isEmpty() && curr == stack.peek()) {
-                if(curr.getRight() != null) {
+            if (!stack.isEmpty() && curr == stack.peek()) {
+                if (curr.getRight() != null) {
                     stack.push(curr.getRight());
                     stack.push(curr.getRight());
                 }
-                if(curr.getLeft() != null) {
+                if (curr.getLeft() != null) {
                     stack.push(curr.getLeft());
                     stack.push(curr.getLeft());
                 }
-            }
-            else {
+            } else {
                 boolean isLeftNull = Objects.isNull(curr.getLeft());
                 boolean isRightNull = Objects.isNull(curr.getRight());
 
                 // if both children are null, then add the current node's value to list
-                if(isLeftNull && isRightNull) {
+                if (isLeftNull && isRightNull) {
                     ans.add(curr.getData());
                 }
                 // if both or one child are present
-                else{
+                else {
                     var left = 0;
                     var right = ans.pop();
-                    if(!isLeftNull && !isRightNull) {
+                    if (!isLeftNull && !isRightNull) {
                         left = ans.pop();
                     }
                     tilt += Math.abs(left - right);

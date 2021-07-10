@@ -58,7 +58,7 @@ public class DuplicateSubTree {
         root.getRight().getRight().setRight(Node.of(5));
 
 
-        BinaryTree<Integer> binaryTree = new BinaryTree<>();
+        var binaryTree = new BinaryTree<Integer>();
         binaryTree.setRoot(root);
         System.out.println(binaryTree.levelOrderPretty());
         System.out.println(findDuplicateSubTree(binaryTree));
@@ -84,9 +84,9 @@ public class DuplicateSubTree {
         if (root.getLeft() == null && root.getRight() == null) {
             return root.getData() + end + end;
         }
-        String left = findDup(root.getLeft(), map);
-        String right = findDup(root.getRight(), map);
-        String s = root.getData() + left + right;
+        var left = findDup(root.getLeft(), map);
+        var right = findDup(root.getRight(), map);
+        var s = root.getData() + left + right;
         map.merge(s, 1, Integer::sum);
         return s;
     }

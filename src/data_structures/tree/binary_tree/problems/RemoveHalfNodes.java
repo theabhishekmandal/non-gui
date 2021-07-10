@@ -39,6 +39,8 @@ import static data_structures.tree.binary_tree.binary_tree_impl.BinaryTree.Node;
  */
 
 public class RemoveHalfNodes {
+    private static final Random random = new Random();
+
     public static void main(String[] args) {
         var binaryTree = new BinaryTree<Integer>();
         List<Integer> list = IntStream.range(0, 10).boxed().collect(Collectors.toList());
@@ -50,7 +52,7 @@ public class RemoveHalfNodes {
     }
 
     private static <T> void removeHalfNodes(BinaryTree<T> binaryTree) {
-        if(binaryTree.getRoot() == null) {
+        if (binaryTree.getRoot() == null) {
             return;
         }
         var root = binaryTree.getRoot();
@@ -58,22 +60,21 @@ public class RemoveHalfNodes {
         stack.push(root);
         stack.push(root);
 
-        while(!stack.isEmpty()) {
+        while (!stack.isEmpty()) {
             var curr = stack.pop();
-            if(!stack.isEmpty() && curr == stack.peek()) {
-                if(curr.getRight() != null) {
+            if (!stack.isEmpty() && curr == stack.peek()) {
+                if (curr.getRight() != null) {
                     stack.push(curr.getRight());
                     stack.push(curr.getRight());
                 }
-                if(curr.getLeft() != null) {
+                if (curr.getLeft() != null) {
                     stack.push(curr.getLeft());
                     stack.push(curr.getLeft());
                 }
-            }
-            else {
+            } else {
                 boolean isLeftNotNull = Objects.nonNull(curr.getLeft());
                 boolean isRightNotNull = Objects.nonNull(curr.getRight());
-                if(isLeftNotNull || isRightNotNull) {
+                if (isLeftNotNull || isRightNotNull) {
                     curr.setLeft(whichNode(curr.getLeft()));
                     curr.setRight(whichNode(curr.getRight()));
                 }
@@ -83,48 +84,43 @@ public class RemoveHalfNodes {
 
     private static <T> Node<T> whichNode(Node<T> child) {
         // if child is null means just return null
-        if(child == null) {
+        if (child == null) {
             return null;
         }
         // if both of them are null means it is leaf node don't mess with it
-        if(child.getLeft() == null && child.getRight() == null) {
+        if (child.getLeft() == null && child.getRight() == null) {
             return child;
         }
         // if one of them is absent return the other one
-        if(child.getLeft() == null) {
+        if (child.getLeft() == null) {
             return child.getRight();
-        }
-        else if(child.getRight() == null) {
+        } else if (child.getRight() == null) {
             return child.getLeft();
         }
         // if both of them present then return it
         return child;
     }
 
-    private static final Random random = new Random();
     private static <T> void randomInsert(T data, BinaryTree<T> binaryTree) {
-        if(binaryTree.getRoot() == null) {
+        if (binaryTree.getRoot() == null) {
             binaryTree.setRoot(Node.of(data));
             return;
         }
         Node<T> temp = binaryTree.getRoot();
-        while(temp != null) {
-            boolean addToRight = random.nextBoolean();
-            if(addToRight) {
-                if(temp.getRight() == null) {
+        while (temp != null) {
+            var addToRight = random.nextBoolean();
+            if (addToRight) {
+                if (temp.getRight() == null) {
                     temp.setRight(Node.of(data));
                     return;
-                }
-                else {
+                } else {
                     temp = temp.getRight();
                 }
-            }
-            else {
-                if(temp.getLeft() == null) {
+            } else {
+                if (temp.getLeft() == null) {
                     temp.setLeft(Node.of(data));
                     return;
-                }
-                else {
+                } else {
                     temp = temp.getLeft();
                 }
             }

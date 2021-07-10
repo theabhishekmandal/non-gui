@@ -1,5 +1,6 @@
 package data_structures.tree.binary_tree.problems;
 
+import utility.Pair;
 import data_structures.tree.binary_tree.binary_tree_impl.BinaryTree;
 
 import java.util.ArrayDeque;
@@ -32,32 +33,17 @@ public class SumOfLongestPathFromRootToLeaf {
         IntStream.rangeClosed(0, random.nextInt(10)).forEach(x -> binaryTree.insertInBinaryTreeLevelOrder(random.nextInt(10)));
         System.out.println(binaryTree.levelOrderPretty());
         var heightAndSum = sumOfLongestPathFromRootToLeaf(binaryTree);
-        System.out.println("maxHeight is " + heightAndSum.fst + " maxSum is " + heightAndSum.snd);
-    }
-
-    static class StackValue {
-       Node<Integer> node;
-       int height;
-       int value;
-
-       StackValue(Node<Integer> node, int height, int value) {
-           this.node = node;
-           this.height = height;
-           this.value = value;
-       }
-       static StackValue of(Node<Integer> node, int height, int value) {
-           return new StackValue(node, height, value);
-       }
+        System.out.println("maxHeight is " + heightAndSum.getFirst() + " maxSum is " + heightAndSum.getSecond());
     }
 
     private static Pair<Integer, Integer> sumOfLongestPathFromRootToLeaf(BinaryTree<Integer> binaryTree) {
-        if (Optional.ofNullable(binaryTree).map(BinaryTree::getRoot).isEmpty()) {
+        if (binaryTree == null || binaryTree.getRoot() == null) {
             return Pair.of(null, null);
         }
         var queue = new ArrayDeque<StackValue>();
         var curr = StackValue.of(binaryTree.getRoot(), 0, binaryTree.getRoot().getData());
-        int maxHeight = Integer.MIN_VALUE;
-        int maxSum = Integer.MIN_VALUE;
+        var maxHeight = Integer.MIN_VALUE;
+        var maxSum = Integer.MIN_VALUE;
         queue.add(curr);
         while (!queue.isEmpty()) {
             curr = queue.poll();
@@ -81,6 +67,22 @@ public class SumOfLongestPathFromRootToLeaf {
             }
         }
         return Pair.of(maxHeight, maxSum);
+    }
+
+    static class StackValue {
+        Node<Integer> node;
+        int height;
+        int value;
+
+        StackValue(Node<Integer> node, int height, int value) {
+            this.node = node;
+            this.height = height;
+            this.value = value;
+        }
+
+        static StackValue of(Node<Integer> node, int height, int value) {
+            return new StackValue(node, height, value);
+        }
     }
 
 }

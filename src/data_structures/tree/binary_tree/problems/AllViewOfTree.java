@@ -14,7 +14,7 @@ import static data_structures.tree.binary_tree.binary_tree_impl.BinaryTree.Node;
 
 public class AllViewOfTree {
     public static void main(String[] args) {
-        BinaryTree<Integer> tree = new BinaryTree<>();
+        var tree = new BinaryTree<Integer>();
         IntStream.range(0, 9).forEach(tree::insertInBinaryTreeLevelOrder);
         System.out.println(tree.levelOrderPretty());
         System.out.println("leftView List is " + getLeftView(tree.getRoot()));

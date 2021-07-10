@@ -16,25 +16,28 @@ import static data_structures.tree.binary_tree.binary_tree_impl.BinaryTree.Node;
  */
 public class DeepestNodeInTree {
     public static void main(String[] args) {
-       Random random = new Random();
-        BinaryTree<Integer> binaryTree = new BinaryTree<>();
+        var random = new Random();
+        var binaryTree = new BinaryTree<Integer>();
         IntStream.range(0, random.nextInt(20)).forEach(binaryTree::insertInBinaryTreeLevelOrder);
         System.out.println(binaryTree.levelOrder());
         System.out.println(getDeepestNodeValue(binaryTree.getRoot()));
     }
 
     private static <T> T getDeepestNodeValue(Node<T> root) {
-        if(root == null)
+        if (root == null) {
             return null;
+        }
         Queue<Node<T>> queue = new LinkedList<>();
         queue.add(root);
         Node<T> curr = null;
-        while(!queue.isEmpty()){
+        while (!queue.isEmpty()) {
             curr = queue.poll();
-            if(curr.getLeft()  != null)
+            if (curr.getLeft() != null) {
                 queue.add(curr.getLeft());
-            if(curr.getRight() != null)
+            }
+            if (curr.getRight() != null) {
                 queue.add(curr.getRight());
+            }
         }
         return (curr != null) ? curr.getData() : null;
     }

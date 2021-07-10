@@ -84,8 +84,14 @@ class TreeNode {
     int val;
     TreeNode left;
     TreeNode right;
-    TreeNode() {}
-    TreeNode(int val) { this.val = val; }
+
+    TreeNode() {
+    }
+
+    TreeNode(int val) {
+        this.val = val;
+    }
+
     TreeNode(int val, TreeNode left, TreeNode right) {
         this.val = val;
         this.left = left;
@@ -106,45 +112,44 @@ public class WidthOfBinaryTree {
     }
 
     private static int widthOfBinaryTree3(TreeNode root) {
-        if(root == null) {
+        if (root == null) {
             return 0;
         }
 
-        int width = 1;
+        var width = 1;
         Deque<TreeNode> queue = new ArrayDeque<>();
         queue.add(root);
 
         Deque<Integer> intDeque = new ArrayDeque<>();
         intDeque.add(0);
 
-        while(!queue.isEmpty()) {
-            int length = queue.size();
-            int left = 0;
-            int right = 0;
-            for(int i = 0; i < length; i++) {
+        while (!queue.isEmpty()) {
+            var length = queue.size();
+            var left = 0;
+            var right = 0;
+            for (var i = 0; i < length; i++) {
                 int index = (intDeque.isEmpty()) ? 0 : intDeque.poll();
 
                 // calculate left and right index
-                if(i == 0) {
+                if (i == 0) {
                     left = index;
-                }
-                else if(i == length - 1) {
+                } else if (i == length - 1) {
                     right = index;
                 }
 
                 TreeNode curr = queue.poll();
                 if (curr != null) {
-                    if(curr.left != null) {
+                    if (curr.left != null) {
                         queue.add(curr.left);
                         intDeque.add(2 * index + 1);
                     }
-                    if(curr.right != null) {
+                    if (curr.right != null) {
                         queue.add(curr.right);
                         intDeque.add(2 * index + 2);
                     }
                 }
             }
-            if(length != 1) {
+            if (length != 1) {
                 width = Math.max(width, right - left + 1);
             }
         }

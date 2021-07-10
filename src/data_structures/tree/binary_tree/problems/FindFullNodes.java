@@ -17,45 +17,50 @@ import static data_structures.tree.binary_tree.binary_tree_impl.BinaryTree.Node;
  */
 public class FindFullNodes {
     public static void main(String[] args) {
-        Random random = new Random();
-        BinaryTree<Integer> binaryTree = new BinaryTree<>();
+        var random = new Random();
+        var binaryTree = new BinaryTree<Integer>();
         IntStream.range(0, random.nextInt(20)).forEach(binaryTree::insertInBinaryTreeLevelOrder);
         System.out.println(binaryTree.levelOrder());
-        Object[] output = numberOfLeafNodes(binaryTree.getRoot());
-        System.out.println( "total full nodes are " + output[0]);
-        System.out.println( "full nodes are " + output[1]);
+        var output = numberOfLeafNodes(binaryTree.getRoot());
+        System.out.println("total full nodes are " + output[0]);
+        System.out.println("full nodes are " + output[1]);
     }
 
     private static <T> Object[] numberOfLeafNodes(Node<T> root) {
-        if(root == null) return new Object[]{0, new StringBuilder("[]")};
+        if (root == null) {
+            return new Object[]{0, new StringBuilder("[]")};
+        }
+
         StringBuilder br = null;
         Queue<Node<T>> queue = new LinkedList<>();
         queue.add(root);
 
-        int fullNodes = 0;
-        while(!queue.isEmpty()){
+        var fullNodes = 0;
+        while (!queue.isEmpty()) {
             Node<T> curr = queue.poll();
-            if(curr.getLeft() != null && curr.getRight() != null){
+            if (curr.getLeft() != null && curr.getRight() != null) {
                 br = addFullNodesValue(br, curr.getData());
                 fullNodes++;
             }
-            if(curr.getLeft() != null)
+            if (curr.getLeft() != null)
                 queue.add(curr.getLeft());
-            if(curr.getRight() != null)
+            if (curr.getRight() != null)
                 queue.add(curr.getRight());
         }
-        if(br == null)
+        if (br == null) {
             br = new StringBuilder("[]");
-        else
+        } else {
             br.append("]");
+        }
         return new Object[]{fullNodes, br};
     }
 
-    private static <T> StringBuilder addFullNodesValue(StringBuilder br, T data){
-        if(br == null)
+    private static <T> StringBuilder addFullNodesValue(StringBuilder br, T data) {
+        if (br == null) {
             br = new StringBuilder("[");
-        else
+        } else {
             br.append(", ");
+        }
         br.append(data);
         return br;
     }

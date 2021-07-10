@@ -21,22 +21,22 @@ public class MinDistanceBetweenTwoNodes {
         var random = new Random();
         var binaryTree = new BinaryTree<Integer>();
         random.ints(0, 20).limit(20).forEach(binaryTree::insertInBinaryTreeLevelOrder);
-        int first = random.nextInt(20);
-        int second = random.nextInt(20);
+        var first = random.nextInt(20);
+        var second = random.nextInt(20);
         System.out.println("first = " + first + " second = " + second);
         System.out.println(binaryTree.levelOrderPretty());
         System.out.println(getDistance(binaryTree, first, second));
     }
 
     private static int getDistance(BinaryTree<Integer> binaryTree, int first, int second) {
-        if (Optional.ofNullable(binaryTree).map(BinaryTree::getRoot).isEmpty()) {
+        if (binaryTree == null || binaryTree.getRoot() == null) {
             return -1;
         }
         List<Boolean> list = Arrays.asList(false, false);
         var ancestor = getAncestor(binaryTree.getRoot(), first, second, list);
         int distance = -1;
         if (list.get(0) && list.get(1)) {
-           distance = getDistanceForNode(ancestor, first, 0) + getDistanceForNode(ancestor, second, 0);
+            distance = getDistanceForNode(ancestor, first, 0) + getDistanceForNode(ancestor, second, 0);
         }
         return distance;
     }
@@ -81,6 +81,6 @@ public class MinDistanceBetweenTwoNodes {
         if (left != null && right != null) {
             return root;
         }
-        return (left != null)? left : right;
+        return (left != null) ? left : right;
     }
 }

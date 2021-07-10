@@ -15,44 +15,49 @@ import java.util.Random;
 
 public class FindingSizeOfTree {
     public static void main(String[] args) {
-        BinaryTree<Integer> binaryTree = new BinaryTree<>();
-        Random random = new Random();
-        for(int i = 0; i < random.nextInt(20); i++)
+        var binaryTree = new BinaryTree<Integer>();
+        var random = new Random();
+        for (var i = 0; i < random.nextInt(20); i++) {
             binaryTree.insertInBinaryTreeLevelOrder(random.nextInt(100));
-        int size = findSizeOfTreeRecursive(binaryTree.getRoot());
-        int size2 = findSizeOfTreeIteration(binaryTree.getRoot());
+        }
+        var size = findSizeOfTreeRecursive(binaryTree.getRoot());
+        var size2 = findSizeOfTreeIteration(binaryTree.getRoot());
         System.out.println(binaryTree.levelOrder());
         System.out.println(size);
         System.out.println(size2);
     }
 
     private static <T> int findSizeOfTreeRecursive(BinaryTree.Node<T> node) {
-       if(node == null) return 0;
-       return findSizeOfTreeRecursive(node.getLeft()) + findSizeOfTreeRecursive(node.getRight()) + 1;
+        if (node == null) {
+            return 0;
+        }
+        return findSizeOfTreeRecursive(node.getLeft()) + findSizeOfTreeRecursive(node.getRight()) + 1;
     }
 
-    private static <T> int findSizeOfTreeIteration(BinaryTree.Node<T> node){
-       if(node == null) return 0;
-       int size = 0;
-       Deque<BinaryTree.Node<T>> stack = new LinkedList<>();
-       stack.push(node);
-       stack.push(node);
-       while(!stack.isEmpty()){
+    private static <T> int findSizeOfTreeIteration(BinaryTree.Node<T> node) {
+        if (node == null) {
+            return 0;
+        }
+
+        var size = 0;
+        Deque<BinaryTree.Node<T>> stack = new LinkedList<>();
+        stack.push(node);
+        stack.push(node);
+        while (!stack.isEmpty()) {
             BinaryTree.Node<T> curr = stack.pop();
-            if(!stack.isEmpty() && stack.peek() == curr){
-               if(curr.getRight() != null){
-                   stack.push(curr.getRight());
-                   stack.push(curr.getRight());
-               }
-               if(curr.getLeft() != null){
-                   stack.push(curr.getLeft());
-                   stack.push(curr.getLeft());
-               }
-            }
-            else{
-               size++;
+            if (!stack.isEmpty() && stack.peek() == curr) {
+                if (curr.getRight() != null) {
+                    stack.push(curr.getRight());
+                    stack.push(curr.getRight());
+                }
+                if (curr.getLeft() != null) {
+                    stack.push(curr.getLeft());
+                    stack.push(curr.getLeft());
+                }
+            } else {
+                size++;
             }
         }
-       return size;
+        return size;
     }
 }

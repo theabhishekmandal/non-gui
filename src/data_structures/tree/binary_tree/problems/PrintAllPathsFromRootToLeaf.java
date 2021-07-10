@@ -1,5 +1,6 @@
 package data_structures.tree.binary_tree.problems;
 
+import utility.Pair;
 import data_structures.tree.binary_tree.binary_tree_impl.BinaryTree;
 
 import java.util.*;
@@ -18,9 +19,11 @@ import static data_structures.tree.binary_tree.binary_tree_impl.BinaryTree.Node;
 
 public class PrintAllPathsFromRootToLeaf {
 
+    private static final List<String> nodeListForRecursion = new ArrayList<>();
+
     public static void main(String[] args) {
-        Random random = new Random();
-        BinaryTree<Integer> binaryTree = new BinaryTree<>();
+        var random = new Random();
+        var binaryTree = new BinaryTree<Integer>();
 
         IntStream.range(0, random.nextInt(20)).forEach(binaryTree::insertInBinaryTreeLevelOrder);
         System.out.println(binaryTree.levelOrder());
@@ -33,52 +36,21 @@ public class PrintAllPathsFromRootToLeaf {
         System.out.println(nodeListForRecursion);
     }
 
-    static class pair<T, U>{
-        private T first;
-        private U second;
-
-        public pair(T first, U second) {
-            this.first = first;
-            this.second = second;
-        }
-
-        public T getFirst() {
-            return first;
-        }
-
-        public void setFirst(T first) {
-            this.first = first;
-        }
-
-        public U getSecond() {
-            return second;
-        }
-
-        public void setSecond(U second) {
-            this.second = second;
-        }
-        public static <T, U> pair<T, U> of(T first, U second){
-            return new pair<>(first, second);
-        }
-    }
-
-    private static final List<String> nodeListForRecursion = new ArrayList<>();
-
-    private static <T> void getAllPathFromRootToLeafRecursion(Node<T> node, int number, String[] arr){
-        if(node == null)
+    private static <T> void getAllPathFromRootToLeafRecursion(Node<T> node, int number, String[] arr) {
+        if (node == null) {
             return;
+        }
         arr[number] = node.getData().toString();
-        if(node.getLeft() == null && node.getRight() == null){
+        if (node.getLeft() == null && node.getRight() == null) {
 
-            StringBuilder br = new StringBuilder("[");
-            boolean flag = true;
-            for(int i = 0; i <= number; i++){
-                if(flag){
-                   flag = false;
-                   br.append(arr[i]);
-                }
-                else{
-                   br.append(", ").append(arr[i]);
+            var br = new StringBuilder("[");
+            var flag = true;
+            for (var i = 0; i <= number; i++) {
+                if (flag) {
+                    flag = false;
+                    br.append(arr[i]);
+                } else {
+                    br.append(", ").append(arr[i]);
                 }
             }
             br.append("]");
@@ -88,25 +60,30 @@ public class PrintAllPathsFromRootToLeaf {
         getAllPathFromRootToLeafRecursion(node.getLeft(), number + 1, arr);
         getAllPathFromRootToLeafRecursion(node.getRight(), number + 1, arr);
     }
-    private static <T> List<String> getAllPathFromRootToLeaf(Node<T> root){
-        if(root == null) return Collections.singletonList("[]");
+
+    private static <T> List<String> getAllPathFromRootToLeaf(Node<T> root) {
+        if (root == null) {
+            return Collections.singletonList("[]");
+        }
         List<String> list = new LinkedList<>();
-        Deque<pair<Node<T>, String>> stack = new LinkedList<>();
-        stack.push(new pair<>(root, "[" + root.getData().toString()));
+        Deque<Pair<Node<T>, String>> stack = new LinkedList<>();
+        stack.push(new Pair<>(root, "[" + root.getData().toString()));
 
-        while(!stack.isEmpty()){
-           pair<Node<T>, String> pair = stack.pop();
-           Node<T> curr = pair.getFirst();
-           String string = pair.getSecond();
+        while (!stack.isEmpty()) {
+            var pair = stack.pop();
+            var curr = pair.getFirst();
+            var string = pair.getSecond();
 
-           if(curr.getLeft() == null && curr.getRight() == null){
+            if (curr.getLeft() == null && curr.getRight() == null) {
                 list.add(string + "]");
-           }
+            }
 
-           if(curr.getRight() != null)
-               stack.push(new pair<>(curr.getRight(), string + ", " + curr.getRight().getData().toString()));
-           if(curr.getLeft() != null)
-                stack.push(new pair<>(curr.getLeft(), string + ", " + curr.getLeft().getData().toString()));
+            if (curr.getRight() != null) {
+                stack.push(new Pair<>(curr.getRight(), string + ", " + curr.getRight().getData().toString()));
+            }
+            if (curr.getLeft() != null) {
+                stack.push(new Pair<>(curr.getLeft(), string + ", " + curr.getLeft().getData().toString()));
+            }
         }
         return list;
     }

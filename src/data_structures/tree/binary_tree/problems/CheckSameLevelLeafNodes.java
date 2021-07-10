@@ -33,7 +33,7 @@ public class CheckSameLevelLeafNodes {
 
         var answer = new StringJoiner("\n");
         for (var arr : list) {
-            BinaryTree<Integer> binaryTree = new BinaryTree<>();
+            var binaryTree = new BinaryTree<Integer>();
             for (int i : arr) {
                 binaryTree.insertInBinaryTreeLevelOrder(i);
             }

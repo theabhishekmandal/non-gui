@@ -30,38 +30,39 @@ import static data_structures.tree.binary_tree.binary_tree_impl.BinaryTree.Node;
  * */
 
 public class DiameterOfTree {
+    private static int value;
+
     public static void main(String[] args) {
-        BinaryTree<Integer> binaryTree = new BinaryTree<>();
-        Random random = new Random();
+        var binaryTree = new BinaryTree<Integer>();
+        var random = new Random();
         IntStream.range(0, random.nextInt(20))
                 .forEach(x -> binaryTree.insertInBinaryTreeLevelOrder(random.nextInt(100)));
-        try{
+        try {
             System.out.println(binaryTree.levelOrder());
-            int diameterOfTreeRecursion = findDiameterOfTreeRecursion(binaryTree.getRoot());
-            int diameterOfTreeIteration = findDiameterOfTreeIteration(binaryTree.getRoot());
+            var diameterOfTreeRecursion = findDiameterOfTreeRecursion(binaryTree.getRoot());
+            var diameterOfTreeIteration = findDiameterOfTreeIteration(binaryTree.getRoot());
 
             System.out.println(diameterOfTreeRecursion);
             System.out.println(diameterOfTreeIteration);
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             System.err.println("In exception");
             System.out.println(binaryTree.levelOrder());
             e.printStackTrace();
         }
     }
 
-    private static int value;
     private static int findDiameterOfTreeRecursion(Node<Integer> root) {
         value = 1;
         find(root);
         return value - 1;
     }
 
-    private static <T> int  find(Node<T> node) {
-        if(node == null)
+    private static <T> int find(Node<T> node) {
+        if (node == null) {
             return 0;
-        int left = find(node.getLeft());
-        int right = find(node.getRight());
+        }
+        var left = find(node.getLeft());
+        var right = find(node.getRight());
 
         // adding the deepest left and right node from each current node
         value = Math.max(value, left + right + 1);
@@ -70,27 +71,27 @@ public class DiameterOfTree {
         return Math.max(left, right) + 1;
     }
 
-    private static <T> int findDiameterOfTreeIteration(Node<T> root){
-        if(root == null || (root.getLeft() == null && root.getRight() == null))
+    private static <T> int findDiameterOfTreeIteration(Node<T> root) {
+        if (root == null || (root.getLeft() == null && root.getRight() == null)) {
             return 0;
-        int maxValue = 0;
+        }
+        var maxValue = 0;
         Map<Node<T>, Integer> map = new HashMap<>();
         Deque<Node<T>> stack = new LinkedList<>();
         stack.push(root);
         stack.push(root);
-        while(!stack.isEmpty()){
+        while (!stack.isEmpty()) {
             Node<T> curr = stack.pop();
-            if(!stack.isEmpty() && curr == stack.peek()){
-                if(curr.getRight() != null){
+            if (!stack.isEmpty() && curr == stack.peek()) {
+                if (curr.getRight() != null) {
                     stack.push(curr.getRight());
                     stack.push(curr.getRight());
                 }
-                if(curr.getLeft() != null){
+                if (curr.getLeft() != null) {
                     stack.push(curr.getLeft());
                     stack.push(curr.getLeft());
                 }
-            }
-            else{
+            } else {
                 Integer left;
                 Integer right;
                 left = map.getOrDefault(curr.getLeft(), 0);

@@ -31,19 +31,19 @@ public class PrintKSumPaths {
         binaryTree.setRoot(root);
         System.out.println(binaryTree.levelOrderPretty());
 
-        int k = 5;
+        var k = 5;
         System.out.println(getAllKSumPaths(binaryTree, k));
     }
 
     private static String getAllKSumPaths(BinaryTree<Integer> binaryTree, int k) {
-        if (Optional.ofNullable(binaryTree).map(BinaryTree::getRoot).isEmpty()) {
+        if (binaryTree == null || binaryTree.getRoot() == null) {
             return "";
         }
         List<Integer> list = new ArrayList<>();
         Deque<Node<Integer>> stack = new ArrayDeque<>();
         stack.push(binaryTree.getRoot());
         stack.push(binaryTree.getRoot());
-        StringJoiner joiner = new StringJoiner("\n");
+        var joiner = new StringJoiner("\n");
         while (!stack.isEmpty()) {
             var curr = stack.pop();
             if (!stack.isEmpty() && curr == stack.peek()) {
@@ -71,8 +71,8 @@ public class PrintKSumPaths {
      * also remove the last element from the list as it is traversed.
      */
     private static void calculateKSumPath(List<Integer> list, int k, StringJoiner joiner) {
-        int sum = 0;
-        for (int i = list.size() - 1; i >= 0; i--) {
+        var sum = 0;
+        for (var i = list.size() - 1; i >= 0; i--) {
             sum += list.get(i);
             if (sum == k) {
                 joiner.add(getString(list, i));

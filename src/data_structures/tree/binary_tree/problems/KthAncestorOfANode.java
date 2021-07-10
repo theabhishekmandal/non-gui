@@ -67,7 +67,7 @@ public class KthAncestorOfANode {
                 ancestorNodeList.remove(ancestorNodeList.size() - 1);
             }
         }
-        return (!found)? Collections.emptyList() : ancestorNodeList;
+        return (!found) ? Collections.emptyList() : ancestorNodeList;
     }
 
 }

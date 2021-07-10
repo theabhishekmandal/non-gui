@@ -37,7 +37,7 @@ public class LargestSumWithoutAdjacentNodes {
     }
 
     private static int findLargestSubTreeSumWithoutAdjacentNodes(BinaryTree<Integer> binaryTree) {
-        if (Optional.ofNullable(binaryTree).map(BinaryTree::getRoot).isEmpty()) {
+        if (binaryTree == null || binaryTree.getRoot() == null) {
             return -1;
         }
         Map<Node<Integer>, Integer> maxSumStore = new HashMap<>();

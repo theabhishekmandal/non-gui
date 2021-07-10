@@ -38,8 +38,8 @@ import static data_structures.tree.binary_tree.binary_tree_impl.BinaryTree.Node;
 
 public class TransformToSumTree {
     public static void main(String[] args) {
-        Random random = new Random();
-        BinaryTree<Integer> binaryTree = new BinaryTree<>();
+        var random = new Random();
+        var binaryTree = new BinaryTree<Integer>();
         IntStream.range(0, random.nextInt(20)).forEach(binaryTree::insertInBinaryTreeLevelOrder);
         System.out.println(binaryTree.levelOrderPretty());
 

@@ -27,9 +27,9 @@ public class DeleteNodeFromTree {
         integerList.forEach(binaryTree2::insertInBinaryTreeLevelOrder);
 
         System.out.println("binary tree before deletion\n" + binaryTree.levelOrderPretty() + "\n");
-        while(binaryTree.getSize() != 0) {
+        while (binaryTree.getSize() != 0) {
             var num = random.nextInt(11);
-            System.out.println(num + (binaryTree.deleteNode(num)? " is " : " is not ") + "successful\n" + binaryTree.levelOrder() + "\n");
+            System.out.println(num + (binaryTree.deleteNode(num) ? " is " : " is not ") + "successful\n" + binaryTree.levelOrder() + "\n");
         }
     }
 }

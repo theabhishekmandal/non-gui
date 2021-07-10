@@ -14,29 +14,31 @@ import static data_structures.tree.binary_tree.binary_tree_impl.BinaryTree.Node;
 
 public class LeftLeavesSum {
     public static void main(String[] args) {
-        Random random = new Random();
-        BinaryTree<Integer> binaryTree = new BinaryTree<>();
-        int size = 1 + random.nextInt(10);
-        for(int i = 0; i < size; i++) binaryTree.insertInBinaryTreeLevelOrder(i + 1);
+        var random = new Random();
+        var binaryTree = new BinaryTree<Integer>();
+        var size = 1 + random.nextInt(10);
+        for (int i = 0; i < size; i++) binaryTree.insertInBinaryTreeLevelOrder(i + 1);
         System.out.println("binary Tree\n" + binaryTree.levelOrderPretty() + "\nsum of left leaves are =" +
                 getLeftLeavesSum(binaryTree.getRoot()));
     }
 
     private static int getLeftLeavesSum(Node<Integer> root) {
-        if(root == null) return 0;
+        if (root == null) {
+            return 0;
+        }
         Deque<Node<Integer>> stack = new LinkedList<>();
         stack.push(root);
-        int ans = 0;
-        while(!stack.isEmpty()) {
+        var ans = 0;
+        while (!stack.isEmpty()) {
             Node<Integer> curr = stack.pop();
-            if(curr.getLeft() != null) {
+            if (curr.getLeft() != null) {
                 Node<Integer> left = curr.getLeft();
-                if(left.getLeft() == null && left.getRight() == null) {
+                if (left.getLeft() == null && left.getRight() == null) {
                     ans += left.getData();
                 }
                 stack.push(left);
             }
-            if(curr.getRight() != null) {
+            if (curr.getRight() != null) {
                 stack.push(curr.getRight());
             }
         }

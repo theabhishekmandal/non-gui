@@ -38,6 +38,8 @@ import static data_structures.tree.binary_tree.binary_tree_impl.BinaryTree.Node;
  */
 
 public class RemoveLeafNodes {
+    private static final Random random = new Random();
+
     public static void main(String[] args) {
         var binaryTree = new BinaryTree<Integer>();
         List<Integer> list = IntStream.range(0, 10).boxed().collect(Collectors.toList());
@@ -70,12 +72,11 @@ public class RemoveLeafNodes {
                     stack.push(curr.getLeft());
                 }
             } else {
-                boolean isLeftNull = Objects.isNull(curr.getLeft());
-                boolean isRightNull = Objects.isNull(curr.getRight());
-                if(isLeftNull && isRightNull) {
-                   leafList.add(curr);
-                }
-                else {
+                var isLeftNull = Objects.isNull(curr.getLeft());
+                var isRightNull = Objects.isNull(curr.getRight());
+                if (isLeftNull && isRightNull) {
+                    leafList.add(curr);
+                } else {
                     removeLeafIfNecessary(leafList, curr);
                 }
             }
@@ -84,7 +85,7 @@ public class RemoveLeafNodes {
 
     private static <T> void removeLeafIfNecessary(ArrayDeque<Node<T>> leafList, Node<T> curr) {
         // if there is no leaf then return
-        if(leafList.isEmpty()) {
+        if (leafList.isEmpty()) {
             return;
         }
 
@@ -93,49 +94,43 @@ public class RemoveLeafNodes {
 
         // if first node is left node, then remove and set left as null
         // Also check if the right node exists or not
-        if(curr.getLeft() == first) {
+        if (curr.getLeft() == first) {
             curr.setLeft(null);
         }
 
         // if first node is right node then left node does not exists
         // return after setting null
-        else if(curr.getRight() == first) {
-           curr.setRight(null);
-           return;
+        else if (curr.getRight() == first) {
+            curr.setRight(null);
+            return;
         }
 
-        if(!leafList.isEmpty() && curr.getRight() == leafList.getFirst())  {
+        if (!leafList.isEmpty() && curr.getRight() == leafList.getFirst()) {
             curr.setRight(null);
             leafList.removeFirst();
         }
     }
 
-
-
-    private static final Random random = new Random();
     private static <T> void randomInsert(T data, BinaryTree<T> binaryTree) {
-        if(binaryTree.getRoot() == null) {
+        if (binaryTree.getRoot() == null) {
             binaryTree.setRoot(Node.of(data));
             return;
         }
         Node<T> temp = binaryTree.getRoot();
-        while(temp != null) {
-            boolean addToRight = random.nextBoolean();
-            if(addToRight) {
-                if(temp.getRight() == null) {
+        while (temp != null) {
+            var addToRight = random.nextBoolean();
+            if (addToRight) {
+                if (temp.getRight() == null) {
                     temp.setRight(Node.of(data));
                     return;
-                }
-                else {
+                } else {
                     temp = temp.getRight();
                 }
-            }
-            else {
-                if(temp.getLeft() == null) {
+            } else {
+                if (temp.getLeft() == null) {
                     temp.setLeft(Node.of(data));
                     return;
-                }
-                else {
+                } else {
                     temp = temp.getLeft();
                 }
             }

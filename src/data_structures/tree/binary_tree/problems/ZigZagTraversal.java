@@ -44,53 +44,52 @@ import static data_structures.tree.binary_tree.binary_tree_impl.BinaryTree.Node;
  */
 public class ZigZagTraversal {
     public static void main(String[] args) throws IOException {
-        BinaryTree<Integer> tree = new BinaryTree<>();
+        var tree = new BinaryTree<Integer>();
         IntStream.range(1, 10).forEach(tree::insertInBinaryTreeLevelOrder);
         System.out.println(tree.levelOrder());
-        long starttime = System.currentTimeMillis();
-        String zigZag = printInZigZagPattern(tree.getRoot());
-        long stoptime = System.currentTimeMillis();
-        String finalAnswer = "first string " + zigZag + " time taken is= " + (stoptime - starttime) + " milli seconds";
+        var starttime = System.currentTimeMillis();
+        var zigZag = printInZigZagPattern(tree.getRoot());
+        var stoptime = System.currentTimeMillis();
+        var finalAnswer = "first string " + zigZag + " time taken is= " + (stoptime - starttime) + " milli seconds";
 
         starttime = System.currentTimeMillis();
-        String zigZag2 = printInZigZagPatternNew(tree.getRoot());
+        var zigZag2 = printInZigZagPatternNew(tree.getRoot());
         stoptime = System.currentTimeMillis();
-        String finalAnswer2 = "first string " + zigZag2 + " time taken is= " + (stoptime - starttime)+ " milli seconds";
+        var finalAnswer2 = "first string " + zigZag2 + " time taken is= " + (stoptime - starttime) + " milli seconds";
 
         System.out.println(zigZag.equals(zigZag2));
-        try (BufferedWriter br = new BufferedWriter(new FileWriter("hello.txt"))) {
+        try (var br = new BufferedWriter(new FileWriter("hello.txt"))) {
             br.write(finalAnswer);
             br.write(finalAnswer2);
             br.flush();
         }
     }
 
-    private static <T> String printInZigZagPatternNew(Node<T> root){
+    private static <T> String printInZigZagPatternNew(Node<T> root) {
         List<String> nodeList = new ArrayList<>();
         List<List<String>> finalList = new ArrayList<>();
         Deque<Node<T>> queue = new LinkedList<>();
         queue.add(root);
         queue.add(null);
 
-        boolean leftToRight = true;
-        while(!queue.isEmpty()){
+        var leftToRight = true;
+        while (!queue.isEmpty()) {
             Node<T> curr = queue.poll();
-            if(curr != null){
+            if (curr != null) {
                 nodeList.add(curr.getData().toString());
-                if(curr.getLeft() != null){
+                if (curr.getLeft() != null) {
                     queue.add(curr.getLeft());
                 }
-                if(curr.getRight() != null){
+                if (curr.getRight() != null) {
                     queue.add(curr.getRight());
                 }
-            }
-            else{
+            } else {
                 if (!leftToRight) {
                     Collections.reverse(nodeList);
                 }
                 finalList.add(nodeList);
                 nodeList = new ArrayList<>();
-                if(!queue.isEmpty()){
+                if (!queue.isEmpty()) {
                     leftToRight = !leftToRight;
                     queue.add(null);
                 }
@@ -100,7 +99,8 @@ public class ZigZagTraversal {
                 .map(list -> "(" + String.join(", ", list) + ")")
                 .collect(Collectors.joining(", \n")) + "]";
     }
-    private static <T> String printInZigZagPattern(BinaryTree.Node<T> root){
+
+    private static <T> String printInZigZagPattern(BinaryTree.Node<T> root) {
         List<String> nodeList = new ArrayList<>();
         List<List<String>> finalList = new ArrayList<>();
 
@@ -109,40 +109,36 @@ public class ZigZagTraversal {
         leftQueue.addFirst(null);
         leftQueue.addFirst(root);
 
-        while(true){
-            if(!leftQueue.isEmpty()){
-                while (!leftQueue.isEmpty()){
+        while (true) {
+            if (!leftQueue.isEmpty()) {
+                while (!leftQueue.isEmpty()) {
                     Node<T> node = leftQueue.pollFirst();
-                    if(node != null){
+                    if (node != null) {
                         nodeList.add(node.getData().toString());
                         addToQueueUsingFlag(rightQueue, node.getLeft(), node.getRight(), true);
-                    }
-                    else{
+                    } else {
                         finalList.add(nodeList);
                         nodeList = new ArrayList<>();
-                        if(!rightQueue.isEmpty()){
+                        if (!rightQueue.isEmpty()) {
                             rightQueue.addFirst(null);
                         }
                     }
                 }
-            }
-            else if(!rightQueue.isEmpty()){
-                while(!rightQueue.isEmpty()){
+            } else if (!rightQueue.isEmpty()) {
+                while (!rightQueue.isEmpty()) {
                     Node<T> node = rightQueue.pollLast();
-                    if(node != null){
+                    if (node != null) {
                         nodeList.add(node.getData().toString());
                         addToQueueUsingFlag(leftQueue, node.getLeft(), node.getRight(), false);
-                    }
-                    else{
+                    } else {
                         finalList.add(nodeList);
                         nodeList = new ArrayList<>();
-                        if(!leftQueue.isEmpty()){
+                        if (!leftQueue.isEmpty()) {
                             leftQueue.addLast(null);
                         }
                     }
                 }
-            }
-            else{
+            } else {
                 break;
             }
         }
@@ -152,19 +148,18 @@ public class ZigZagTraversal {
     }
 
     private static <T> void addToQueueUsingFlag(Deque<Node<T>> queue, Node<T> left, Node<T> right, boolean addLast) {
-        if(addLast){
-           if(left != null){
-               queue.addLast(left);
-           }
-           if(right != null){
-               queue.addLast(right);
-           }
-        }
-        else{
-            if(right != null){
+        if (addLast) {
+            if (left != null) {
+                queue.addLast(left);
+            }
+            if (right != null) {
+                queue.addLast(right);
+            }
+        } else {
+            if (right != null) {
                 queue.addFirst(right);
             }
-            if(left != null){
+            if (left != null) {
                 queue.addFirst(left);
             }
         }

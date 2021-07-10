@@ -16,14 +16,14 @@ import static data_structures.tree.binary_tree.binary_tree_impl.BinaryTree.Node;
 
 public class ConvertBinaryTreeToDll {
     public static void main(String[] args) {
-        BinaryTree<Integer> tree = getInput();
+        var tree = getInput();
         System.out.println(tree.levelOrderPretty());
         System.out.println(convertBinaryTreeToDllAndPrint(tree));
     }
 
     private static BinaryTree<Integer> getInput() {
-        BinaryTree<Integer> binaryTree = new BinaryTree<>();
-        Node<Integer> root = Node.of(0);
+        var binaryTree = new BinaryTree<Integer>();
+        var root = Node.of(0);
         root.setLeft(Node.of(1));
         root.setRight(Node.of(2));
 
@@ -40,39 +40,18 @@ public class ConvertBinaryTreeToDll {
     }
 
     private static <T> List<List<T>> convertBinaryTreeToDllAndPrint(BinaryTree<T> tree) {
-        Node<T> node = convertBinaryTreeToDllNew(tree);
-        if (node == null) return Collections.emptyList();
-        List<List<T>> finalList = new ArrayList<>();
-
-        Node<T> temp = node;
-        Node<T> prev = null;
-
-        // get left inorder traversal
-        List<T> list = new ArrayList<>();
-        while (temp != null) {
-            list.add(temp.getData());
-            prev = temp;
-            temp = temp.getRight();
+        var linkedListFromBinaryTree = convertBinaryTreeToDllNew(tree);
+        if (linkedListFromBinaryTree.head == null) {
+            return Collections.emptyList();
         }
-        finalList.add(list);
-
-        // get right inorder traversal
-        Objects.requireNonNull(prev);
-        list = new ArrayList<>();
-        while (prev != null) {
-            list.add(prev.getData());
-            prev = prev.getLeft();
-        }
-        finalList.add(list);
-
-        return finalList;
+        return List.of(linkedListFromBinaryTree.getLeftInOrderList(), linkedListFromBinaryTree.getRightInOrderList());
     }
 
-    private static <T> Node<T> convertBinaryTreeToDllNew(BinaryTree<T> binaryTree) {
-        if (Objects.isNull(binaryTree) || Objects.isNull(binaryTree.getRoot())) return null;
-
-        Node<T> head = null;
-        Node<T> tail = null;
+    private static <T> LinkedListFromBinaryTree<T> convertBinaryTreeToDllNew(BinaryTree<T> binaryTree) {
+        var linkedListFromBinaryTree = new LinkedListFromBinaryTree<T>();
+        if (Objects.isNull(binaryTree) || Objects.isNull(binaryTree.getRoot())) {
+            return linkedListFromBinaryTree;
+        }
 
         Deque<Node<T>> stack = new ArrayDeque<>();
         Node<T> curr = binaryTree.getRoot();
@@ -82,20 +61,66 @@ public class ConvertBinaryTreeToDll {
                 stack.push(curr);
                 curr = curr.getLeft();
             } else {
-               curr = stack.pop();
-               var right = curr.getRight();
-               if (head == null) {
-                   head = curr;
-                   tail = head;
-               } else {
-                   tail.setRight(curr);
-                   curr.setLeft(tail);
-                   tail = curr;
-               }
-               curr = right;
+                curr = stack.pop();
+                var right = curr.getRight();
+                linkedListFromBinaryTree.linkNode(curr);
+                curr = right;
             }
         }
-        return head;
+        return linkedListFromBinaryTree;
+    }
+
+    static class LinkedListFromBinaryTree<T> {
+        private Node<T> head;
+        private Node<T> tail;
+
+        public void linkNode(Node<T> node) {
+            if (node == null) {
+                return;
+            }
+            node.setRight(null);
+            if (head == null) {
+                head = node;
+                tail = head;
+            } else {
+                tail.setRight(node);
+                node.setLeft(tail);
+                tail = node;
+            }
+        }
+
+        public Node<T> getTail() {
+            return tail;
+        }
+
+        public Node<T> getHead() {
+            return head;
+        }
+
+        public List<T> getLeftInOrderList() {
+            if (head == null) {
+                return Collections.emptyList();
+            }
+            var temp = head;
+            var list = new ArrayList<T>();
+            while (temp != null) {
+                list.add(temp.getData());
+                temp = temp.getRight();
+            }
+            return Collections.unmodifiableList(list);
+        }
+
+        public List<T> getRightInOrderList() {
+            if (tail == null) {
+                return Collections.emptyList();
+            }
+            var temp = tail;
+            var list = new ArrayList<T>();
+            while (temp != null) {
+                list.add(temp.getData());
+                temp = temp.getLeft();
+            }
+            return Collections.unmodifiableList(list);
+        }
     }
 }
-

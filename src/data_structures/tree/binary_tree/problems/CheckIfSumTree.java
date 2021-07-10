@@ -1,6 +1,6 @@
 package data_structures.tree.binary_tree.problems;
 
-import data_structures.Pair;
+import utility.Pair;
 import data_structures.tree.binary_tree.binary_tree_impl.BinaryTree;
 
 import java.util.List;
@@ -32,7 +32,7 @@ public class CheckIfSumTree {
 
         var answer = new StringJoiner("\n");
         for (var arr : list) {
-            BinaryTree<Integer> binaryTree = new BinaryTree<>();
+            var binaryTree = new BinaryTree<Integer>();
             for (var i : arr) {
                 binaryTree.insertInBinaryTreeLevelOrder(i);
             }

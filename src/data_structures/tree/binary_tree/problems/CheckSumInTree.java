@@ -27,7 +27,7 @@ import static data_structures.tree.binary_tree.binary_tree_impl.BinaryTree.Node;
 public class CheckSumInTree {
     public static void main(String[] args) {
         var random = new Random();
-        BinaryTree<Integer> binaryTree = new BinaryTree<>();
+        var binaryTree = new BinaryTree<Integer>();
 
         // creating binaryTree and getting a number that's need to be found for sum Tree
         int number = getNumberToBeFound(random, binaryTree);

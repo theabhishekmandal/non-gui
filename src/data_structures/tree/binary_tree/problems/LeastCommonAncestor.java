@@ -1,6 +1,8 @@
 package data_structures.tree.binary_tree.problems;
 
+import utility.Pair;
 import data_structures.tree.binary_tree.binary_tree_impl.BinaryTree;
+import utility.Triplet;
 
 import java.util.ArrayDeque;
 import java.util.Deque;
@@ -36,15 +38,15 @@ import static data_structures.tree.binary_tree.binary_tree_impl.BinaryTree.Node;
  */
 public class LeastCommonAncestor {
     public static void main(String[] args) {
-        Random random = new Random();
-        BinaryTree<Integer> binaryTree = new BinaryTree<>();
+        var random = new Random();
+        var binaryTree = new BinaryTree<Integer>();
         IntStream.range(0, 10000).forEach(binaryTree::insertInBinaryTreeLevelOrder);
-        int first = random.nextInt(binaryTree.getSize());
-        int second = random.nextInt(binaryTree.getSize());
+        var first = random.nextInt(binaryTree.getSize());
+        var second = random.nextInt(binaryTree.getSize());
         System.out.println(binaryTree.levelOrder() + "\nfirst value = " + first + "\nsecond value = " + second);
 
-        getOutputWithTimeDifference(x -> getLeastCommonAncestor(x.fst, x.snd.fst, x.snd.snd), binaryTree.getRoot(), first, second);
-        getOutputWithTimeDifference(x -> getLeastCommonAncestor3(x.fst, x.snd.fst, x.snd.snd), binaryTree.getRoot(), first, second);
+        getOutputWithTimeDifference(x -> getLeastCommonAncestor(x.getFirst(), x.getSecond(), x.getThird()), binaryTree.getRoot(), first, second);
+        getOutputWithTimeDifference(x -> getLeastCommonAncestor3(x.getFirst(), x.getSecond(), x.getThird()), binaryTree.getRoot(), first, second);
     }
 
 
@@ -52,19 +54,21 @@ public class LeastCommonAncestor {
     private static boolean v2;
 
     private static Integer getLeastCommonAncestor(Node<Integer> root, int first, int second) {
-        if (root == null) return null;
+        if (root == null){ return null;}
         v1 = false;
         v2 = false;
         Node<Integer> node = getAncestor(root, first, second);
-        if (v1 && v2)
+        if (v1 && v2) {
             return node.getData();
+        }
         return null;
     }
 
     // use this to find the least common ancestor
     private static Node<Integer> getAncestor(Node<Integer> root, int first, int second) {
-        if (root == null)
+        if (root == null) {
             return null;
+        }
 
         Node<Integer> temp = null;
         // if root matches with first and second then we assign it to temp
@@ -108,8 +112,8 @@ public class LeastCommonAncestor {
 
         Deque<Pair<Node<Integer>, Integer>> ans = new LinkedList<>();
 
-        boolean flag = false;
-        boolean flag2 = false;
+        var flag = false;
+        var flag2 = false;
         while (!stack.isEmpty()) {
             var curr = stack.pop();
             if (!stack.isEmpty() && curr == stack.peek()) {
@@ -148,27 +152,27 @@ public class LeastCommonAncestor {
                 } else if (!leftNull && !rightNull) {
                     var right = ans.pop();
                     var left = ans.pop();
-                    if (left.snd != null && right.snd != null) {
+                    if (left.getSecond() != null && right.getSecond() != null) {
                         ans.push(Pair.of(curr, curr.getData()));
                     } else {
-                        ans.push(Pair.of(curr, (left.snd == null) ? right.snd : left.snd));
+                        ans.push(Pair.of(curr, (left.getSecond() == null) ? right.getSecond() : left.getSecond()));
                     }
                 } else {
                     var leftOrRight = ans.pop();
-                    ans.push(Pair.of(curr, leftOrRight.snd));
+                    ans.push(Pair.of(curr, leftOrRight.getSecond()));
                 }
             }
         }
         if (flag && flag2) {
-            return ans.pop().snd;
+            return ans.pop().getSecond();
         }
         return null;
     }
 
-    private static void getOutputWithTimeDifference(ToIntFunction<Pair<Node<Integer>, Pair<Integer, Integer>>> func,
+    private static void getOutputWithTimeDifference(ToIntFunction<Triplet<Node<Integer>, Integer, Integer>> func,
                                                     Node<Integer> root, Integer first, Integer second) {
         var start = System.currentTimeMillis();
-        int output = func.applyAsInt(Pair.of(root, Pair.of(first, second)));
+        var output = func.applyAsInt(Triplet.of(root, first, second));
         var stop = System.currentTimeMillis();
         System.out.println("time taken = " + (stop - start) + " output = " + output);
     }

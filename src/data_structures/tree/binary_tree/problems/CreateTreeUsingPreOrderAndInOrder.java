@@ -17,8 +17,8 @@ import static data_structures.tree.binary_tree.binary_tree_impl.BinaryTree.Node;
  */
 public class CreateTreeUsingPreOrderAndInOrder {
     public static void main(String[] args) {
-        var in = new char[]{ 'D', 'B', 'E', 'A', 'F', 'C' };
-        var pre = new char[]{ 'A', 'B', 'D', 'E', 'C', 'F' };
+        var in = new char[]{'D', 'B', 'E', 'A', 'F', 'C'};
+        var pre = new char[]{'A', 'B', 'D', 'E', 'C', 'F'};
         BinaryTree<Character> binaryTree = createTree(in, pre);
         System.out.println(binaryTree.levelOrder());
         System.out.println(binaryTree.preOrder());
@@ -27,8 +27,9 @@ public class CreateTreeUsingPreOrderAndInOrder {
 
     private static BinaryTree<Character> createTree(char[] in, char[] pre){
         BinaryTree<Character> binaryTree = new BinaryTree<>();
-        if(in == null || pre == null || (in.length == 0 && in.length == pre.length) || in.length != pre.length)
+        if (in == null || pre == null || (in.length == 0 && in.length == pre.length) || in.length != pre.length) {
             return binaryTree;
+        }
         /**
          * Using inclusive ranges and not exclusive
          * @param in inorder values given
@@ -44,7 +45,7 @@ public class CreateTreeUsingPreOrderAndInOrder {
     }
 
     private static Node<Character> getBinaryTree(char[] in, int inStart, int inEnd, char[] pre, int preStart, int preEnd) {
-        if(inStart > inEnd || preStart > preEnd) return null;
+        if (inStart > inEnd || preStart > preEnd) return null;
 
         // get the current node
         Node<Character> curr = Node.of(pre[preStart]);
@@ -52,7 +53,7 @@ public class CreateTreeUsingPreOrderAndInOrder {
         // find the above current node above in inorder array, within the index range
         int index = getIndex(in, pre[preStart], inStart, inEnd);
 
-        if(index == -1){
+        if (index == -1) {
             return null;
         }
 
@@ -87,9 +88,9 @@ public class CreateTreeUsingPreOrderAndInOrder {
     }
 
     private static int getIndex(char[] in, char c, int start, int end) {
-        int index = -1;
-        for(int i = start; i <= end; i++){
-            if(in[i] == c){
+        var index = -1;
+        for (var i = start; i <= end; i++) {
+            if (in[i] == c) {
                 index = i;
                 break;
             }

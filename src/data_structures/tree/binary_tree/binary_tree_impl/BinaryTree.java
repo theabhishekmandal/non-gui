@@ -208,6 +208,9 @@ public class BinaryTree<T> {
         preOrderRec(node.right, answer);
     }
 
+    private String convertToString(List<T> list) {
+        return list.stream().map(String::valueOf).collect(Collectors.joining(DELIMITER, PREFIX, SUFFIX));
+    }
     /*
     process left, current, right
      Approach:
@@ -230,10 +233,14 @@ public class BinaryTree<T> {
 
     */
     public String inOrder() {
+        return convertToString(inOrderList());
+    }
+
+    public List<T> inOrderList() {
         if (this.root == null) {
-            return EMPTY_BRACES;
+            return Collections.emptyList();
         }
-        var joiner = new StringJoiner(DELIMITER, PREFIX, SUFFIX);
+        var dataList = new ArrayList<T>();
 
         Deque<Node<T>> stack = new ArrayDeque<>();
         Node<T> curr = root;
@@ -246,12 +253,11 @@ public class BinaryTree<T> {
                 curr = stack.pop();
 
                 // adding the answer
-                joiner.add(curr.data.toString());
+                dataList.add(curr.data);
                 curr = curr.right;
             }
         }
-
-        return joiner.toString();
+        return dataList;
     }
 
     /*
@@ -260,17 +266,21 @@ public class BinaryTree<T> {
         InOrder traversal using recursion
      */
     public String inOrderRecursive() {
-        var joiner = new StringJoiner(DELIMITER, PREFIX, SUFFIX);
-        inOrderRec(root, joiner);
-        return joiner.toString();
+        return convertToString(inOrderRecursiveList());
     }
 
-    private void inOrderRec(Node<T> node, StringJoiner answer) {
+    public List<T> inOrderRecursiveList() {
+        var dataList = new ArrayList<T>();
+        inOrderRec(root, dataList);
+        return dataList;
+    }
+
+    private void inOrderRec(Node<T> node, List<T> answer) {
         if (node == null) {
             return;
         }
         inOrderRec(node.left, answer);
-        answer.add(node.toString());
+        answer.add(node.getData());
         inOrderRec(node.right, answer);
     }
 

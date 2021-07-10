@@ -18,15 +18,18 @@ import static data_structures.tree.binary_tree.binary_tree_impl.BinaryTree.Node;
  *      back to recursion tree.
  */
 public class CheckIsBalanced {
+    // for input to generate random tree
+    private static final Random random = new Random();
+    private static boolean isBalanced = true;
+
     public static void main(String[] args) {
         var tree = new BinaryTree<Integer>();
         tree.setRoot(createRandomTree());
         System.out.println(tree.levelOrderPretty());
         boolean bal = isBalanced(tree.getRoot());
-        System.out.println("tree is" + (bal ?  " balanced" : " not balanced"));
+        System.out.println("tree is" + (bal ? " balanced" : " not balanced"));
     }
 
-    private static boolean isBalanced = true;
     private static boolean isBalanced(Node<Integer> root) {
         isBalanced = true;
         isBal(root);
@@ -38,16 +41,14 @@ public class CheckIsBalanced {
             return 0;
         }
 
-        int left = isBal(root.getLeft());
-        int right = isBal(root.getRight());
+        var left = isBal(root.getLeft());
+        var right = isBal(root.getRight());
         if (Math.abs(left - right) > 1) {
             isBalanced = false;
         }
         return 1 + Math.max(left, right);
     }
 
-    // for input to generate random tree
-    private static final Random random = new Random();
     private static Node<Integer> createRandomTree() {
         var size = random.nextInt(5);
         var root = Node.of(0);
@@ -59,7 +60,7 @@ public class CheckIsBalanced {
             while (!queue.isEmpty() && !doNotAdd) {
                 var temp = queue.poll();
                 if (random.nextBoolean()) {
-                    doNotAdd = addToLeft(queue, nodeToBeAdded,  temp);
+                    doNotAdd = addToLeft(queue, nodeToBeAdded, temp);
                 } else {
                     doNotAdd = addToRight(queue, nodeToBeAdded, temp);
                 }

@@ -19,17 +19,11 @@ public class LargestSubTreeSum {
         System.out.println("largest sum in subTree = " + findLargestSubTreeSum(binaryTree));
     }
 
-    static class IntClass {
-        int value;
-        IntClass(int value) {
-            this.value = value;
-        }
-    }
     private static int findLargestSubTreeSum(BinaryTree<Integer> binaryTree) {
-        if (Optional.ofNullable(binaryTree).map(BinaryTree::getRoot).isEmpty()) {
+        if (binaryTree == null || binaryTree.getRoot() == null) {
             return -1;
         }
-        IntClass temp = new IntClass(Integer.MIN_VALUE);
+        var temp = new IntClass(Integer.MIN_VALUE);
         return find(binaryTree.getRoot(), temp);
     }
 
@@ -40,5 +34,13 @@ public class LargestSubTreeSum {
         int currentSum = root.getData() + find(root.getLeft(), temp) + find(root.getRight(), temp);
         temp.value = Math.max(temp.value, currentSum);
         return currentSum;
+    }
+
+    static class IntClass {
+        int value;
+
+        IntClass(int value) {
+            this.value = value;
+        }
     }
 }

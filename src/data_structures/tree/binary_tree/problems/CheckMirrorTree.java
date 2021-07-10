@@ -33,7 +33,7 @@ public class CheckMirrorTree {
             createMirrorTree(binaryTree1.getRoot());
         }
 
-        boolean isMirrorImage = areMirrors(binaryTree.getRoot(), binaryTree1.getRoot());
+        var isMirrorImage = areMirrors(binaryTree.getRoot(), binaryTree1.getRoot());
         System.out.println(isMirrorImage);
         System.out.println("binaryTree\n" + binaryTree.levelOrderPretty());
         System.out.println("binaryTree1\n" + binaryTree1.levelOrderPretty());

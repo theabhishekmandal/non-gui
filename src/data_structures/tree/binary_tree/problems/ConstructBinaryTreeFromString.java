@@ -4,7 +4,6 @@ import data_structures.tree.binary_tree.binary_tree_impl.BinaryTree;
 
 import java.util.ArrayDeque;
 import java.util.Deque;
-import java.util.Objects;
 import java.util.stream.Stream;
 
 import static data_structures.tree.binary_tree.binary_tree_impl.BinaryTree.Node;
@@ -26,19 +25,19 @@ public class ConstructBinaryTreeFromString {
 
     private static BinaryTree<Integer> getBinaryTreeFromString(String input) {
         var binaryTree = new BinaryTree<Integer>();
-        if (Objects.isNull(input) || input.trim().isEmpty()) {
+        if (input == null || input.trim().isEmpty()) {
             return binaryTree;
         }
         Deque<Node<Integer>> nodeStack = new ArrayDeque<>();
 
-        int ind = 0;
+        var ind = 0;
         int length = input.length();
         while (ind < length) {
-            char c = input.charAt(ind);
+            var c = input.charAt(ind);
             if (Character.isDigit(c)) {
                 ind = convertAndPush(input, ind, nodeStack);
                 continue;
-            } else if (c == ')'){
+            } else if (c == ')') {
                 var leftOrRightNode = nodeStack.pop();
                 var peekNode = nodeStack.peek();
                 if (peekNode != null) {
@@ -60,13 +59,13 @@ public class ConstructBinaryTreeFromString {
     }
 
     private static int convertAndPush(String input, int ind, Deque<Node<Integer>> nodeStack) {
-       int length = input.length();
-       int temp = 0;
-       while (ind < length && Character.isDigit(input.charAt(ind))) {
-          temp = (temp * 10) + input.charAt(ind) - '0';
-          ind++;
-       }
-       nodeStack.push(Node.of(temp));
-       return ind;
+        var length = input.length();
+        var temp = 0;
+        while (ind < length && Character.isDigit(input.charAt(ind))) {
+            temp = (temp * 10) + input.charAt(ind) - '0';
+            ind++;
+        }
+        nodeStack.push(Node.of(temp));
+        return ind;
     }
 }

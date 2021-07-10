@@ -13,10 +13,10 @@ import java.util.Random;
 
 public class DeleteTree {
     public static void main(String[] args) {
-        BinaryTree<Integer> binaryTree = new BinaryTree<>();
-        Random random = new Random();
-        for(int i = 0; i < random.nextInt(20); i++) {
-            int value = random.nextInt(100);
+        var binaryTree = new BinaryTree<Integer>();
+        var random = new Random();
+        for (var i = 0; i < random.nextInt(20); i++) {
+            var value = random.nextInt(100);
             binaryTree.insertInBinaryTreeLevelOrder(value);
         }
         System.out.println("before deletion " + binaryTree.levelOrder());

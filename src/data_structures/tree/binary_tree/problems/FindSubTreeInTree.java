@@ -17,19 +17,18 @@ import static data_structures.tree.binary_tree.binary_tree_impl.BinaryTree.Node;
 
 public class FindSubTreeInTree {
     public static void main(String[] args) {
-        Random random = new Random();
-
-        Integer[] sourceArray = new Integer[20];
-        BinaryTree<Integer> binaryTree = new BinaryTree<>();
-        for(int i = 0; i < sourceArray.length; i++){
+        var random = new Random();
+        var sourceArray = new Integer[20];
+        var binaryTree = new BinaryTree<Integer>();
+        for (var i = 0; i < sourceArray.length; i++) {
             sourceArray[i] = random.nextInt(100);
             binaryTree.insertInBinaryTreeLevelOrder(sourceArray[i]);
         }
         System.out.println(binaryTree.levelOrder() + "\n");
 
-        int t = 4;
-        while(t-- > 0){
-            if((t & 1) == 0) CreateSubTree.addNewValueInTree = true;
+        var t = 4;
+        while (t-- > 0) {
+            if ((t & 1) == 0) CreateSubTree.addNewValueInTree = true;
             BinaryTree<Integer> subTree = CreateSubTree.getRandomSubTreeFromParentTree(binaryTree);
             System.out.println(subTree.levelOrder());
             boolean isSubTreeInTree = isSubTree(binaryTree, subTree);
@@ -38,10 +37,10 @@ public class FindSubTreeInTree {
     }
 
     private static <T> boolean isSubTree(BinaryTree<T> binaryTree, BinaryTree<T> subTree) {
-        if(binaryTree == null) {
+        if (binaryTree == null) {
             return true;
         }
-        if(subTree == null) {
+        if (subTree == null) {
             return false;
         }
         List<T> inOrderOfSubTree = getInOrderOfSubTree(subTree);
@@ -51,21 +50,19 @@ public class FindSubTreeInTree {
     private static <T> boolean compareMainTreeWithInOrderSubTree(BinaryTree<T> binaryTree, List<T> inOrderOfSubTree) {
         Node<T> curr = binaryTree.getRoot();
         Deque<Node<T>> stack = new LinkedList<>();
-        int counter = 0;
-        while(curr != null || !stack.isEmpty()){
-            if(curr != null){
+        var counter = 0;
+        while (curr != null || !stack.isEmpty()) {
+            if (curr != null) {
                 stack.push(curr);
                 curr = curr.getLeft();
-            }
-            else {
+            } else {
                 curr = stack.pop();
-                if(inOrderOfSubTree.get(counter).equals(curr.getData())){
+                if (inOrderOfSubTree.get(counter).equals(curr.getData())) {
                     counter++;
-                }
-                else{
+                } else {
                     counter = 0;
                 }
-                if(counter == inOrderOfSubTree.size()){
+                if (counter == inOrderOfSubTree.size()) {
                     return true;
                 }
                 curr = curr.getRight();
@@ -78,12 +75,11 @@ public class FindSubTreeInTree {
         List<T> list = new ArrayList<>();
         Node<T> curr = subTree.getRoot();
         Deque<Node<T>> stack = new LinkedList<>();
-        while(curr != null || !stack.isEmpty()){
-            if(curr != null){
+        while (curr != null || !stack.isEmpty()) {
+            if (curr != null) {
                 stack.push(curr);
                 curr = curr.getLeft();
-            }
-            else {
+            } else {
                 curr = stack.pop();
                 list.add(curr.getData());
                 curr = curr.getRight();

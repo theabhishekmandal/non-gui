@@ -26,51 +26,55 @@ import static data_structures.tree.binary_tree.binary_tree_impl.BinaryTree.Node;
  */
 public class DepthOfTree {
     public static void main(String[] args) {
-        BinaryTree<Integer> binaryTree = new BinaryTree<>();
-        Random random = new Random();
-        for(int i = 0; i < random.nextInt(20); i++){
+        var binaryTree = new BinaryTree<Integer>();
+        var random = new Random();
+        for (var i = 0; i < random.nextInt(20); i++) {
             binaryTree.insertInBinaryTreeLevelOrder(random.nextInt(100));
         }
         System.out.println(binaryTree.levelOrder());
-        int depthOfTreeRecursion = depthOfTreeRecursion(binaryTree.getRoot());
-        int depthOfTreeIteration = depthOfTreeIteration(binaryTree.getRoot());
-        int depthOfTreeLevelOrder = depthOfTreeLevelOrder(binaryTree.getRoot());
+        var depthOfTreeRecursion = depthOfTreeRecursion(binaryTree.getRoot());
+        var depthOfTreeIteration = depthOfTreeIteration(binaryTree.getRoot());
+        var depthOfTreeLevelOrder = depthOfTreeLevelOrder(binaryTree.getRoot());
         System.out.println("depth using recursion " + depthOfTreeRecursion +
                 "\ndepth using iteration " + depthOfTreeIteration +
                 "\ndepth using levelOrder " + depthOfTreeLevelOrder);
     }
 
-    private static <T> int depthOfTreeRecursion(Node<T> node){
-       if(node == null) return 0;
-       int leftDepth = depthOfTreeRecursion(node.getLeft());
-       int rightDepth = depthOfTreeRecursion(node.getRight());
-       return Math.max(leftDepth, rightDepth) + 1;
+    private static <T> int depthOfTreeRecursion(Node<T> node) {
+        if (node == null) {
+            return 0;
+        }
+        var leftDepth = depthOfTreeRecursion(node.getLeft());
+        var rightDepth = depthOfTreeRecursion(node.getRight());
+        return Math.max(leftDepth, rightDepth) + 1;
     }
 
-    private static <T> int depthOfTreeIteration(Node<T> node){
-        if(node == null) return 0;
+    private static <T> int depthOfTreeIteration(Node<T> node) {
+        if (node == null) {
+            return 0;
+        }
 
-        int depthCounter = 0;
+
+        var depthCounter = 0;
 
         Deque<Node<T>> stack = new LinkedList<>();
         stack.push(node);
         stack.push(node);
 
-        int depth = 0;
-        while(!stack.isEmpty()){
+        var depth = 0;
+        while (!stack.isEmpty()) {
             Node<T> curr = stack.pop();
-            if(!stack.isEmpty() && stack.peek() == curr){
-                if(curr.getRight() != null){
+            if (!stack.isEmpty() && stack.peek() == curr) {
+                if (curr.getRight() != null) {
                     stack.push(curr.getRight());
                     stack.push(curr.getRight());
                 }
-                if(curr.getLeft() != null){
+                if (curr.getLeft() != null) {
                     stack.push(curr.getLeft());
                     stack.push(curr.getLeft());
                 }
                 depthCounter++;
-            }
-            else{
+            } else {
                 depth = Math.max(depth, depthCounter);
                 depthCounter--;
             }
@@ -78,28 +82,33 @@ public class DepthOfTree {
         return depth;
     }
 
-    private static <T> int depthOfTreeLevelOrder(Node<T> node){
-       if(node == null) return 0;
+    private static <T> int depthOfTreeLevelOrder(Node<T> node) {
+        if (node == null) {
+            return 0;
+        }
 
-       int counter = 0;
-       Queue<Node<T>> queue = new LinkedList<>();
-       queue.add(node);
-       queue.add(null);
 
-       while(!queue.isEmpty()){
-          Node<T> curr = queue.poll();
-          if(curr != null){
-              if(curr.getLeft() != null)
-                  queue.add(curr.getLeft());
-              if(curr.getRight() != null)
-                  queue.add(curr.getRight());
-          }
-          else{
-              counter++;
-              if(!queue.isEmpty())
-                  queue.add(null);
-          }
-       }
-       return counter;
+        var counter = 0;
+        Queue<Node<T>> queue = new LinkedList<>();
+        queue.add(node);
+        queue.add(null);
+
+        while (!queue.isEmpty()) {
+            Node<T> curr = queue.poll();
+            if (curr != null) {
+                if (curr.getLeft() != null) {
+                    queue.add(curr.getLeft());
+                }
+                if (curr.getRight() != null) {
+                    queue.add(curr.getRight());
+                }
+            } else {
+                counter++;
+                if (!queue.isEmpty()) {
+                    queue.add(null);
+                }
+            }
+        }
+        return counter;
     }
 }
