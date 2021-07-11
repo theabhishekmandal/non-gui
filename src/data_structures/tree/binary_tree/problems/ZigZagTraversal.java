@@ -2,11 +2,13 @@ package data_structures.tree.binary_tree.problems;
 
 
 import data_structures.tree.binary_tree.binary_tree_impl.BinaryTree;
+import utility.StopWatch;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.*;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -26,7 +28,7 @@ import static data_structures.tree.binary_tree.binary_tree_impl.BinaryTree.Node;
  *  Using Single Queue
  *      -   In Single queue add the node to nodeList just like level order traversal
  *      -   But, while adding to the finalList we will check through the flag whether is set or not
- *      -   If it is set then we will reverse the elements of the list using a stack and then add to the finalList
+ *      -   If it is set then we will add elements at the end, otherwise add elements at the front
  *
  *  Using Double Queue
  *      -   There will be two queues leftQueue and rightQueue
@@ -47,27 +49,34 @@ public class ZigZagTraversal {
         var tree = new BinaryTree<Integer>();
         IntStream.range(1, 10).forEach(tree::insertInBinaryTreeLevelOrder);
         System.out.println(tree.levelOrder());
-        var starttime = System.currentTimeMillis();
-        var zigZag = printInZigZagPattern(tree.getRoot());
-        var stoptime = System.currentTimeMillis();
-        var finalAnswer = "first string " + zigZag + " time taken is= " + (stoptime - starttime) + " milli seconds";
 
-        starttime = System.currentTimeMillis();
-        var zigZag2 = printInZigZagPatternNew(tree.getRoot());
-        stoptime = System.currentTimeMillis();
-        var finalAnswer2 = "first string " + zigZag2 + " time taken is= " + (stoptime - starttime) + " milli seconds";
 
-        System.out.println(zigZag.equals(zigZag2));
+        List<Function<Node<Integer>, String>> listOfOperations = List.of(
+                ZigZagTraversal::printInZigZagPattern,
+                ZigZagTraversal::printInZigZagPatternNew
+        );
+
+        var joiner = new StringJoiner("\n");
+        for (var func : listOfOperations) {
+            var stopWatch = new StopWatch();
+
+            stopWatch.startTime();
+            var zigzag = func.apply(tree.getRoot());
+            stopWatch.stopTime();
+
+            var finalAnswer = "first string " + zigzag + "\ntime taken is= " + stopWatch.getTimeInMillis() + " milli seconds\n";
+            joiner.add(finalAnswer);
+        }
+        System.out.println(joiner);
+
         try (var br = new BufferedWriter(new FileWriter("hello.txt"))) {
-            br.write(finalAnswer);
-            br.write(finalAnswer2);
-            br.flush();
+            br.write(joiner.toString());
         }
     }
 
     private static <T> String printInZigZagPatternNew(Node<T> root) {
-        List<String> nodeList = new ArrayList<>();
-        List<List<String>> finalList = new ArrayList<>();
+        Deque<String> nodeList = new ArrayDeque<>();
+        List<Deque<String>> finalList = new ArrayList<>();
         Deque<Node<T>> queue = new LinkedList<>();
         queue.add(root);
         queue.add(null);
@@ -76,7 +85,7 @@ public class ZigZagTraversal {
         while (!queue.isEmpty()) {
             Node<T> curr = queue.poll();
             if (curr != null) {
-                nodeList.add(curr.getData().toString());
+                addToLeftOrRight(leftToRight, nodeList, curr);
                 if (curr.getLeft() != null) {
                     queue.add(curr.getLeft());
                 }
@@ -84,23 +93,34 @@ public class ZigZagTraversal {
                     queue.add(curr.getRight());
                 }
             } else {
-                if (!leftToRight) {
-                    Collections.reverse(nodeList);
-                }
                 finalList.add(nodeList);
-                nodeList = new ArrayList<>();
+                nodeList = new ArrayDeque<>();
                 if (!queue.isEmpty()) {
                     leftToRight = !leftToRight;
                     queue.add(null);
                 }
             }
         }
-        return "[" + finalList.stream()
-                .map(list -> "(" + String.join(", ", list) + ")")
-                .collect(Collectors.joining(", \n")) + "]";
+        return getListToString(finalList);
     }
 
-    private static <T> String printInZigZagPattern(BinaryTree.Node<T> root) {
+    private static <T> void addToLeftOrRight(boolean leftToRight, Deque<String> nodeList, Node<T> curr) {
+        if (leftToRight) {
+            nodeList.addLast(curr.getData().toString());
+        } else {
+            nodeList.addFirst(curr.getData().toString());
+        }
+    }
+
+    public static String getListToString(List<? extends Collection<String>> finalList) {
+        Function<Collection<String>, String> func = x -> "(" + String.join(", ", x) + ")";
+        return "[" + finalList.stream()
+                .map(func)
+                .collect(Collectors.joining(", \n"))
+                + "]";
+    }
+
+    private static <T> String printInZigZagPattern(Node<T> root) {
         List<String> nodeList = new ArrayList<>();
         List<List<String>> finalList = new ArrayList<>();
 
@@ -115,7 +135,7 @@ public class ZigZagTraversal {
                     Node<T> node = leftQueue.pollFirst();
                     if (node != null) {
                         nodeList.add(node.getData().toString());
-                        addToQueueUsingFlag(rightQueue, node.getLeft(), node.getRight(), true);
+                        addToQueueUsingFlag(rightQueue, node, true);
                     } else {
                         finalList.add(nodeList);
                         nodeList = new ArrayList<>();
@@ -129,7 +149,7 @@ public class ZigZagTraversal {
                     Node<T> node = rightQueue.pollLast();
                     if (node != null) {
                         nodeList.add(node.getData().toString());
-                        addToQueueUsingFlag(leftQueue, node.getLeft(), node.getRight(), false);
+                        addToQueueUsingFlag(leftQueue, node, false);
                     } else {
                         finalList.add(nodeList);
                         nodeList = new ArrayList<>();
@@ -142,12 +162,12 @@ public class ZigZagTraversal {
                 break;
             }
         }
-        return "[" + finalList.stream()
-                .map(list -> "(" + String.join(", ", list) + ")")
-                .collect(Collectors.joining(", \n")) + "]";
+        return getListToString(finalList);
     }
 
-    private static <T> void addToQueueUsingFlag(Deque<Node<T>> queue, Node<T> left, Node<T> right, boolean addLast) {
+    private static <T> void addToQueueUsingFlag(Deque<Node<T>> queue, Node<T> curr, boolean addLast) {
+        var left = curr.getLeft();
+        var right = curr.getRight();
         if (addLast) {
             if (left != null) {
                 queue.addLast(left);
