@@ -21,28 +21,11 @@ import static data_structures.tree.binary_tree.binary_tree_impl.BinaryTree.Node;
  *            4  5  6  7
  *
  *  then zigzag traversal will be 1 3 2 4 5 6 7
- *  Approach:
- *      There are two approaches
- *          -   Using single queue but multiple traversal (better for space complexity)
- *          -   Using multiple queue but less traversal (better for time complexity)
- *  Using Single Queue
- *      -   In Single queue add the node to nodeList just like level order traversal
- *      -   But, while adding to the finalList we will check through the flag whether is set or not
- *      -   If it is set then we will add elements at the end, otherwise add elements at the front
- *
- *  Using Double Queue
- *      -   There will be two queues leftQueue and rightQueue
- *      -   Properties of insertion and removal in both queues are as follows:
- *              -   adding  -   In leftQueue addition will be done using addFirst and right child
- *                              is inserted before the left child. Also, the null value is added using addLast
- *                              method
- *              -   adding  -   In rightQueue addition will be done using addLast and left child
- *                              is inserted before the right child. Also, the null value is added using addFirst method
- *              -   removal -   In leftQueue removal operation will be in same direction as that of the add operation
- *                              i.e removeFirst
- *              -   removal -   In rightQueue removal operation will be in same direction as that of the add operation
- *                              i.e removeLast
- *      -   Using these properties it will be easier to remember.
+ *  Approach Using Single Queue
+ *      -   In Single queue addition of node will depend on leftToRight
+ *          -   if leftToRight is true then add nodes at the end in nodeList
+ *          -   otherwise add nodes in front
+ *      -   After every level add nodeList to finalList and change the revert the flag of leftToRight
  */
 public class ZigZagTraversal {
     public static void main(String[] args) throws IOException {
@@ -52,7 +35,6 @@ public class ZigZagTraversal {
 
 
         List<Function<Node<Integer>, String>> listOfOperations = List.of(
-                ZigZagTraversal::printInZigZagPattern,
                 ZigZagTraversal::printInZigZagPatternNew
         );
 
@@ -75,17 +57,23 @@ public class ZigZagTraversal {
     }
 
     private static <T> String printInZigZagPatternNew(Node<T> root) {
-        Deque<String> nodeList = new ArrayDeque<>();
+        Node<T> nullNode = Node.of(null);
+        // to add nodes level wise
+        Deque<String> levelNodeList = new ArrayDeque<>();
+
+        // finalList for display
         List<Deque<String>> finalList = new ArrayList<>();
-        Deque<Node<T>> queue = new LinkedList<>();
+
+        // traversing tree
+        Deque<Node<T>> queue = new ArrayDeque<>();
         queue.add(root);
-        queue.add(null);
+        queue.add(nullNode);
 
         var leftToRight = true;
         while (!queue.isEmpty()) {
             Node<T> curr = queue.poll();
-            if (curr != null) {
-                addToLeftOrRight(leftToRight, nodeList, curr);
+            if (curr != nullNode) {
+                addToLeftOrRight(leftToRight, levelNodeList, curr);
                 if (curr.getLeft() != null) {
                     queue.add(curr.getLeft());
                 }
@@ -93,11 +81,11 @@ public class ZigZagTraversal {
                     queue.add(curr.getRight());
                 }
             } else {
-                finalList.add(nodeList);
-                nodeList = new ArrayDeque<>();
+                finalList.add(levelNodeList);
+                levelNodeList = new ArrayDeque<>();
                 if (!queue.isEmpty()) {
                     leftToRight = !leftToRight;
-                    queue.add(null);
+                    queue.add(nullNode);
                 }
             }
         }
@@ -120,68 +108,4 @@ public class ZigZagTraversal {
                 + "]";
     }
 
-    private static <T> String printInZigZagPattern(Node<T> root) {
-        List<String> nodeList = new ArrayList<>();
-        List<List<String>> finalList = new ArrayList<>();
-
-        Deque<Node<T>> leftQueue = new LinkedList<>();
-        Deque<Node<T>> rightQueue = new LinkedList<>();
-        leftQueue.addFirst(null);
-        leftQueue.addFirst(root);
-
-        while (true) {
-            if (!leftQueue.isEmpty()) {
-                while (!leftQueue.isEmpty()) {
-                    Node<T> node = leftQueue.pollFirst();
-                    if (node != null) {
-                        nodeList.add(node.getData().toString());
-                        addToQueueUsingFlag(rightQueue, node, true);
-                    } else {
-                        finalList.add(nodeList);
-                        nodeList = new ArrayList<>();
-                        if (!rightQueue.isEmpty()) {
-                            rightQueue.addFirst(null);
-                        }
-                    }
-                }
-            } else if (!rightQueue.isEmpty()) {
-                while (!rightQueue.isEmpty()) {
-                    Node<T> node = rightQueue.pollLast();
-                    if (node != null) {
-                        nodeList.add(node.getData().toString());
-                        addToQueueUsingFlag(leftQueue, node, false);
-                    } else {
-                        finalList.add(nodeList);
-                        nodeList = new ArrayList<>();
-                        if (!leftQueue.isEmpty()) {
-                            leftQueue.addLast(null);
-                        }
-                    }
-                }
-            } else {
-                break;
-            }
-        }
-        return getListToString(finalList);
-    }
-
-    private static <T> void addToQueueUsingFlag(Deque<Node<T>> queue, Node<T> curr, boolean addLast) {
-        var left = curr.getLeft();
-        var right = curr.getRight();
-        if (addLast) {
-            if (left != null) {
-                queue.addLast(left);
-            }
-            if (right != null) {
-                queue.addLast(right);
-            }
-        } else {
-            if (right != null) {
-                queue.addFirst(right);
-            }
-            if (left != null) {
-                queue.addFirst(left);
-            }
-        }
-    }
 }
