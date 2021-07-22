@@ -1,8 +1,9 @@
 package data_structures.tree.binary_tree.problems;
 
 
+import utility.Pair;
+
 import java.util.ArrayDeque;
-import java.util.Deque;
 
 /**
  * Given a binary tree, write a function to get the maximum width of the given tree.
@@ -59,98 +60,68 @@ import java.util.Deque;
  *
  *
  * Approach:
- *  -   In this width of the binary tree, depends on distance between the leftmost child and the rightmost child
- *  -   In this given binary tree, we can have null values also, between two non null nodes, see last example
- *  -   Also, those null values are considered in calculating width which are between two non null nodes. If
- *      there is null node after a nonnull node, and there is no non null node after the null node then that null
- *      node is not considered. Example see second last example
- *  -   To calculate width we can use the property that every node's
- *      -   left child is calculated using 2 * n + 1
- *      -   right child is calculate using 2 * n + 2
- *      -   This is possible as we are considering the tree as full binary tree
- *  -   In this mainly two queues are used.
- *      -   One queue for traversing the nodes in the level order manner
- *      -   Second queue to insert the index value generated from it's parent index. This index will
- *          be later used to calculate the width
- *  -   Now while traversing the given level of the tree using the queue, the first element of queue
- *      will give the leftmost child and the last element of the queue will give the rightmost child. Eg:
- *      nodeQueue = [5, null, null, 9], here 5 is the leftmost child and 9 is the rightmost child.
- *      indexQueue = [3, 6], index queue is calculated using last example.
- *  -   We got the leftmost index and rightmost index i.e 3 and 6 respectively, so width at this level is 6 - 3 + 1 = 4
+ *  -   To find the width of the binary tree, null nodes are also considered here.
+ *  -   It is calculated as the max of difference between leftMost and rightMost non null node value.
+ *      For eg - if leftNode position is 3 and right nodePosition is 4 then width = Math.max(width, right - left + 1)
+ *  -   Here for each node it's position is calculated based on it's parent.
+ *      - leftChild = 2 * i + 1
+ *      - rightChild = 2 * i + 2
+ *  -   Do level order traversal and for every level of nodes present in the deque, find the width by pulling the firstNode in
+ *      the queue(which represent the leftMost node) and the lastNode in the queue(which represents the rightMost node in the queue)
+ *  -   Now, take the difference between the position of leftMost and rightMost node.
+ *  -   Do these above two steps, for each level and find the maxWidth of the tree.
  *
  */
 
-class TreeNode {
-    int val;
-    TreeNode left;
-    TreeNode right;
-
-    TreeNode() {
-    }
-
-    TreeNode(int val) {
-        this.val = val;
-    }
-
-    TreeNode(int val, TreeNode left, TreeNode right) {
-        this.val = val;
-        this.left = left;
-        this.right = right;
-    }
-}
-
 public class WidthOfBinaryTree {
+    static class TreeNode {
+        int val;
+        TreeNode left;
+        TreeNode right;
+        TreeNode(int val) {
+            this.val = val;
+        }
+    }
     public static void main(String[] args) {
-        TreeNode root = new TreeNode(1);
+        var root = new TreeNode(1);
         root.left = new TreeNode(3);
         root.right = new TreeNode(2);
         root.left.left = new TreeNode(5);
-//        root.left.right = new TreeNode(3);
-//        root.right.right = new TreeNode(2);
-//        System.out.println(widthOfBinaryTree2(root));
-        System.out.println(widthOfBinaryTree3(root));
+        root.left.right = new TreeNode(3);
+        root.right.right = new TreeNode(2);
+
+        System.out.println(widthOfBinaryTreeNew(root));
     }
 
-    private static int widthOfBinaryTree3(TreeNode root) {
+    private static int widthOfBinaryTreeNew(TreeNode root) {
         if (root == null) {
             return 0;
         }
 
         var width = 1;
-        Deque<TreeNode> queue = new ArrayDeque<>();
-        queue.add(root);
+        var deque = new ArrayDeque<Pair<TreeNode, Integer>>();
+        var nullNode = Pair.<TreeNode, Integer>of(null, 0);
+        deque.add(Pair.of(root, 0));
+        deque.add(nullNode);
 
-        Deque<Integer> intDeque = new ArrayDeque<>();
-        intDeque.add(0);
-
-        while (!queue.isEmpty()) {
-            var length = queue.size();
-            var left = 0;
-            var right = 0;
-            for (var i = 0; i < length; i++) {
-                int index = (intDeque.isEmpty()) ? 0 : intDeque.poll();
-
-                // calculate left and right index
-                if (i == 0) {
-                    left = index;
-                } else if (i == length - 1) {
-                    right = index;
+        while (!deque.isEmpty()) {
+            var treeNodeIntegerPair = deque.poll();
+            if (treeNodeIntegerPair != nullNode) {
+                var currNode = treeNodeIntegerPair.getFirst();
+                var value = treeNodeIntegerPair.getSecond();
+                if (currNode.left != null) {
+                    deque.add(Pair.of(currNode.left, 2 * value + 1));
                 }
-
-                TreeNode curr = queue.poll();
-                if (curr != null) {
-                    if (curr.left != null) {
-                        queue.add(curr.left);
-                        intDeque.add(2 * index + 1);
-                    }
-                    if (curr.right != null) {
-                        queue.add(curr.right);
-                        intDeque.add(2 * index + 2);
-                    }
+                if (currNode.right != null) {
+                    deque.add(Pair.of(currNode.right, 2 * value + 2));
                 }
-            }
-            if (length != 1) {
-                width = Math.max(width, right - left + 1);
+            } else {
+                if (!deque.isEmpty()) {
+                    var right = deque.getLast().getSecond();
+                    var left = deque.getFirst().getSecond();
+                    width = Math.max(width, right - left + 1);
+                    deque.add(nullNode);
+                }
             }
         }
         return width;
