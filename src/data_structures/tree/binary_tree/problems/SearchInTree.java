@@ -16,9 +16,7 @@ public class SearchInTree {
     public static void main(String[] args) {
         var binaryTree = new BinaryTree<Integer>();
         var random = new Random();
-        for (var i = 0; i < 10; i++) {
-            binaryTree.insertInBinaryTreeLevelOrder(random.nextInt(10));
-        }
+        random.ints(10, 0, 10).forEach(binaryTree::insertInBinaryTreeLevelOrder);
         var searchValue = random.nextInt(10);
 
         System.out.println(binaryTree.levelOrder());

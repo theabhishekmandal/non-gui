@@ -1,11 +1,9 @@
 package data_structures.tree.binary_tree.problems;
 
 import data_structures.tree.binary_tree.binary_tree_impl.BinaryTree;
+import utility.Counter;
 
-import java.util.LinkedList;
-import java.util.Objects;
 import java.util.Random;
-import java.util.stream.IntStream;
 
 import static data_structures.tree.binary_tree.binary_tree_impl.BinaryTree.Node;
 
@@ -29,76 +27,54 @@ import static data_structures.tree.binary_tree.binary_tree_impl.BinaryTree.Node;
  * Explanation:
  * Tilt of node 4 : 0
  * Tilt of node 5 : 0
- * Tilt of node 2 : 0 + |5 - 4| = 1
+ * Tilt of node 2 : |5 - 4| = 1
  * Tilt of node 6 : 0
- * Tilt of node 3 : 1 + |6 - 0| = 7
- * Tilt of node 1 : 7 + |11 - 9| = 9
+ * Tilt of node 3 : |6 - 0| = 6
+ * Tilt of node 1 : |(2 + 4 + 5) - (3 + 6)| = |11 - 9| = 2
+ * Sum of every tilt is = 0 + 0 + 1 + 0 + 6 + 2 = 9
  *
  *
  * Approach:
- *  -   Do the post Order Traversal using double push
- *  -   store the nodes to stack(ans) if they are leaf nodes
- *  -   if they are not leaf nodes, pop only one node(left or right) if it has one child otherwise pop both nodes(left and right) from stack(ans)
- *  -   calculate the tilt value by taking the abs(left - right)
- *  -   then store the current.val + leftValue + rightValue in stack(ans)
+ * -    To find the Tilt of every subTree, we have to follow the bottom up approach, i.e traversing and calculating value from
+ *      bottom to top.
+ * -    For every node, find the value of leftChild and rightChild, calculate the tilt of that node by |rightChildValue - leftChildValue|.
+ *      And send back the value of node value, leftChildValue and rightChildValue to the recursion call.
+ * -    We are sending back the value because, we want to calculate the tilt of each node's parent also, so we need the value
+ *      of all the child nodes.
  */
 
 public class TiltTree {
 
     public static void main(String[] args) {
         var random = new Random();
-        var testCase = 5;
+        var testCase = 3;
         while (testCase-- > 0) {
             var tree = new BinaryTree<Integer>();
-            IntStream.rangeClosed(0, random.nextInt(10)).forEach(tree::insertInBinaryTreeLevelOrder);
-            System.out.println(tree.levelOrder() + "\n the tilt of the tree is = " + getTilt(tree.getRoot()) + "\n");
+            random.ints(10, 0, 10).forEach(tree::insertInBinaryTreeLevelOrder);
+            System.out.println(tree.levelOrder() + "\n the tilt of the tree is = " + getTilt(tree) + "\n");
         }
     }
 
-    private static int getTilt(Node<Integer> root) {
+    private static int getTilt(BinaryTree<Integer> binaryTree) {
+        if (binaryTree == null || binaryTree.getRoot() == null) {
+            return 0;
+        }
+        var totalTiltCounter = new Counter();
+        getTiltCount(binaryTree.getRoot(), totalTiltCounter);
+
+        return totalTiltCounter.getCount();
+    }
+
+    private static int getTiltCount(Node<Integer> root, Counter totalTiltCounter) {
         if (root == null) {
             return 0;
         }
+        var left = getTiltCount(root.getLeft(), totalTiltCounter);
+        var right = getTiltCount(root.getRight(), totalTiltCounter);
 
-        var ans = new LinkedList<Integer>();
-        var stack = new LinkedList<Node<Integer>>();
-        stack.push(root);
-        stack.push(root);
+        var value = Math.abs(right - left);
+        totalTiltCounter.add(value);
 
-        var tilt = 0;
-
-        // double push for postOrder traversal
-        while (!stack.isEmpty()) {
-            var curr = stack.pop();
-            if (!stack.isEmpty() && curr == stack.peek()) {
-                if (curr.getRight() != null) {
-                    stack.push(curr.getRight());
-                    stack.push(curr.getRight());
-                }
-                if (curr.getLeft() != null) {
-                    stack.push(curr.getLeft());
-                    stack.push(curr.getLeft());
-                }
-            } else {
-                boolean isLeftNull = Objects.isNull(curr.getLeft());
-                boolean isRightNull = Objects.isNull(curr.getRight());
-
-                // if both children are null, then add the current node's value to list
-                if (isLeftNull && isRightNull) {
-                    ans.add(curr.getData());
-                }
-                // if both or one child are present
-                else {
-                    var left = 0;
-                    var right = ans.pop();
-                    if (!isLeftNull && !isRightNull) {
-                        left = ans.pop();
-                    }
-                    tilt += Math.abs(left - right);
-                    ans.push(curr.getData() + left + right);
-                }
-            }
-        }
-        return tilt;
+        return root.getData() + left + right;
     }
 }

@@ -2,6 +2,7 @@ package data_structures.tree.binary_tree.problems;
 
 import data_structures.tree.binary_tree.binary_tree_impl.BinaryTree;
 
+import java.util.ArrayDeque;
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Random;
@@ -19,9 +20,7 @@ public class ReverseLevelOrder {
     public static void main(String[] args) {
         var binaryTree = new BinaryTree<Integer>();
         var random = new Random();
-        for (var i = 0; i < random.nextInt(20); i++) {
-            binaryTree.insertInBinaryTreeLevelOrder(random.nextInt(100));
-        }
+        random.ints(10, 0, 20).forEach(binaryTree::insertInBinaryTreeLevelOrder);
         String answer = printReverseLevelOrder(binaryTree.getRoot());
         System.out.println(binaryTree.levelOrder());
         System.out.println(answer);
@@ -31,14 +30,15 @@ public class ReverseLevelOrder {
         if (node == null) {
             return "";
         }
-        var nodeLevelList = new LinkedList<String>();
-        var finalList = new LinkedList<LinkedList<String>>();
-        Queue<Node<T>> queue = new LinkedList<>();
+        var nodeLevelList = new ArrayDeque<String>();
+        var finalList = new ArrayDeque<ArrayDeque<String>>();
+        var nullNode = Node.<T>of(null);
+        Queue<Node<T>> queue = new ArrayDeque<>();
         queue.offer(node);
-        queue.offer(null);
+        queue.offer(nullNode);
         while (!queue.isEmpty()) {
             Node<T> curr = queue.poll();
-            if (curr != null) {
+            if (curr != nullNode) {
                 nodeLevelList.addFirst(curr.getData().toString());
                 if (curr.getLeft() != null) {
                     queue.offer(curr.getLeft());
@@ -47,14 +47,14 @@ public class ReverseLevelOrder {
                     queue.offer(curr.getRight());
                 }
             } else {
-                var newList = new LinkedList<String>(nodeLevelList);
+                var newList = new ArrayDeque<>(nodeLevelList);
                 finalList.addFirst(newList);
 
                 // clearing the list
-                nodeLevelList.clear();
+                nodeLevelList = new ArrayDeque<>();
 
                 if (!queue.isEmpty()) {
-                    queue.offer(null);
+                    queue.offer(nullNode);
                 }
             }
         }

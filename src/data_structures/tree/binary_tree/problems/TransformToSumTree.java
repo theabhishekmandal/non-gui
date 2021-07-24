@@ -40,6 +40,7 @@ public class TransformToSumTree {
     public static void main(String[] args) {
         var random = new Random();
         var binaryTree = new BinaryTree<Integer>();
+        random.ints(10, 0, 20).forEach(binaryTree::insertInBinaryTreeLevelOrder);
         IntStream.range(0, random.nextInt(20)).forEach(binaryTree::insertInBinaryTreeLevelOrder);
         System.out.println(binaryTree.levelOrderPretty());
 
@@ -48,7 +49,9 @@ public class TransformToSumTree {
     }
 
     private static void transformToSumTree(BinaryTree<Integer> tree) {
-        if (tree == null || tree.getRoot() == null) return;
+        if (tree == null || tree.getRoot() == null) {
+            return;
+        }
         transformNew(tree.getRoot());
     }
 

@@ -1,12 +1,10 @@
 package data_structures.tree.binary_tree.problems;
 
-import utility.Pair;
 import data_structures.tree.binary_tree.binary_tree_impl.BinaryTree;
+import utility.Pair;
 
 import java.util.ArrayDeque;
-import java.util.Optional;
 import java.util.Random;
-import java.util.stream.IntStream;
 
 import static data_structures.tree.binary_tree.binary_tree_impl.BinaryTree.Node;
 
@@ -30,7 +28,7 @@ public class SumOfLongestPathFromRootToLeaf {
     public static void main(String[] args) {
         var random = new Random();
         var binaryTree = new BinaryTree<Integer>();
-        IntStream.rangeClosed(0, random.nextInt(10)).forEach(x -> binaryTree.insertInBinaryTreeLevelOrder(random.nextInt(10)));
+        random.ints(10, 0, 10).forEach(binaryTree::insertInBinaryTreeLevelOrder);
         System.out.println(binaryTree.levelOrderPretty());
         var heightAndSum = sumOfLongestPathFromRootToLeaf(binaryTree);
         System.out.println("maxHeight is " + heightAndSum.getFirst() + " maxSum is " + heightAndSum.getSecond());
