@@ -52,7 +52,7 @@ public class RemoveHalfNodes {
     }
 
     private static <T> void removeHalfNodes(BinaryTree<T> binaryTree) {
-        if (binaryTree.getRoot() == null) {
+        if (binaryTree == null || binaryTree.getRoot() == null) {
             return;
         }
         var root = binaryTree.getRoot();

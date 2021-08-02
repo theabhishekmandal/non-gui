@@ -10,7 +10,7 @@ import java.util.Random;
 /**
  * Search a node in the Binary Tree
  * Approach:
- *  -   We can use level order traversal to find the node in the tree
+ *  -   Use top down approach to find the first node with the matching value and then return
  */
 public class SearchInTree {
     public static void main(String[] args) {

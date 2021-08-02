@@ -21,7 +21,11 @@ import static data_structures.tree.binary_tree.binary_tree_impl.BinaryTree.Node;
  *  here maxSum will be 4 [1, 2, 1] because it is the longest path from root
  *
  *  Approach
- *      -   add the node, sum and height in the queue and calculate the value
+ *      -   To find the sum of longest path from root, we will follow top down approach
+ *      -   Using level order traversal, add the (value, height, sum) in the queue using the StackValue object.
+ *          This height and sum will help us later in comparison.
+ *      -   now for every leaf node compare the longest path and add to maxHeight, if maxHeight is same then compare
+ *          the sum.
  */
 
 public class SumOfLongestPathFromRootToLeaf {

@@ -11,7 +11,7 @@ import static data_structures.tree.binary_tree.binary_tree_impl.BinaryTree.Node;
 /**
  * Find the sum of all nodes in the tree
  * Approach
- *  -   Use any type of traversal and add each node value.
+ *  -   Use top down/bottom up approach to find the sum of nodes
  */
 public class SumInTree {
     public static void main(String[] args) {

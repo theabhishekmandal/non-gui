@@ -24,16 +24,11 @@ import static data_structures.tree.binary_tree.binary_tree_impl.BinaryTree.Node;
  * 5 * * *
  *
  * Approach
- *  -   For a given binary tree do the postOrder traversal
- *  -   During traversal either the given node is a leaf node or a non leaf node
- *      -   for the leaf node add them to a queue
- *      -   for non leaf node
- *          -   if the queue for leaf nodes is empty this means there are no leaf nodes, so just return
- *          -   if the queue is not empty first check if the first node is the left of the current node
- *                  -   if it is the left node then remove that node from queue and set the left as null
- *                  -   Also it can be possible that right node also exist in the queue, check for that also
- *          -   If the queue is not empty and the first node is right node means left node of that current node
- *              does not exists so simply, just make right as null remove that node from queue and return
+ *  -   In this we are using level order traversal.
+ *  -   For each node we will check whether it's left or right child's children are null or not
+ *  -   If yes then remove left/right child as null
+ *  -   Eg: In above example we see 5 has two children 8 and 7, 8 is left child and 7 is right child
+ *          Since, both 8 and 7 children are null, so they qualify for leaf nodes, and they are removed.
  *
  */
 
@@ -41,73 +36,52 @@ public class RemoveLeafNodes {
     private static final Random random = new Random();
 
     public static void main(String[] args) {
-        var binaryTree = new BinaryTree<Integer>();
         List<Integer> list = IntStream.range(0, 10).boxed().collect(Collectors.toList());
         System.out.println(list);
-        list.forEach(x -> randomInsert(x, binaryTree));
+        var binaryTree = new BinaryTree<Integer>();
+        for (var i : list) {
+            randomInsert(i, binaryTree);
+        }
         System.out.println(binaryTree.levelOrderPretty());
         removeLeafNodes(binaryTree);
         System.out.println(binaryTree.levelOrderPretty());
+
     }
 
     private static <T> void removeLeafNodes(BinaryTree<T> binaryTree) {
-        if (binaryTree.getRoot() == null) {
+        if (binaryTree == null || binaryTree.getRoot() == null) {
             return;
         }
-        var root = binaryTree.getRoot();
-        Deque<Node<T>> stack = new ArrayDeque<>();
-        var leafList = new ArrayDeque<Node<T>>();
-        stack.push(root);
-        stack.push(root);
 
-        while (!stack.isEmpty()) {
-            var curr = stack.pop();
-            if (!stack.isEmpty() && curr == stack.peek()) {
-                if (curr.getRight() != null) {
-                    stack.push(curr.getRight());
-                    stack.push(curr.getRight());
-                }
-                if (curr.getLeft() != null) {
-                    stack.push(curr.getLeft());
-                    stack.push(curr.getLeft());
-                }
-            } else {
-                var isLeftNull = Objects.isNull(curr.getLeft());
-                var isRightNull = Objects.isNull(curr.getRight());
-                if (isLeftNull && isRightNull) {
-                    leafList.add(curr);
-                } else {
-                    removeLeafIfNecessary(leafList, curr);
-                }
+        var root = binaryTree.getRoot();
+        if (root.getLeft() == null || root.getRight() == null) {
+            binaryTree.setRoot(null);
+        }
+
+        Deque<Node<T>> queue = new ArrayDeque<>();
+        queue.add(binaryTree.getRoot());
+
+        while(!queue.isEmpty()) {
+            var curr = queue.poll();
+            var left = curr.getLeft();
+            var right = curr.getRight();
+            if (left != null) {
+                removeNullElseProcess(curr, left, queue);
+            }
+            if (right != null) {
+                removeNullElseProcess(curr, right, queue);
             }
         }
     }
-
-    private static <T> void removeLeafIfNecessary(ArrayDeque<Node<T>> leafList, Node<T> curr) {
-        // if there is no leaf then return
-        if (leafList.isEmpty()) {
-            return;
-        }
-
-        var first = leafList.removeFirst();
-        // first node can be either left node or right node
-
-        // if first node is left node, then remove and set left as null
-        // Also check if the right node exists or not
-        if (curr.getLeft() == first) {
-            curr.setLeft(null);
-        }
-
-        // if first node is right node then left node does not exists
-        // return after setting null
-        else if (curr.getRight() == first) {
-            curr.setRight(null);
-            return;
-        }
-
-        if (!leafList.isEmpty() && curr.getRight() == leafList.getFirst()) {
-            curr.setRight(null);
-            leafList.removeFirst();
+    private static <T> void removeNullElseProcess(Node<T> parent, Node<T> child, Deque<Node<T>> queue) {
+        if (child.getLeft() == null && child.getRight() == null) {
+            if (parent.getLeft() == child) {
+                parent.setLeft(null);
+            } else {
+                parent.setRight(null);
+            }
+        } else {
+            queue.add(child);
         }
     }
 
