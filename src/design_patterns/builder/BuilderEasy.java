@@ -66,7 +66,7 @@ class Student {
 
 public class BuilderEasy {
     public static void main(String[] args) {
-        Student student = new Student.StudentBuilder()
+        var student = new Student.StudentBuilder()
                 .setFirstName("Abhishek")
                 .setMiddleName("Kumar")
                 .setLastName("Mandal")

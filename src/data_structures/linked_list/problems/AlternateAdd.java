@@ -11,7 +11,7 @@ import static data_structures.linked_list.node.SinglyLinkedList.Node;
  */
 public class AlternateAdd {
     public static void main(String[] args) {
-        SinglyLinkedList<Integer> first = new SinglyLinkedList<>();
+        var first = new SinglyLinkedList<Integer>();
         IntStream.range(1, 2).forEach(first::addLast);
         System.out.println("List before rordering\n" + first);
         reorderList(first);
@@ -19,21 +19,21 @@ public class AlternateAdd {
     }
 
     private static <T> void reorderList(SinglyLinkedList<T> first) {
-        if(first == null) return;
+        if (first == null) return;
 
         // finding the middle element of the linked list
-        Node<T> slowPointer = first.getHead();
-        Node<T> fastPointer = first.getHead();
-        while(fastPointer != null && fastPointer.getNext() != null){
+        var slowPointer = first.getHead();
+        var fastPointer = first.getHead();
+        while (fastPointer != null && fastPointer.getNext() != null) {
             slowPointer = slowPointer.getNext();
             fastPointer = fastPointer.getNext().getNext();
         }
 
         // reversing the right half of the list
-        Node<T> curr = slowPointer;
+        var curr = slowPointer;
         Node<T> prev = null;
-        Node<T> nex = null;
-        while(curr != null){
+        Node<T> nex;
+        while (curr != null) {
             nex = curr.getNext();
             curr.setNext(prev);
             prev = curr;
@@ -41,11 +41,11 @@ public class AlternateAdd {
         }
 
         // now reordering the elements of the list
-        Node<T> newHead = prev;
+        var newHead = prev;
         Node<T> newHeadNext = null;
-        Node<T> oldHead = first.getHead();
+        var oldHead = first.getHead();
         Node<T> oldHeadNext = null;
-        while(newHead != slowPointer){
+        while (newHead != slowPointer) {
             newHeadNext = newHead.getNext();
             oldHeadNext = oldHead.getNext();
 

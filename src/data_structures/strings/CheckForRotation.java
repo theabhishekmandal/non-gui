@@ -1,6 +1,6 @@
 package data_structures.strings;
 
-import data_structures.Pair;
+import utility.Pair;
 
 import java.util.Arrays;
 import java.util.List;
@@ -31,13 +31,14 @@ public class CheckForRotation {
                 Pair.of("abacd", "cdaba"),
                 Pair.of("geeks", "eksge")
         );
-        for(var strings : list) {
+        for (var strings : list) {
             String rotation = (areRotationsFast(strings.getFirst(), strings.getSecond())) ? " a rotation" : " not a rotation";
             System.out.println("string two = " + strings.getSecond() + " is" + rotation + " of string one = " + strings.getFirst());
         }
     }
+
     private static boolean areRotations(String one, String two) {
-        if(one == null || two == null || one.trim().isEmpty() || two.trim().isEmpty()) {
+        if (one == null || two == null || one.trim().isEmpty() || two.trim().isEmpty()) {
             return false;
         }
         String temp = one + one;
@@ -45,33 +46,31 @@ public class CheckForRotation {
     }
 
     private static boolean areRotationsFast(String one, String two) {
-        if(one == null || two == null || one.trim().isEmpty() || two.trim().isEmpty()) {
+        if (one == null || two == null || one.trim().isEmpty() || two.trim().isEmpty()) {
             return false;
         }
         int[] lps = new int[one.length()];
         lps[0] = 0;
         int i = 1;
         int j = 0;
-        while(i < one.length()) {
-            if(one.charAt(i) == two.charAt(j)) {
+        while (i < one.length()) {
+            if (one.charAt(i) == two.charAt(j)) {
                 lps[i] = j + 1;
                 i++;
                 j++;
-            }
-            else {
-                if(j == 0) {
+            } else {
+                if (j == 0) {
                     lps[i] = 0;
                     i++;
-                }
-                else {
-                   j = lps[j - 1];
+                } else {
+                    j = lps[j - 1];
                 }
             }
         }
 
         i = 0;
-        for(int k = lps[one.length() - 1]; k < two.length(); k++, i++) {
-            if(two.charAt(k) != one.charAt(i)) {
+        for (int k = lps[one.length() - 1]; k < two.length(); k++, i++) {
+            if (two.charAt(k) != one.charAt(i)) {
                 return false;
             }
         }

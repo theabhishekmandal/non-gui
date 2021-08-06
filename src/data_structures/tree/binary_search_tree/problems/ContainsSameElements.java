@@ -1,6 +1,6 @@
 package data_structures.tree.binary_search_tree.problems;
 
-import data_structures.Pair;
+import utility.Pair;
 import data_structures.tree.binary_search_tree.binary_search_tree_impl.BinarySearchTree;
 
 import java.util.*;
@@ -47,6 +47,7 @@ import static data_structures.tree.binary_search_tree.binary_search_tree_impl.Bi
 
 public class ContainsSameElements {
     private static final Random random = new Random();
+
     public static void main(String[] args) {
 
         var pairList = getInput();
@@ -74,10 +75,9 @@ public class ContainsSameElements {
 
         // input2
         var list2 = new ArrayList<>(list);
-        if(random.nextBoolean()) {
+        if (random.nextBoolean()) {
             Collections.shuffle(list2);
-        }
-        else {
+        } else {
             list2.set(random.nextInt(list2.size()), Integer.MAX_VALUE);
         }
         list2.forEach(bst2::insertInBst);
@@ -86,10 +86,10 @@ public class ContainsSameElements {
     }
 
     private static <T extends Comparable<? super T>> boolean isContentEqual(BinarySearchTree<T> one, BinarySearchTree<T> two) {
-        if(one == null && two == null) {
+        if (one == null && two == null) {
             return true;
         }
-        if(one == null || two == null || one.getSize() != two.getSize()) {
+        if (one == null || two == null || one.getSize() != two.getSize()) {
             return false;
         }
 
@@ -101,14 +101,14 @@ public class ContainsSameElements {
         var answerQueue = new LinkedList<T>();
         boolean flag1 = true;
         boolean flag2 = true;
-        while(flag1 || flag2) {
-            if(flag1) {
+        while (flag1 || flag2) {
+            if (flag1) {
                 var pair = doInorder(curr1, stack1, answerQueue);
                 flag1 = pair.getFirst();
                 curr1 = pair.getSecond();
             }
 
-            if(flag2) {
+            if (flag2) {
                 var pair = doInorder(curr2, stack2, answerQueue);
                 flag2 = pair.getFirst();
                 curr2 = pair.getSecond();
@@ -118,23 +118,20 @@ public class ContainsSameElements {
     }
 
     private static <T extends Comparable<? super T>> Pair<Boolean, Node<T>> doInorder(Node<T> curr, Deque<Node<T>> stack, Deque<T> queue) {
-        if(curr != null || !stack.isEmpty()) {
-            if(curr != null) {
+        if (curr != null || !stack.isEmpty()) {
+            if (curr != null) {
                 stack.push(curr);
                 curr = curr.getLeft();
-            }
-            else {
+            } else {
                 curr = stack.pop();
-                if(!queue.isEmpty() && curr.getData().equals(queue.getFirst())) {
+                if (!queue.isEmpty() && curr.getData().equals(queue.getFirst())) {
                     queue.pollFirst();
-                }
-                else {
+                } else {
                     queue.addLast(curr.getData());
                 }
                 curr = curr.getRight();
             }
-        }
-        else {
+        } else {
             return Pair.of(false, curr);
         }
         return Pair.of(true, curr);

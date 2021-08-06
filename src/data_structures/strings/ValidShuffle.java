@@ -1,6 +1,6 @@
 package data_structures.strings;
 
-import data_structures.Pair;
+import utility.Triplet;
 
 import java.util.Arrays;
 import java.util.List;
@@ -22,13 +22,13 @@ import java.util.List;
 
 public class ValidShuffle {
     public static void main(String[] args) {
-        List<Pair<String, Pair<String, String>>> list = Arrays.asList(
-                Pair.of("1xy2", Pair.of("xy", "12")),
-                Pair.of("y12x", Pair.of("xy", "12"))
+        List<Triplet<String, String, String>> list = Arrays.asList(
+                Triplet.of("1xy2", "xy", "12"),
+                Triplet.of("y12x", "xy", "12")
         );
-        for(var pair : list) {
-            String one = pair.getSecond().getFirst();
-            String two = pair.getSecond().getSecond();
+        for (var pair : list) {
+            String one = pair.getSecond();
+            String two = pair.getThird();
             String result = pair.getFirst();
             String isValid = (isValidShuffle(one, two, result)) ? " is a Valid" : " is not a Valid";
             System.out.println("result String = " + result + isValid + " shuffle of stringOne = " + one + " stringTwo = " + two);
@@ -36,17 +36,15 @@ public class ValidShuffle {
     }
 
     private static boolean isValidShuffle(String one, String two, String result) {
-        int i = 0;
-        int j = 0;
-        int k = 0;
-        while(i < result.length()) {
-            if(j < one.length() && one.charAt(j) == result.charAt(i)) {
+        var i = 0;
+        var j = 0;
+        var k = 0;
+        while (i < result.length()) {
+            if (j < one.length() && one.charAt(j) == result.charAt(i)) {
                 j++;
-            }
-            else if(k < two.length() && two.charAt(k) == result.charAt(i)) {
+            } else if (k < two.length() && two.charAt(k) == result.charAt(i)) {
                 k++;
-            }
-            else {
+            } else {
                 return false;
             }
             i++;

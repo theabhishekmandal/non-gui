@@ -1,7 +1,7 @@
 package data_structures.tree.binary_search_tree.problems;
 
-import data_structures.Pair;
 import data_structures.linked_list.node.DoublyLinkedList;
+import utility.Triplet;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -61,61 +61,59 @@ public class ConvertDllToBst {
     }
 
     private static <T> Node<T> getBstFromDll(Node<T> node) {
-        if(node == null) {
+        if (node == null) {
             return null;
         }
         var listOfNodes = new ArrayList<Node<T>>();
         var tempHead = node;
-        while(tempHead != null) {
+        while (tempHead != null) {
             listOfNodes.add(tempHead);
             tempHead = tempHead.getNext();
         }
         var head = listOfNodes.get(getMiddle(0, listOfNodes.size()));
 
-        var currPair = Pair.of(head, Pair.of(0, listOfNodes.size()));
-        var stack = new LinkedList<Pair<Node<T>, Pair<Integer, Integer>>>();
+        var currPair = Triplet.of(head, 0, listOfNodes.size());
+        var stack = new LinkedList<Triplet<Node<T>, Integer, Integer>>();
         stack.push(currPair);
-        while(!stack.isEmpty()) {
-           var tempPair = stack.pop();
-           int low = tempPair.getSecond().getFirst();
-           int high = tempPair.getSecond().getSecond();
-           int mid = getMiddle(low, high);
-           Node<T> temp = tempPair.getFirst();
-           temp.setNext(null);
-           temp.setPrevious(null);
-           if(mid - low >= 1) {
-              var leftNode = listOfNodes.get(getMiddle(low, mid));
-              temp.setPrevious(leftNode);
-              stack.push(Pair.of(leftNode, Pair.of(low, mid)));
-           }
-           if(high - (++mid) >= 1) {
-               var rightNode = listOfNodes.get(getMiddle(mid, high));
-               temp.setNext(rightNode);
-               stack.push(Pair.of(rightNode, Pair.of(mid, high)));
-           }
+        while (!stack.isEmpty()) {
+            var tempPair = stack.pop();
+            int low = tempPair.getSecond();
+            int high = tempPair.getThird();
+            int mid = getMiddle(low, high);
+            Node<T> temp = tempPair.getFirst();
+            temp.setNext(null);
+            temp.setPrevious(null);
+            if (mid - low >= 1) {
+                var leftNode = listOfNodes.get(getMiddle(low, mid));
+                temp.setPrevious(leftNode);
+                stack.push(Triplet.of(leftNode, low, mid));
+            }
+            if (high - (++mid) >= 1) {
+                var rightNode = listOfNodes.get(getMiddle(mid, high));
+                temp.setNext(rightNode);
+                stack.push(Triplet.of(rightNode, mid, high));
+            }
         }
         return head;
     }
 
 
     private static <T> String getInorderString(Node<T> head) {
-        if(head == null) {
+        if (head == null) {
             return "[]";
         }
         StringBuilder br = null;
         var stack = new LinkedList<Node<T>>();
         var curr = head;
-        while(curr != null || !stack.isEmpty()) {
-            if(curr != null) {
+        while (curr != null || !stack.isEmpty()) {
+            if (curr != null) {
                 stack.push(curr);
                 curr = curr.getPrevious();
-            }
-            else {
+            } else {
                 curr = stack.pop();
-                if(br == null) {
+                if (br == null) {
                     br = new StringBuilder("[").append(curr.getData());
-                }
-                else {
+                } else {
                     br.append(", ").append(curr.getData());
                 }
                 curr = curr.getNext();

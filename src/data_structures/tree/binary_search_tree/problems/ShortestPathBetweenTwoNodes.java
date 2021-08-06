@@ -1,5 +1,6 @@
 package data_structures.tree.binary_search_tree.problems;
 
+import utility.Pair;
 import data_structures.tree.binary_search_tree.binary_search_tree_impl.BinarySearchTree;
 
 import java.util.Arrays;
@@ -23,17 +24,6 @@ import static data_structures.tree.binary_search_tree.binary_search_tree_impl.Bi
  */
 
 public class ShortestPathBetweenTwoNodes {
-    static class Pair<U, T> {
-        U first;
-        T second;
-        Pair(U first, T second) {
-            this.first = first;
-            this.second = second;
-        }
-        public static <U, T> Pair<U, T> of(U first, T second) {
-            return new Pair<>(first, second);
-        }
-    }
     public static void main(String[] args) {
         var bst = new BinarySearchTree<Integer>();
         var random = new Random();
@@ -43,12 +33,12 @@ public class ShortestPathBetweenTwoNodes {
         var set2 = new HashSet<Integer>();
         IntStream.rangeClosed(0, 10).forEach(x -> {
             Integer first = 0, second = 1;
-            while(set.contains(first)) {
+            while (set.contains(first)) {
                 first = random.nextInt(10);
             }
             set.add(first);
-            while(set2.contains(second)) {
-               second = random.nextInt(10);
+            while (set2.contains(second)) {
+                second = random.nextInt(10);
             }
             set2.add(second);
             System.out.println("first = " + first + " second = " + second + " lca = " + getLCA(bst.getRoot(), first, second));
@@ -57,26 +47,24 @@ public class ShortestPathBetweenTwoNodes {
     }
 
     private static Node<Integer> getLCA(Node<Integer> root, Integer a, Integer b) {
-        if(root == null) {
+        if (root == null) {
             return null;
         }
         var temp = root;
         var bothExists = true;
-        while(temp != null) {
+        while (temp != null) {
             int firstCompare = temp.getData().compareTo(a);
             int secondCompare = temp.getData().compareTo(b);
-            if(firstCompare < 0 && secondCompare < 0) {
+            if (firstCompare < 0 && secondCompare < 0) {
                 temp = temp.getRight();
-            }
-            else if(firstCompare > 0 && secondCompare > 0) {
+            } else if (firstCompare > 0 && secondCompare > 0) {
                 temp = temp.getLeft();
-            }
-            else{
+            } else {
                 bothExists = bothExists(temp, a, b);
                 break;
             }
         }
-        return  (bothExists)? temp : null;
+        return (bothExists) ? temp : null;
     }
 
     private static boolean bothExists(Node<Integer> root, Integer a, Integer b) {
@@ -85,21 +73,21 @@ public class ShortestPathBetweenTwoNodes {
 
         var queue = new LinkedList<Node<Integer>>();
         queue.add(root);
-        while(!queue.isEmpty()) {
+        while (!queue.isEmpty()) {
             var curr = queue.poll();
-            if(curr.getData().compareTo(a) == 0) {
+            if (curr.getData().compareTo(a) == 0) {
                 first = true;
             }
-            if(curr.getData().compareTo(b) == 0) {
+            if (curr.getData().compareTo(b) == 0) {
                 second = true;
             }
-            if(first && second) {
+            if (first && second) {
                 break;
             }
-            if(curr.getLeft() != null) {
+            if (curr.getLeft() != null) {
                 queue.add(curr.getLeft());
             }
-            if(curr.getRight() != null) {
+            if (curr.getRight() != null) {
                 queue.add(curr.getRight());
             }
         }
@@ -130,9 +118,9 @@ public class ShortestPathBetweenTwoNodes {
         System.out.println(bst.levelOrder());
 
         var list = Arrays.asList(Pair.of(3, 3), Pair.of(13, 19), Pair.of(4, 14), Pair.of(13, 22));
-        for(var pair : list){
-            Integer first = pair.first;
-            Integer second = pair.second;
+        for (var pair : list) {
+            Integer first = pair.getFirst();
+            Integer second = pair.getSecond();
             System.out.println("first = " + first + " second = " + second + " lca = " + getLCA(bst.getRoot(), first, second));
         }
     }
