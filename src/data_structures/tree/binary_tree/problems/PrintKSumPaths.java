@@ -9,7 +9,31 @@ import java.util.stream.IntStream;
 import static data_structures.tree.binary_tree.binary_tree_impl.BinaryTree.Node;
 
 /**
- * Given a binary tree and a sum k, Print every path in the tree with sum of the nodes in the path as k
+ * Given a binary tree and a sum k, Print every path in the tree with sum of the nodes in the path as k.
+ * Here a path can start from any node to other node which is connected.
+ * A path can start from any node and end at any node and must be downward only, i.e.
+ * they need not be root node and leaf node; and negative numbers can also be there in the tree.
+ *
+ * Approach:
+ *  -   Do postOrder traversal and add nodes value to a list
+ *  -   When leaf is encountered we have a full path from root to the leaf node.
+ *  -   Now starting from leaf node value to root node value, add it to the sum and check whether it is equal to k
+ *      or not, if it is equal then add it to the joiner.
+ *  -   In the end remove the last node from the list, as it is already visited
+ *
+ *  Eg:
+ *             [1]
+ *          [3, -1]
+ *       [2, 1, 4, 5]
+ * [*, *, 1, *, 1, 2, *, 6]
+ *
+ * let's say we have a path [1, -1, 5, *] and k = 5
+ * Now starting from end, we see.
+ * sum = 0
+ * i = 2, sum += arr[i] = 0 + 5, and k == sum, so joiner = [[5]]
+ * i = 1, sum += arr[i] = 5 + 1, and k != sum, so don't add
+ * i = 0, sum += arr[i] = 6 - 1, and k == sum, so joiner = [[5], [-1, 1, 5]]
+ *
  */
 public class PrintKSumPaths {
 

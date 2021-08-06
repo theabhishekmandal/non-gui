@@ -1,10 +1,9 @@
 package data_structures.tree.binary_tree.problems;
 
-import utility.Pair;
 import data_structures.tree.binary_tree.binary_tree_impl.BinaryTree;
+import utility.Pair;
 
 import java.util.*;
-import java.util.stream.IntStream;
 
 import static data_structures.tree.binary_tree.binary_tree_impl.BinaryTree.Node;
 
@@ -14,60 +13,55 @@ import static data_structures.tree.binary_tree.binary_tree_impl.BinaryTree.Node;
  *  -   Use any traversal other than level order traversal, add the node and it's value in the stack
  *  -   check if the current node is leaf or not, if it is leaf then add to final list
  *
- *  -   For Recursion, add the contents to the array
+ *  -   For Recursion, add the contents to the list
  */
 
 public class PrintAllPathsFromRootToLeaf {
-
-    private static final List<String> nodeListForRecursion = new ArrayList<>();
 
     public static void main(String[] args) {
         var random = new Random();
         var binaryTree = new BinaryTree<Integer>();
 
-        IntStream.range(0, random.nextInt(20)).forEach(binaryTree::insertInBinaryTreeLevelOrder);
+        random.ints(10, 0, random.nextInt(20)).forEach(binaryTree::insertInBinaryTreeLevelOrder);
         System.out.println(binaryTree.levelOrder());
 
-        List<String> listAllPaths = getAllPathFromRootToLeaf(binaryTree.getRoot());
-        System.out.println(listAllPaths);
+        List<String> listAllPaths = getAllPathFromRootToLeaf(binaryTree);
+        System.out.println("All paths from root to leaves\n" + String.join("\n", listAllPaths));
 
-        nodeListForRecursion.clear();
-        getAllPathFromRootToLeafRecursion(binaryTree.getRoot(), 0, new String[20]);
-        System.out.println(nodeListForRecursion);
+        List<String> listAllPathsUsingRecursion = getAllPathFromRootToLeafRecursion(binaryTree);
+        System.out.println("All paths from root to leaves using recursion\n" + String.join("\n", listAllPathsUsingRecursion));
+
     }
 
-    private static <T> void getAllPathFromRootToLeafRecursion(Node<T> node, int number, String[] arr) {
-        if (node == null) {
-            return;
-        }
-        arr[number] = node.getData().toString();
-        if (node.getLeft() == null && node.getRight() == null) {
-
-            var br = new StringBuilder("[");
-            var flag = true;
-            for (var i = 0; i <= number; i++) {
-                if (flag) {
-                    flag = false;
-                    br.append(arr[i]);
-                } else {
-                    br.append(", ").append(arr[i]);
-                }
-            }
-            br.append("]");
-            nodeListForRecursion.add(br.toString());
-            return;
-        }
-        getAllPathFromRootToLeafRecursion(node.getLeft(), number + 1, arr);
-        getAllPathFromRootToLeafRecursion(node.getRight(), number + 1, arr);
-    }
-
-    private static <T> List<String> getAllPathFromRootToLeaf(Node<T> root) {
-        if (root == null) {
+    private static <T> List<String> getAllPathFromRootToLeafRecursion(BinaryTree<T> binaryTree) {
+        if (binaryTree == null || binaryTree.getRoot() == null) {
             return Collections.singletonList("[]");
         }
-        List<String> list = new LinkedList<>();
-        Deque<Pair<Node<T>, String>> stack = new LinkedList<>();
-        stack.push(new Pair<>(root, "[" + root.getData().toString()));
+        List<String> list = new ArrayList<>();
+        getPath(binaryTree.getRoot(), list, "[" + binaryTree.getRoot().getData().toString());
+        return list;
+    }
+
+    private static <T> void getPath(Node<T> node, List<String> list, String path) {
+        if (node.getRight() == null && node.getLeft() == null) {
+            list.add(path + "]");
+            return;
+        }
+        if (node.getLeft() != null) {
+            getPath(node.getLeft(), list, path + ", " + node.getLeft().getData().toString());
+        }
+        if (node.getRight() != null) {
+            getPath(node.getRight(), list, path + ", " + node.getRight().getData().toString());
+        }
+    }
+
+    private static <T> List<String> getAllPathFromRootToLeaf(BinaryTree<T> binaryTree) {
+        if (binaryTree == null || binaryTree.getRoot() == null) {
+            return Collections.singletonList("[]");
+        }
+        List<String> list = new ArrayList<>();
+        Deque<Pair<Node<T>, String>> stack = new ArrayDeque<>();
+        stack.push(new Pair<>(binaryTree.getRoot(), "[" + binaryTree.getRoot().getData().toString()));
 
         while (!stack.isEmpty()) {
             var pair = stack.pop();
