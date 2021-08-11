@@ -4,7 +4,6 @@ import data_structures.tree.binary_tree.binary_tree_impl.BinaryTree;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
 import java.util.Random;
 
 import static data_structures.tree.binary_tree.binary_tree_impl.BinaryTree.Node;
@@ -20,7 +19,7 @@ public class MinDistanceBetweenTwoNodes {
     public static void main(String[] args) {
         var random = new Random();
         var binaryTree = new BinaryTree<Integer>();
-        random.ints(0, 20).limit(20).forEach(binaryTree::insertInBinaryTreeLevelOrder);
+        random.ints(20, 0, 20).forEach(binaryTree::insertInBinaryTreeLevelOrder);
         var first = random.nextInt(20);
         var second = random.nextInt(20);
         System.out.println("first = " + first + " second = " + second);

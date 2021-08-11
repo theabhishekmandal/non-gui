@@ -2,8 +2,8 @@ package data_structures.tree.binary_tree.problems;
 
 import data_structures.tree.binary_tree.binary_tree_impl.BinaryTree;
 
+import java.util.ArrayDeque;
 import java.util.Deque;
-import java.util.LinkedList;
 import java.util.Random;
 
 import static data_structures.tree.binary_tree.binary_tree_impl.BinaryTree.Node;
@@ -18,9 +18,7 @@ public class MaxElementInTree {
     public static void main(String[] args) {
         var random = new Random();
         var binaryTree = new BinaryTree<Integer>();
-        for (var i = 0; i < 10; i++) {
-            binaryTree.insertInBinaryTreeLevelOrder(random.nextInt(100));
-        }
+        random.ints(10, 0, 100).forEach(binaryTree::insertInBinaryTreeLevelOrder);
 
         System.out.println(binaryTree.levelOrder());
         int value = findMaxRecursive(binaryTree.getRoot());
@@ -49,7 +47,7 @@ public class MaxElementInTree {
         if (node == null) {
             return Integer.MIN_VALUE;
         }
-        Deque<Node<Integer>> stack = new LinkedList<>();
+        Deque<Node<Integer>> stack = new ArrayDeque<>();
         stack.push(node);
         stack.push(node);
         int maxValue = Integer.MIN_VALUE;

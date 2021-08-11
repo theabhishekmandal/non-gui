@@ -1,17 +1,17 @@
 package data_structures.tree.binary_tree.problems;
 
 import data_structures.tree.binary_tree.binary_tree_impl.BinaryTree;
+import utility.StopWatch;
 
+import java.util.ArrayDeque;
 import java.util.Deque;
-import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Random;
-import java.util.stream.IntStream;
 
 import static data_structures.tree.binary_tree.binary_tree_impl.BinaryTree.Node;
 
 /**
- * Given a binary tree, find it's minimum depth
+ * Given a binary tree, find its minimum depth
  * The minimum depth is the number of nodes along the shortest path from root node down to the nearest leaf node
  *
  * Approach:
@@ -30,17 +30,23 @@ public class MinimumDepthTree {
     public static void main(String[] args) {
         var random = new Random();
         var binaryTree = new BinaryTree<Integer>();
-        IntStream.range(0, random.nextInt(20)).forEach(binaryTree::insertInBinaryTreeLevelOrder);
+        random.ints(20, 0, random.nextInt(20)).forEach(binaryTree::insertInBinaryTreeLevelOrder);
+        System.out.println(binaryTree.levelOrder());
 
-        // this is little bit faster
+        var stopWatch = new StopWatch();
+
+        // this is little faster
+        stopWatch.startTime();
         var minimumDepthLevelOrder = minimumDepthLevelOrder((binaryTree.getRoot()));
+        stopWatch.stopTime();
+        System.out.println("Minimum time taken by levelOrder method " + stopWatch.getTimeInMillis() + " milliseconds min depth = " + minimumDepthLevelOrder);
 
+        stopWatch.reset();
+        stopWatch.startTime();
         // this is slower than previous one
         var minimumDepthPostOrder = minimumDepth(binaryTree.getRoot());
-
-        System.out.println(binaryTree.levelOrder());
-        System.out.println(minimumDepthPostOrder);
-        System.out.println(minimumDepthLevelOrder);
+        stopWatch.stopTime();
+        System.out.println("Minimum time taken by postOrder method " + stopWatch.getTimeInMillis() + " milliseconds min depth = " + minimumDepthPostOrder);
     }
 
     private static <T> int minimumDepth(Node<T> node) {
@@ -51,7 +57,7 @@ public class MinimumDepthTree {
         var minDepth = Integer.MAX_VALUE;
         var depthCounter = 0;
 
-        Deque<Node<T>> stack = new LinkedList<>();
+        Deque<Node<T>> stack = new ArrayDeque<>();
         stack.push(node);
         stack.push(node);
 
@@ -84,13 +90,14 @@ public class MinimumDepthTree {
 
         var minDepth = 1;
 
-        Queue<Node<T>> queue = new LinkedList<>();
+        var nullNode = Node.<T>of(null);
+        Queue<Node<T>> queue = new ArrayDeque<>();
         queue.add(node);
-        queue.add(null);
+        queue.add(nullNode);
 
         while (!queue.isEmpty()) {
             Node<T> curr = queue.poll();
-            if (curr != null) {
+            if (curr != nullNode) {
                 Node<T> left = curr.getLeft();
                 Node<T> right = curr.getRight();
                 if (right == null && left == null) {
@@ -109,7 +116,7 @@ public class MinimumDepthTree {
                         if there is only one node in the tree, then it will return 1
                      */
                     minDepth++;
-                    queue.add(null);
+                    queue.add(nullNode);
                 }
             }
         }
