@@ -2,6 +2,7 @@ package data_structures.tree.binary_tree.problems;
 
 import utility.Pair;
 import data_structures.tree.binary_tree.binary_tree_impl.BinaryTree;
+import utility.StopWatch;
 import utility.Triplet;
 
 import java.util.ArrayDeque;
@@ -40,24 +41,38 @@ public class LeastCommonAncestor {
     public static void main(String[] args) {
         var random = new Random();
         var binaryTree = new BinaryTree<Integer>();
-        IntStream.range(0, 10000).forEach(binaryTree::insertInBinaryTreeLevelOrder);
+        random.ints(20, 0, 20).forEach(binaryTree::insertInBinaryTreeLevelOrder);
         var first = random.nextInt(binaryTree.getSize());
         var second = random.nextInt(binaryTree.getSize());
         System.out.println(binaryTree.levelOrder() + "\nfirst value = " + first + "\nsecond value = " + second);
 
-        getOutputWithTimeDifference(x -> getLeastCommonAncestor(x.getFirst(), x.getSecond(), x.getThird()), binaryTree.getRoot(), first, second);
-        getOutputWithTimeDifference(x -> getLeastCommonAncestor3(x.getFirst(), x.getSecond(), x.getThird()), binaryTree.getRoot(), first, second);
+        var stopWatch = new StopWatch();
+        var outputFormat = "time taken = %s output = %s";
+
+        stopWatch.startTime();
+        var res1 = getLeastCommonAncestor(binaryTree, first, second);
+        stopWatch.stopTime();
+        System.out.printf((outputFormat) + "%n", stopWatch.getTimeInMillis(), res1);
+
+        stopWatch.reset();
+
+        stopWatch.startTime();
+        var res2 = getLeastCommonAncestor3(binaryTree, first, second);
+        stopWatch.stopTime();
+        System.out.println("time taken = " + stopWatch.getTimeInMillis() + " output = " + res2);
     }
 
 
     private static boolean v1;
     private static boolean v2;
 
-    private static Integer getLeastCommonAncestor(Node<Integer> root, int first, int second) {
-        if (root == null){ return null;}
+    private static Integer getLeastCommonAncestor(BinaryTree<Integer> binaryTree, int first, int second) {
+        if (binaryTree == null || binaryTree.getRoot() == null) {
+            return null;
+        }
         v1 = false;
         v2 = false;
-        Node<Integer> node = getAncestor(root, first, second);
+        Node<Integer> node = getAncestor(binaryTree.getRoot(), first, second);
         if (v1 && v2) {
             return node.getData();
         }
@@ -89,8 +104,8 @@ public class LeastCommonAncestor {
             v2 = true;
             temp = root;
         }
-        Node<Integer> left = getAncestor(root.getLeft(), first, second);
-        Node<Integer> right = getAncestor(root.getRight(), first, second);
+        var left = getAncestor(root.getLeft(), first, second);
+        var right = getAncestor(root.getRight(), first, second);
 
         // if the current Node is first or second then return after setting the flag above
         if (temp != null) {
@@ -105,10 +120,13 @@ public class LeastCommonAncestor {
     }
 
     // don't use this
-    private static Integer getLeastCommonAncestor3(Node<Integer> root, int first, int second) {
+    private static Integer getLeastCommonAncestor3(BinaryTree<Integer> binaryTree, int first, int second) {
+        if (binaryTree == null || binaryTree.getRoot() == null) {
+            return null;
+        }
         Deque<Node<Integer>> stack = new ArrayDeque<>();
-        stack.push(root);
-        stack.push(root);
+        stack.push(binaryTree.getRoot());
+        stack.push(binaryTree.getRoot());
 
         Deque<Pair<Node<Integer>, Integer>> ans = new LinkedList<>();
 
