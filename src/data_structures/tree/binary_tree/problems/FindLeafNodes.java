@@ -1,11 +1,12 @@
 package data_structures.tree.binary_tree.problems;
 
 import data_structures.tree.binary_tree.binary_tree_impl.BinaryTree;
+import utility.Pair;
 
-import java.util.LinkedList;
+import java.util.ArrayDeque;
 import java.util.Queue;
 import java.util.Random;
-import java.util.stream.IntStream;
+import java.util.StringJoiner;
 
 import static data_structures.tree.binary_tree.binary_tree_impl.BinaryTree.Node;
 
@@ -20,24 +21,26 @@ public class FindLeafNodes {
     public static void main(String[] args) {
         var random = new Random();
         var binaryTree = new BinaryTree<Integer>();
-        IntStream.range(0, random.nextInt(20)).forEach(binaryTree::insertInBinaryTreeLevelOrder);
+        random.ints(10, 0, random.nextInt(20)).forEach(binaryTree::insertInBinaryTreeLevelOrder);
         System.out.println(binaryTree.levelOrder());
-        Object[] output = numberOfLeafNodes(binaryTree.getRoot());
-        System.out.println("total leaf nodes are " + output[0]);
-        System.out.println("leaf nodes are " + output[1]);
+        var output = numberOfLeafNodes(binaryTree.getRoot());
+        System.out.println("total leaf nodes are " + output.getFirst());
+        System.out.println("leaf nodes are " + output.getSecond());
     }
 
-    private static <T> Object[] numberOfLeafNodes(Node<T> root) {
-        if (root == null){ return new Object[]{0, new StringBuilder("[]")};}
-        StringBuilder br = null;
-        Queue<Node<T>> queue = new LinkedList<>();
+    private static <T> Pair<Integer, String> numberOfLeafNodes(Node<T> root) {
+        if (root == null) {
+            return Pair.of(0, "[]");
+        }
+        var joiner = new StringJoiner(",", "[", "]");
+        Queue<Node<T>> queue = new ArrayDeque<>();
         queue.add(root);
 
         var leafNodes = 0;
         while (!queue.isEmpty()) {
             Node<T> curr = queue.poll();
             if (curr.getLeft() == null && curr.getRight() == null) {
-                br = addLeafNodesValue(br, curr.getData());
+                joiner.add(String.valueOf(curr.getData()));
                 leafNodes++;
             }
             if (curr.getLeft() != null) {
@@ -47,21 +50,7 @@ public class FindLeafNodes {
                 queue.add(curr.getRight());
             }
         }
-        if (br == null) {
-            br = new StringBuilder("[]");
-        } else {
-            br.append("]");
-        }
-        return new Object[]{leafNodes, br};
+        return Pair.of(leafNodes, joiner.toString());
     }
 
-    private static <T> StringBuilder addLeafNodesValue(StringBuilder br, T data) {
-        if (br == null) {
-            br = new StringBuilder("[");
-        } else {
-            br.append(", ");
-        }
-        br.append(data);
-        return br;
-    }
 }

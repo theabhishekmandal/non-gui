@@ -2,6 +2,7 @@ package data_structures.tree.binary_tree.problems;
 
 import data_structures.tree.binary_tree.binary_tree_impl.BinaryTree;
 
+import java.util.ArrayDeque;
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Random;
@@ -26,13 +27,15 @@ public class FindingMaxSumInLevel {
             return 0;
         }
         var maxSum = 0;
-        Queue<Node<Integer>> queue = new LinkedList<>();
+        Node<Integer> nullNode = Node.of(null);
+        Queue<Node<Integer>> queue = new ArrayDeque<>();
         queue.add(root);
-        queue.add(null);
+        queue.add(nullNode);
+
         var sum = 0;
         while (!queue.isEmpty()) {
-            Node<Integer> curr = queue.poll();
-            if (curr != null) {
+            var curr = queue.poll();
+            if (curr != nullNode) {
                 sum += curr.getData();
                 if (curr.getLeft() != null) {
                     queue.add(curr.getLeft());
@@ -44,7 +47,7 @@ public class FindingMaxSumInLevel {
                 maxSum = Math.max(maxSum, sum);
                 sum = 0;
                 if (!queue.isEmpty()) {
-                    queue.add(null);
+                    queue.add(nullNode);
                 }
             }
         }

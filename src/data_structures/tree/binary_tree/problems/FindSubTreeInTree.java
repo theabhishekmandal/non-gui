@@ -29,7 +29,7 @@ public class FindSubTreeInTree {
         var t = 4;
         while (t-- > 0) {
             if ((t & 1) == 0) CreateSubTree.addNewValueInTree = true;
-            BinaryTree<Integer> subTree = CreateSubTree.getRandomSubTreeFromParentTree(binaryTree);
+            var subTree = CreateSubTree.getRandomSubTreeFromParentTree(binaryTree);
             System.out.println(subTree.levelOrder());
             boolean isSubTreeInTree = isSubTree(binaryTree, subTree);
             System.out.println(isSubTreeInTree + "\n");
@@ -74,7 +74,7 @@ public class FindSubTreeInTree {
     private static <T> List<T> getInOrderOfSubTree(BinaryTree<T> subTree) {
         List<T> list = new ArrayList<>();
         Node<T> curr = subTree.getRoot();
-        Deque<Node<T>> stack = new LinkedList<>();
+        Deque<Node<T>> stack = new ArrayDeque<>();
         while (curr != null || !stack.isEmpty()) {
             if (curr != null) {
                 stack.push(curr);

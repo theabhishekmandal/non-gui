@@ -17,9 +17,7 @@ public class FindingSizeOfTree {
     public static void main(String[] args) {
         var binaryTree = new BinaryTree<Integer>();
         var random = new Random();
-        for (var i = 0; i < random.nextInt(20); i++) {
-            binaryTree.insertInBinaryTreeLevelOrder(random.nextInt(100));
-        }
+        random.ints(20, 0, random.nextInt(100)).forEach(binaryTree::insertInBinaryTreeLevelOrder);
         var size = findSizeOfTreeRecursive(binaryTree.getRoot());
         var size2 = findSizeOfTreeIteration(binaryTree.getRoot());
         System.out.println(binaryTree.levelOrder());

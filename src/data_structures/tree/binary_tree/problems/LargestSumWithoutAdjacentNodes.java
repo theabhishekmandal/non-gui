@@ -4,13 +4,15 @@ import data_structures.tree.binary_tree.binary_tree_impl.BinaryTree;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Optional;
 import java.util.Random;
 
 import static data_structures.tree.binary_tree.binary_tree_impl.BinaryTree.Node;
 
 /**
- * Given a binary tree, find the maximum sum of nodes in Binary tree such that no two nodes are adjacent.
+ * Given a binary tree with a value associated with each node, we need to choose a subset of these nodes such that
+ * the sum of chosen nodes is maximum under a constraint that no two chosen nodes in the subset should be directly connected that is,
+ * if we have taken a node in our sum then we can’t take any of its children in consideration and vice versa.
+ *
  * Eg:
  *              1
  *            /  \
@@ -52,17 +54,25 @@ public class LargestSumWithoutAdjacentNodes {
             return maxSumStore.get(root);
         }
         int inc = root.getData();
-        Node<Integer> left = root.getLeft();
-        Node<Integer> right = root.getRight();
+        var left = root.getLeft();
+        var right = root.getRight();
+
+        /*
+          here we are taking root and left child's children, so they are not directly connected
+         */
         if (left != null) {
             inc += getMaxSum(left.getLeft(), maxSumStore) + getMaxSum(left.getRight(), maxSumStore);
         }
 
+        /*
+          here we are taking root and right child's children, so they are not directly connected.
+         */
         if (right != null) {
             inc += getMaxSum(right.getLeft(), maxSumStore) + getMaxSum(right.getRight(), maxSumStore);
         }
 
-        int exe = getMaxSum(left, maxSumStore) + getMaxSum(right, maxSumStore);
+        // here we are considering only the children only and not the root. excluding the root
+        var exe = getMaxSum(left, maxSumStore) + getMaxSum(right, maxSumStore);
 
         maxSumStore.put(root, Math.max(inc, exe));
         return maxSumStore.get(root);

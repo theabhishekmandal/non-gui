@@ -1,5 +1,7 @@
 package data_structures.tree.binary_tree.binary_tree_impl;
 
+import java.lang.ref.Reference;
+import java.util.ArrayDeque;
 import java.util.Deque;
 import java.util.LinkedList;
 import java.util.Random;
@@ -23,7 +25,7 @@ public class CreateSubTree {
 
     private static <T> BinaryTree<T> getSubTreeFromNode(Node<T> startNode) {
         BinaryTree<T> subTree = new BinaryTree<>();
-        Deque<Node<T>> queue = new LinkedList<>();
+        Deque<Node<T>> queue = new ArrayDeque<>();
         queue.add(startNode);
         System.out.println(startNode);
         while (!queue.isEmpty()) {
@@ -32,7 +34,7 @@ public class CreateSubTree {
             if (addNewValueInTree) {
                 addNewValueInTree = false;
                 if (curr.getData() instanceof Number) {
-                    subTree.insertInBinaryTreeLevelOrder((T) (Integer) Integer.MAX_VALUE);
+                    subTree.insertInBinaryTreeLevelOrder((T) (Number) Integer.MAX_VALUE);
                 }
                 if (curr.getData() instanceof CharSequence) {
                     subTree.insertInBinaryTreeLevelOrder((T) "A");
@@ -49,15 +51,19 @@ public class CreateSubTree {
     }
 
     private static <T> Node<T> getStartNode(BinaryTree<T> binaryTree, int start) {
-        Deque<Node<T>> queue = new LinkedList<>();
+        var nullNode = Node.<T>of(null);
+        Deque<Node<T>> queue = new ArrayDeque<>();
+
         queue.add(binaryTree.getRoot());
-        queue.add(null);
+        queue.add(nullNode);
+
         int counter = 0;
         Node<T> curr = null;
         System.out.println("start = " + start);
+
         while (!queue.isEmpty()) {
             curr = queue.poll();
-            if (counter == start && curr != null) {
+            if (counter == start && curr != nullNode) {
                 break;
             }
             if (curr != null) {
@@ -72,7 +78,7 @@ public class CreateSubTree {
                 }
             } else {
                 if (!queue.isEmpty()) {
-                    queue.add(null);
+                    queue.add(nullNode);
                 }
             }
         }

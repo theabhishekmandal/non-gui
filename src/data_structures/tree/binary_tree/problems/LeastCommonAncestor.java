@@ -1,16 +1,9 @@
 package data_structures.tree.binary_tree.problems;
 
-import utility.Pair;
 import data_structures.tree.binary_tree.binary_tree_impl.BinaryTree;
 import utility.StopWatch;
-import utility.Triplet;
 
-import java.util.ArrayDeque;
-import java.util.Deque;
-import java.util.LinkedList;
 import java.util.Random;
-import java.util.function.ToIntFunction;
-import java.util.stream.IntStream;
 
 import static data_structures.tree.binary_tree.binary_tree_impl.BinaryTree.Node;
 
@@ -41,25 +34,19 @@ public class LeastCommonAncestor {
     public static void main(String[] args) {
         var random = new Random();
         var binaryTree = new BinaryTree<Integer>();
-        random.ints(20, 0, 20).forEach(binaryTree::insertInBinaryTreeLevelOrder);
-        var first = random.nextInt(binaryTree.getSize());
-        var second = random.nextInt(binaryTree.getSize());
+        int randomMaxElement = 20;
+        random.ints(20, 0, randomMaxElement).forEach(binaryTree::insertInBinaryTreeLevelOrder);
+        var first = random.nextInt(randomMaxElement);
+        var second = random.nextInt(randomMaxElement);
         System.out.println(binaryTree.levelOrder() + "\nfirst value = " + first + "\nsecond value = " + second);
 
         var stopWatch = new StopWatch();
-        var outputFormat = "time taken = %s output = %s";
+        var outputFormat = "time taken = %d output = %s";
 
         stopWatch.startTime();
         var res1 = getLeastCommonAncestor(binaryTree, first, second);
         stopWatch.stopTime();
         System.out.printf((outputFormat) + "%n", stopWatch.getTimeInMillis(), res1);
-
-        stopWatch.reset();
-
-        stopWatch.startTime();
-        var res2 = getLeastCommonAncestor3(binaryTree, first, second);
-        stopWatch.stopTime();
-        System.out.println("time taken = " + stopWatch.getTimeInMillis() + " output = " + res2);
     }
 
 
@@ -117,81 +104,5 @@ public class LeastCommonAncestor {
         } else {
             return (left != null) ? left : right;
         }
-    }
-
-    // don't use this
-    private static Integer getLeastCommonAncestor3(BinaryTree<Integer> binaryTree, int first, int second) {
-        if (binaryTree == null || binaryTree.getRoot() == null) {
-            return null;
-        }
-        Deque<Node<Integer>> stack = new ArrayDeque<>();
-        stack.push(binaryTree.getRoot());
-        stack.push(binaryTree.getRoot());
-
-        Deque<Pair<Node<Integer>, Integer>> ans = new LinkedList<>();
-
-        var flag = false;
-        var flag2 = false;
-        while (!stack.isEmpty()) {
-            var curr = stack.pop();
-            if (!stack.isEmpty() && curr == stack.peek()) {
-                if (curr.getRight() != null) {
-                    stack.push(curr.getRight());
-                    stack.push(curr.getRight());
-                }
-                if (curr.getLeft() != null) {
-                    stack.push(curr.getLeft());
-                    stack.push(curr.getLeft());
-                }
-            } else {
-                boolean leftNull = curr.getLeft() == null;
-                boolean rightNull = curr.getRight() == null;
-
-                boolean isLeft = curr.getData().equals(first);
-                boolean isRight = curr.getData().equals(second);
-                if (isLeft || isRight) {
-                    if (isLeft && isRight) {
-                        flag = true;
-                        flag2 = true;
-                    } else if (isLeft) {
-                        flag = true;
-                    } else {
-                        flag2 = true;
-                    }
-                    if (!leftNull && !rightNull) {
-                        ans.pop();
-                        ans.pop();
-                    } else if (!leftNull || !rightNull) {
-                        ans.pop();
-                    }
-                    ans.push(Pair.of(curr, curr.getData()));
-                } else if (leftNull && rightNull) {
-                    ans.push(Pair.of(curr, null));
-                } else if (!leftNull && !rightNull) {
-                    var right = ans.pop();
-                    var left = ans.pop();
-                    if (left.getSecond() != null && right.getSecond() != null) {
-                        ans.push(Pair.of(curr, curr.getData()));
-                    } else {
-                        ans.push(Pair.of(curr, (left.getSecond() == null) ? right.getSecond() : left.getSecond()));
-                    }
-                } else {
-                    var leftOrRight = ans.pop();
-                    ans.push(Pair.of(curr, leftOrRight.getSecond()));
-                }
-            }
-        }
-        if (flag && flag2) {
-            return ans.pop().getSecond();
-        }
-        return null;
-    }
-
-    private static void getOutputWithTimeDifference(ToIntFunction<Triplet<Node<Integer>, Integer, Integer>> func,
-                                                    Node<Integer> root, Integer first, Integer second) {
-        var start = System.currentTimeMillis();
-        var output = func.applyAsInt(Triplet.of(root, first, second));
-        var stop = System.currentTimeMillis();
-        System.out.println("time taken = " + (stop - start) + " output = " + output);
     }
 }
