@@ -3,7 +3,6 @@ package data_structures.tree.binary_tree.problems;
 import data_structures.tree.binary_tree.binary_tree_impl.BinaryTree;
 
 import java.util.*;
-import java.util.stream.IntStream;
 
 import static data_structures.tree.binary_tree.binary_tree_impl.BinaryTree.Node;
 
@@ -35,8 +34,7 @@ public class DiameterOfTree {
     public static void main(String[] args) {
         var binaryTree = new BinaryTree<Integer>();
         var random = new Random();
-        IntStream.range(0, random.nextInt(20))
-                .forEach(x -> binaryTree.insertInBinaryTreeLevelOrder(random.nextInt(100)));
+        random.ints(20, 0, 100).forEach(binaryTree::insertInBinaryTreeLevelOrder);
         try {
             System.out.println(binaryTree.levelOrder());
             var diameterOfTreeRecursion = findDiameterOfTreeRecursion(binaryTree.getRoot());

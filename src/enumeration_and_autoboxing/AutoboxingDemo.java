@@ -1,6 +1,6 @@
 package enumeration_and_autoboxing;
 
-import java.util.*;
+import java.util.Scanner;
 
 public class AutoboxingDemo {
     public static void main(String[] args) {

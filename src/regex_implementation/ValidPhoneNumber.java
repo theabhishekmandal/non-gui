@@ -6,8 +6,9 @@ package regex_implementation;
  * -->third if a given number is 12 digit number then the first two digit should be 91
  **/
 
-import java.util.regex.*;
-import java.util.*;
+import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 public class ValidPhoneNumber {
     public static void main(String[] args) {
         Scanner s = new Scanner(System.in);

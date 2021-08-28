@@ -1,7 +1,7 @@
 package data_structures.tree.binary_search_tree.problems;
 
-import utility.Pair;
 import data_structures.tree.binary_search_tree.binary_search_tree_impl.BinarySearchTree;
+import utility.Pair;
 
 import java.util.*;
 import java.util.stream.IntStream;

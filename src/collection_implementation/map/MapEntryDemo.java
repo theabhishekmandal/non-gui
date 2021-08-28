@@ -1,7 +1,11 @@
 package collection_implementation.map;
 
-import java.util.*;
-import static java.lang.System.*;
+import java.util.Map;
+import java.util.NavigableMap;
+import java.util.Set;
+import java.util.TreeMap;
+
+import static java.lang.System.out;
 
 /**
  * The Map.Entry interface enables you to work with a map entry. Recall that the entrySet() method declared

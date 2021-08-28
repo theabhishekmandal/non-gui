@@ -3,7 +3,7 @@ package strings_implementation;
  *  This is an example of how toString() method can be overriden inside the class.
  */
 
-import static java.lang.System.*;
+import static java.lang.System.out;
 public class toStringDemo {
     static class Class{
         private final String firstName;

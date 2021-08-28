@@ -1,5 +1,7 @@
 package collection_implementation.comparator;
-import java.util.*;
+
+import java.util.ArrayList;
+import java.util.Comparator;
 
 import static java.lang.System.out;
 

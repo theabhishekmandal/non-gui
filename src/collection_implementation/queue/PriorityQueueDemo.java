@@ -1,7 +1,6 @@
 package collection_implementation.queue;
 
 
-import java.util.Comparator;
 import java.util.PriorityQueue;
 
 import static java.lang.System.out;

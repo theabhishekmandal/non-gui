@@ -4,9 +4,10 @@ package strings_implementation;
  *  This is an example of charAt() and getChars() method, charAt() is used to get single character at a time
  *  whereas getChars() is used to take variable length of characters.
  */
+
 import java.util.Arrays;
 
-import static java.lang.System.*;
+import static java.lang.System.out;
 public class CharAtAndGetCharsDemo {
     public static void main(String[] args) {
         char c = "abc".charAt(0);

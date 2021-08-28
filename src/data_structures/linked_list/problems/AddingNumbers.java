@@ -7,7 +7,6 @@ import java.util.LinkedList;
 import java.util.Random;
 import java.util.StringJoiner;
 
-import static data_structures.linked_list.node.SinglyLinkedList.Node;
 import static java.lang.System.out;
 
 /**

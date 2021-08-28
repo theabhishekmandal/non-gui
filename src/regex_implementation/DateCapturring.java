@@ -1,7 +1,9 @@
 package regex_implementation;
-import java.util.*;
-import static java.lang.System.*;
-import java.util.regex.*;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import static java.lang.System.out;
 
 /**
  * This program prints the valid date which is in the format dd\mm\yyyy.

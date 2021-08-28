@@ -1,6 +1,8 @@
 package collection_implementation.map;
-import java.util.*;
-import static java.lang.System.*;
+
+import java.util.EnumMap;
+
+import static java.lang.System.out;
 /**
  * EnumMap extends AstractMap and implements Map. It is specifically for use with keys of
  * an enum type. It is a generic class that has this declaration:

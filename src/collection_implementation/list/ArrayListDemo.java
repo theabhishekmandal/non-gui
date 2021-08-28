@@ -1,6 +1,8 @@
 package collection_implementation.list;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Iterator;
 
 import static java.lang.System.out;
 

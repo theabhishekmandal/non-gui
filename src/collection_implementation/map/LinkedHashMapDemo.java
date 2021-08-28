@@ -1,5 +1,7 @@
 package collection_implementation.map;
-import java.util.*;
+
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 /**
  * LinkedHashMap extends HashMap. It maintains a linked list of the entries in the map, in the order in which they

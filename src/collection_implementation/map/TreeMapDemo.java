@@ -1,6 +1,8 @@
 package collection_implementation.map;
 
-import java.util.*;
+import java.util.Map;
+import java.util.NavigableMap;
+import java.util.TreeMap;
 
 import static java.lang.System.out;
 

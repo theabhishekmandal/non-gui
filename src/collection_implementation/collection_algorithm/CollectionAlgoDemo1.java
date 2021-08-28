@@ -1,6 +1,8 @@
 package collection_implementation.collection_algorithm;
+
 import java.util.*;
-import static java.lang.System.*;
+
+import static java.lang.System.out;
 
 /**
  *  Below is the implementation of several methods in collections:

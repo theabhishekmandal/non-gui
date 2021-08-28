@@ -1,6 +1,11 @@
 package collection_implementation.comparator;
-import java.util.*;
-import static java.lang.System.*;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.TreeSet;
+
+import static java.lang.System.out;
 
 /**
  * Comparator is particularly used for ordering of elements in different way.

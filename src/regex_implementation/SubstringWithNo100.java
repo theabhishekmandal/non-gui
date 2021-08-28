@@ -1,6 +1,8 @@
 package regex_implementation;
+
 import java.util.Scanner;
-import java.util.regex.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 public class SubstringWithNo100 {
     public static void main(String[] args) {
         Scanner s = new Scanner(System.in);

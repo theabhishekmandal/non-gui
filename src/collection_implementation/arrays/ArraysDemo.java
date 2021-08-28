@@ -1,6 +1,10 @@
 package collection_implementation.arrays;
-import java.util.*;
-import static java.lang.System.*;
+
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.List;
+
+import static java.lang.System.out;
 
 /**
  * Below is the implementation of several methods for Arrays:

@@ -2,7 +2,7 @@ package strings_implementation;
 
 import java.util.Arrays;
 
-import static java.lang.System.*;
+import static java.lang.System.out;
 public class GetBytesDemo {
     public static void main(String[] args) {
         String hel = "Abhishek Mandal";

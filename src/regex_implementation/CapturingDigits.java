@@ -1,6 +1,6 @@
 package regex_implementation;
 
-import java.util.*;
+import java.util.Scanner;
 
 public class CapturingDigits {
     public static void main(String[] args) {

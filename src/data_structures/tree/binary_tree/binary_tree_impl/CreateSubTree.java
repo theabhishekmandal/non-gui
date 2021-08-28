@@ -1,9 +1,7 @@
 package data_structures.tree.binary_tree.binary_tree_impl;
 
-import java.lang.ref.Reference;
 import java.util.ArrayDeque;
 import java.util.Deque;
-import java.util.LinkedList;
 import java.util.Random;
 
 import static data_structures.tree.binary_tree.binary_tree_impl.BinaryTree.Node;

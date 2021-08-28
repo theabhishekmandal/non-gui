@@ -7,7 +7,7 @@ package strings_implementation;
  *
  */
 
-import static java.lang.System.*;
+import static java.lang.System.out;
 public class RegionMatchesDemo {
     public static void main(String[] args) {
         String hel = "Hey hello hola hi";
