@@ -6,13 +6,15 @@ import utility.Pair;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Stream;
 
 import static data_structures.tree.binary_tree.binary_tree_impl.BinaryTree.Node;
 
 
 /**
  * Given the array representation of Complete Binary Tree i.e, if index i is the parent, index 2*i + 1 is the
- * left child and index 2*i + 2 is the right child. The task is to find the minimum number of swap required to convert it into Binary Search Tree.
+ * left child and index 2*i + 2 is the right child. The task is to find the minimum number of swap required to convert
+ * it into Binary Search Tree.
  *
  * Approach
  *  -   Given a binary tree first generate the inorder array as inorder traversal in BST gives values in increasing order
@@ -24,10 +26,7 @@ import static data_structures.tree.binary_tree.binary_tree_impl.BinaryTree.Node;
 public class ConvertBinaryTreeToBSTWithMinimumSwaps {
     public static void main(String[] args) {
         var binaryTree = new BinaryTree<Integer>();
-        var arr = new int[]{ 5, 6, 7, 8, 9, 10, 11 };
-        for (int i : arr) {
-            binaryTree.insertInBinaryTreeLevelOrder(i);
-        }
+        Stream.of(5, 6, 7, 8, 9, 10, 11).forEach(binaryTree::insertInBinaryTreeLevelOrder);
         System.out.println(binaryTree.levelOrderPretty());
         System.out.println(solve(binaryTree));
     }

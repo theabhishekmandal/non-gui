@@ -14,7 +14,7 @@ import static data_structures.tree.binary_tree.binary_tree_impl.BinaryTree.Node;
 
 public class AllViewOfTree {
     public static void main(String[] args) {
-        var tree = new BinaryTree<Integer>();
+        final var tree = new BinaryTree<Integer>();
         IntStream.range(0, 9).forEach(tree::insertInBinaryTreeLevelOrder);
         System.out.println(tree.levelOrderPretty());
         System.out.println("leftView List is " + getLeftView(tree.getRoot()));
@@ -52,7 +52,7 @@ public class AllViewOfTree {
         queue.add(nullNode);
 
         while (!queue.isEmpty()) {
-            var curr = queue.poll();
+            final var curr = queue.poll();
             if (curr != nullNode) {
                 if (leftView) {
                     leftView = false;
@@ -70,8 +70,8 @@ public class AllViewOfTree {
     }
 
     private static <T> void addToQueue(Deque<Node<T>> deque, Node<T> curr, boolean leftToRight) {
-        var left = (leftToRight) ? curr.getLeft() : curr.getRight();
-        var right = (leftToRight) ? curr.getRight() : curr.getLeft();
+        final var left = (leftToRight) ? curr.getLeft() : curr.getRight();
+        final var right = (leftToRight) ? curr.getRight() : curr.getLeft();
         if (left != null) {
             deque.add(left);
         }
@@ -110,7 +110,7 @@ public class AllViewOfTree {
         queue.add(nullNode);
 
         while (!queue.isEmpty()) {
-            var curr = queue.poll();
+            final var curr = queue.poll();
             if (curr != nullNode) {
                 if (rightView) {
                     rightView = false;

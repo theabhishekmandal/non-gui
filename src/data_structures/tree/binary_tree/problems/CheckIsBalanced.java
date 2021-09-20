@@ -23,10 +23,10 @@ public class CheckIsBalanced {
     private static boolean isBalanced = true;
 
     public static void main(String[] args) {
-        var tree = new BinaryTree<Integer>();
+        final var tree = new BinaryTree<Integer>();
         tree.setRoot(createRandomTree());
         System.out.println(tree.levelOrderPretty());
-        boolean bal = isBalanced(tree.getRoot());
+        final boolean bal = isBalanced(tree.getRoot());
         System.out.println("tree is" + (bal ? " balanced" : " not balanced"));
     }
 
@@ -41,8 +41,8 @@ public class CheckIsBalanced {
             return 0;
         }
 
-        var left = isBal(root.getLeft());
-        var right = isBal(root.getRight());
+        final var left = isBal(root.getLeft());
+        final var right = isBal(root.getRight());
         if (Math.abs(left - right) > 1) {
             isBalanced = false;
         }
@@ -50,15 +50,15 @@ public class CheckIsBalanced {
     }
 
     private static Node<Integer> createRandomTree() {
-        var size = random.nextInt(5);
-        var root = Node.of(0);
-        Deque<Node<Integer>> queue = new ArrayDeque<>();
+        final var size = random.nextInt(5);
+        final var root = Node.of(0);
+        final Deque<Node<Integer>> queue = new ArrayDeque<>();
         for (var i = 0; i < size; i++) {
-            Node<Integer> nodeToBeAdded = Node.of(i + 1);
+            final Node<Integer> nodeToBeAdded = Node.of(i + 1);
             queue.add(root);
             var doNotAdd = false;
             while (!queue.isEmpty() && !doNotAdd) {
-                var temp = queue.poll();
+                final var temp = queue.poll();
                 if (random.nextBoolean()) {
                     doNotAdd = addToLeft(queue, nodeToBeAdded, temp);
                 } else {

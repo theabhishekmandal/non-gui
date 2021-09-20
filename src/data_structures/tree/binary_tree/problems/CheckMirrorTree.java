@@ -23,11 +23,10 @@ public class CheckMirrorTree {
         var binaryTree = new BinaryTree<Integer>();
         var binaryTree1 = new BinaryTree<Integer>();
 
-        for (var i = 0; i < random.nextInt(20); i++) {
-            var num = random.nextInt(20);
-            binaryTree.insertInBinaryTreeLevelOrder(num);
-            binaryTree1.insertInBinaryTreeLevelOrder(num);
-        }
+        random.ints(20, 0, 20).forEach(x -> {
+            binaryTree.insertInBinaryTreeLevelOrder(x);
+            binaryTree1.insertInBinaryTreeLevelOrder(x);
+        });
 
         if (random.nextBoolean()) {
             createMirrorTree(binaryTree1.getRoot());

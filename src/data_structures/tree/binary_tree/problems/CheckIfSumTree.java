@@ -25,15 +25,15 @@ import static data_structures.tree.binary_tree.binary_tree_impl.BinaryTree.Node;
  */
 public class CheckIfSumTree {
     public static void main(String[] args) {
-        List<int[]> list = List.of(
+        final List<int[]> list = List.of(
                 new int[]{3, 1, 2},
                 new int[]{10, 20, 30, 10, 10}
         );
 
-        var answer = new StringJoiner("\n");
-        for (var arr : list) {
+        final var answer = new StringJoiner("\n");
+        for (final var arr : list) {
             var binaryTree = new BinaryTree<Integer>();
-            for (var i : arr) {
+            for (final var i : arr) {
                 binaryTree.insertInBinaryTreeLevelOrder(i);
             }
             System.out.println(binaryTree.levelOrderPretty());
@@ -56,10 +56,10 @@ public class CheckIfSumTree {
         if (isLeaf(curr)) {
             return Pair.of(curr.getData(), true);
         }
-        var leftPair = isSumTree(curr.getLeft());
-        var rightPair = isSumTree(curr.getRight());
-        var leftRightSum = leftPair.getFirst() + rightPair.getFirst();
-        var isRootSumTree = curr.getData().equals(leftRightSum);
+        final var leftPair = isSumTree(curr.getLeft());
+        final var rightPair = isSumTree(curr.getRight());
+        final var leftRightSum = leftPair.getFirst() + rightPair.getFirst();
+        final var isRootSumTree = curr.getData().equals(leftRightSum);
         return Pair.of(curr.getData() + leftRightSum, isRootSumTree);
     }
 

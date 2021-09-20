@@ -31,7 +31,7 @@ public class CheckSumInTree {
 
         // creating binaryTree and getting a number that's need to be found for sum Tree
         int number = getNumberToBeFound(random, binaryTree);
-        System.out.println("Number to be found " + number + "\n" + binaryTree.levelOrder());
+        System.out.println("Number to be found " + number + "\n" + binaryTree.levelOrderPretty());
 
         // Using Iteration
         checkSumUsingIteration(binaryTree, number);

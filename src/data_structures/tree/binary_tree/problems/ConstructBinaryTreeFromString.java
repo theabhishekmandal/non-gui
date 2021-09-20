@@ -20,7 +20,8 @@ public class ConstructBinaryTreeFromString {
     public static void main(String[] args) {
         Stream.of("4(2(3)(1))(6(5))", "1(2)(3)")
                 .map(ConstructBinaryTreeFromString::getBinaryTreeFromString)
-                .map(BinaryTree::levelOrderPretty).forEach(System.out::println);
+                .map(BinaryTree::levelOrderPretty)
+                .forEach(System.out::println);
     }
 
     private static BinaryTree<Integer> getBinaryTreeFromString(String input) {

@@ -29,7 +29,7 @@ import static data_structures.tree.binary_tree.binary_tree_impl.BinaryTree.Node;
  */
 public class BoundaryTraversal {
     public static void main(String[] args) {
-        var tree = new BinaryTree<Integer>();
+        final var tree = new BinaryTree<Integer>();
         IntStream.range(0, 9).forEach(tree::insertInBinaryTreeLevelOrder);
         System.out.println(tree.levelOrderPretty());
         System.out.println(getBoundaryTraversalNew(tree));
@@ -39,8 +39,8 @@ public class BoundaryTraversal {
         if (tree == null || tree.getRoot() == null) {
             return Collections.emptyList();
         }
-        var leavesList = getLeaves(tree.getRoot());
-        var leftRightList = getLeftAndRightView(tree.getRoot());
+        final var leavesList = getLeaves(tree.getRoot());
+        final var leftRightList = getLeftAndRightView(tree.getRoot());
         return Stream.of(leftRightList.get(0), leavesList, leftRightList.get(1))
                 .flatMap(Collection::stream)
                 .collect(Collectors.toList());

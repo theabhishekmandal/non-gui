@@ -2,10 +2,7 @@ package data_structures.tree.binary_tree.problems;
 
 import data_structures.tree.binary_tree.binary_tree_impl.BinaryTree;
 
-import java.util.Deque;
-import java.util.LinkedList;
-import java.util.Queue;
-import java.util.Random;
+import java.util.*;
 
 import static data_structures.tree.binary_tree.binary_tree_impl.BinaryTree.Node;
 
@@ -28,9 +25,7 @@ public class DepthOfTree {
     public static void main(String[] args) {
         var binaryTree = new BinaryTree<Integer>();
         var random = new Random();
-        for (var i = 0; i < random.nextInt(20); i++) {
-            binaryTree.insertInBinaryTreeLevelOrder(random.nextInt(100));
-        }
+        random.ints(20, 0, 10).forEach(binaryTree::insertInBinaryTreeLevelOrder);
         System.out.println(binaryTree.levelOrder());
         var depthOfTreeRecursion = depthOfTreeRecursion(binaryTree.getRoot());
         var depthOfTreeIteration = depthOfTreeIteration(binaryTree.getRoot());
@@ -54,10 +49,8 @@ public class DepthOfTree {
             return 0;
         }
 
-
         var depthCounter = 0;
-
-        Deque<Node<T>> stack = new LinkedList<>();
+        Deque<Node<T>> stack = new ArrayDeque<>();
         stack.push(node);
         stack.push(node);
 
@@ -87,9 +80,8 @@ public class DepthOfTree {
             return 0;
         }
 
-
         var counter = 0;
-        Queue<Node<T>> queue = new LinkedList<>();
+        Queue<Node<T>> queue = new ArrayDeque<>();
         queue.add(node);
         queue.add(null);
 

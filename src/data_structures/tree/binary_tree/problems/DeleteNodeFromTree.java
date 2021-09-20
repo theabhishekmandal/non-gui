@@ -18,7 +18,7 @@ import java.util.stream.IntStream;
 public class DeleteNodeFromTree {
     public static void main(String[] args) {
         var random = new Random();
-        var binaryTree = new BinaryTree<>();
+        var binaryTree = new BinaryTree<Integer>();
         var binaryTree2 = new BinaryTree<Integer>();
 
         List<Integer> integerList = IntStream.range(0, 10).boxed().collect(Collectors.toList());

@@ -23,9 +23,7 @@ public class CreateMirrorTree {
     public static void main(String[] args) {
         var random = new Random();
         BinaryTree<Integer> binaryTree = new BinaryTree<>();
-        random.ints(0, 20)
-                .limit(random.nextInt(20))
-                .forEach(binaryTree::insertInBinaryTreeLevelOrder);
+        random.ints(20, 0, 20).forEach(binaryTree::insertInBinaryTreeLevelOrder);
 
         System.out.println("binary Tree\n" + binaryTree.levelOrderPretty());
         var tree = createMirrorTree(binaryTree);

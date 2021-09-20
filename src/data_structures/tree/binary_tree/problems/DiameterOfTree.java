@@ -75,7 +75,7 @@ public class DiameterOfTree {
         }
         var maxValue = 0;
         Map<Node<T>, Integer> map = new HashMap<>();
-        Deque<Node<T>> stack = new LinkedList<>();
+        Deque<Node<T>> stack = new ArrayDeque<>();
         stack.push(root);
         stack.push(root);
         while (!stack.isEmpty()) {
@@ -90,10 +90,8 @@ public class DiameterOfTree {
                     stack.push(curr.getLeft());
                 }
             } else {
-                Integer left;
-                Integer right;
-                left = map.getOrDefault(curr.getLeft(), 0);
-                right = map.getOrDefault(curr.getRight(), 0);
+                var left = map.getOrDefault(curr.getLeft(), 0);
+                var right = map.getOrDefault(curr.getRight(), 0);
 
                 // adding the deepest left and right node from each current node
                 maxValue = Math.max(maxValue, left + right + 1);

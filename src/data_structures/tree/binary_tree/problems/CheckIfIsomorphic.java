@@ -45,7 +45,7 @@ public class CheckIfIsomorphic {
     }
 
     private static void first() {
-        var root = Node.of(1);
+        final var root = Node.of(1);
         root.setLeft(Node.of(2));
         root.setRight(Node.of(3));
 
@@ -57,7 +57,7 @@ public class CheckIfIsomorphic {
         root.getLeft().getRight().setLeft(Node.of(7));
         root.getLeft().getRight().setRight(Node.of(8));
 
-        var root1 = Node.of(1);
+        final var root1 = Node.of(1);
         root1.setLeft(Node.of(3));
         root1.setRight(Node.of(2));
 
@@ -71,8 +71,8 @@ public class CheckIfIsomorphic {
         root1.getRight().getRight().setLeft(Node.of(8));
         root1.getRight().getRight().setRight(Node.of(7));
 
-        var binaryTree = new BinaryTree<>(root);
-        var binaryTree1 = new BinaryTree<>(root1);
+        final var binaryTree = new BinaryTree<>(root);
+        final var binaryTree1 = new BinaryTree<>(root1);
 
         System.out.println(binaryTree.levelOrderPretty());
         System.out.println(binaryTree1.levelOrderPretty());

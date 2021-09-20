@@ -25,7 +25,7 @@ public class CreateTreeUsingPreOrderAndInOrder {
         System.out.println(binaryTree.inOrder());
     }
 
-    private static BinaryTree<Character> createTree(char[] in, char[] pre){
+    private static BinaryTree<Character> createTree(char[] in, char[] pre) {
         BinaryTree<Character> binaryTree = new BinaryTree<>();
         if (in == null || pre == null || (in.length == 0 && in.length == pre.length) || in.length != pre.length) {
             return binaryTree;
@@ -48,10 +48,11 @@ public class CreateTreeUsingPreOrderAndInOrder {
         if (inStart > inEnd || preStart > preEnd) return null;
 
         // get the current node
-        Node<Character> curr = Node.of(pre[preStart]);
+        char currNode = pre[preStart];
+        Node<Character> curr = Node.of(currNode);
 
-        // find the above current node above in inorder array, within the index range
-        int index = getIndex(in, pre[preStart], inStart, inEnd);
+        // find the current node above in inorder array, within the index range
+        int index = getIndex(in, currNode, inStart, inEnd);
 
         if (index == -1) {
             return null;

@@ -15,10 +15,7 @@ public class DeleteTree {
     public static void main(String[] args) {
         var binaryTree = new BinaryTree<Integer>();
         var random = new Random();
-        for (var i = 0; i < random.nextInt(20); i++) {
-            var value = random.nextInt(100);
-            binaryTree.insertInBinaryTreeLevelOrder(value);
-        }
+        random.ints(20, 0, 10).forEach(binaryTree::insertInBinaryTreeLevelOrder);
         System.out.println("before deletion " + binaryTree.levelOrder());
         binaryTree.deleteTree();
         System.out.println("after deletion " + binaryTree.levelOrder());
