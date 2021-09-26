@@ -18,17 +18,15 @@ import static data_structures.tree.binary_tree.binary_tree_impl.BinaryTree.Node;
 public class FindSubTreeInTree {
     public static void main(String[] args) {
         var random = new Random();
-        var sourceArray = new Integer[20];
         var binaryTree = new BinaryTree<Integer>();
-        for (var i = 0; i < sourceArray.length; i++) {
-            sourceArray[i] = random.nextInt(100);
-            binaryTree.insertInBinaryTreeLevelOrder(sourceArray[i]);
-        }
+        random.ints(20, 0, 100).forEach(binaryTree::insertInBinaryTreeLevelOrder);
         System.out.println(binaryTree.levelOrder() + "\n");
 
         var t = 4;
         while (t-- > 0) {
-            if ((t & 1) == 0) CreateSubTree.addNewValueInTree = true;
+            if ((t & 1) == 0) {
+                CreateSubTree.addNewValueInTree = true;
+            }
             var subTree = CreateSubTree.getRandomSubTreeFromParentTree(binaryTree);
             System.out.println(subTree.levelOrder());
             boolean isSubTreeInTree = isSubTree(binaryTree, subTree);
@@ -49,7 +47,7 @@ public class FindSubTreeInTree {
 
     private static <T> boolean compareMainTreeWithInOrderSubTree(BinaryTree<T> binaryTree, List<T> inOrderOfSubTree) {
         Node<T> curr = binaryTree.getRoot();
-        Deque<Node<T>> stack = new LinkedList<>();
+        Deque<Node<T>> stack = new ArrayDeque<>();
         var counter = 0;
         while (curr != null || !stack.isEmpty()) {
             if (curr != null) {

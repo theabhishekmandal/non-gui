@@ -102,7 +102,7 @@ public class AllViewOfTree {
         }
 
         final Node<T> nullNode = Node.of(null);
-        final Deque<Node<T>> queue = new LinkedList<>();
+        final Deque<Node<T>> queue = new ArrayDeque<>();
         final List<T> ans = new ArrayList<>();
 
         var rightView = true;

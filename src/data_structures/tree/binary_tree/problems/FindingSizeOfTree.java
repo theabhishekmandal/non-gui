@@ -2,9 +2,11 @@ package data_structures.tree.binary_tree.problems;
 
 import data_structures.tree.binary_tree.binary_tree_impl.BinaryTree;
 
+import java.util.ArrayDeque;
 import java.util.Deque;
-import java.util.LinkedList;
 import java.util.Random;
+
+import static data_structures.tree.binary_tree.binary_tree_impl.BinaryTree.Node;
 
 /**
  * Find the size of the tree.
@@ -17,7 +19,7 @@ public class FindingSizeOfTree {
     public static void main(String[] args) {
         var binaryTree = new BinaryTree<Integer>();
         var random = new Random();
-        random.ints(20, 0, random.nextInt(100)).forEach(binaryTree::insertInBinaryTreeLevelOrder);
+        random.ints(20, 0, 100).forEach(binaryTree::insertInBinaryTreeLevelOrder);
         var size = findSizeOfTreeRecursive(binaryTree.getRoot());
         var size2 = findSizeOfTreeIteration(binaryTree.getRoot());
         System.out.println(binaryTree.levelOrder());
@@ -25,24 +27,24 @@ public class FindingSizeOfTree {
         System.out.println(size2);
     }
 
-    private static <T> int findSizeOfTreeRecursive(BinaryTree.Node<T> node) {
+    private static <T> int findSizeOfTreeRecursive(Node<T> node) {
         if (node == null) {
             return 0;
         }
         return findSizeOfTreeRecursive(node.getLeft()) + findSizeOfTreeRecursive(node.getRight()) + 1;
     }
 
-    private static <T> int findSizeOfTreeIteration(BinaryTree.Node<T> node) {
+    private static <T> int findSizeOfTreeIteration(Node<T> node) {
         if (node == null) {
             return 0;
         }
 
         var size = 0;
-        Deque<BinaryTree.Node<T>> stack = new LinkedList<>();
+        Deque<Node<T>> stack = new ArrayDeque<>();
         stack.push(node);
         stack.push(node);
         while (!stack.isEmpty()) {
-            BinaryTree.Node<T> curr = stack.pop();
+            Node<T> curr = stack.pop();
             if (!stack.isEmpty() && stack.peek() == curr) {
                 if (curr.getRight() != null) {
                     stack.push(curr.getRight());

@@ -16,12 +16,12 @@ public class BinaryTree<T> {
                 Queue is used as a data structure while inserting to the tree
                 after inserting every node we need to break because,
                     -   after inserting in left side we don't want to insert it in right side
-                    -   after inserting in the right side we don't want to want to process other elements in the queue
+                    -   after inserting to the right side we don't want to process other elements in the queue
                         until next data comes for insertion
-                after inserting the node we have to check whether both of it's child are present or not
+                after inserting the node we have to check whether both of its children are present or not
                 -   if both children are not present then insert the parent node on the left side of queue
      */
-    private final Deque<Node<T>> queue = new LinkedList<>();
+    private final Deque<Node<T>> queue = new ArrayDeque<>();
     private Node<T> root;
     private boolean isSetThroughRootMethod = false;
     private int size;

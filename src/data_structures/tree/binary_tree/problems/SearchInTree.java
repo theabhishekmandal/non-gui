@@ -2,6 +2,7 @@ package data_structures.tree.binary_tree.problems;
 
 import data_structures.tree.binary_tree.binary_tree_impl.BinaryTree;
 
+import java.util.ArrayDeque;
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Random;
@@ -11,7 +12,7 @@ import static data_structures.tree.binary_tree.binary_tree_impl.BinaryTree.Node;
 /**
  * Search a node in the Binary Tree
  * Approach:
- *  -   Use top down approach to find the first node with the matching value and then return
+ *  -   Use top-down approach to find the first node with the matching value and then return
  */
 public class SearchInTree {
     public static void main(String[] args) {
@@ -48,7 +49,7 @@ public class SearchInTree {
         if (node == null) {
             return false;
         }
-        Queue<Node<Integer>> queue = new LinkedList<>();
+        Queue<Node<Integer>> queue = new ArrayDeque<>();
         queue.add(node);
         while (!queue.isEmpty()) {
             Node<Integer> curr = queue.poll();
