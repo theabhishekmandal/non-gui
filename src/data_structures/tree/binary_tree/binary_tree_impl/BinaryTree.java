@@ -1,6 +1,8 @@
 package data_structures.tree.binary_tree.binary_tree_impl;
 
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -171,7 +173,7 @@ public class BinaryTree<T> {
         Deque<Node<T>> stack = new ArrayDeque<>();
         stack.push(root);
 
-        var joiner = new StringJoiner(DELIMITER, PREFIX, SUFFIX);
+        var joiner = createJoiner();
         while (!stack.isEmpty()) {
             Node<T> temp = stack.pop();
 
@@ -194,7 +196,7 @@ public class BinaryTree<T> {
         Preorder traversal using recursion
      */
     public String preOrderRecursive() {
-        var joiner = new StringJoiner(DELIMITER, PREFIX, SUFFIX);
+        var joiner = createJoiner();
         preOrderRec(root, joiner);
         return joiner.toString();
     }
@@ -211,6 +213,7 @@ public class BinaryTree<T> {
     private String convertToString(List<T> list) {
         return list.stream().map(String::valueOf).collect(Collectors.joining(DELIMITER, PREFIX, SUFFIX));
     }
+
     /*
     process left, current, right
      Approach:
@@ -235,7 +238,6 @@ public class BinaryTree<T> {
     public String inOrder() {
         return convertToString(inOrderList());
     }
-
     public List<T> inOrderList() {
         if (this.root == null) {
             return Collections.emptyList();
@@ -265,10 +267,10 @@ public class BinaryTree<T> {
 
         InOrder traversal using recursion
      */
+
     public String inOrderRecursive() {
         return convertToString(inOrderRecursiveList());
     }
-
     public List<T> inOrderRecursiveList() {
         var dataList = new ArrayList<T>();
         inOrderRec(root, dataList);
@@ -301,12 +303,13 @@ public class BinaryTree<T> {
                 -   If it is not equal, then it means processing of it's children has been done and now
                     it can be added to answer.
      */
+
     public String postOrder() {
         if (this.root == null) {
             return EMPTY_BRACES;
         }
 
-        var joiner = new StringJoiner(DELIMITER, PREFIX, SUFFIX);
+        var joiner = createJoiner();
         Deque<Node<T>> stack = new ArrayDeque<>();
         stack.push(root);
         stack.push(root);
@@ -327,18 +330,17 @@ public class BinaryTree<T> {
         }
         return joiner.toString();
     }
-
     /*
         process left, right and current
 
         PostOrder traversal using recursion
      */
+
     public String postOrderRecursive() {
-        var joiner = new StringJoiner(DELIMITER, PREFIX, SUFFIX);
+        var joiner = createJoiner();
         postOrderRec(this.root, joiner);
         return joiner.toString();
     }
-
     private void postOrderRec(Node<T> node, StringJoiner answer) {
         if (node == null) {
             return;
@@ -357,6 +359,7 @@ public class BinaryTree<T> {
                 -   Here after every level we are adding null, null is added to first process the nodes of level l
                     and then go to level l + 1
      */
+
     public String levelOrder() {
         if (this.root == null) {
             return EMPTY_BRACES;
@@ -365,22 +368,22 @@ public class BinaryTree<T> {
                 .map(StringJoiner::toString)
                 .collect(Collectors.joining(", \n")) + SUFFIX;
     }
-
     private List<StringJoiner> levelOrderPrivate() {
         if (this.root == null) {
             return Collections.emptyList();
         }
-        Queue<Node<T>> nodeQueue = new LinkedList<>();
+        Node<T> nullNode = Node.of(null);
+        Queue<Node<T>> nodeQueue = new ArrayDeque<>();
 
         nodeQueue.add(this.root);
-        nodeQueue.add(null);
+        nodeQueue.add(nullNode);
 
         List<StringJoiner> finalList = new ArrayList<>();
-        var joiner = new StringJoiner(DELIMITER, PREFIX, SUFFIX);
+        var joiner = createJoiner();
         Node<T> emptyObject = Node.of(null);
         while (!nodeQueue.isEmpty()) {
             Node<T> curr = nodeQueue.poll();
-            if (curr != null) {
+            if (curr != nullNode) {
                 if (curr != emptyObject) {
                     joiner.add(curr.data.toString());
                     nodeQueue.add(Objects.requireNonNullElse(curr.left, emptyObject));
@@ -394,9 +397,9 @@ public class BinaryTree<T> {
                 finalList.add(joiner);
 
                 // clearing the list for next level
-                joiner = new StringJoiner(DELIMITER, PREFIX, SUFFIX);
+                joiner = createJoiner();
                 if (!nodeQueue.isEmpty()) {
-                    nodeQueue.add(null);
+                    nodeQueue.add(nullNode);
                 }
             }
         }
@@ -420,10 +423,10 @@ public class BinaryTree<T> {
     }
 
     public static class Node<T> {
+
         private T data;
         private Node<T> left;
         private Node<T> right;
-
         public Node(T data) {
             this.data = data;
         }
@@ -464,7 +467,7 @@ public class BinaryTree<T> {
         @Override
         public boolean equals(Object o) {
             if (this == o) return true;
-            if (!(o instanceof BinaryTree.Node)) return false;
+            if (!(o instanceof Node)) return false;
             Node<?> node = (Node<?>) o;
             return data.equals(node.data) &&
                     (left != null && left.equals(node.left)) &&
@@ -475,5 +478,10 @@ public class BinaryTree<T> {
         public int hashCode() {
             return Objects.hash(data, left, right);
         }
+
+    }
+    @NotNull
+    private StringJoiner createJoiner() {
+        return new StringJoiner(DELIMITER, PREFIX, SUFFIX);
     }
 }

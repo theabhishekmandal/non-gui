@@ -1,11 +1,11 @@
 package data_structures.tree.binary_tree.binary_tree_impl;
 
+import java.util.stream.IntStream;
+
 public class BinaryTreeImpl {
     public static void main(String[] args) {
-        BinaryTree<Integer> binaryTree = new BinaryTree<>();
-        for (int i = 0; i < 7; i++) {
-            binaryTree.insertInBinaryTreeLevelOrder(i);
-        }
+        var binaryTree = new BinaryTree<Integer>();
+        IntStream.range(0, 7).forEach(binaryTree::insertInBinaryTreeLevelOrder);
 
         String preOrderIter = binaryTree.preOrder();
         String preOrderRec = binaryTree.preOrderRecursive();
