@@ -59,11 +59,11 @@ public class BinaryTree<T> {
         if (root == null) {
             return 0;
         }
-        Queue<Node<T>> tempQueue = new ArrayDeque<>();
+        final Queue<Node<T>> tempQueue = new ArrayDeque<>();
         tempQueue.add(root);
         var tempSize = 0;
         while (!tempQueue.isEmpty()) {
-            var curr = tempQueue.poll();
+            final var curr = tempQueue.poll();
             if (curr != null) {
                 ++tempSize;
                 if (curr.left != null) {
@@ -84,11 +84,11 @@ public class BinaryTree<T> {
 
     public void insertInBinaryTreeLevelOrder(T data) {
         isSetThroughRoot();
-        Node<T> newNode = Node.of(data);
+        final Node<T> newNode = Node.of(data);
         if (queue.isEmpty()) {
             root = newNode;
         } else {
-            Node<T> temp = queue.peek();
+            final Node<T> temp = queue.peek();
             if (temp.left == null) {
                 temp.left = newNode;
             } else if (temp.right == null) {
@@ -113,7 +113,7 @@ public class BinaryTree<T> {
         Node<T> parent = null;
         var firstMatch = true;
 
-        Deque<Node<T>> tempQueue = new ArrayDeque<>();
+        final Deque<Node<T>> tempQueue = new ArrayDeque<>();
         tempQueue.add(root);
 
         while (!tempQueue.isEmpty()) {
@@ -170,12 +170,12 @@ public class BinaryTree<T> {
             return EMPTY_BRACES;
         }
 
-        Deque<Node<T>> stack = new ArrayDeque<>();
+        final Deque<Node<T>> stack = new ArrayDeque<>();
         stack.push(root);
 
-        var joiner = createJoiner();
+        final var joiner = createJoiner();
         while (!stack.isEmpty()) {
-            Node<T> temp = stack.pop();
+            final var temp = stack.pop();
 
             // adding the answer
             joiner.add(temp.toString());
@@ -196,7 +196,7 @@ public class BinaryTree<T> {
         Preorder traversal using recursion
      */
     public String preOrderRecursive() {
-        var joiner = createJoiner();
+        final var joiner = createJoiner();
         preOrderRec(root, joiner);
         return joiner.toString();
     }
@@ -242,9 +242,9 @@ public class BinaryTree<T> {
         if (this.root == null) {
             return Collections.emptyList();
         }
-        var dataList = new ArrayList<T>();
+        final var dataList = new ArrayList<T>();
 
-        Deque<Node<T>> stack = new ArrayDeque<>();
+        final Deque<Node<T>> stack = new ArrayDeque<>();
         Node<T> curr = root;
 
         while (curr != null || !stack.isEmpty()) {
@@ -269,20 +269,17 @@ public class BinaryTree<T> {
      */
 
     public String inOrderRecursive() {
-        return convertToString(inOrderRecursiveList());
-    }
-    public List<T> inOrderRecursiveList() {
-        var dataList = new ArrayList<T>();
-        inOrderRec(root, dataList);
-        return dataList;
+        final var joiner = createJoiner();
+        inOrderRec(root, joiner);
+        return joiner.toString();
     }
 
-    private void inOrderRec(Node<T> node, List<T> answer) {
+    private void inOrderRec(Node<T> node, StringJoiner answer) {
         if (node == null) {
             return;
         }
         inOrderRec(node.left, answer);
-        answer.add(node.getData());
+        answer.add(node.getData().toString());
         inOrderRec(node.right, answer);
     }
 
@@ -309,12 +306,12 @@ public class BinaryTree<T> {
             return EMPTY_BRACES;
         }
 
-        var joiner = createJoiner();
-        Deque<Node<T>> stack = new ArrayDeque<>();
+        final var joiner = createJoiner();
+        final Deque<Node<T>> stack = new ArrayDeque<>();
         stack.push(root);
         stack.push(root);
         while (!stack.isEmpty()) {
-            Node<T> curr = stack.pop();
+            final Node<T> curr = stack.pop();
             if (!stack.isEmpty() && stack.peek() == curr) {
                 if (curr.right != null) {
                     stack.push(curr.right);
@@ -372,17 +369,17 @@ public class BinaryTree<T> {
         if (this.root == null) {
             return Collections.emptyList();
         }
-        Node<T> nullNode = Node.of(null);
-        Queue<Node<T>> nodeQueue = new ArrayDeque<>();
+        final Node<T> nullNode = Node.of(null);
+        final Queue<Node<T>> nodeQueue = new ArrayDeque<>();
 
         nodeQueue.add(this.root);
         nodeQueue.add(nullNode);
 
-        List<StringJoiner> finalList = new ArrayList<>();
+        final List<StringJoiner> finalList = new ArrayList<>();
         var joiner = createJoiner();
-        Node<T> emptyObject = Node.of(null);
+        final Node<T> emptyObject = Node.of(null);
         while (!nodeQueue.isEmpty()) {
-            Node<T> curr = nodeQueue.poll();
+            final Node<T> curr = nodeQueue.poll();
             if (curr != nullNode) {
                 if (curr != emptyObject) {
                     joiner.add(curr.data.toString());
@@ -407,15 +404,15 @@ public class BinaryTree<T> {
     }
 
     public String levelOrderPretty() {
-        List<StringJoiner> finalAnswer = levelOrderPrivate();
+        final List<StringJoiner> finalAnswer = levelOrderPrivate();
         if (finalAnswer.isEmpty()) {
             return EMPTY_BRACES;
         }
-        var br = new StringBuilder();
-        int maxSize = finalAnswer.get(finalAnswer.size() - 2).length();
+        final var br = new StringBuilder();
+        final int maxSize = finalAnswer.get(finalAnswer.size() - 2).length();
         for (var i = 0; i < finalAnswer.size() - 1; i++) {
-            var joiner = finalAnswer.get(i);
-            int rem = ((maxSize - joiner.length()) + 1) >> 1;
+            final var joiner = finalAnswer.get(i);
+            final int rem = ((maxSize - joiner.length()) + 1) >> 1;
             br.append(" ".repeat(Math.max(0, rem)));
             br.append(joiner).append("\n");
         }
@@ -481,7 +478,7 @@ public class BinaryTree<T> {
 
     }
     @NotNull
-    private StringJoiner createJoiner() {
+    private static StringJoiner createJoiner() {
         return new StringJoiner(DELIMITER, PREFIX, SUFFIX);
     }
 }
