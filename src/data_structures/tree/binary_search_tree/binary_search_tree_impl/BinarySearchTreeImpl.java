@@ -1,24 +1,27 @@
 package data_structures.tree.binary_search_tree.binary_search_tree_impl;
 
-import java.util.Arrays;
 import java.util.Random;
+import java.util.stream.Collectors;
 
 public class BinarySearchTreeImpl {
     public static void main(String[] args) {
         Random random = new Random();
-        int[] arr = new int[20];
-        for(int i = 0; i < arr.length; i++){
-            arr[i] = random.nextInt(100);
-        }
-        BinarySearchTree<Integer> bst = new BinarySearchTree<>();
-        Arrays.stream(arr).forEach(bst::insertInBst);
+        var bst = new BinarySearchTree<Integer>();
+        var intList = random.ints(20, 0, 100)
+                .boxed()
+                .collect(Collectors.toList());
+
+        intList.forEach(bst::insertInBst);
         String inorderTraversal = bst.inOrder();
 
-        BinarySearchTree<Integer> bst2 = new BinarySearchTree<>(true);
-        Arrays.stream(arr).forEach(bst2::insertInBst);
+        var bst2 = new BinarySearchTree<Integer>(true);
+        intList.forEach(bst2::insertInBst);
         String inorderTraversalReverse = bst2.inOrder();
         System.out.println(
                 inorderTraversal + "\n" + inorderTraversalReverse
         );
+
+        System.out.println("\n" + bst.levelOrder() + "\n\n" + bst2.levelOrder());
+
     }
 }

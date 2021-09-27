@@ -6,42 +6,52 @@ import org.jetbrains.annotations.NotNull;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class BinarySearchTree<T extends Comparable<? super T>>{
-    public static class Node<T extends Comparable<? super T>> implements Comparable<Node<T>>{
+public class BinarySearchTree<T extends Comparable<? super T>> {
+    private static final String DELIMITER = ", ";
+    private static final String PREFIX = "[";
+    private static final String SUFFIX = "]";
+    private static final String EMPTY_BRACES = "[]";
+    private final Node<T> nullNode = Node.of(null);
+
+    public static class Node<T extends Comparable<? super T>> implements Comparable<Node<T>> {
         private T data;
         private Node<T> left;
         private Node<T> right;
 
-        public Node(T data){
+        public Node(T data) {
             this.data = data;
         }
 
-        public T getData(){
+        public static <T extends Comparable<? super T>> Node<T> of(T data) {
+            return new Node<>(data);
+        }
+
+        public T getData() {
             return this.data;
         }
 
-        public void setData(T data){
+        public void setData(T data) {
             this.data = data;
         }
 
-        public Node<T> getLeft(){
+        public Node<T> getLeft() {
             return this.left;
         }
 
-        public void setLeft(Node<T> left){
+        public void setLeft(Node<T> left) {
             this.left = left;
         }
 
-        public Node<T> getRight(){
+        public Node<T> getRight() {
             return this.right;
         }
 
-        public void setRight(Node<T> right){
+        public void setRight(Node<T> right) {
             this.right = right;
         }
 
         @Override
-        public String toString(){
+        public String toString() {
             return this.data.toString();
         }
 
@@ -62,45 +72,46 @@ public class BinarySearchTree<T extends Comparable<? super T>>{
 
         @Override
         public int compareTo(@NotNull Node<T> o) {
-           return this.data.compareTo(o.data);
+            return this.data.compareTo(o.data);
         }
     }
 
     private Node<T> root;
     private int size;
     private boolean doReverse;
-    public Node<T> getRoot(){
+
+    public Node<T> getRoot() {
         return this.root;
     }
+
     public void setRoot(Node<T> root) {
         this.root = root;
     }
-    public int getSize(){
+
+    public int getSize() {
         return this.size;
     }
-    public BinarySearchTree(){
-        this.size = 0;
-        this.root = null;
-    }
-    public BinarySearchTree(Boolean reverse){
-        this();
+
+    public BinarySearchTree() {}
+
+    public BinarySearchTree(Boolean reverse) {
         this.doReverse = reverse != null && reverse;
     }
 
-    public void deleteTree(){
+    public void deleteTree() {
         this.root = null;
         this.size = 0;
     }
 
-    // Don't use this this is slow
+    // Don't use this, it is slow
     /*
     private void insertInBstUsingQueue(@NotNull T data){
         if(this.root == null) {
-            this.root = new node<>(data);
+            this.root = Node.of(data);
             this.size++;
             return;
         }
-        node<T> newnode = new node<>(data);
+        node<T> newnode = Node.of(data);
         Deque<node<T>> queue = new LinkedList<>();
         queue.add(this.root);
         while(!queue.isEmpty()){
@@ -128,28 +139,27 @@ public class BinarySearchTree<T extends Comparable<? super T>>{
     }
     */
 
-    public void insertInBst(@NotNull  T data){
-        if(this.root == null) {
-            this.root = new Node<>(data);
+    public void insertInBst(@NotNull T data) {
+        if (this.root == null) {
+            this.root = Node.of(data);
             this.size++;
             return;
         }
         Node<T> prev;
         Node<T> temp = this.root;
-        Node<T> newNode = new Node<>(data);
-        while(temp != null){
+        final Node<T> newNode = Node.of(data);
+        while (temp != null) {
             prev = temp;
             int compare = temp.compareTo(newNode);
             compare = (doReverse) ? -compare : compare;
-            if(compare >= 1) {
+            if (compare >= 1) {
                 temp = temp.left;
-                if(temp == null) {
+                if (temp == null) {
                     prev.left = newNode;
                 }
-            }
-            else {
+            } else {
                 temp = temp.right;
-                if(temp == null) {
+                if (temp == null) {
                     prev.right = newNode;
                 }
             }
@@ -166,27 +176,31 @@ public class BinarySearchTree<T extends Comparable<? super T>>{
                 Remember to add the right node first in the stack and then the left node, because
                 in stack the left node will be processed first.
     */
-    public String preOrder(){
-        if(this.root == null) return "";
+    public String preOrder() {
+        if (this.root == null) {
+            return EMPTY_BRACES;
+        }
+
+        var joiner = createJoiner();
 
         Deque<Node<T>> stack = new ArrayDeque<>();
         stack.push(this.root);
 
-        List<String> finalAnswer = new ArrayList<>();
-        while(!stack.isEmpty()){
-            Node<T> temp = stack.pop();
+
+        while (!stack.isEmpty()) {
+            var temp = stack.pop();
 
             // adding the answer
-            finalAnswer.add(temp.toString());
+            joiner.add(temp.toString());
 
-            if(temp.right != null) {
+            if (temp.right != null) {
                 stack.push(temp.right);
             }
-            if(temp.left != null){
+            if (temp.left != null) {
                 stack.push(temp.left);
             }
         }
-        return "[" + String.join(", ", finalAnswer) + "]";
+        return joiner.toString();
     }
 
     /*
@@ -194,14 +208,16 @@ public class BinarySearchTree<T extends Comparable<? super T>>{
 
         Preorder traversal using recursion
      */
-    public String preOrderRecursive(){
-        List<String> finalAnswer = new ArrayList<>();
+    public String preOrderRecursive() {
+        var finalAnswer = createJoiner();
         preOrderRec(this.root, finalAnswer);
-        return "[" + String.join(", ", finalAnswer) + "]";
+        return finalAnswer.toString();
     }
 
-    private void preOrderRec(Node<T> node, List<String> answer){
-        if(node == null) return;
+    private void preOrderRec(Node<T> node, StringJoiner answer) {
+        if (node == null) {
+            return;
+        }
         answer.add(node.toString());
         preOrderRec(node.left, answer);
         preOrderRec(node.right, answer);
@@ -228,19 +244,21 @@ public class BinarySearchTree<T extends Comparable<? super T>>{
                         of popped value the new current node.
 
     */
-    public String inOrder(){
-        if(this.root == null) return "";
-        List<String> finalAnswer = new ArrayList<>();
+    public String inOrder() {
+        if (this.root == null) {
+            return EMPTY_BRACES;
+        }
+
+        var finalAnswer = createJoiner();
 
         Deque<Node<T>> stack = new ArrayDeque<>();
         Node<T> curr = this.root;
 
-        while(curr != null || !stack.isEmpty()){
-            if(curr != null){
+        while (curr != null || !stack.isEmpty()) {
+            if (curr != null) {
                 stack.push(curr);
                 curr = curr.left;
-            }
-            else{
+            } else {
                 curr = stack.pop();
 
                 // adding the answer
@@ -248,22 +266,24 @@ public class BinarySearchTree<T extends Comparable<? super T>>{
                 curr = curr.right;
             }
         }
-
-        return "[" + String.join(", ", finalAnswer) + "]";
+        return finalAnswer.toString();
     }
+
     /*
         process left, current and right
 
         InOrder traversal using recursion
      */
-    public String inOrderRecursive(){
-        List<String> finalAnswer = new ArrayList<>();
+    public String inOrderRecursive() {
+        var finalAnswer = createJoiner();
         inOrderRec(this.root, finalAnswer);
-        return "[" + String.join(", ", finalAnswer) + "]";
+        return finalAnswer.toString();
     }
 
-    private void inOrderRec(Node<T> node, List<String> answer){
-        if(node == null) return;
+    private void inOrderRec(Node<T> node, StringJoiner answer) {
+        if (node == null) {
+            return;
+        }
         inOrderRec(node.left, answer);
         answer.add(node.toString());
         inOrderRec(node.right, answer);
@@ -286,43 +306,47 @@ public class BinarySearchTree<T extends Comparable<? super T>>{
                 -   If it is not equal, then it means processing of it's children has been done and now
                     it can be added to answer.
      */
-    public String postOrder(){
-        if(this.root == null) return "";
-        List<String> finalAnswer = new ArrayList<>();
+    public String postOrder() {
+        if (this.root == null) {
+            return EMPTY_BRACES;
+        }
+        var finalAnswer = createJoiner();
 
         Deque<Node<T>> stack = new ArrayDeque<>();
         stack.push(this.root);
         stack.push(this.root);
-        while(!stack.isEmpty()){
+        while (!stack.isEmpty()) {
             Node<T> curr = stack.pop();
-            if(!stack.isEmpty() && stack.peek() == curr){
-                if(curr.right != null){
+            if (!stack.isEmpty() && stack.peek() == curr) {
+                if (curr.right != null) {
                     stack.push(curr.right);
                     stack.push(curr.right);
                 }
-                if(curr.left != null){
+                if (curr.left != null) {
                     stack.push(curr.left);
                     stack.push(curr.left);
                 }
-            }
-            else
-               finalAnswer.add(curr.data.toString());
+            } else
+                finalAnswer.add(curr.data.toString());
         }
-        return "[" + String.join(", ", finalAnswer) + "]";
+        return finalAnswer.toString();
     }
+
     /*
         process left, right and current
 
         PostOrder traversal using recursion
      */
-    public String postOrderRecursive(){
-        List<String> finalAnswer = new ArrayList<>();
-        postOrderRec(this.root, finalAnswer);
-        return "[" + String.join(", ", finalAnswer) + "]";
-    }
 
-    private void postOrderRec(Node<T> node, List<String> answer){
-        if(node == null) return;
+    public String postOrderRecursive() {
+        var finalAnswer = createJoiner();
+        postOrderRec(this.root, finalAnswer);
+        return finalAnswer.toString();
+    }
+    private void postOrderRec(Node<T> node, StringJoiner answer) {
+        if (node == null) {
+            return;
+        }
         postOrderRec(node.left, answer);
         postOrderRec(node.right, answer);
         answer.add(node.toString());
@@ -338,42 +362,43 @@ public class BinarySearchTree<T extends Comparable<? super T>>{
                 -   Here after every level we are adding null, null is added to first process the nodes of level l
                     and then go to level l + 1
      */
-    public String levelOrder(){
-       if(this.root == null) return "";
-       Queue<Node<T>> queue = new LinkedList<>();
 
-       queue.add(this.root);
-       queue.add(null);
+    public String levelOrder() {
+        if (this.root == null) {
+            return EMPTY_BRACES;
+        }
+        Queue<Node<T>> queue = new ArrayDeque<>();
 
-       List<List<String>> finalList = new ArrayList<>();
-       List<String> nodeList = new ArrayList<>();
-       while(!queue.isEmpty()){
-           Node<T> curr = queue.poll();
-           if(curr != null){
-              nodeList.add(curr.data.toString());
-              if(curr.left != null)
-                  queue.add(curr.left);
-              if(curr.right != null)
-                  queue.add(curr.right);
-           }
-           else{
-               // creating new list because, if we clear nodeList then nodeList will be cleared
-               // from the final list
+        queue.add(this.root);
+        queue.add(nullNode);
+
+        List<List<String>> finalList = new ArrayList<>();
+        List<String> nodeList = new ArrayList<>();
+        while (!queue.isEmpty()) {
+            Node<T> curr = queue.poll();
+            if (curr != nullNode) {
+                nodeList.add(curr.data.toString());
+                if (curr.left != null)
+                    queue.add(curr.left);
+                if (curr.right != null)
+                    queue.add(curr.right);
+            } else {
+                // creating new list because, if we clear nodeList then nodeList will be cleared
+                // from the final list
                 List<String> tempList = new ArrayList<>(nodeList);
                 finalList.add(tempList);
 
                 // clearing the list for next level
                 nodeList.clear();
-                if(!queue.isEmpty())
-                    queue.add(null);
-
-           }
-       }
-       return "[" + finalList.stream()
-               .map(list -> "(" + String.join(", ", list) + ")")
-               .collect(Collectors.joining(", \n")) + "]";
+                if (!queue.isEmpty()) {
+                    queue.add(nullNode);
+                }
+            }
+        }
+        return PREFIX + finalList.stream()
+                .map(list -> PREFIX + String.join(DELIMITER, list) + SUFFIX)
+                .collect(Collectors.joining(DELIMITER + "\n")) + SUFFIX;
     }
-
 
     /*
         To delete a node from a BST, there are three conditions
@@ -388,31 +413,30 @@ public class BinarySearchTree<T extends Comparable<? super T>>{
                     -   if inorder successor is the immediate right child of the node(to be deleted), then
                         make the right child of successor as right child of the parent
      */
+
     public void deleteNodeFromTreeRecur(T data) {
         this.root = delete(this.root, data);
     }
 
     private Node<T> delete(Node<T> node, T data) {
-        if(this.root == null) {
+        if (this.root == null) {
             return null;
         }
 
         // returning node is important, consider the case of node to be deleted, is the only child
         // eg: [1, 2] and node to be deleted is 2, so we have to make 1.right = 2.right
-        if(node.data.compareTo(data) > 0) {
+        if (node.data.compareTo(data) > 0) {
             node.left = delete(node.left, data);
             return node;
-        }
-        else if(node.data.compareTo(data) < 0) {
+        } else if (node.data.compareTo(data) < 0) {
             node.right = delete(node.right, data);
             return node;
         }
 
-        // if there are no children or only one children then these two conditions
-        if(node.left == null) {
+        // if there are no children or only one child then these two conditions
+        if (node.left == null) {
             return node.right;
-        }
-        else if(node.right == null) {
+        } else if (node.right == null) {
             return node.left;
         }
         // if both of the children exists
@@ -421,7 +445,7 @@ public class BinarySearchTree<T extends Comparable<? super T>>{
             var succ = node.right;
 
             // finding nearest inorder successor
-            while(succ.left != null) {
+            while (succ.left != null) {
                 parent = succ;
                 succ = succ.left;
             }
@@ -447,8 +471,7 @@ public class BinarySearchTree<T extends Comparable<? super T>>{
              */
             if (parent != node) {
                 parent.left = succ.right;
-            }
-            else {
+            } else {
                 parent.right = succ.right;
             }
             node.data = succ.data;
@@ -458,42 +481,40 @@ public class BinarySearchTree<T extends Comparable<? super T>>{
 
 
     // iterative solution of above problem
+
     public Node<T> deleteNodeFromTree(T data) {
-        if(this.root == null) {
+        if (this.root == null) {
             return null;
         }
 
         var curr = this.root;
         Node<T> prev = null;
         // finding the correct node that is to be deleted
-        while(curr != null) {
+        while (curr != null) {
             var compare = curr.data.compareTo(data);
-            if(compare == 0) {
+            if (compare == 0) {
                 break;
             }
             prev = curr;
-            if(compare > 0) {
+            if (compare > 0) {
                 curr = curr.left;
-            }
-            else {
+            } else {
                 curr = curr.right;
             }
         }
 
         // if the given value node is not present then return
-        if(curr == null) {
+        if (curr == null) {
             return null;
         }
         // this means root is not your data node to be deleted
-        if(prev != null) {
-            if(prev.left == curr) {
+        if (prev != null) {
+            if (prev.left == curr) {
                 prev.left = deleteNode(prev.left);
-            }
-            else {
+            } else {
                 prev.right = deleteNode(prev.right);
             }
-        }
-        else {
+        } else {
             this.root = deleteNode(this.root);
         }
         this.size--;
@@ -501,32 +522,34 @@ public class BinarySearchTree<T extends Comparable<? super T>>{
     }
 
     private Node<T> deleteNode(Node<T> curr) {
-       if(curr.left == null) {
-           var temp = curr.right;
-           curr.right = null;
-           return temp;
-       }
-       else if(curr.right == null) {
-           var temp = curr.left;
-           curr.left = null;
-           return temp;
-       }
-       else {
-           var parent = curr;
-           Node<T> succ = curr.right;
-           while(succ.left != null) {
-               parent = succ;
-               succ = succ.left;
-           }
+        if (curr.left == null) {
+            var temp = curr.right;
+            curr.right = null;
+            return temp;
+        } else if (curr.right == null) {
+            var temp = curr.left;
+            curr.left = null;
+            return temp;
+        } else {
+            var parent = curr;
+            Node<T> succ = curr.right;
+            while (succ.left != null) {
+                parent = succ;
+                succ = succ.left;
+            }
 
-           if(parent != curr) {
-               parent.left = succ.right;
-           }
-           else {
-               parent.right = succ.right;
-           }
-           curr.data = succ.data;
-           return curr;
-       }
+            if (parent != curr) {
+                parent.left = succ.right;
+            } else {
+                parent.right = succ.right;
+            }
+            curr.data = succ.data;
+            return curr;
+        }
+    }
+
+    @NotNull
+    private StringJoiner createJoiner() {
+        return new StringJoiner(DELIMITER, PREFIX, SUFFIX);
     }
 }
