@@ -10,12 +10,13 @@ import java.util.stream.Stream;
  * given two lists perform the operations on two lists using stream
  */
 public class ZipTwoLists {
-    public static <T1, T2, R> Stream<R> zip(List<T1> list1, List<T2> list2, BiFunction<? super T1, ? super T2, ? extends  R> mapper) {
-        if(list1.size() != list2.size()) {
+    public static <T1, T2, R> Stream<R> zip(List<T1> list1, List<T2> list2, BiFunction<? super T1, ? super T2, ? extends R> mapper) {
+        if (list1.size() != list2.size()) {
             throw new IllegalArgumentException("Different list sizes");
         }
         return IntStream.range(0, list1.size()).mapToObj(x -> mapper.apply(list1.get(x), list2.get(x)));
     }
+
     public static void main(String[] args) {
 
         List<Integer> firstList = Arrays.asList(1, 2, 3, 4, 5);

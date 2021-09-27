@@ -13,7 +13,7 @@ public class IterateDemo {
         /*
            this iterate is similar to
            for (int i = 0;; i++) {
-                if (i < 10 {
+                if (i < 10) {
                     print
                 }
            }

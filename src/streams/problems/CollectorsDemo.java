@@ -14,16 +14,16 @@ class Person {
         this.age = age;
     }
 
+    public static Person from(String name, int age) {
+        return new Person(name, age);
+    }
+
     public String getName() {
         return name;
     }
 
     public int getAge() {
         return age;
-    }
-
-    public static Person from(String name, int age) {
-        return new Person(name, age);
     }
 
     @Override
@@ -34,6 +34,7 @@ class Person {
                 '}';
     }
 }
+
 public class CollectorsDemo {
     public static List<Person> createPeople() {
         return List.of(
@@ -47,6 +48,7 @@ public class CollectorsDemo {
                 Person.from("Jill", 11)
         );
     }
+
     public static void main(String[] args) {
 
         List<Person> people = createPeople();

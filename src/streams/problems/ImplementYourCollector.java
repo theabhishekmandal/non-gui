@@ -21,7 +21,10 @@ public class ImplementYourCollector {
         // this will give correct result as all the tasks are divided, and after computing the result are added together.
         var myIntCollector = Collector.of(() -> new long[1],
                 (long[] result, Integer value) -> result[0] += value,
-                (long[] result1, long[] result2) -> {result1[0] += result2[0]; return result1;},
+                (long[] result1, long[] result2) -> {
+                    result1[0] += result2[0];
+                    return result1;
+                },
                 Collector.Characteristics.IDENTITY_FINISH,
                 Collector.Characteristics.UNORDERED);
         var count = collectStream(false, myIntCollector)[0];
@@ -37,9 +40,12 @@ public class ImplementYourCollector {
         var isSerial = false;
         // this will work in parallel stream, because we are dividing tasks and then combining, using combiner thereby reducing
         var myList = collectStream(isSerial, Collector.of((Supplier<MyList<Integer>>) MyList::new,
-                MyList::add, (left, right) -> {left.addAll(right); return left;},
-                        Collector.Characteristics.IDENTITY_FINISH
-                ));
+                MyList::add, (left, right) -> {
+                    left.addAll(right);
+                    return left;
+                },
+                Collector.Characteristics.IDENTITY_FINISH
+        ));
         System.out.println(myList.size());
 
 

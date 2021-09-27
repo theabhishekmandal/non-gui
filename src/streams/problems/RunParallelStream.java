@@ -16,7 +16,8 @@ public class RunParallelStream {
 
     private static void process(Stream<Integer> stream) throws InterruptedException {
         ForkJoinPool pool = new ForkJoinPool(100);
-        pool.submit(() -> stream.forEach(e -> {}));
+        pool.submit(() -> stream.forEach(e -> {
+        }));
         pool.shutdown();
         pool.awaitTermination(10, TimeUnit.SECONDS);
     }
@@ -36,7 +37,7 @@ public class RunParallelStream {
     private static boolean sleep(int ms) {
         try {
             Thread.sleep(ms);
-        } catch(InterruptedException e) {
+        } catch (InterruptedException e) {
             return false;
         }
         return true;

@@ -8,7 +8,7 @@ import java.util.stream.IntStream;
 /**
  * Given first five digits, use stream to generate all the unique multiples of them
  * Approach:
- *  -   This is a problem of reduction operation as we have to reduce all the generated multiples to a single list
+ * -   This is a problem of reduction operation as we have to reduce all the generated multiples to a single list
  */
 public class GenerateMultiples {
     public static void main(String[] args) {

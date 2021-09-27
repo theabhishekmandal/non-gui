@@ -5,7 +5,7 @@ public class Employee {
     private String name;
     private Double Salary;
 
-    public Employee(int id, String name, Double Salary){
+    public Employee(int id, String name, Double Salary) {
         this.id = id;
         this.name = name;
         this.Salary = Salary;
@@ -44,8 +44,10 @@ public class Employee {
         this.Salary = salary;
     }
 
-    public void salaryIncrement(Double perc){
-        if(this.Salary == null) return;
+    public void salaryIncrement(Double perc) {
+        if (this.Salary == null) {
+            return;
+        }
         this.Salary += (this.Salary * (perc / 100.0));
     }
 

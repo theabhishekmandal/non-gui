@@ -10,9 +10,10 @@ import java.util.function.Predicate;
  */
 public class DistinctLimitCount {
     private static <T> Predicate<T> distinct(long atLeast) {
-       Map<T, Long> map = new ConcurrentHashMap<>();
-       return t -> map.merge(t, 1L, Long::sum) == atLeast;
+        Map<T, Long> map = new ConcurrentHashMap<>();
+        return t -> map.merge(t, 1L, Long::sum) == atLeast;
     }
+
     public static void main(String[] args) {
         List<String> langs = List.of("Java", "Scala", "Kotlin", "Kotlin", "Scala", "Scala", "Groovy", "Kotlin");
         langs.stream().filter(distinct(3)).forEach(System.out::println);

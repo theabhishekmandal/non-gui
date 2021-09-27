@@ -18,7 +18,7 @@ public class ConvertStringToDistinctCharacterString {
 
         // first way
         var builder = new StringBuilder();
-        string.codePoints().distinct().forEach(x -> builder.append((char)x));
+        string.codePoints().distinct().forEach(x -> builder.append((char) x));
         var distinctString = builder.toString();
         System.out.println(distinctString);
 
