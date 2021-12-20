@@ -1,4 +1,4 @@
-package design_patterns;
+package design_patterns.singleton;
 
 class Elvis {
     private static final Elvis elvis = new Elvis();

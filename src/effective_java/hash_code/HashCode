@@ -1,0 +1,15 @@
+While overriding the equals method, one must also override the hashcode as well.
+
+Repeatedly calling the hashcode method on the same object should return the same result
+
+If two objects are equal, according the equals(Object) method then their hashcode should
+also be the same.
+
+If two objects are unequal, then it is not necessary that their hashCode will be different.
+However, distinct hashcode improves performance of hash tables.
+
+If a class is immutable and the cost of computing a hash code is significant, you might consider
+caching the hash code, rather than recalculating again when requested.
+
+Do not be tempted to exclude significant fields from the hash code com-
+putation to improve performance.

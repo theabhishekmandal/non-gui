@@ -1,0 +1,47 @@
+When do we not want to override equals implementation?
+    -   When each instance of the class is inherently unique
+        -   Eg: Thread class, because they represent active entities rather than
+                data values.
+    -   There is no need to provide the logical equality test.
+        -   Eg: Regex class, no requirement as of now to implement logical test.
+    -   A superclass has already overridden equals, and the super class behaviour
+        is appropriate for this class.
+        -   Eg: Most Set implementations inherit their equals implementations from
+                AbstractSet, List implementations from AbstractList
+    -   The class is private or package-private, and you are certain that its equals
+        method will never be invoked.
+        -   Eg: you can add throw new AssertionError() if someone tries
+                to invoke it intentionally.
+
+So, when does is it appropriate to override equals method?
+    -   It is when a class has a notion of logical equality that differs from mere
+        object identity and a superclass has not already overridden equals.
+
+    -   This is generally the case for value classes. A value
+        class is simply a class that represents a value, such as Integer or String.
+
+Equals Contract
+    -   Reflexive   :   For any non-null reference value x , x.equals(x) must return true.
+
+    -   Symmetric   :   For any non-null reference values x and y , x.equals(y) must re-
+                        turn true if and only if y.equals(x) returns true.
+
+    -   Transitive  :   For any non-null reference values x , y , z , if x.equals(y) returns
+                        true and y.equals(z) returns true , then x.equals(z) must return true.
+
+    -   Consistent  :   For any non-null reference values x and y , multiple invocations
+                        of x.equals(y) must consistently return true or consistently return false ,
+                        provided no information used in equals comparisons is modified.
+
+High Quality Equal method features
+    -   Use the == operator to check if the argument is a reference to the object.
+    -   Use the instanceOf type to check whether the object is of the correct type or not.
+    -   Cast the argument to the correct type.
+    -   For each significant field in the class, check if the field of the argument matches
+        the corresponding field of this object.
+
+
+Few final things to keep in mind while writing the equals contract
+    -   Always override hashCode when you override equals
+    -   Don't substitute another type for Object in the equals declaration, otherwise
+        it will become an overloaded method.
