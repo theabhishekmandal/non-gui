@@ -1,0 +1,5 @@
+-   if a class’s clone method returns an instance that is not obtained by call-
+    ing super.clone but by calling a constructor(CloneDemoByConstructorCloning.java),
+    the compiler won’t complain, but if a subclass of that class calls super.clone,
+    the resulting object will have the wrong class,
+    preventing the subclass from clone method from working properly
