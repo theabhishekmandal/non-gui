@@ -105,7 +105,7 @@ public class NonRepeatingCharacter {
     // this one is easy
     private static String getNonRepeatingCharacterString2(char[] arr) {
         var count = new char[26];
-        Queue<Character> queue = new LinkedList<>();
+        Queue<Character> queue = new ArrayDeque<>();
         var br = new StringBuilder();
         for (char c : arr) {
             queue.add(c);
