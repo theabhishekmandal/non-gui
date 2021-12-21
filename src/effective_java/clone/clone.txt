@@ -3,3 +3,38 @@
     the compiler won’t complain, but if a subclass of that class calls super.clone,
     the resulting object will have the wrong class,
     preventing the subclass from clone method from working properly
+
+-   If a class contains mutable states then those fields won't be copied just by calling super.clone()
+-   In effect, the clone method functions as a constructor; you
+    must ensure that it does no harm to the original object and that it properly
+    establishes invariants on the clone
+
+-   the Cloneable architecture is incompatible with normal use of final fields referring to mutable objects.
+    Since final mutable fields are not cloneable(CorrectMutableCloning.java).
+
+-   In order to make a class cloneable, it may be necessary to remove
+    final modifiers from some fields
+
+-   Like a constructor, a clone method must never invoke an overridable method
+    on the clone under construction. If clone invokes a method that is over-
+    ridden in a subclass, this method will execute before the subclass has had a chance
+    to fix its state in the clone, quite possibly leading to corruption in the clone and the
+    original.
+
+-   Public clone methods should omit the throws
+    clause, as methods that don’t throw checked exceptions are easier to use.
+
+-   If you write a thread-safe class that
+    implements Cloneable , remember that its clone method must be properly syn-
+    chronized, just like any other method
+
+-   A better approach to object copying is to provide a copy constructor or copy factory.
+
+-   Advantages of copy constructor over clone
+    -   Don't rely on extralinguistic object creation mechanism
+    -   Don't conflict with the proper use of final fields
+    -   A copy constructor can take the argument whose type is interface implemented by the class.
+        For example all Collection constructor have Collection as an argument in the constructor.
+
+-   Given all the problems associated with Cloneable , new interfaces should not
+    extend it, and new extendable classes should not implement it

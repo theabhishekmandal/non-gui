@@ -1,7 +1,11 @@
 package effective_java.clone;
 
 import java.util.Objects;
-
+/**
+ * Example showing subclass using the super.clone() method on the super class where
+ * the clone() implementation has been done using super.clone() as well.
+ * This won't cause any issue.
+ */
 public class CloningFromSubclass2 {
     static class One implements Cloneable {
         int num;
