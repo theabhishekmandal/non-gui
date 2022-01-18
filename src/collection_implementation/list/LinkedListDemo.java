@@ -24,7 +24,7 @@ import static java.lang.System.out;
  *                                          of the collection c.
  */
 
-public class LinkedLIstDemo {
+public class LinkedListDemo {
     public static void main(String[] args){
 
         LinkedList<Integer> arr = new LinkedList<>();
