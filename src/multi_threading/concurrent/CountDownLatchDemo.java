@@ -1,4 +1,4 @@
-package concurrent;
+package multi_threading.concurrent;
 
 import java.util.concurrent.CountDownLatch;
 
