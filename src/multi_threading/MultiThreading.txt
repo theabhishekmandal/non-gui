@@ -1,0 +1,3 @@
+Concurrency vs Parallelism
+- Concurrency means doing multiple tasks by a single thread
+- Parallelism means doing multiple tasks using multiple threads.
