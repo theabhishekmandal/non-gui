@@ -1,0 +1,25 @@
+Thread Termination Why and When?
+    - Threads consumes resources
+        - Memory and Kernel resources
+        - CPU cycles and cache memory
+    - If a thread finishes its work, but the application is still running, we want to
+      clean up thread's resources
+    - If a thread is misbehaving, we want to stop it
+
+
+To stop a running thread we can do two of the followings
+    -   Either make the thread as daemon thread, so when the main thread finishes, daemon thread
+        also gets stopped
+    -   Or you can call the .interrupt() method on the running thread
+        -   But sometimes calling on .interrupt method does not stop the running thread, so in that case
+            we have to explicitly handled interruption logic as shown in the examples.
+
+When can we interrupt a Thread?
+    -   If the thread is executing a method that throws an InterruptedException. See(InterruptDemo.java)
+    -   If the thread's code is handling the interrupt signal explicitly.
+        See(ThreadInterruptionFailedDemo and ThreadInterruptionPassedDemo)
+
+
+Daemon Threads
+    - Background tasks that do not prevent application from exiting if the main thread terminates.
+    - use the setDaemon() to make a thread Daemon thread

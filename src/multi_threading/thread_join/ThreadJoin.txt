@@ -1,0 +1,5 @@
+Thread Coordination why we need it
+    -   Different threads runs independently
+    -   Order of execution is out of control
+
+We can achieve Thread coordination by using .join() method

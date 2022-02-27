@@ -1,3 +1,22 @@
+Why need Threads ?
+- Responsiveness
+    - Examples of Poor Responsiveness
+        - Waiting for Customer Support
+        - Late response from a person
+        - No feedback from an application
+- Performance
+    - Doing multiple things at the same time increases throughput
+    - Completing a complex task much faster
+    - Finish more work in the same period of time
+    - For high scale service
+        - Fewer machines
+        - Less money spent on hardware
+        - More money on your pocket
+
 Concurrency vs Parallelism
 - Concurrency means doing multiple tasks by a single thread
-- Parallelism means doing multiple tasks using multiple threads.
+- Parallelism means doing multiple tasks using multiple threads
+
+Process vs Threads
+-   Process can contain multiple Threads
+-   Context switching between Process is more costlier than Threads

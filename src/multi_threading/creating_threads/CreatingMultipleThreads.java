@@ -1,4 +1,4 @@
-package multi_threading;
+package multi_threading.creating_threads;
 /**
  * In this program we are creating multi threads by implementing runnable interface
  * Also in this we create two threads by using two objects means every object has at most one thread

@@ -1,0 +1,5 @@
+There are basically two ways of creating thread
+-   Either by implementing runnable Interface and passing as const parameter to Thread object
+-   Or extending the Thread class and creating the object
+
+To start a thread call the .start() method which internally will call the .run() method
