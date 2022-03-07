@@ -1,5 +1,7 @@
 package multi_threading.thread_join;
 
+import multi_threading.thread_join.dto.FactorialThread;
+
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -59,14 +61,17 @@ public class MultiThreadingWithThreadJoinDemo2 {
 
         private BigInteger factorialNew(long inputNumber) {
             BigInteger tempResult = BigInteger.ONE;
+            System.out.println("Factorial calculation started");
             for (long i = 2; i <= inputNumber; i++) {
 
                 // handling the interruption logic
                 if (Thread.currentThread().isInterrupted()) {
+                    System.out.println("Factorial calculation interrupted");
                     return BigInteger.ZERO;
                 }
                 tempResult = tempResult.multiply(new BigInteger(String.valueOf(i)));
             }
+            System.out.println("Factorial calculation stopped");
             return tempResult;
         }
     }

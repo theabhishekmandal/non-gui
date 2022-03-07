@@ -1,5 +1,7 @@
 package multi_threading.thread_join;
 
+import multi_threading.thread_join.dto.FactorialThread;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
