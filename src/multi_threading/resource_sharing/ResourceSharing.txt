@@ -1,0 +1,34 @@
+Things that are shared among threads
+    -   Heap(shared)
+        -   Objects
+        -   Class members
+        -   Static members
+
+Things that are not shared among threads
+    -   Stack
+        -   Local primitive types
+        -   Local references
+
+why do we want to share resources among threads?
+    -   One Thread is writing to a txt file and other thread is saving it, in this case
+        the text editor is the shared resource.
+    -   Another example would be a work queue, where one thread is pushing in the queue
+        and many other threads are reading from it.
+
+what are atomic operations
+    -   An operation or a set of operations is considered atomic, if it appears
+        to the rest of the system as if it occurred at once.
+    -   It should be single step - "all or nothing"
+
+
+Synchronization lock
+    -   Synchronization mode is reentrant i.e a thread cannot prevent itself from entering a critical
+        section. A thread can access both method1() and method2()
+        public class abc {
+            public synchronized method1() {
+                method2();
+            }
+            public synchronized method2() {
+                // something
+            }
+        }
