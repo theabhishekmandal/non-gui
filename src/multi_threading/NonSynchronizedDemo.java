@@ -2,11 +2,11 @@ package multi_threading;
 
 /**
  * this program shows that the if a thread is currently  being executed
- * and a delay of few milli seconds is given then another thread starts getting executed
+ * and a delay of few milliseconds is given then another thread starts getting executed
  * without the former thread being finished
- *
+ * <p>
  * This leads to non Synchronisation which can lead to deadlock
- * So, the next program will tell on how to use synchronisation
+ * So, the next program will tell on how to use synchronisation.
  * Synchronisation will be achieved by using the keyword synchronized
  */
 public class NonSynchronizedDemo implements Runnable{

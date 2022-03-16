@@ -1,0 +1,14 @@
+
+Which operations are actually atomic in nature?
+    -   All reference operations are atomic in nature;
+        -   Object a = new Object();
+            Object b = a;
+        -   Like in setters and getters
+    -   All assignments to primitives except long and double are atomic
+        -   long and double are 64-bit numbers, so it first updates the
+            lower 32 bits in one operation and the next 32 bit in other
+            operation.
+        -   We can use volatile keyword for long and doubles, where read
+            and write are thread safe and atomic. That's right.
+        -   Volatile makes assignments to long atomic, however incrementing a volatile
+            variable still involves multiple operations.

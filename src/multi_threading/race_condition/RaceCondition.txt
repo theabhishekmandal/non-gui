@@ -1,0 +1,53 @@
+Race Condition
+    -   Condition when multiple resources are accessing a shared resource.
+    -   At least one thread is modifying the resource.
+    -   The timing of thread's scheduling may cause incorrect results.
+    -   The core of the problem is non-atomic operations performed on the shared
+        resource.
+
+Race Condition Solution
+    -   Identification of critical section where the race condition is happening.
+    -   Protection of critical section by synchronized block.
+    
+-    Compiler and CPU may execute the instruction in Out of Order to optimize performance and
+       utilization.
+-   They will do so while maintaining the logical correctness of the code.
+-   Out of Order execution by the compiler and CPU are important features to speed up the code.
+-   The compiler re-arranges instructions for better
+    -   Branch prediction(optimized loops, "if" statements etc.)
+    -   Vectorization - parallel instruction execution(SIMD)
+    -   Prefetching instructions - better cache performance
+-   CPU re-arranges instructions for better hardware units utilization.
+    -   Eg:
+           public void sumFunction() {
+               x = 1;
+               y = x + 2;
+               z = y + 10;
+           }
+           -   In this example this won't be executed in Out of Order fashion, as the code depends
+               on the result from previous line of code.
+
+            public void increment1() {
+                x++;
+                y++;
+            }
+
+            public void increment2() {
+                y++;
+                x++;
+            }
+            -  However, the above two methods does not have any dependency on the lines of codes.
+            -  According to CPU and compiler point of view both are logically equivalent.
+            -  In single thread this won't be an issue, but in multithreaded environment compiler and
+               CPU are not aware that another thread is reading those values, and they depend on the
+               order of variables defined.
+            -  Due this it will give incorrect and unexpected results.
+
+-    Data Race Solutions
+    -   Synchronization of methods that modify shared variables.
+    -   Declaration of shared variables with the volatile keyword.
+ 
+    -   In the DataRaceConditionDemo.java example we didn't face race condition since,
+        no two threads are modifying the shared variable so adding synchronized keyword won't help.
+    -   Next solution is to add the volatile keyword in the variables. This will guarantee locking and
+        that all the variables are executed in order rather than Out of Order.

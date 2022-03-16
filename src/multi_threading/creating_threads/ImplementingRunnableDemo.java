@@ -1,4 +1,4 @@
-package multi_threading;
+package multi_threading.creating_threads;
 
 /**
  *
