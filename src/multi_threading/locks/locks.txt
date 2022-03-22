@@ -1,0 +1,103 @@
+Reentrant Lock
+    -   Works just like the synchronized keyword applied on object.
+    -   Requires explicit locking and unlocking
+
+Correct use of Reentrant lock
+    -   Lock lock = new ReentrantLock();
+        long method() {
+            lock.lock();
+            try {
+                do operations or throw exception
+                return value;
+            } finally {
+                lock.unlock();
+            }
+        }
+    -   Remember to unlock the lock in finally block. In this way it will work even
+        if there is any exception.
+
+
+But, why we should use Reentrant lock?
+    -   For this complexity of locking and unlocking we are rewarded with more:
+        -   Control over the lock
+        -   More lock operations
+
+    -   Query methods - For testing
+        -   getQueuedThreads()      -   Returns a list of threads waiting to acquire
+                                        a lock.
+        -   getOwner()              -   Returns the thread that currently owns the lock.
+        -   isHeldByCurrentThread() -   Queries if the lock is held by current thread.
+        -   isLocked()              -   Queries if the lock is held by any thread.
+
+    -   These methods can be handy when testing any production code.
+    -   Another area where the Reentrant Lock shines is the control over the lock's
+        fairness
+    -   By default, the ReentrantLock and the synchronized keyword do not guarantee fairness.
+        to enable it we have to pass new ReentrantLock(true) as fairness.
+    -   Fairness flag may reduce the throughput of application. So, therefore it should be carefully used.
+
+
+
+Why to use LockInterruptibly method
+    -   Suppose current thread is trying to acquire a lock while another thread has acquired
+        the lock using lock() method, then current thread will go in blocked/suspended state
+        and will wake up when the lock is released by previous thread.
+    -   And to wake up that thread from suspended state interrupt method will not work.
+        @Override
+        public void run() {
+            lockObject.lock();
+            if (Thread.currentThread().isInterrupted()) {
+                cleanUpAndExit();
+            }
+        }
+
+        someThread.interrupt();
+
+    -   So, in the above scenario lockInterruptibly() method comes into picture. lockInterruptibly()
+        method will work when current thread tries to acquire existing acquired lock. We can then
+        call the interrupt method and interruption logic will work.
+        @Override
+        public void run() {
+            try {
+                lockObject.lockInterruptibly();
+            } catch (IntrruptedException ex) {
+                cleanupAndExit();
+            }
+        }
+
+        someThread.interrupt();
+
+
+Why to use tryLock()?
+    -   In this the thread tries to see if the lock is free. If it is free then it acquires the lock.
+    -   However, if it is not available then it does not block the thread.
+
+
+Why to use ReadWriteLock ?
+    -   Race condition require
+        -   Multiple threads sharing a resource
+        -   At least one thread is modifying the resource
+    -   Solution - Complete mutual exclusion
+        -   Regardless of operation (read/write/both)
+        -   Lock and allow only one thread to critical section.
+    -   But, what happens when we have many reads but few writes?
+    -   In that scenario our application will become slow.
+    -   Synchronized and ReentrantLock do not allow multiple readers to
+        access a shared resource concurrently.
+    -   For general use case both of these locking mechanism are good
+    -   But, when reads are predominant and consumes more time, then mutual
+        exclusion of reading threads degrades the performance.
+    -   This is where ReadWriteLock comes into picture.
+        -   It has two methods, readLock() and writeLock()
+        -   writeLock() locks the critical section where thread is modifying the shared resource.
+        -   readLock() locks the critical section from being modified by another thread, but allows
+            to read the resource.
+        -   multiple threads can acquire the readLock()
+        -   single thread can acquire the writeLock()
+            -   if thread A is having the writeLock() but another thread B is trying to
+                acquire writeLock() then threadB will have to wait until the resource is
+                unlocked.
+        -   Mutual Exclusion between readers and writers.
+            -   When one thread has acquired the writeLock() then no other thread can acquire the readLock()
+            -   When atLeast one thread is holding the readLock(), then no other thread can acquire the writeLock()
+
