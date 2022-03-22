@@ -6,9 +6,9 @@ import java.util.concurrent.locks.ReentrantLock;
 /**
  * In previous example LockInterruptionFailedDemo we saw that acquiring already existing lock
  * by current thread was making it to go in suspended state.
- * <p>
+ *
  * Also, calling the interrupt method and handling interruption logic was not working.
- * <p>
+ *
  * Here, below calling interrupt() method we can still get out of the suspended state.
  */
 public class LockInterruptiblyDemo {

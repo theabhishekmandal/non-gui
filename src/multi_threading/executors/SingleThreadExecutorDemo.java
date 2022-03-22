@@ -5,12 +5,13 @@ import java.util.concurrent.Executors;
 
 /**
  * This example showing a single thread executor.
- * -   Only one task is performed at a time
- * -   Second task is picked when the previous task is finished.
- * <p>
- * Also remember to call the shutDown method to stop the application
- * completely. This will ensure to interrupt any long-running threads
- * and will stop them
+ *  -   Only one task is performed at a time
+ *  -   Second task is picked when the previous task is finished.
+ *
+ *  Also remember to call the shutDown method to stop the application
+ *  completely. This will ensure to interrupt any long-running threads
+ *  and will stop them
+ *
  */
 public class SingleThreadExecutorDemo {
     public static void main(String[] args) {

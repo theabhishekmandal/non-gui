@@ -5,12 +5,13 @@ import java.util.concurrent.Executors;
 
 /**
  * Example showing fixed size Thread pool
- * -   Here we predefine the number of threads we want to use
- * -   Tasks can be picked up by different threads simultaneously
- * <p>
- * Also remember to call the shutDown method to stop the application
- * completely. This will ensure to interrupt any long-running threads
- * and will stop them
+ *  -   Here we predefine the number of threads we want to use
+ *  -   Tasks can be picked up by different threads simultaneously
+ *
+ *  Also remember to call the shutDown method to stop the application
+ *  completely. This will ensure to interrupt any long-running threads
+ *  and will stop them
+ *
  */
 public class FixedThreadPoolExecutorDemo {
     public static void main(String[] args) {

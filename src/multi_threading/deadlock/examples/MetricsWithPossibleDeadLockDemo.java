@@ -2,10 +2,10 @@ package multi_threading.deadlock.examples;
 
 /**
  * No code here for execution.
- * <p>
+ *
  * addSample and reset are two methods which can be executed separately in
  * two different threads.
- * <p>
+ *
  * Note here addSample and reset can cause deadlock issue since the order
  * of locks are not uniform in both of these methods
  */

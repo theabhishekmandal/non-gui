@@ -10,14 +10,14 @@ import java.util.Random;
  * train A is passing       train B is passing
  * release(B)               release(A)
  * release(A)               release(B)
- * <p>
+ *
  * - Here for a train A to pass first trainThreadA locks A and then B
  * - And for train B to pass second trainThreadB locks B and then A.
  * - This causes a deadlock situation as, first trainThreadA tries to lock A
- * and simultaneously trainThreadB tries to lock B which is also required
- * by trainThreadA.
+ *   and simultaneously trainThreadB tries to lock B which is also required
+ *   by trainThreadA.
  * - Like this we are in circular deadlock situation in which the lock that
- * trainThreadA is trying to acquire is already held by trainThreadB.
+ *   trainThreadA is trying to acquire is already held by trainThreadB.
  * - Check next example for possible solution
  */
 public class DeadLockDemo {

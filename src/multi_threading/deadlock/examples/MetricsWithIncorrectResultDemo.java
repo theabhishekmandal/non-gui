@@ -5,7 +5,7 @@ package multi_threading.deadlock.examples;
  * All the methods except addSample and reset are not using synchronized keyword.
  * But since, they are only getter methods with long and double primitive types their result
  * will be incorrect on Multithreaded environment.
- * <p>
+ *
  * To avoid the race condition either we should use volatile keyword or we can wrap with
  * synchronized keywords in getter method.
  */

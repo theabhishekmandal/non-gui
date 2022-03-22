@@ -10,14 +10,14 @@ import java.util.Random;
  * train A is passing       train B is passing
  * release(B)               release(A)
  * release(A)               release(B)
- * <p>
+ *
  * - In this example we are trying to avoid the deadlock situation.
  * - If we check the order in acquiring the lock from above, we will notice that
- * both of threads use the same order for acquiring the lock i.e. lock(A) and lock(B)
+ *   both of threads use the same order for acquiring the lock i.e. lock(A) and lock(B)
  * - In previous example it was different which caused the deadlock situation.
  * - In this when trainAThread tries to acquire the lock(A) at the same time trainBThread
- * also tries to acquire the lock(A). But out of two only one of them will succeed. The
- * succeeded one will also be able to acquire lock(B).
+ *   also tries to acquire the lock(A). But out of two only one of them will succeed. The
+ *   succeeded one will also be able to acquire lock(B).
  * - Also note that order of release of lock is not important here.
  */
 public class DeadLockSolutionDemo {

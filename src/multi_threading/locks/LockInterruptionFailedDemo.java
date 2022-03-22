@@ -7,7 +7,7 @@ import java.util.concurrent.locks.ReentrantLock;
  * This is an example showing that, if current thread is trying to acquire a lock
  * on existing acquired lock by different thread. Then current thread will go in
  * suspended state.
- * <p>
+ *
  * Also, calling the interrupt method, and handling the interruption logic
  * would not work here. See below
  */
