@@ -1,0 +1,39 @@
+Locking Strategies
+    -   Coarse-grained locking
+        -   In this only one lock is used everywhere. This is easy to implement but slow in performance as
+            only one thread is able to access the object at a time. Eg - SynchronizedMap.
+    -   Fine-grained locking
+        -   In this multiple locks are used for different areas. This is hard to implement and may introduce
+            deadlock problem but fast in performance as multiple threads can access different methods
+            depending on the number of locks. Eg - ConcurrentHashMap.
+
+What is a deadlock?
+    -   Deadlock is a situation in which, one thread is waiting for resources to be released which
+        is held by another thread.
+
+
+Conditions for deadlock
+    -   Mutual Exclusion    -   Only one thread can have exclusive access to a resource.
+    -   Hold and Wait       -   At least one thread is holding a resource and is waiting for
+                                another resource.
+    -   Non-preemptive
+        Allocation          -   A resource is released only after the thread is done using it.
+    -   Circular Wait       -   A chain of at least two threads each one is holding one
+                                resource and waiting for another resource.
+
+
+Solutions for deadlock
+    -   To avoid deadlock if one of the conditions from above does not match then deadlock
+        cannot happen.
+    -   The easiest solution to avoid deadlock is to avoid circular wait i.e. Enforce strict
+        order in lock acquisition. So, we can change the order of execution to be similar in order and by
+        that we won't be in a position of circular dependency.
+        see example DeadLockDemo.java and DeadLockSolutionDemo.java.
+
+
+Other techniques for avoiding deadlock
+    -   Deadlock detection - Watchdog
+    -   Thread interruption using Watchdog. Watchdog thread will try to interrupt
+        those threads which may cause deadlock. Cannot be done using synchronized keyword.
+    -   using tryLock operations. In this first the thread sees if it is able to acquire
+        the lock or not. This type of operations is also not possible using synchronized keyword.
