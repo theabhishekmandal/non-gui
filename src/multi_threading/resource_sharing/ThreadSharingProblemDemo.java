@@ -7,21 +7,21 @@ import multi_threading.resource_sharing.dto.InventoryCounter;
 /**
  * This is an example of Problems that we can face while sharing resource in multithreaded environment.
  * -    Here InventoryCounter is the object which is shared between two threads DecrementingThread and
- * IncrementingThread.
+ *      IncrementingThread.
  * -    IncrementingThread increases the value and DecrementingThread decreases the value of InventoryCounter
  * -    On sequential running the final value of InventoryCounter object is 0. But on running in parallel
- * we can see that the final value is not 0.
- * <p>
+ *      we can see that the final value is not 0.
+ *
  * -    The core problem here is
- * -   InventoryCounter is shared between two threads.
- * -   items++ and items-- are happening simultaneously.
- * -   and these two are not atomic operations.
- * <p>
+ *      -   InventoryCounter is shared between two threads.
+ *      -   items++ and items-- are happening simultaneously.
+ *      -   and these two are not atomic operations.
+ *
  * -    items++ is a 3-step operation
- * -   items <- 0
- * -   items + 1 = 1
- * -   items <- 1
- * <p>
+ *      -   items <- 0
+ *      -   items + 1 = 1
+ *      -   items <- 1
+ *
  * - See next ThreadSharingProblemSolutionDemo
  */
 public class ThreadSharingProblemDemo {

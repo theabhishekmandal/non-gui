@@ -6,10 +6,10 @@ import multi_threading.resource_sharing.dto.InventoryCounterThreadSafe;
 
 /**
  * To solve the problem of concurrent modification by threads in previous example.
- * -   Critical sections are defined inside the synchronized block
- * -   Only one thread at a time can update the value.
- * <p>
- * See InventoryCounterThreadSafe.
+ *  -   Critical sections are defined inside the synchronized block
+ *  -   Only one thread at a time can update the value.
+ *
+ *  See InventoryCounterThreadSafe.
  */
 public class ThreadSharingProblemSolutionDemo {
     public static void main(String[] args) throws InterruptedException {

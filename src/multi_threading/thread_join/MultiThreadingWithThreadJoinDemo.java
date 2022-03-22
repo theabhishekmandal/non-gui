@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * This is an extension to previous example. In this with the help of join method
  * we will wait till 2 secs to finish the job and after that the main thread will exit.
- * <p>
+ *
  * But, here after the main thread finishes, we can see that the application is still running
  * because we didn't interrupt the running thread
  */
