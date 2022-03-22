@@ -5,10 +5,10 @@ import java.util.Random;
 /**
  * This is an example showing how metrics are used in Production application, to know how fast
  * the business operations are performing.
- * <p>
+ *
  * Here the Metrics class is made through using synchronization, since it will be shared between
  * two business logic operations running on separate threads.
- * <p>
+ *
  * MetricsPrinter prints the value of all the results after every 100ms.
  */
 public class AtomicOperationsDemo {
