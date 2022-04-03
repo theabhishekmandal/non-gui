@@ -1,0 +1,101 @@
+Types of limited Inter-Thread communication we did in previous examples
+    -   Thread.interrupt()  -   When one thread A interrupted another thread B to give up it's work
+                                and terminate
+    -   Thread.join()       -   When one thread A wanted to give up the cpu and wait until thread B
+                                was terminated. The way we did was to call the thread.join() method
+                                from thread A to thread B object. This way when thread B got terminated
+                                it sent a signal to wake up thread A
+    -   semaphore           -   When a semaphore ran out of permits and if a thread A tried to acquire
+                                it would get suspended. Then thread B used the release() method to sent
+                                a signal to thread A to wakeup.
+
+Inter-thread Semaphore as a Condition Variable
+    -   Calling acquire() on a Semaphore is equivalent to checking the
+        condition "Is Number of Permits > 0"?
+    -   If the condition is not met thread A goes to sleep until another thread
+        changes the semaphore's state.
+    -   When the thread B calls the release(), thread A wakes up
+        -   Thread A checks the condition "Is the Number of Permits > 0?"
+        -   If it is, thread A continues to the next instruction.
+
+
+    -   A Condition is a generic way of inter thread communication.
+
+
+    -   Inter-thread Creation
+        -   Condition variable is always associated with a lock
+        -   The lock ensures atomic check and modification of the shared variables,
+            involved in the condition.
+
+
+Producer Consumer with the help of Condition
+    -   We will have the Following values shared between both Producer and Consumer
+        -   Lock        -   Used for locking and unlocking. It's property of locking and unlocking
+                            should be done by same thread only. It means if one thread has acquired
+                            the lock and has not released yet, another thread if tried to acquire the
+                            lock will go in waiting state.
+        -   Condition   -   Here Condition's await() and signal() method is used.
+                            await() will suspend the current thread and also will unlock the current lock
+                            from which this condition is created.
+                            Condition's signal() method here is used to signal the thread which had called
+                            await() and makes that thread wakeup from waiting state. If multiple
+                            threads had called await() then using the signal() only one thread will
+                            wake up. To wake up all threads use signalAll()
+        -   Queue       -   Queue is used by Producer to produce and then used by Consumer to consume.
+
+
+    -   Consumer
+        lock.lock();
+        try {
+            while(queue.isEmpty()) {
+                condition.await();
+            }
+            lock.lock();
+            int value = queue.poll();
+
+        } finally {
+            lock.unlock();
+        }
+
+    -   Producer
+        lock.lock();
+        try {
+            queue.add(1);
+            condition.signal();
+        } finally {
+            lock.unlock();
+        }
+
+    -   Now let's start. Consumer thread enters and tries to acquire the lock and is successful.
+        At the same time Producer thread enters and will also try to acquire the lock but will
+        be unsuccessful and will go in waiting state. If the order of acquisition of lock is reversed
+        the Producer will acquire the lock and the Consumer will go in waiting state. Both the scenarios
+        are in favourable conditions. We want that consumer should not consume anything until the producer
+        has produced anything.
+    -   Now Consumer will check if the queue is empty or not. If it is empty then it will call await().
+    -   await() will suspend the Consumer thread and will also unlock the lock without going to finally
+        block. Thus, we are waiting for the producer to produce.
+    -   Now the Producer thread has waked up and now will now produce the value and add into the queue.
+        It will also use the signal() method to wake up the Consumer thread which was waiting earlier.
+    -   Now Consumer will try to acquire the lock again (as it is needed because we are modifying the
+        queue so the locking is needed again).
+        But it will be successful in acquiring the lock when the Producer has unlocked the lock in it's finally block.
+    -   When the Consumer acquires the lock then it will poll the value from the queue and consume it. After that
+        it will unlock the lock in finally block.
+
+
+
+    -   Important thing to note here is that await should always be used inside while method.
+
+
+
+Inter-Thread Condition.signal()
+    -   void signal()       -   wakes up a single thread, waiting on the condition variable.
+    -   A thread that wakes up has to reacquire the lock associated with the condition variable.
+    -   If currently no thread is waiting on the condition variable, the signal method doesn't do
+        anything.
+    -   void signalAll()    -   Broadcast a signal to all the threads currently waiting on the condition
+                                variable.
+    -   Unlike semaphore where release() required to know how many threads were waiting on acuire().
+        signalAll() does not need to know how many threads were waiting on the condition
+        variable.

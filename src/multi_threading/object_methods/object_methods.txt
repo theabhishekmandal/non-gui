@@ -1,0 +1,83 @@
+wait(), notify() and notifyAll()
+The Object class contains the following methods.
+    -   public final void wait() throws InterruptedException
+    -   public final void notify()
+    -   public final void notifyAll()
+
+ Every Java class inherits from the Object class
+ We can use any object as a condition variable and a lock(using the synchronized keyword)
+
+ -  wait()  -   Causes the current thread to wait until another thread wakes it up.
+            -   In the wait state, the thread is not consuming any CPU.
+ -  Two ways to wake up the waiting thread:
+    -   notify()    -   Wakes up a single thread waiting on that object.
+    -   notifyAll() -   Wakes up all the threads waiting on that object.
+ -  To call wait(), notify() and notifyAll() we need to acquire the monitor of that object(use
+    synchronized on that object).
+
+ Object Signalling vs Condition Variables
+ -  synchronized(object) {              -   lock.lock()
+
+    }                                       lock.unlock()
+ -  object.wait()                       -   condition.await()
+ -  object.notify()                     -   condition.signal()
+ -  object.notifyAll()                  -   condition.signalAll()
+
+
+
+How both these classes are different ?
+class SomeClass1 {
+    boolean isCompleted = false;
+
+    public synchronized void declareSuccess() throws InterruptedException {
+        while (!isCompleted) {
+            wait();
+        }
+
+        System.out.println("Success!!");
+    }
+
+    public synchronized void finishWork() {
+        isCompleted = true;
+        notify();
+    }
+}
+
+class SomeClass2 {
+    Lock lock = new ReentrantLock();
+    Condition condition = lock.newCondition();
+    boolean isCompleted = false;
+
+    public void declareSuccess() throws InterruptedException {
+        lock.lock();
+        try {
+            while (!isCompleted) {
+                condition.await();
+            }
+        }
+        finally {
+            lock.unlock();
+        }
+
+        System.out.println("Success!!");
+    }
+
+    public void finishWork() {
+        lock.lock();
+        try {
+            isCompleted = true;
+            condition.signal();
+        }
+        finally {
+            lock.unlock();
+        }
+    }
+}
+
+-   These are two different ways to use inter-thread communication to achieve the same goal.
+        -   SomeClass1 is using the instance of the class as the lock as well as the condition variable.
+        -   SomeClass2 is using an explicit ReentrantLock as the lock and the Condition object as the
+            condition variable.
+        -   Using ReentrantLock and the Condition allows more flexibility as the condition class has the
+            methods like awaitUninterruptibly() and awaitUntil(Date deadline) which the class Object does
+            not have. However, it is more verbose.
