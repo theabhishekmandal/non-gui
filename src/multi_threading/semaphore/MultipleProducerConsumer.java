@@ -9,6 +9,9 @@ import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 import java.util.stream.IntStream;
 
+/**
+ * This is an example of Multiple Producers with Multiple Consumers.
+ */
 public class MultipleProducerConsumer {
     public static void main(String[] args) throws InterruptedException {
         int numberOfProducerAndConsumer = 10;
@@ -84,7 +87,6 @@ public class MultipleProducerConsumer {
         private void finish() {
             System.out.println(Thread.currentThread().getName() + " done");
             full.release();
-            empty.release();
         }
     }
 
@@ -108,13 +110,12 @@ public class MultipleProducerConsumer {
                 try {
                     full.acquire();
 
-                    if (queue.isEmpty()) {
-                        System.out.println("Queue is empty");
-                        break;
-                    }
-
                     lock.lock();
                     try {
+                        if (queue.isEmpty()) {
+                            System.out.println("Queue is empty");
+                            break;
+                        }
                         int valueToConsume = queue.poll();
                         System.out.println("Consumed Value " + valueToConsume);
                     } finally {
@@ -131,7 +132,6 @@ public class MultipleProducerConsumer {
 
         private void finish() {
             System.out.println(Thread.currentThread().getName() + " done");
-            full.release();
             empty.release();
         }
     }
