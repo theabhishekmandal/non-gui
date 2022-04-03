@@ -1,0 +1,96 @@
+Semaphore Introduction
+    -   Can be used to restrict the number of users to a particular resource or a
+        group of resources.
+    -   Unlike the locks that allow only one user per resource.
+    -   The semaphore can restrict any given number of users to a resource.
+    -   Eg: Parking lot, where only 8 slots are available to park the vehicle.
+            If at given time 6 out of 8 slots are filled then only other 3 are available. If more
+            cars are coming then they have to wait.
+
+    -   Semaphore semaphore = new Semaphore(NUMBER_OF_PERMITS);
+        semaphore.acquire(); // NUMBER_OF_PERMITS - 1 now available;
+
+    -   A thread tries to acquire the permit if it is available and then moves to the next
+        instruction.
+    -   A thread can acquire more than one permits by passing number of permits in the acquire
+        method. semaphore.acquire(5);
+    -   In similar way, a thread can release more than one permits by using the release method.
+        semaphore.release(5);
+    -   If a thread tries to acquire a permit when there is no permits available, then the
+        thread gets blocked.
+
+How semaphore is different from locks
+    -   Semaphore does not have a notion of owner thread.
+    -   Many threads can acquire a permit.
+    -   The same thread can acquire the semaphore multiple times
+    -   The binary semaphore (initialized with 1) is not reentrant. For example:
+        Semaphore semaphore = new Semaphore(1);
+        semaphore.acquire() // Current thread will acquire the semaphore first time
+        semaphore.acquire() // Current thread will try to acquire the semaphore once again but will
+                               go in waiting state. Also, current thread will require another thread
+                               to release the semaphore. This concludes that Binary Semaphore is not
+                               reentrant i.e. you cannot acquire the binary semaphore more than once.
+
+    -   Since Semaphore can be released by any thread. Even can be released by the thread that hasn't actually
+        acquired it. So for example
+        CurrentThread                           DifferentThread
+        semaphore.acquire()                     semaphore.release()
+        useResource()                           semaphore.acquire()
+        semaphore.release()                     useResource()
+                                                semaphore.release()
+
+        So, in the above scenario lets suppose current threads acquires the permit.
+        But, Since permit can be released by any other thread, some other thread by accident
+        releases the semaphore. So at the same time both of the threads are using the Resource
+        which can cause race condition.
+
+        This above scenario cannot happen with locks. As the thread that acquires the lock is only itself
+        be able to release the lock.
+
+    -   Lets take and example of Semaphore semaphore = new Semaphore(0);
+    -   Now if 10 threads try to acquire the lock on this semaphore then they would get blocked and will go
+        in waiting state.
+    -   To wake all the threads we have to call the release method semaphore.release(10). This will
+        wake up all the threads who were blocked when they were trying to acquire the semaphore.
+
+
+Producer Consumer using Semaphore.
+    -   Semaphore full = new Semaphore(0);
+        Semaphore empty = new Semaphore(1);
+        Item item = null
+
+
+    -   Producer
+        while(true) {
+            empty.acquire();
+            item = produceItem();
+            full.release();
+        }
+
+    -   Consumer
+        while(true) {
+            full.acquire();
+            consume(item);
+            empty.release();
+        }
+
+    -   Let's take the above example and understand how it is working.
+    -   First semaphore(0) means it has 0 keys i.e if some thread C1(consumer) tries to acquire this semaphore
+        then it will go in waiting state. And P1(producer) thread will have to release it.
+    -   semaphore(1) means it has 1 key i.e 1 key is shared among different threads. If one Producer/Consumer thread
+        tries to acquire it then it will be successful. Also, semaphore can be released by different thread or the
+        same thread. Since, it is the property of semaphore.
+    -   Also out of the both Producer and Consumer, Producer will go first to produce item. Consumer cannot go first
+        to consume as there will be nothing to consume. That is why semaphore(1) is used by Producer and not on the Consumer
+        side. Consumer has to wait till the producer has finished producing and that's why semaphore(0) is on consumer
+        side.
+
+    -   Now let's start. First producer will go inside and will successfully acquire empty semaphore. At the
+        same time when Consumer tries to acquire full semaphore, it will go in waiting state.
+    -   As the Consumer is still waiting, Producer will now produce the item. And after the producer is done,
+        then it will release full semaphore. This will make consumer thread alive again from waiting state.
+    -   Now the consumer will try to consume the item. And at the same time if Producer again tries to acquire
+        the empty semaphore, it will go in waiting state since empty semaphore was not released.
+    -   After the consumer is done consuming, Consumer will release the empty semaphore and then Producer will
+        go from waiting state to alive state.
+    -   After this the cycle repeats.

@@ -59,6 +59,7 @@ public class ReentrantLockDemo {
 
         public void unlock() {
             if (lock instanceof ReentrantLock reentrantLock) {
+                // Checking if the lock is held by current thread then only release the lock
                 if (reentrantLock.isHeldByCurrentThread()) {
                     System.out.println("lock is held by thread " + Thread.currentThread().getName() + " so unlocking");
                     lock.unlock();
