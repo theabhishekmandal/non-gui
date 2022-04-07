@@ -1,0 +1,110 @@
+What's wrong with Locks ?
+    -   Everything learned so far about locks is very valuable.
+    -   Majority of multithreaded programming is still done with locks
+        (Synchronized, ReentrantLock, ReentrantReadWriteLock)
+    -   Most of the concurrency problems are easier and safer to solve with locks.
+    -   Locks have great hardware and software support
+    -   Using locks we can solve all concurrency issues
+
+Why learning Lock Free Techniques?
+    -   As engineers we are always faced with the trade off
+    -   For most problems there's more than one solution
+    -   The more tools we have the better we can choose the right tool for the job.
+    -   Being able to choose the right tool for the job is what makes a good engineer.
+
+Deadlocks
+    -   Deadlocks are generally unrecoverable.
+    -   Can bring the application to a complete halt.
+    -   The more locks in the application, the higher chances for a deadlock.
+
+Slow Critical Section
+    -   Multiple threads using the same lock.
+    -   One thread holds the lock for very long.
+    -   That thread will slow down all the other threads.
+    -   All the threads become as slow as the slowest thread.
+
+
+Priority Inversion
+    -   Two threads sharing the lock
+        -   Low priority Thread(document saver)
+        -   High priority thread (UI)
+
+    -   Low priority thread acquires the lock, and is preempted(scheduled out)
+    -   High priority thread cannot progress because of the low priority thread
+        is not scheduled to release the lock.
+    -   This could lead to performance issues and can lead to unresponsiveness in
+        the application.
+
+
+Thread not releasing the lock (Kill Tolerance)
+    -   Thread dies, gets interrupted or forgets to release the lock
+    -   Leaves all thread hanging forever.
+    -   Unrecoverable, just like a deadlock.
+    -   To avoid it, developers are required to write more complex code.
+
+
+Performance
+    -   Performance overhead in having contention over a lock
+        -   Thread A acquires a lock
+        -   Thread B tries to acquire the lock and gets blocked
+        -   Thread B is scheduled out(context switch)
+        -   Thread B is scheduled back(context switch)
+    -   Additional overhead may not be noticeable for most applications
+    -   But for latency sensitive applications, this overhead can be significant.
+
+
+Lock Free Techniques
+    -   Why did we need locks?
+        -   Multiple threads accessing shared resources.
+        -   At least one thread is modifying the shared resources.
+        -   Non-atomic operations
+            -   Non-Atomic operations Reason
+                -   Non-Atomic operations on the shared resource
+                -   A single Java operation turns into one or more hardware operations.
+                -   Example counter++ turns into 3 hardware instructions:
+                    -   Read count
+                    -   Calculate new value
+                    -   Store new value to count
+
+Lock Free Solution Breakdown
+    -   Utilize operations which are guaranteed to be one hardware operation.
+    -   A single hardware operation is
+        -   Atomic by definition
+        -   Thread safe
+
+Review of all Atomic Instruction we learned
+    -   Read/Assignment on all primitive types (except for long and double)
+    -   Read/Assignment on all references.
+    -   Read/Assignment on volatile long and double.
+    -   Read/Assignment on all volatile primitive types and references.
+
+AtomicX classes
+    -   Class located in the java.util.concurrent.atomic package
+    -   Internally uses the Unsafe class which provides access to low level, native methods
+    -   Utilize platform specific implementation of atomic operations.
+
+Atomic Integer Pros and Cons
+    -   Pros
+        -   Simplicity
+        -   No need to for locks or synchronization
+        -   No race conditions or data races
+    -   Cons
+        -   Only the operation itself is atomic
+        -   There is still race condition between 2 separate atomic
+            operations.
+            Eg:
+                int initialValue = 0;
+                AtomicInteger atomicInteger = new AtomicInteger(initialValue);
+                atomicInteger.incrementAndGet();
+                atomicInteger.addAndGet(-5);    <-- race condition
+
+
+Building a data-structure using AtomicReference<T>
+    -   AtomicReference wraps the object of a class and gives us the ability to perform atomic operations
+        on that reference.
+    -   AtomicReference(V initialValue)
+    -   V get()                 -   Returns the current value.
+    -   void set(V newValue)    -   Sets the value to newValue
+    -   boolean compareAndSet(V expectedValue, V newValue)
+        -   Assigns new value if current value == expected value.
+        -   Ignores the new value if the current value != expected value

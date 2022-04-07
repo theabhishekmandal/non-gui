@@ -3,7 +3,7 @@ package design_patterns.singleton;
 /**
  * Third way of creating singleton instance.
  * Advantages of creating this
- *  -   Provides serialisation solution, buy not creating multiple instances
+ *  -   Provides serialisation solution, by not creating multiple instances
  *  -   also guarantees against multiple instantiation.
  *
  * Disadvantages

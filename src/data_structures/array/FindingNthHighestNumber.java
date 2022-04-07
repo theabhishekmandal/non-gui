@@ -11,10 +11,10 @@ import java.util.*;
  * Out of all three approaches execution time is for large value of k
  *  -   solve > solve3 > solve2
  * Approach :
- *  -   Initialise array kArray of n size which will hold our 1 to n largest value in reverse order
- *      i.e 0 index will contain nth largest value and n - 1 index will contain the largest value
+ *  -   Initialise array kArray of k size which will hold our 1 to k largest value in reverse order
+ *      i.e 0 index will contain kth-largest value and k - 1 index will contain the largest value
  *  -   now iterate over input array and check if input is greater than kArray(using reverse index)
- *          -   if it is greater then first replace every other index i.e i < indexToBeReplaced with kArray[i + 1] value
+ *          -   if it is greater than first, replace every other index i.e i < indexToBeReplaced with kArray[i + 1] value
  *              and assign kArray[indexToBeReplaced] = input, then break
  *              eg: initially kArray[m, m, m], input = [1, 2, 3]
  *                  when input = 1, kArray[m, m, 1]

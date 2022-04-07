@@ -5,6 +5,7 @@ Which operations are actually atomic in nature?
             Object b = a;
         -   Like in setters and getters
     -   All assignments to primitives except long and double are atomic
+        -   if int a = 1; and we do a++, this is not an atomic operation, since it includes, read, modify and write.
         -   long and double are 64-bit numbers, so it first updates the
             lower 32 bits in one operation and the next 32 bit in other
             operation.
