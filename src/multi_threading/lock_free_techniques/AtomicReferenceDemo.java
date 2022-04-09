@@ -3,7 +3,7 @@ package multi_threading.lock_free_techniques;
 import java.util.concurrent.atomic.AtomicReference;
 
 /**
- * Here in AtomicReference if the expectedValue matches the current value then it stores
+ * Here in AtomicReference if the expected value matches the current value then only it stores
  * the value.
  */
 public class AtomicReferenceDemo {
