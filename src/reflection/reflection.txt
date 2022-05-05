@@ -1,0 +1,99 @@
+What can we do with Java Reflection ?
+    -   Using Reflection we can write flexible API that
+        -   Links different software components together at runtime.
+        -   Creates new program flow without any source code modifications.
+
+    -   Reflection allows writing general purpose algorithms that dynamically
+        adapt and change their behaviour based on the type of objects or classes
+        they are working on.
+    -   With the ability to analyze application's objects and classes at Runtime
+        -   We can create very powerful
+            -   Libraries
+            -   Frameworks
+            -   Software Designs
+            that would otherwise be impossible.
+
+
+Reflection Entry point Class<?>
+    -   Class<?> is an entry point for us to reflect on our application's code
+    -   An object of Class<?> contains all the information on
+        -   A given object's runtime type
+        -   A class in our application
+    -   That information includes
+        -   What methods and fields it contains
+        -   What classes it extends
+        -   What interfaces it implements
+
+Three ways to obtain the Class<?> object
+    -   Object.getClass()   -   When you have an instance of a particular class then just call .getClass()
+                                method to get the Class<?> object.
+                                Eg: String one = "hello"; Class<String> stringClass = one.getClass();
+                            -   No .getClass() method on primitive types
+
+    -   .class              -   When you don't have an instance of a particular class then use .class
+                                Eg: Class<String> stringClass = String.class;
+                            -   Works on primitive types as well Eg: Class booleanType = boolean.class;
+
+    -   Class.forName(...)  -   Using static method to get Class information.
+                                Eg: Class<?> stringType = Class.forName("java.lang.String");
+                                    Class<?> engineType = Class.forName("vehicles.Car$Engine");
+
+                            -   No Class.forName() for Primitive Types. If used we will get Runtime Error
+                                and not compilation error.
+
+
+Notes on Class.forName()
+    -   Much more likely to mistype the class name and get the ClassNotFoundException
+    -   The class we pass into Class.forName(...) may not even exist
+    -   Class.forName(...) is the least safest way to get the Class<?> object.
+    -   There are use cases where Class.forName(...) is our only option.
+        -   When we want to load from a config file.
+        -   When class is not present at compile time such as of a library and is only present at
+            runtime.
+
+Class<?> Java Wildcards
+    -   Using Class<?> we can describe a class object of any parameter type
+    -   Class<?> is super type to Class<T> of any type T
+
+
+
+java.lang.reflect.Constructor<?>
+    -   A constructor of Java class is represented by an instance of Constructor<?> class
+    -   The constructor object contains all information about the class's constructor including:
+        -   Number of parameters
+        -   Type of parameters
+
+    -   A class may have multiple constructors.
+
+Methods to get Constructor<?> objects
+    -   Class.getDeclaredConstructors()
+        -   Returns all the declared constructors within the class
+        -   Includes all the public and non-public constructors.
+    -   Class.getConstructors()
+        -   Returns only public constructors
+    -   If you know the particular constructor parameter types we call:
+        -   Class.getConstructor(Class<?>... parameterTypes) or
+        -   Class.getDeclaredConstructor(Class<?>... parameterTypes)
+
+
+Goal and Motivation - Object Creator
+    -   Implement single "factory" method that can create an object of any class.
+    -   Depending on the arguments passed to our method, it will find the right constructor.
+    -   Create the given class object by calling the right constructor.
+    -   Without Reflection it is impossible.
+
+How we will do it?
+    -   Constructor.newInstance(Object... arguments)
+        -   Takes a variable number of constructor arguments in the type and
+            order of constructor parameters declared in the constructor.
+    -   Upon Success
+        -   Calls the appropriate constructor
+        -   Returns an object of the given class
+    -   Upon failure
+        -   Throws an appropriate exception, describing the reason of the failure.
+
+
+What is the need of creating private constructors using reflection?
+    -   Let's say you want to create some configuration object. But, do not want to
+        expose it's constructor as public.
+    -   Then through reflection you can create that configuration object.
