@@ -1,0 +1,29 @@
+Array inspection using Java Reflection API
+
+Identifying Arrays and Element Types
+    -   Arrays are special classes
+    -   We can get basic information about arrays using the Class<?> API
+    -   We can confirm a class is an array using the Class.isArray() property
+    -   We can use the Class.getComponentType() to get the type of array elements
+    -   Class.getComponentType() returns null on non array Class objects.
+
+
+Array class in Java API
+    -   Given an array object, we can use the Reflection to access the array object's
+        runtime properties and data.
+    -   Array class contains the static methods that help us get that data from an array object.
+
+
+Creating arrays with Reflection
+    -   We learned about the java.lang.reflect.Array helper class for reading arrays using Reflection.
+    -   We can use the java.lang.reflect.Array class to create arrays of any type and dimension.
+    -   Arrays.newInstance(Class<?> componentType, int length)  -   create a 1d array with elements of type
+                                                                    componentType and length.
+    -   Array.set(Object arrayObject, int index, Object value)  -   The passed value must be of correct type,
+                                                                    otherwise an exception will be thrown.
+    -   For compile time safety:
+        Array.setBoolean(Object arrayObject, int index, boolean value)
+        Array.setInt(Object arrayObject, int index, int value)
+        ...
+
+
