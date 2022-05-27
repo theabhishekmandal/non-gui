@@ -1,0 +1,53 @@
+Obtaining Field objects of a class
+    -   Class.getDeclaredFields()   -   get all declared fields of a class
+        -   Includes all fields regardless of their access modifiers
+        -   Excludes inherited fields
+    -   Class.getFields() - get all the public fields of a class
+        -   Includes inherited fields
+    -   If we know the field's name:
+        -   Class.getDeclaredField(fieldName)   -   get the field object corresponding
+                                                    to the declared field with the given name.
+        -   Class.getField(fieldName)           -   get the field object corresponding to the
+                                                    public field with the given name.
+
+    -   If the field with the given fieldName does not exist, a NoSuchFieldException is thrown.
+
+
+    Synthetic Fields
+        -   Java Compiler generates artificial fields for internal usage
+        -   We don't see those fields unless we use Reflection to discover at Runtime.
+        -   Synthetic fields and their names are compiler specific.
+        -   In most cases we don't want to touch/modify/rely on them.
+        -   To find out if a Field is synthetic we check the Field.isSynthetic()
+
+
+Use Cases
+    -   Using the Field class we were able to get a class's field
+        -   Type
+        -   Name
+    -   Read the field value of an object.
+    -   This ability really shines when we are working with objects that contain data.
+    -   The types of those objects and fields may not be known to us at compile time or when
+        we write our program.
+    -   The object types are typically not even available to our library.
+    -   The types may be defined in the application that uses our library. Eg - Json Serializer.
+
+
+Setting field values
+    -   We can use reflection to set the values of the fields of an instance using reflection API
+
+Typical Use Cases are
+    -   Object Deserializers
+    -   Take data in predefined protocol and translate into a java object representation(Plain Old Java Object)
+    -   Eg:
+           -    Network Deserializers
+           -    Object Relational Mapping Software
+           -    Application Configuration File Parsers
+
+Changing of final field values is highly discouraged, as it may produce unexpected results.
+    -   If the final field value is defined as hardcode value, which can be determined at compile time
+        then, setting the value via reflection won't overwrite the field's value. This is because compiler
+        replaces every final field usage with that hardcode value.
+    -   If the final field value is defined which can be random, i.e. it's value is determined at runtime,
+        then using reflection we can set the value of the field.
+    -   static final fields will give exception when their value is set via reflection.
