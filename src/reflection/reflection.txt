@@ -97,3 +97,19 @@ What is the need of creating private constructors using reflection?
     -   Let's say you want to create some configuration object. But, do not want to
         expose it's constructor as public.
     -   Then through reflection you can create that configuration object.
+
+
+Package Private classes External Access
+    -   There are classes where we need to allow access to package-private classes from outside
+        the package for:
+        -   Reading
+        -   Initializing
+    -   Typically when we want to use an external library to help us initialize those classes. Eg. Spring Framework
+    -   The code in the external libraries is outside of our package.
+
+Use cases for Access Package-Private classes using Reflection
+    -   Parsing to/from Java Object
+        -   Eg: Using ObjectMapper to convert to/from Java objects.
+    -   Dependency Injection
+        -   Instantiation of Package-Private classes from another package
+        -   Auto creation of objects at Application startup

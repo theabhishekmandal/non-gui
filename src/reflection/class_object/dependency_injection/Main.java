@@ -1,6 +1,7 @@
-package reflection.class_object.dependency_injection.internal;
+package reflection.class_object.dependency_injection;
 
 import org.jetbrains.annotations.NotNull;
+import reflection.class_object.dependency_injection.internal.Student;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;

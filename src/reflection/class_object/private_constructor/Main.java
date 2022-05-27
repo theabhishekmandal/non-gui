@@ -7,7 +7,8 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 
 /**
- * This is an example on how to create a singleton object using Reflection.
+ * This is an example on how to create a singleton object using Reflection. For more info refer
+ * reflection.txt file
  */
 public class Main {
     public static void main(String[] args) throws InvocationTargetException, NoSuchMethodException,
