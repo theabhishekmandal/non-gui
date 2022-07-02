@@ -35,6 +35,10 @@ Use Cases
 
 Setting field values
     -   We can use reflection to set the values of the fields of an instance using reflection API
+    -   We can set the field by the following methods
+        -   Field field = instance.getDeclaredField("fieldName");
+            field.setAccessible(true);
+            field.set(instance, value);
 
 Typical Use Cases are
     -   Object Deserializers
