@@ -1,0 +1,57 @@
+Obtaining Method object
+    -   All class methods are represented as a object of type Method.
+    -   There are few ways to obtain all the methods of a class
+        -   Class.getDeclaredMethods()  -    All methods declared in a class
+        -   Class.getMethods()  -   All public methods including methods inherited from superclasses and implemented
+                                    interfaces.
+
+
+Method Properties
+    -   Method.getName() - Returns a String representing a method name.
+    -   Method.getParameterTypes()  -   Returns an array of method parameter types.
+    -   Method.getParameterCount()  -   Returns the number of method parameters.
+    -   Method.getExceptionTypes()  -   Returns an array of Exception types declared with that method.
+
+
+Two options to obtain a method object based on its name and parameter types
+    -   Class.getMethod(String name, Class<?>... paramTypes)    -   looks for public method in current or superclasses
+    -   Class.getDeclaredMethod(String name, Class<?> paramTypes)   -   looks for the method in the current class.
+    -   If a method with the name and parameter types (in that order) is not found a NoSuchMethodException is thrown.
+
+Method Parameter Names
+    -   Just like Constructor parameter names, Method parameter names are erased after compilation.
+    -   Method.getParameters()  -   Provides additional information about a method's parameters.
+    -   The parameter names are replaced with arg0, arg1 ...
+
+Calling a method using Reflection
+    -   We can call a method of Java object using the
+        Method.invoke(Object instance, Object... args) operation
+            -   instance    -   The object we are intrested in invoking the method.
+                                If the method is static we can pass null as the instance.
+            -   args        -   arguments to the method. Must be of the correct type and order as the
+                                method's signature.
+
+    -   The return type of Method.invoke is Object. If the return type of the method is void invoke(..) will
+        return null.
+    -   If the return type is primitive type (int, boolean, float, long, double, etc...). The return value is
+        wrapped in an object.
+            -   An int value will be wrapped in Integer object and so on...
+
+    -   Method.invoke(..) can throw :
+        -   NullPointerException
+        -   ExceptionInInitializerError
+        -   IllegalAccessException
+        -   InvocationTargetException
+            -   Wraps an exception that the target method has thrown
+            -   Wraps both checked and unchecked exceptions.
+
+
+Method invocation with Reflection - Use Cases
+    -   When the method's
+        -   Name
+        -   Signature
+        -   Return type
+        -   Containing class
+        are decoupled from the logic that controls the execution of those methods
+    -   Typically the order of execution is either not important or unknown at compile time.
+    -   Method invocation using Reflection is one of the most widely used features of Java Reflection.
