@@ -55,3 +55,23 @@ Method invocation with Reflection - Use Cases
         are decoupled from the logic that controls the execution of those methods
     -   Typically the order of execution is either not important or unknown at compile time.
     -   Method invocation using Reflection is one of the most widely used features of Java Reflection.
+
+
+Polymorphism Implementation with Reflection.
+    -   How will you implement polymorphism in
+        class HttpClient {
+            public bool sendRequest(String request);
+        }
+
+        class DatabaseClient {
+            public bool storeDate(String data);
+        }
+    -   Can we still use Polymorphism and group HttpClient and DatabaseClient in a similar way ?
+        Without Reflection - No
+    -   Thanks to the fact that
+        -   All classes in Java inherit from the Object class.
+        -   Java Reflection features.
+    -   We can achieve similar functionality using Java Reflection
+        without
+            -   Implementing additional interfaces
+            -   Extending additional classes.
