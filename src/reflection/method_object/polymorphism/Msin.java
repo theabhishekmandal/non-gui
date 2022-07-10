@@ -12,6 +12,9 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * This is an example on how to use method invokation for different classes which are not related to each other.
+ */
 public class Msin {
     public static void main(String[] args) throws Throwable {
         var databaseClient = new DatabaseClient();
@@ -42,6 +45,7 @@ public class Msin {
                 }
             }
         } catch (InvocationTargetException e) {
+            // throw the actual exception wrapped inside Invocation exception.
             throw e.getTargetException();
         }
     }
@@ -52,6 +56,7 @@ public class Msin {
             Method[] allMethod = requestExecutor.getClass().getDeclaredMethods();
 
             for (Method method : allMethod) {
+                // get that method which matches the parameters
                 if (Arrays.asList(method.getParameterTypes()).equals(methodParameterTypes)) {
                     instanceToMethod.put(requestExecutor, method);
                 }
