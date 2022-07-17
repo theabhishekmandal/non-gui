@@ -8,8 +8,8 @@ import reflection.field_object.json_serlializer.data.*;
 public class Main {
     public static void main(String[] args) throws IllegalAccessException {
         Company company = new Company("Deutsche Telekom", "Haryana",
-                new Address("Building 9b", (short) 15));
-        Address address = new Address("Street No. 4", (short) 12);
+                new Address("Building 9b", (short) 15, "10092"));
+        Address address = new Address("Street No. 4", (short) 12, "201306");
         Person person = new Person("Abhishek", true, 25, 100, address, company);
 //        System.out.println(objectToJson(address, 3));
         System.out.println(JsonConverter.getInstance().objectToJson(person, 0));

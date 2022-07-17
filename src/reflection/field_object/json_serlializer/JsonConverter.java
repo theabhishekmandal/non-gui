@@ -4,6 +4,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.lang.reflect.Array;
 import java.lang.reflect.Field;
+import java.lang.reflect.Modifier;
 import java.util.Set;
 import java.util.StringJoiner;
 
@@ -26,7 +27,7 @@ public class JsonConverter {
         stringBuilder.append(indent(indentSize)).append("{\n");
         for (int i = 0; i < fields.length; i++) {
             Field field = fields[i];
-            if (!field.isSynthetic()) {
+            if (!field.isSynthetic() && !isNonSerializableField(field)) {
                 field.setAccessible(true);
                 stringBuilder.append(indent(indentSize + 1))
                         .append(formatString(field.getName())).append(" : ");
@@ -57,6 +58,12 @@ public class JsonConverter {
 
         stringBuilder.append(indent(indentSize)).append("}");
         return stringBuilder.toString();
+    }
+
+    // Static and Transient field members are not serializable.
+    private boolean isNonSerializableField(Field field) {
+        return Modifier.isStatic(field.getModifiers()) ||
+                Modifier.isTransient(field.getModifiers());
     }
 
     @NotNull

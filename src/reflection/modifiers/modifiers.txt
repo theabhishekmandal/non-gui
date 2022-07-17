@@ -1,0 +1,36 @@
+Modifiers
+    -   Keywords, added to a class, constructor, method or field
+    -   Add functionality or change the meaning of its target
+    -   Modifiers are divided into 2 groups
+        -   Access Modifiers - private, protected, public
+        -   Non-Access Modifiers -
+                Class Level     -   abstract, final, static, interface
+                Method Level    -   abstract, final, static, interface, synchronized and native
+                Field Level     -   final, static, transient, volatile.
+
+Modifiers Discovery with getModifiers()
+    -   Class.getModifiers()        -   Returns class modifiers
+    -   Method.getModifiers()       -   Returns method modifiers
+    -   Constructor.getModifiers()  -   Returns constructor modifiers
+    -   Field.getModifiers()        -   Returns Field modifiers
+
+    -   Modifiers are packed in an integer value
+
+
+BitMap Encoding of Modifiers
+    -   The modifiers are encoded as a bitmap
+    -   Each modifier represent as a single bit
+        Example
+            PUBLIC = 1.  Binary Representation: 0000 0001
+    -   To help us work with those bitmaps, Reflection comes with the Modifier class that contains
+        bit masks for all the modifiers
+    -   Example:
+        int modifiers = Product.class.getModifiers();
+        if ((modifiers & Modifiers.ABSTRACT) != 0) {
+            System.out.println("Product is an abstract class");
+        }
+
+    -   Modifier class also provides us with static helper methods that perform those bitmask operations for us
+        -   Methods like
+            boolean Modifier.isPublic(int modifiers)
+            boolean Modifier.isFinal(int modifiers)
