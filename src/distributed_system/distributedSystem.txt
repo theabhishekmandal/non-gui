@@ -1,0 +1,37 @@
+Where can we find Distributed System ?
+    -   Distributed systems are everywhere
+    -   Everytime we:
+        -   Watch a movie on demand
+        -   Shop online
+        -   Order a ride share service through our mobile phone.
+        -   Search something online.
+
+Why distributed Systems ?
+    -   Those companies are running highly scalable, distributed systems in order to:
+        -   Handle millions of user.
+        -   Petabytes of data.
+        -   Provide consistent user experience.
+
+The Cloud and Distributed Systems
+    -   Even the simplest web site is running on a distributed system.
+    -   Cloud(AWS, Azure, GCP..) is a distributed system designed for companies
+        and SW developers.
+
+
+The virtues of Distributed Systems
+    -   You are not aware of the complexities of the system.
+    -   It just works
+    -   Feels like a single machine
+    -   Dedicated specifically for you
+
+
+Problems of a Centralized system.
+    -   Performance and Storage -   limited vertical scalability.
+    -   Single Point of failure -   loss of money and trust.
+    -   High latency            -   poor user experience as it will accessed from different locations.
+    -   Security and privacy
+
+
+So, what is distributed system ?
+    -   A Distributed System is a system of several processes, running on different computers, communicating with
+        each other through the network, and are sharing a state or are working together to achieve a common goal.
