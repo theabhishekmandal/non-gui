@@ -15,7 +15,7 @@ import java.util.Map;
 /**
  * This is an example on how to use method invokation for different classes which are not related to each other.
  */
-public class Msin {
+public class Main {
     public static void main(String[] args) throws Throwable {
         var databaseClient = new DatabaseClient();
         var httpClient1 = new HttpClient("127.0.0.1");
@@ -50,6 +50,13 @@ public class Msin {
         }
     }
 
+    /**
+     * requestParameters containing all the instances for which you want to invoke the method. methodParameterTypes
+     * will match the arguments with the methods present in the instances' methods.
+     * @param requestExecutors
+     * @param methodParameterTypes
+     * @return
+     */
     public static Map<Object, Method> groupExecutors(List<Object> requestExecutors, List<Class<?>> methodParameterTypes) {
         Map<Object, Method> instanceToMethod = new LinkedHashMap<>();
         for (Object requestExecutor : requestExecutors) {
