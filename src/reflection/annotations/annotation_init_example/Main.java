@@ -2,6 +2,7 @@ package reflection.annotations.annotation_init_example;
 
 import reflection.annotations.annotation_init_example.annotations.InitializerClass;
 import reflection.annotations.annotation_init_example.annotations.InitializerMethod;
+import reflection.annotations.annotation_init_example.annotations.ScanPackages;
 
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
@@ -18,21 +19,28 @@ import java.util.List;
  * This is an example showing, how to execute the classes when a specific Annotation header is
  * present.
  */
+@ScanPackages(values = {"/reflection/annotations/annotation_init_example/app",
+        "/reflection/annotations/annotation_init_example/app/configs",
+        "/reflection/annotations/annotation_init_example/app/databases",
+        "/reflection/annotations/annotation_init_example/app/http"})
 public class Main {
     public static void main(String[] args) throws URISyntaxException, IOException, ClassNotFoundException,
             InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
         // Pass the package name where the Annotated class can be present
         // package name should be separated by /
-        initialize("/reflection/annotations/annotation_init_example/app",
-                "/reflection/annotations/annotation_init_example/app/configs",
-                "/reflection/annotations/annotation_init_example/app/databases",
-                "/reflection/annotations/annotation_init_example/app/http");
+        initialize();
     }
 
-    public static void initialize(String... packageNames) throws NoSuchMethodException,
+    public static void initialize() throws NoSuchMethodException,
             InvocationTargetException, InstantiationException, IllegalAccessException,
             URISyntaxException, IOException, ClassNotFoundException {
-        List<Class<?>> classes = getAllClasses(packageNames);
+
+        ScanPackages scanPackagesAnnotation = Main.class.getAnnotation(ScanPackages.class);
+        if (scanPackagesAnnotation == null || scanPackagesAnnotation.values().length == 0) {
+            return;
+        }
+
+        List<Class<?>> classes = getAllClasses(scanPackagesAnnotation.values());
 
         for (var clazz : classes) {
             if (!clazz.isAnnotationPresent(InitializerClass.class)) {
