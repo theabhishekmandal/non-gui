@@ -26,8 +26,6 @@ import java.util.List;
 public class Main {
     public static void main(String[] args) throws URISyntaxException, IOException, ClassNotFoundException,
             InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
-        // Pass the package name where the Annotated class can be present
-        // package name should be separated by /
         initialize();
     }
 
