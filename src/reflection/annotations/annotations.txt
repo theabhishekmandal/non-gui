@@ -1,0 +1,136 @@
+Java Annotations
+   -    @SomeName   -   Interpreted by Java compiler as Annotations.
+   -    Annotations can appear in methods, classes, fields, constructors, method
+        before exceptions
+
+
+Annotation meaning and Functionality
+    -   Annotation itself does not have any functionality or effect on the
+        program.
+    -   It is a way to provide additional information about the target it annotates
+        or the program as a whole.
+    -   We can think of annotations as of comment but a lot more powerful
+        -   We can integrate annotations with the compiler and compile time tools
+            to detect errors, bugs and provide warnings.
+        -   Carry into the JVM and access at Runtime using Reflection.
+
+
+Annotations and Reflection - Motivation
+    -   Annotations can instruct and direct Reflection code on
+        -   What targets to process
+        -   What to do with those targets.
+    -   We can decouple our code from the Reflection code.
+    -   We don't restrict our methods/classes/fields to particular
+        -   Names
+        -   Structure
+
+Annotation Declaration Structure
+@interface Retryable {
+    int numOfRetries() default 10;
+    long initialDelay() default 0;
+    long duration() default 1000;
+    BackoffStrategy strategy() default BackoffStrategy.FIXED;
+    String failureMessage() default "Request Failed";
+}
+
+Annotations Visibility
+    -   Not all annotations are visible at Runtime.
+    -   By default annotations are retained by the compiler at compile time
+        but ignored by the JVM and not visible at runtime.
+
+Meta Annotations
+    -   Meta-annotations    -   Annotations that apply to other annotations
+        Example
+            @SomeMetaAnnotation
+            @interface CustomAnnotation {
+                ...
+            }
+
+Retention Meta-Annotation
+    -   One of the most important predefined meta-annotation for us is
+        @Retention meta-annotation
+    -   The @Retention meta annotation specifies
+        -   How a marked annotation is stored.
+        -   For how long it is going to be retained.
+    -   RetentionPolicy has 3 options
+        RetentionPolicy.SOURCE  -   Annotations are discarded by the compiler. Used only at compile time
+                                    but not required at runtime.
+                                    Examples : @Override, @SuppressWarnings
+        RetentionPolicy.CLASS   -   Annotations are recorded in the class file by the compiler but ignored
+                                    by the JVM at runtime.Basically used by the code generators, as after generating
+                                    the code, they are not required.
+                                    Examples : @AutoValue
+        RetentionPolicy.RUNTIME -   Annotations are recorded in the class file by the compiler and are retained
+                                    by the JVM at runtime. To use Java reflection, this meta annotation will be used.
+
+Target Meta-Annotation
+    -   Target meta-annotations limits the targets on which the annotations can be applied.
+        -   ElementType.ANNOTATION_TYPE
+        -   ElementType.CONSTRUCTOR
+        -   ElementType.FIELD
+        -   ElementType.LOCAL_VARIABLE
+        ...
+        - Examples
+            @Target({ElementType.FIELD, ElementType.LOCAL_VARIABLE, ElementType.PARAMETER})
+            @Retention(RetentionPolicy.RUNTIME)
+            @interface ParamValue {
+                String value();
+            }
+
+Find Target Annotation
+    boolean isAnnotationPresent(Class<? extends Annotation> annotationClass)
+        -   The isAnnotationPresent() method exists in the
+            -   Class
+            -   Field
+            -   Method
+            -   Constructor
+            -   Parameter
+            targets
+        -   The method takes an annotation type as an argument and returns
+            -   True    -   if the target is annotated with the given annotation
+            -   False   -   Otherwise
+        -   Perfect for simple Marking annotations discovery
+
+
+Application Initialization
+    -   We need to perform many initialization steps at application startup
+    -   Those steps can involve:
+        -   Connecting to different sources of data(databases, caches)
+        -   Loading configuration files
+        -   Registering and initializing other libraries and frameworks
+        -   Communicating with other services(service registeries, load balancers etc)
+
+    -   The logic we want to perform at startup can be organized in many classes all around
+        our application's codebase.
+    -   Annotating and performing those methods dynamically using reflection is very
+        common and convenient solution.
+
+Classes Discovery
+    -   Given a package_name
+        -   Default pakage : ""
+        -   Top level package examples : "model", "java"
+        -   Nested package examples : "app.configs", "java.lang"
+    -   We want to obtain all the Class<?> objects within the package
+    -   In Java, classes are not available to the JVM until they are used
+        in the code and loaded by the class loader.
+    -   To automatically discover all the classes in a package we need to look
+        for the .class files in the package path.
+    -   The .class files contain the compiled Java class
+    -   Their filename corresponds to the Java class name.
+
+
+Annotation Object
+    -   <T extends Annotation> T getAnnotation(Class<T> annotationClass)
+    -   Available on Class<?>, Method, Constructor, Field, Parameter targets
+    -   Returns:
+        -   An annotation object of type T
+        -   null if the target is not annotated with annotation of type T.
+    -   Example
+        @JsonProperty(name = "price")
+        private String getPrice(){...}
+
+        JsonProperty annotationObject = method.getAnnotation(JsonProperty.class);
+
+        // this will return price
+        String elementValue = annotationObject.value();
+
