@@ -1,9 +1,6 @@
 package reflection.annotations.annotation_init_example.annotations;
 
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
+import java.lang.annotation.*;
 
 public class Annotations {
 
@@ -28,5 +25,23 @@ public class Annotations {
     @Retention(RetentionPolicy.RUNTIME)
     public @interface FinalResult {
 
+    }
+
+    @Retention(RetentionPolicy.RUNTIME)
+    @Target(ElementType.TYPE)
+    public @interface ScheduledExecutorClass {}
+
+    @Repeatable(ExecutionSchedulesContainer.class)
+    @Target(ElementType.METHOD)
+    public @interface ExecuteOnSchedule {
+        int delaySeconds() default 0;
+        int periodSeconds();
+    }
+
+    // This is a container annotation
+    @Retention(RetentionPolicy.RUNTIME)
+    @Target(ElementType.METHOD)
+    public @interface ExecutionSchedulesContainer {
+        ExecuteOnSchedule[] value();
     }
 }

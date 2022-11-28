@@ -134,3 +134,39 @@ Annotation Object
         // this will return price
         String elementValue = annotationObject.value();
 
+
+
+What are Repeatable Annotations ?
+    -   When we want to apply same annotation multiple times on a method.
+    -   Usually if we try to apply the same annotation again then it gives compilation error.
+    -   To allow an annotation to be applied repeatedly we need to explictly declare it as
+        repeatable annotation.
+    -   Eg:Roles is the container annotation and Role is the repeatable annotation.
+        @Repeatable(Roles.class)
+        public @interface Role {
+            Type value();
+        }
+
+        public @interface Roles {
+            Role[] value();
+        }
+
+        then we can do the following
+        @Role(MANAGER)
+        @Role(ADMINISTRATOR)
+        public class OrderService {
+            public OrderDetails getDetails() {...}
+        }
+
+        what compiler does in the above is that it replaces every @Role with
+        @Roles({.....})
+
+    -   Detecting & Obtaining Repeatable Annotations
+        -   isAnnotationPresent(RepetableAnnotation.class) or getAnnotation(RepetableAnnotation.class)
+            will Not work for repeatable annotations.
+            -   Returns false and null respectively, when used on repeatable annotation.
+        -   The compiler replaces the repeated annotations with the container annotation
+            after compilation.
+        -   T[] getAnnotationsByType(Class<T> annotationClass)
+            -   Returns an array of repeatable annotation instances of type annotationClass.
+            -   Returns empty array if the target is not annotated with the annotation Class.
