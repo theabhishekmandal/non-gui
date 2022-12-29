@@ -14,8 +14,6 @@ public class StreamFromCsvFile {
                 + File.separator
                 + "src"
                 + File.separator
-                + "collection_implementation"
-                + File.separator
                 + "streams"
                 + File.separator
                 + "data.txt";
