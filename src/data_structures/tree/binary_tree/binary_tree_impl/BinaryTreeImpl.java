@@ -20,6 +20,8 @@ public class BinaryTreeImpl {
         System.out.println(inOrderRec);
 
         final String postOrderIter = binaryTree.postOrder();
+        final String postOrderNew = binaryTree.postOrderNew();
+        System.out.println("is postOrderNew == postOrderIter? " + postOrderIter.equals(postOrderNew));
         final String postOrderRec = binaryTree.postOrderRecursive();
         System.out.println(postOrderIter.equals(postOrderRec));
         System.out.println(postOrderIter);

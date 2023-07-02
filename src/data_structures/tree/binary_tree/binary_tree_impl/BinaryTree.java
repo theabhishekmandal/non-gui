@@ -102,6 +102,12 @@ public class BinaryTree<T> {
         size++;
     }
 
+    /*
+        Approach
+            -   Idea behind is that, if a node exists which is to be deleted. Also, there exists a node which is the lastNode of the tree
+            -   Then overwrite the value of nodeToBeDeleted with lastNode value.
+            -   Then remove the reference of the lastNode from its parent. Since, we already overwrite the value.
+     */
     public boolean deleteNode(T data) {
         isSetThroughRoot();
         if (this.root == null || data == null) {
@@ -323,6 +329,34 @@ public class BinaryTree<T> {
                 }
             } else {
                 joiner.add(curr.data.toString());
+            }
+        }
+        return joiner.toString();
+    }
+
+    // This works also, but the above is much easier
+    public String postOrderNew() {
+        if (this.root == null) {
+            return EMPTY_BRACES;
+        }
+
+        final var joiner = createJoiner();
+        final Deque<Node<T>> stack = new ArrayDeque<>();
+        Node<T> curr = this.root;
+        while (curr != null || !stack.isEmpty()) {
+            if (curr != null) {
+                stack.push(curr);
+                stack.push(curr);
+                curr = curr.left;
+            } else {
+                curr = stack.pop();
+                // if same element is present in stack, then you must process right child first
+                if (curr == stack.peek()) {
+                    curr = curr.right;
+                } else {
+                    joiner.add(curr.toString());
+                    curr = null;
+                }
             }
         }
         return joiner.toString();

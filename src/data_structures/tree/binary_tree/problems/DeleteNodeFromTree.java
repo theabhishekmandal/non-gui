@@ -9,11 +9,7 @@ import java.util.stream.IntStream;
 
 /**
  * Delete a given node from the tree.
- *
- * Approach:
- *      -   To delete a node from the tree, first find that node and the last node using level order traversal
- *      -   Also store the nodes encountered while traversing into a list
- *      -   then reverse traverse this list to find the parent and make the linkage with parent to the lastNode as null
+
  */
 public class DeleteNodeFromTree {
     public static void main(String[] args) {

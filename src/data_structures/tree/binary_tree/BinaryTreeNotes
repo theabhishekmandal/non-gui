@@ -66,7 +66,7 @@ Operations on Binary Trees
         -   Finding the least common ancestor(LCA) for a given pair of nodes, and many more.
 
     -   Applications of Binary Trees
-        -   Following are the soe of the applications where binary trees play an important role:
+        -   Following are the some of the applications where binary trees play an important role:
             -   Expression trees are used in compilers.
             -   Huffman coding trees that are used in data compression algorithms.
             -   Binary Search Tree which supports search, insertion and deletion on a collection of items in O(logn) time.
@@ -78,5 +78,5 @@ Classifying the Traversals
     -   There are three types of traversals:
         -   Preorder (CLR) traversal
         -   Inorder (LCR) traversal
-        -   PostOrder (LRD) Traversal
+        -   PostOrder (LRC) Traversal
         -   Level Order Traversal or Breadth First Traversal
