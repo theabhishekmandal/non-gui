@@ -21,12 +21,20 @@ import static data_structures.linked_list.node.SinglyLinkedList.Node;
  *     -    else if it is unique value then we will create the new head and new tail and then at last set it to
  *          the singly linked list
  */
-public class KeepNonDuplicates {
+public class _17EasyKeepNonDuplicates {
     public static void main(String[] args) {
         SinglyLinkedList<Integer> sll = getSortedLinkedListWithDuplicates();
+        var sllNew = new SinglyLinkedList<Integer>();
+        sllNew.copyAll(sll);
+
         System.out.println(sll);
         keepDistinct(sll);
         System.out.println(sll);
+
+
+        System.out.println(sllNew);
+        keepDistinctTwo(sllNew);
+        System.out.println(sllNew);
     }
 
     private static void keepDistinct(SinglyLinkedList<Integer> sll) {
@@ -55,6 +63,37 @@ public class KeepNonDuplicates {
             }
             temp = nex;
         }
+        sll.setHead(head);
+        sll.setTail(tail);
+    }
+
+    // use this
+    private static void keepDistinctTwo(SinglyLinkedList<Integer> sll) {
+        if (sll == null) {
+            return;
+        }
+        Node<Integer> head = null, tail = null;
+        var curr = sll.getHead();
+        while (curr != null) {
+            var temp = curr;
+            int duplicateCount = -1;
+            while (temp != null && curr.getData().compareTo(temp.getData()) == 0) {
+                duplicateCount++;
+                temp = temp.getNext();
+            }
+            if (duplicateCount == 0) {
+                curr.setNext(null);
+                if (head == null) {
+                    head = tail = curr;
+                } else {
+                    tail.setNext(curr);
+                    tail = curr;
+                }
+            }
+            curr = temp;
+        }
+
+
         sll.setHead(head);
         sll.setTail(tail);
     }

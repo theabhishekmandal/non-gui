@@ -12,7 +12,7 @@ import static data_structures.linked_list.node.SinglyLinkedList.Node;
  * Given two linked list combined with each other, find the intersection point of the two lists.
  */
 
-public class FindingInterSectionPoint {
+public class _10EasyFindingInterSectionPoint {
     public static void main(String[] args) {
         var random = new Random();
 

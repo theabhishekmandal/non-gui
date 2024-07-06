@@ -11,7 +11,7 @@ import static data_structures.linked_list.node.SinglyLinkedList.Node;
  * Insert a node in a sorted singly linked list and insert a node in doubly linked list
  */
 
-public class InsertingInSortedList {
+public class _14EasyInsertingInSortedList {
     public static void main(String[] args) {
         SinglyLinkedList<Integer> sll = new SinglyLinkedList<>();
         DoublyLinkedList<Integer> dll = new DoublyLinkedList<>();

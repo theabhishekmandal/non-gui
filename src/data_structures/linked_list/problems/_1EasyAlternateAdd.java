@@ -9,13 +9,13 @@ import static data_structures.linked_list.node.SinglyLinkedList.Node;
 /**
  * Given a singly Linked List L: L1->L2->L3->...->Ln-1->Ln reorder it to:L1->Ln->L2->Ln-1->.....
  */
-public class AlternateAdd {
+public class _1EasyAlternateAdd {
     public static void main(String[] args) {
         var first = new SinglyLinkedList<Integer>();
         IntStream.range(1, 2).forEach(first::addLast);
-        System.out.println("List before rordering\n" + first);
+        System.out.println("List before reordering\n" + first);
         reorderList(first);
-        System.out.println("List after rordering\n" + first);
+        System.out.println("List after reordering\n" + first);
     }
 
     private static <T> void reorderList(SinglyLinkedList<T> first) {

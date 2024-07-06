@@ -12,7 +12,7 @@ import static data_structures.linked_list.node.CircularLinkedList.Node;
  *  extra than second list
  */
 
-public class CircularDivide {
+public class _3EasyCircularDivide {
     public static void main(String[] args) {
         CircularLinkedList<Integer> arr = new CircularLinkedList<>();
         IntStream.range(1, 6).forEach(arr::addLast);

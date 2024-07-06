@@ -12,7 +12,7 @@ import static data_structures.linked_list.node.SinglyLinkedList.Node;
  *      move both the pointer till first pointer next != null
  */
 
-public class FindingNthNodeFromEnd {
+public class _11EasyFindingNthNodeFromEnd {
     private static <T> Node<T> getNthNodeFromEnd2(SinglyLinkedList<T> arr, int n){
         if(arr == null || arr.getHead() == null) throw new NullPointerException();
         Node<T> first = arr.getHead();

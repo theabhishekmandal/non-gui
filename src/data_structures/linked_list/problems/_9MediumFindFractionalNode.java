@@ -11,14 +11,23 @@ import static data_structures.linked_list.node.SinglyLinkedList.Node;
  * Given n number of nodes and an integer k, find the first n / k element. Also length of the list is not known
  *
  * Approach:
- * Let us suppose there are n Number of nodes, then n / k will give the number of elements that satisfy i % k == 0 where
- * 1 <= i <= n, So n / k == number of i % k
+ * Let us suppose there are n Number of nodes, then n / k will give i divisions. For eg 6/2 = 3, 6 can be divided in 3 parts.
+ * Now, this 3 will be your third index element from the start.
  *
- * If after first search of  i % k == 0, we will assign a new pointer to head and will traverse when
- * next i % k == 0 will be found. After this way we can find the n / k
+ *Input : list = 1->2->3->4->5->6
+ *         k = 2
+ * Output : 3
+ * Since n = 6 and k = 2, we print (6/2)-th node
+ * which is 3.
+ *
+ * Input : list = 2->7->9->3->5
+ *         k = 3
+ * Output : 7
+ * Since n is 5 and k is 3, we print ceil(5/3)-th
+ * node which is 2nd node, i.e., 7.
  */
 
-public class FindFractionalNode {
+public class _9MediumFindFractionalNode {
     public static void main(String[] args) {
         SinglyLinkedList<Integer> first = new SinglyLinkedList<>();
         Random random = new Random();

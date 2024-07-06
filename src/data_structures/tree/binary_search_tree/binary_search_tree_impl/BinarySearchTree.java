@@ -392,13 +392,13 @@ public class BinarySearchTree<T extends Comparable<? super T>> {
 
             /*
             first if condition i.e the parent node has it's leftmost inorder successor
-                  65 <- node                        76
-                    \                                 \
-          parent ->  82         -> delete 65 ->       82
-                    /  \                             /  \
-          succ  -> 76   88                          78   88
-                     \   \                                \
-                     78   89                              89
+                  65 <- node                                 76
+                 / \                                        /  \
+                x  82     <- parent    -> delete 65 ->     x   82
+                   /  \                                       /  \
+         succ  -> 76   88                                   78   88
+                    \   \                                         \
+                     78   89                                      89
 
              else condition i.e the parent node do not has it's leftmost inorder successor
                   65 <- node, parent                 82

@@ -17,7 +17,7 @@ import static data_structures.linked_list.node.RandomLinkedList.Node;
  *
  */
 
-public class CloneRandomLinkedList {
+public class _4EasyCloneRandomLinkedList {
     public static void main(String[] args) {
         RandomLinkedList<Integer> randomLinkedList = new RandomLinkedList<>();
         IntStream.range(1, 11).forEach(randomLinkedList::addLast);

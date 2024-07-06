@@ -14,7 +14,7 @@ import static data_structures.linked_list.node.SinglyLinkedList.Node;
  * Second approach would be to copy the next element value to the current node to be deleted, and perform
  * this until the last of the node. After that remove the last node from the list.
  */
-public class DeleteNodeByReference {
+public class _6EasyDeleteNodeByReference {
     public static void main(String[] args) {
         SinglyLinkedList<Integer> first = new SinglyLinkedList<>();
         IntStream.range(0, 11).forEach(first::addLast);

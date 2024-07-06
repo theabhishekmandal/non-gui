@@ -25,7 +25,7 @@ import static data_structures.linked_list.node.CircularLinkedList.Node;
  *                  head.next = null and make temp.next as new head.
  *
  */
-public class DeleteFromCircularLinkedList {
+public class _5EasyDeleteFromCircularLinkedList {
     public static void main(String[] args) {
         CircularLinkedList<Integer> cl = new CircularLinkedList<>();
         Random random = new Random();

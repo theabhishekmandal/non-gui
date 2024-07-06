@@ -42,7 +42,7 @@ import static data_structures.linked_list.node.SinglyLinkedList.Node;
  *          and HEAD to LOOP STARTING POINT are SAME.
  */
 
-public class DetectingCycle {
+public class _8EasyDetectingCycle {
     public static void main(String[] args) {
         SinglyLinkedList<Integer> arr = new SinglyLinkedList<>();
         for(int i = 0; i < 10; i++) arr.addLast(i);

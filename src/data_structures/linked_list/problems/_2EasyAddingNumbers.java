@@ -12,7 +12,7 @@ import static java.lang.System.out;
 /**
  * Given two number a and b, add them using linked list.
  */
-public class AddingNumbers {
+public class _2EasyAddingNumbers {
     public static void main(String[] args) {
         var random = new Random();
         // splitting the string on the basis of '+'

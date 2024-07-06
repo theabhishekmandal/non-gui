@@ -7,21 +7,33 @@ import static data_structures.linked_list.node.SinglyLinkedList.Node;
 /**
  * Implementation of insertion sort for singlyLinked list
  */
-public class InsertionSort {
+public class _15MediumInsertionSort {
     public static void main(String[] args) {
         SinglyLinkedList<Integer> first = new SinglyLinkedList<>();
-        first.addLast(1);
-        first.addLast(3);
         first.addLast(9);
-        first.addLast(2);
-        first.addLast(0);
+        first.addLast(8);
+        first.addLast(6);
+        first.addLast(5);
         first.addLast(7);
+        first.addLast(4);
         System.out.println("list before sorting " + first);
         sort(first);
         System.out.println("list after sorting " + first);
     }
 
     // use this method for insertion sort better than the other one
+    /*
+        Gist of this solution is
+        if this is the sorted list which is being created 5->6->8
+        -   if next element is 4, it will be appended before 5, using new head pointer. -> 4->5->6->8
+        -   if next element is 7, it will be appended after 6, by using the temp pointer ->
+            4->5->6->8
+            temp pointer is at 6, temp.next is 8 which is greater than 7
+            temp will now point to 7, and 7 will now point to 8
+            4->5->6->7->8
+
+
+     */
     private static <T extends Comparable<? super T>> void sort(SinglyLinkedList<T> head){
         if(head == null) return;
         Node<T> curr = head.getHead();

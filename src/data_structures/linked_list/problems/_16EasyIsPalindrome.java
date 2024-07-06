@@ -16,7 +16,7 @@ import static data_structures.linked_list.node.SinglyLinkedList.Node;
  *      -   reverse back the first half of the linked list
  */
 
-public class IsPalindrome {
+public class _16EasyIsPalindrome {
     public static void main(String[] args) {
         SinglyLinkedList<Integer> first;
         String[] arr = {

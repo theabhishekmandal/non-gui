@@ -19,6 +19,7 @@ import java.util.stream.Collectors;
  * Example 1:
  *
  * Input:
+ * root  next later
  * 5 -> 10 -> 19 -> 28
  * |     |     |     |
  * 7     20    22   35
@@ -35,7 +36,7 @@ import java.util.stream.Collectors;
  *  -   See below code to see the approach
  */
 
-public class FlattenLl {
+public class _13HardFlattenLl {
     public static void main(String[] args) {
         Bll bl = new Bll();
 //        bl.insert(5, true);
@@ -54,6 +55,20 @@ public class FlattenLl {
 //        bl.insert(35, false);
 //        bl.insert(40, false);
 //        bl.insert(45, false);
+        var bl2 = new Bll();
+        addToList(bl, bl2);
+        System.out.println("first variable " + bl);
+        System.out.println("second variable " + bl2);
+
+
+        // this does not workbl.head = flatten(bl.head);
+        bl2.head = flatten2(bl2.head);
+
+        System.out.println(stringNodeFunction.apply(bl.head));
+        System.out.println(stringNodeFunction.apply(bl2.head));
+    }
+
+    private static void addToList(Bll bl, Bll bl2) {
         Random random = new Random();
         int n = 1 + random.nextInt(5);
         for (int i = 0; i < n; i++) {
@@ -61,15 +76,12 @@ public class FlattenLl {
             List<Integer> list = random.ints(0, 100)
                     .limit(m).boxed().sorted().collect(Collectors.toList());
             bl.insert(list.get(0), true);
+            bl2.insert(list.get(0), true);
             for (int j = 1; j < list.size(); j++) {
                 bl.insert(list.get(j), false);
+                bl2.insert(list.get(j), false);
             }
         }
-        System.out.println(bl);
-
-
-        bl.head = flatten(bl.head);
-        System.out.println(stringNodeFunction.apply(bl.head));
     }
 
     static Function<Node, String> stringNodeFunction = x -> {
@@ -82,6 +94,67 @@ public class FlattenLl {
         return br.toString();
     };
 
+
+    private static Node flatten2(Node head) {
+        if (head == null) {
+            return null;
+        }
+
+        // if there is no next then head will have the only list
+        if (head.next == null) {
+            return head;
+        }
+
+        Node next = head.next;
+        // since we will traverse only by bottom then next is not required
+        head.next = null;
+
+        while (next != null) {
+            Node curr = head;
+
+            var nextOfNext = next.next;
+            next.next = null;
+
+            // reintializing the head and tail again
+            newHead = newTail = null;
+
+            while (curr != null || next != null) {
+
+                if (curr != null && next != null) {
+                    if (curr.data < next.data) {
+                        add(curr);
+                        curr = curr.bottom;
+                    } else if (next.data < curr.data) {
+                        add(next);
+                        next = next.bottom;
+                    }
+                } else if (curr != null) {
+                    add(curr);
+                    curr = curr.bottom;
+                } else {
+                    add(next);
+                    next = next.bottom;
+                }
+            }
+
+            next = nextOfNext;
+        }
+        return newHead;
+    }
+
+    private static void add(Node node) {
+        if (newHead == null) {
+            newHead = node;
+            newTail = node;
+        } else {
+            newTail.bottom = node;
+            newTail = node;
+        }
+    }
+
+    private static Node newHead = null, newTail = null;
+
+    @Deprecated
     private static Node flatten(Node root) {
         if (root == null) {
             return null;

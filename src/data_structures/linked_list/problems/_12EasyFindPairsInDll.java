@@ -19,7 +19,7 @@ import static data_structures.linked_list.node.DoublyLinkedList.Node;
  *  -   if sum is greater then move the last pointer
  *  -   otherwise move the first pointer
  */
-public class FindPairsInDll {
+public class _12EasyFindPairsInDll {
     public static void main(String[] args) {
         var dl = new DoublyLinkedList<Integer>();
         Random random = new Random();

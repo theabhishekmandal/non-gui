@@ -46,7 +46,7 @@ Notes on Binary Search Trees
         and searching for and element. While performing these operations on BST the height of the tree gets changed each time.
         Hence there exists variations in time complexities of best case, average case, and worst case.
 
-    -   The basic operations on a binary search tree take time proportional tot he height of the tree. For a complete binary
+    -   The basic operations on a binary search tree take time proportional to　the height of the tree. For a complete binary
         tree with node n, such operations runs in O(logn) worst-case time. If the tree is a linear chain of n nodes.
         however, the same operations takes O(n) worst-case time.
 
