@@ -1,6 +1,5 @@
-package lowleveldesign.parkinglot.design;
+package lowleveldesign.parkinglot.design.singleThreaded;
 
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;

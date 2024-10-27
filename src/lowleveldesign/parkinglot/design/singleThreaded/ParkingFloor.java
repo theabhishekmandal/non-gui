@@ -1,4 +1,4 @@
-package lowleveldesign.parkinglot.design;
+package lowleveldesign.parkinglot.design.singleThreaded;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -10,8 +10,11 @@ public class ParkingFloor {
     private final Map<Integer, Integer> freeSpaceCount;
     private static final int TWO_WHEELER = 2;
     private static final int FOUR_WHEELER = 4;
+    private final int floorNumber;
 
-    public ParkingFloor(int[][] parkingFloor) {
+
+    public ParkingFloor(int floorNumber, int[][] parkingFloor) {
+        this.floorNumber = floorNumber;
         this.parkingSpots = parkingFloor;
         this.freeSpaceCount = new HashMap<>();
         this.reserved = new boolean[parkingFloor.length][parkingFloor[0].length];
@@ -48,7 +51,7 @@ public class ParkingFloor {
 
                     int vehicleType2 = parkingSpots[i][j];
 
-                    if (vehicleType2 == vehicleType) {
+                    if (vehicleType2 == vehicleType && !reserved[i][j]) {
                         reserved[i][j] = true;
                         print();
                         return i + "-" + j;
@@ -65,8 +68,16 @@ public class ParkingFloor {
     }
 
     private void print() {
-        System.out.println("parking area = " + Arrays.deepToString(parkingSpots));
-        System.out.println("freeSpace count = " + freeSpaceCount);
-        System.out.println("reservedArray = " + Arrays.deepToString(reserved));
+        String printString = """
+                    floorNumber = %s,
+                    currentThread = %s,
+                    parkingSpots = %s,
+                    freeSpaceCount = %s,
+                    reservedArea = %s
+                """.formatted(floorNumber,
+                Thread.currentThread().getName(),
+                Arrays.deepToString(parkingSpots), freeSpaceCount, Arrays.deepToString(reserved));
+
+        System.out.println(printString);
     }
 }

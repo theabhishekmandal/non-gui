@@ -1,6 +1,7 @@
-package lowleveldesign.parkinglot.design.parkingStrategy;
+package lowleveldesign.parkinglot.design.multiThreaded.parkingStrategy;
 
-import lowleveldesign.parkinglot.design.ParkingFloor;
+
+import lowleveldesign.parkinglot.design.multiThreaded.ParkingFloor;
 
 public class LowestHeightParkingStrategy implements ParkingStrategy {
 

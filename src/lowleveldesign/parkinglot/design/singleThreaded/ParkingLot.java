@@ -1,4 +1,4 @@
-package lowleveldesign.parkinglot;
+package lowleveldesign.parkinglot.design.singleThreaded;
 
 import lowleveldesign.parkinglot.design.IParkingLot;
 

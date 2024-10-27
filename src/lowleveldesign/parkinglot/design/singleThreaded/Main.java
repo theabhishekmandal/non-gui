@@ -1,7 +1,6 @@
-package lowleveldesign.parkinglot;
+package lowleveldesign.parkinglot.design.singleThreaded;
 
 import lowleveldesign.parkinglot.design.IParkingLot;
-import lowleveldesign.parkinglot.design.ParkingLot2;
 
 public class Main {
     public static void main(String[] args) {
