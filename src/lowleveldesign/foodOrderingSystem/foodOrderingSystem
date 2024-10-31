@@ -1,0 +1,13 @@
+-   Food ordering system
+-   Restaurant rating system
+
+
+-   Food Items
+-   Restaurants
+    -   Food item can be ordered from multiple Restaurants
+
+
+-   order foodItems
+-   rate orders
+-   fetch restaurants with most rating
+-   fetch restaurants with top rated food
