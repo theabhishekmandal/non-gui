@@ -6,7 +6,7 @@ import java.util.stream.IntStream;
 
 import static data_structures.linked_list.node.SinglyLinkedList.Node;
 
-public class MergeTwoSortedLinkedLists {
+public class _21EasyMergeTwoSortedLinkedLists {
     public static void main(String[] args) {
         SinglyLinkedList<Integer> first = new SinglyLinkedList<>();
         SinglyLinkedList<Integer> second = new SinglyLinkedList<>();

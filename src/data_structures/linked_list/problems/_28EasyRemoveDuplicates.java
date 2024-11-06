@@ -18,7 +18,7 @@ import static data_structures.linked_list.node.SinglyLinkedList.Node;
  *  -   This will work for both sorted and unsorted linked list
  */
 
-public class RemoveDuplicates {
+public class _28EasyRemoveDuplicates {
     public static void main(String[] args) {
         SinglyLinkedList<Integer> first = new SinglyLinkedList<>();
         List<Integer> list = new ArrayList<>();

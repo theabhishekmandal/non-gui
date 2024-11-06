@@ -12,7 +12,7 @@ import static data_structures.linked_list.node.DoublyLinkedList.Node;
  * The problem is to sort the given doubly linked list.
  * Same as SortAlreadySortedArray.java
  */
-public class SortAlreadySortedDll {
+public class _41MediumSortAlreadySortedDll {
     public static void main(String[] args) {
         var dl = new DoublyLinkedList<Integer>();
         Stream.of(6, 5, 3, 2, 8, 10, 9).forEach(dl::addLast);
@@ -28,12 +28,17 @@ public class SortAlreadySortedDll {
         }
         var heap = new PriorityQueue<Integer>();
         Node<Integer> first = dl.getHead();
+
+        // for k + 1 iteration, first will point to k + 1 node. Now at the same time we will data of each node to
+        // priority queue. Queue will ensure the order based on priority.
+        // now for remaining iteration. poll the queue and add in the list from the start.
+        // At the same time the remaining nodes will be put in queue.
         for (int i = 0; i < k + 1 && first != null; i++, first = first.getNext()) {
             heap.add(first.getData());
         }
         Node<Integer> second = dl.getHead();
         while (first != null) {
-            if(!heap.isEmpty()) {
+            if (!heap.isEmpty()) {
                 second.setData(heap.poll());
             }
             heap.add(first.getData());
@@ -41,8 +46,8 @@ public class SortAlreadySortedDll {
             first = first.getNext();
         }
         var iter = heap.iterator();
-        while(iter.hasNext() && second != null) {
-            if(!heap.isEmpty()) {
+        while (iter.hasNext() && second != null) {
+            if (!heap.isEmpty()) {
                 second.setData(heap.poll());
             }
             second = second.getNext();

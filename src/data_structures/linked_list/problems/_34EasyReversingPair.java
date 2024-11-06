@@ -9,7 +9,7 @@ import static data_structures.linked_list.node.SinglyLinkedList.Node;
 /**
  * if linked list is 1->2->3->4 then the reversed list should be 2->1->4->3
  */
-public class ReversingPair {
+public class _34EasyReversingPair {
     public static void main(String[] args) {
         SinglyLinkedList<Integer> arr = new SinglyLinkedList<>();
         IntStream.range(1, 4).forEach(arr::addLast);

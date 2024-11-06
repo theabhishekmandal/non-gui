@@ -16,7 +16,7 @@ import static data_structures.linked_list.node.DoublyLinkedList.Node;
  *  -   Then move each head and tail pointer by k times
  *  -   Then convert cll to dll and set the head and tail.
  */
-public class RotateDllByNNodes {
+public class _35MediumRotateDllByNNodes {
     public static void main(String[] args) {
         var dl = new DoublyLinkedList<Integer>();
         var random = new Random();

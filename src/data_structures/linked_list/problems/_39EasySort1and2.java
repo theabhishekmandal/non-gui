@@ -12,7 +12,7 @@ import java.util.Scanner;
 
 import static java.lang.System.in;
 import static java.lang.System.out;
-public class Sort1and2 {
+public class _39EasySort1and2 {
 
     // static class containing the properties of the doubly linked list
     static class Node {

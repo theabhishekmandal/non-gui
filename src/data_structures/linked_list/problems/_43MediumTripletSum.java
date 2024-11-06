@@ -17,7 +17,7 @@ import static data_structures.linked_list.node.DoublyLinkedList.Node;
  *      -   Else, If the sum is bigger, Decrease the end pointer to reduce the sum.
  *      -   Else, if the sum of elements at two-pointer is equal to given sum then print the triplet and break.
  */
-public class TripletSum {
+public class _43MediumTripletSum {
     public static void main(String[] args) {
         var dl = new DoublyLinkedList<Integer>();
         Random random = new Random();

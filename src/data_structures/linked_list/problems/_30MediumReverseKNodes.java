@@ -13,13 +13,13 @@ import static data_structures.linked_list.node.SinglyLinkedList.Node;
  * if k = 3 then
  *      3 2 1 6 5 4
  */
-public class ReverseKNodes {
+public class _30MediumReverseKNodes {
     public static void main(String[] args) {
-        int k = 3   ;
+        int k = 2;
         SinglyLinkedList<Integer> first = new SinglyLinkedList<>();
-        IntStream.range(0, 10).forEach(first::addLast);
+        IntStream.range(0, 12).forEach(first::addLast);
         System.out.println("list before reversing " + first + " and k is = " + k);
-        reverseListByKNodes(first, k);
+        reverseListByKNodes2(first, k);
         System.out.println("list after reversing " + first);
     }
 
@@ -70,6 +70,45 @@ public class ReverseKNodes {
             }
             length -= k;
         }
+    }
+
+    // this is more easy to remember
+    private static <T> void reverseListByKNodes2(SinglyLinkedList<T> first, int k) {
+       Node<T> curr = first.getHead();
+       Node<T> nex = null;
+       Node<T> newHead = null;
+       Node<T> newTail = null;
+
+       while (curr != null) {
+           Node<T> head = null;
+           Node<T> tail = null;
+
+           int count = 1;
+           while (curr != null && count <= k) {
+               nex = curr.getNext();
+               if (tail == null) {
+                   curr.setNext(head);
+                   tail = curr;
+                   head = curr;
+               } else {
+                   curr.setNext(head);
+                   head = curr;
+               }
+               curr = nex;
+               count ++;
+           }
+
+           if (newTail == null) {
+               newHead = head;
+               newTail = tail;
+           } else {
+               newTail.setNext(head);
+               newTail = tail;
+           }
+       }
+
+       first.setHead(newHead);
+       first.setTail(newTail);
     }
 
     private static <T> Node<T> getNode(Node<T> curr, int k) {

@@ -7,7 +7,7 @@ import java.util.stream.IntStream;
 
 import static data_structures.linked_list.node.SinglyLinkedList.Node;
 
-public class ReversingLinkedListUsingIteration {
+public class _32EasyReversingLinkedListUsingIteration {
     public static void main(String[] args) {
         SinglyLinkedList<Integer> first = new SinglyLinkedList<>();
         Random random = new Random();

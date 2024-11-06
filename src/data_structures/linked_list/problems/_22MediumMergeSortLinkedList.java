@@ -25,7 +25,7 @@ import static data_structures.linked_list.node.Sl.Node;
  *  -   Note here sorting here is done by changing the links and not by changing the values, In quicksort method, changing the values
  *      will be used rather than changing the links.
  */
-public class MergeSortLinkedList {
+public class _22MediumMergeSortLinkedList {
     public static void main(String[] args) {
         Sl sl = new Sl();
         sl.insert(9);

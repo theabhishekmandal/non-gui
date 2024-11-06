@@ -15,7 +15,7 @@ import static data_structures.linked_list.node.SinglyLinkedList.Node;
  *  -   If answer has all zeros then return 0 value node
  */
 
-public class SubtractNumbers {
+public class _42MediumSubtractNumbers {
     public static void main(String[] args) {
         String[] arr = new String[]{
                 "0 7 1 5 3 6 1 0 7",
@@ -45,6 +45,11 @@ public class SubtractNumbers {
             func.accept(arr[i], first);
             func.accept(arr[i + 1], second);
             Node<Integer> answer = subTractLinkedList(first.getHead(), second.getHead());
+//            SinglyLinkedList<Integer> answer = new SinglyLinkedList<>();
+            System.out.println("first list = " + first);
+            System.out.println("second list = " + second);
+
+
             StringBuilder br = new StringBuilder("[");
             boolean firstTime = true;
             while(answer != null) {

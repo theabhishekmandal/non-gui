@@ -64,7 +64,7 @@ class Stack<T>{
         return br.toString();
     }
 }
-public class StackUsingLinkedList {
+public class _40EasyStackUsingLinkedList {
     public static void main(String[] args){
         Stack<Integer> obj = new Stack<>();
         for(int i = 0; i < 11; i++)obj.push(i);

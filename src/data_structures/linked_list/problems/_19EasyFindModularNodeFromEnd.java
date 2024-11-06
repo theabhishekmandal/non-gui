@@ -25,7 +25,7 @@ import static data_structures.linked_list.node.SinglyLinkedList.Node;
  *
  **/
 
-public class FindModularNodeFromEnd {
+public class _19EasyFindModularNodeFromEnd {
     public static void main(String[] args) {
         SinglyLinkedList<Integer> first = new SinglyLinkedList<>();
         Scanner s = new Scanner(System.in);
@@ -37,15 +37,16 @@ public class FindModularNodeFromEnd {
         System.out.println(node);
     }
 
-    private static <T> Node<T> findModularNodeFromEnd(SinglyLinkedList<T> first, int k){
+    private static <T> Node<T> findModularNodeFromEnd(SinglyLinkedList<T> first, int k) {
         Node<T> modularNodeFromEnd = null;
         Node<T> temp = first.getHead();
-        if(temp == null) return null;
+        if (temp == null) return null;
         int i = 1;
-        while(temp != null){
-            if(i < k) i++;
-            else{
-                if(modularNodeFromEnd == null) modularNodeFromEnd = first.getHead();
+        while (temp != null) {
+            if (i < k) {
+                i++;
+            } else {
+                if (modularNodeFromEnd == null) modularNodeFromEnd = first.getHead();
                 else
                     modularNodeFromEnd = modularNodeFromEnd.getNext();
             }

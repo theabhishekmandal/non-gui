@@ -12,12 +12,11 @@ import static data_structures.linked_list.node.SinglyLinkedList.Node;
  * Output: 4, 5, 1, 2, 3
  */
 
-public class RotateRightByK {
+public class _36EasyRotateRightByK {
     public static void main(String[] args) {
         SinglyLinkedList<Integer> first = new SinglyLinkedList<>();
         Random random = new Random();
         int n = 1 + random.nextInt(10);
-        IntStream.range(1, n).forEach(first::addLast);
         int k = 1 + random.nextInt(n);
 
         System.out.println("rotate by " + k);
@@ -25,27 +24,30 @@ public class RotateRightByK {
         rotateRightByk(first, k);
         System.out.println("list after k right rotation " + first);
     }
+
     private static <T> void rotateRightByk(SinglyLinkedList<T> first, int k){
-        if(first == null || k == 0) return;
-        Node<T> temp = first.getHead();
-        for(int i = 0; i < k; i++){
-            temp = temp.getNext();
-            if(temp == null) return;
+        if(first == null || k == 0 || first.getHead() == null) {
+            return;
         }
-        Node<T> curr = first.getHead();
-        while(temp.getNext() != null){
-            temp = temp.getNext();
-            curr = curr.getNext();
+        Node<T> temp = first.getHead();
+        Node<T> tail = first.getTail();
+        Node<T> tempTail = tail;
+        int length = 0;
+        for (var i = first.getHead(); i != null; i = i.getNext()) {
+            length++;
         }
 
-        Node<T> nextHead = curr.getNext();
-        Node<T> newPointer = nextHead;
-        first.setTail(curr);
-        curr.setNext(null);
-        while(newPointer.getNext() != null){
-            newPointer = newPointer.getNext();
+        // make the linked list circular.
+        tail.setNext(temp);
+
+        // for k right rotation, pointer should travel n-k
+        for (int i = 0; i < length - k; i++) {
+            temp = temp.getNext();
+            tempTail = tempTail.getNext();
         }
-        newPointer.setNext(first.getHead());
-        first.setHead(nextHead);
+
+        first.setHead(temp);
+        first.setTail(tempTail);
+        first.getTail().setNext(null);
     }
 }

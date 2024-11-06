@@ -13,7 +13,7 @@ import static data_structures.linked_list.node.SinglyLinkedList.Node;
  * Find common elements in two sorted linked list.
  */
 
-public class PrintCommonElements {
+public class _27EasyPrintCommonElements {
     public static void main(String[] args) {
         Random random = new Random();
         SinglyLinkedList<Integer> first = new SinglyLinkedList<>();

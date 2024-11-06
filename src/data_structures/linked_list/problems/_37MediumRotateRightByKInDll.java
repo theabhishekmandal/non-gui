@@ -11,7 +11,7 @@ import static data_structures.linked_list.node.DoublyLinkedList.Node;
  * Given a doubly linked list and a value k, reverse k nodes.
  *
  */
-public class RotateRightByKInDll {
+public class _37MediumRotateRightByKInDll {
     public static void main(String[] args) {
         var dl = new DoublyLinkedList<Integer>();
         IntStream.range(1, 11).forEach(dl::addLast);

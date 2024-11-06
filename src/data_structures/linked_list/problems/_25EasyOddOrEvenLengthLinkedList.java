@@ -7,7 +7,7 @@ import java.util.stream.IntStream;
 
 import static data_structures.linked_list.node.SinglyLinkedList.Node;
 
-public class OddOrEvenLengthLinkedList {
+public class _25EasyOddOrEvenLengthLinkedList {
     public static void main(String[] args) {
         SinglyLinkedList<Integer> first = new SinglyLinkedList<>();
         Random random = new Random();

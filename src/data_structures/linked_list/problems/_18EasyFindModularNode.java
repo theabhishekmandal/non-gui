@@ -20,7 +20,7 @@ import static data_structures.linked_list.node.SinglyLinkedList.Node;
  *      take the counter = 1 and head, whenever counter % k == 0 get that location node
  *      do this till the end of the list.
  */
-public class FindModularNode {
+public class _18EasyFindModularNode {
     public static void main(String[] args) {
         SinglyLinkedList<Integer> first = new SinglyLinkedList<>();
         Random random = new Random();
@@ -36,7 +36,7 @@ public class FindModularNode {
     }
 
     // if size of the list is given
-    private static <T> Node<T> findModularNode(SinglyLinkedList<T> first, int k){
+    private static <T> Node<T> findModularNode(SinglyLinkedList<T> first, int k) {
         int length = first.getSize();
         int pos = (length / k) * k;
         return first.getNode(pos);

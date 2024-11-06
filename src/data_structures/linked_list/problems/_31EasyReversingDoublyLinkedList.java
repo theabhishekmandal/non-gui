@@ -9,7 +9,7 @@ import static data_structures.linked_list.node.DoublyLinkedList.Node;
 /**
  * Given a Doubly linked list. Reverse it's elements
  */
-public class ReversingDoublyLinkedList {
+public class _31EasyReversingDoublyLinkedList {
     public static void main(String[] args) {
         var dl = new DoublyLinkedList<Integer>();
         Random random = new Random();

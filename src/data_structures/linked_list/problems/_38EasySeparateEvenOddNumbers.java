@@ -11,7 +11,7 @@ import static data_structures.linked_list.node.SinglyLinkedList.Node;
  * the linked list
  */
 
-public class SeparateEvenOddNumbers {
+public class _38EasySeparateEvenOddNumbers {
     public static void main(String[] args) {
         SinglyLinkedList<Integer> first = new SinglyLinkedList<>();
         IntStream.range(1, 10).forEach(first::addLast);
