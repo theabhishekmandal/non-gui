@@ -9,7 +9,7 @@ import static data_structures.tree.binary_tree.binary_tree_impl.BinaryTree.Node;
 /**
  * Given a binary tree find the largest sum in the subTree, given that negative numbers are also present.
  */
-public class LargestSubTreeSum {
+public class _28EasyLargestSubTreeSum {
     public static void main(String[] args) {
         var random = new Random();
         var binaryTree = new BinaryTree<Integer>();

@@ -23,7 +23,7 @@ import static data_structures.tree.binary_tree.binary_tree_impl.BinaryTree.Node;
  *      then add it to the same level as that of the parent.
  */
 
-public class DiagonalTraversal {
+public class _19EasyDiagonalTraversal {
     public static void main(String[] args) {
         var tree = new BinaryTree<Integer>();
         IntStream.range(0, 10).forEach(tree::insertInBinaryTreeLevelOrder);

@@ -15,7 +15,7 @@ import static data_structures.tree.binary_tree.binary_tree_impl.BinaryTree.Node;
  *      if all the nodes are present in the list, then it is found otherwise not
  */
 
-public class FindSubTreeInTree {
+public class _26EasyFindSubTreeInTree {
     public static void main(String[] args) {
         var random = new Random();
         var binaryTree = new BinaryTree<Integer>();

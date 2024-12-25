@@ -21,7 +21,7 @@ import static data_structures.tree.binary_tree.binary_tree_impl.BinaryTree.Node;
  *
  *  -   In iterative level order traversal, increase counter at every level
  */
-public class DepthOfTree {
+public class _18EasyDepthOfTree {
     public static void main(String[] args) {
         var binaryTree = new BinaryTree<Integer>();
         var random = new Random();
@@ -82,12 +82,13 @@ public class DepthOfTree {
 
         var counter = 0;
         Queue<Node<T>> queue = new ArrayDeque<>();
+        var nullNode = Node.<T>of(null);
         queue.add(node);
-        queue.add(null);
+        queue.add(nullNode);
 
         while (!queue.isEmpty()) {
             Node<T> curr = queue.poll();
-            if (curr != null) {
+            if (curr != nullNode) {
                 if (curr.getLeft() != null) {
                     queue.add(curr.getLeft());
                 }
@@ -97,7 +98,7 @@ public class DepthOfTree {
             } else {
                 counter++;
                 if (!queue.isEmpty()) {
-                    queue.add(null);
+                    queue.add(nullNode);
                 }
             }
         }

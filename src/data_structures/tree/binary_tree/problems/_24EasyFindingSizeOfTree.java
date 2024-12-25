@@ -15,7 +15,7 @@ import static data_structures.tree.binary_tree.binary_tree_impl.BinaryTree.Node;
  *  -   Use post order traversal to find the total number of nodes in tree
  */
 
-public class FindingSizeOfTree {
+public class _24EasyFindingSizeOfTree {
     public static void main(String[] args) {
         var binaryTree = new BinaryTree<Integer>();
         var random = new Random();

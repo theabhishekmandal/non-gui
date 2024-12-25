@@ -150,6 +150,9 @@ public class SinglyLinkedList<T> {
     public String toString() {
         StringJoiner br = new StringJoiner("-->");
         for (Node<T> temp = head; temp != null; temp = temp.next) {
+            if (temp.next == this.head) {
+                break;
+            }
             br.add(String.valueOf(temp));
         }
         return br.toString();

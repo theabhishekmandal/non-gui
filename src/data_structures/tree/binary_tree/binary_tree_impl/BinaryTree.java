@@ -416,7 +416,7 @@ public class BinaryTree<T> {
             final Node<T> curr = nodeQueue.poll();
             if (curr != nullNode) {
                 if (curr != emptyObject) {
-                    joiner.add(curr.data.toString());
+                    joiner.add(curr.toString());
                     nodeQueue.add(Objects.requireNonNullElse(curr.left, emptyObject));
                     nodeQueue.add(Objects.requireNonNullElse(curr.right, emptyObject));
                 } else {
@@ -478,20 +478,25 @@ public class BinaryTree<T> {
             return this.left;
         }
 
-        public void setLeft(Node<T> left) {
+        public Node<T> setLeft(Node<T> left) {
             this.left = left;
+            return this;
         }
 
         public Node<T> getRight() {
             return this.right;
         }
 
-        public void setRight(Node<T> right) {
+        public Node<T> setRight(Node<T> right) {
             this.right = right;
+            return this;
         }
 
         @Override
         public String toString() {
+            if (this.data == null) {
+                return "null";
+            }
             return this.data.toString();
         }
 

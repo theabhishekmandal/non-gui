@@ -2,11 +2,11 @@ package abstract_class;
 
 /**
     this code is an example of abstract class
-    remember : a abstract class can have abstract method ,non abstract method and data members
+    remember : an abstract class can have abstract method ,non-abstract method and data members
          : cannot create object of abstract class
          : abstract method has definition only and not body
-         : a non abstract class cannot have abstract method because if it were so then we would be able to create
-           object of non abstract class and would access that abstract method which is not implemented
+         : a non-abstract class cannot have abstract method because if it were so then we would be able to create
+           object of non-abstract class and would access that abstract method which is not implemented
  */
 
 abstract class CheckOne {

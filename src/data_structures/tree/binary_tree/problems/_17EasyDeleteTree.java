@@ -11,7 +11,7 @@ import java.util.Random;
  *      garbage collector.
  */
 
-public class DeleteTree {
+public class _17EasyDeleteTree {
     public static void main(String[] args) {
         var binaryTree = new BinaryTree<Integer>();
         var random = new Random();

@@ -19,7 +19,7 @@ import static data_structures.tree.binary_tree.binary_tree_impl.BinaryTree.Node;
  *      for the mirror image node.
  *  -   Now, push nodes in reverse order, that is for one insert the left one and for other insert the right one.
  */
-public class CreateMirrorTree {
+public class _12EasyCreateMirrorTree {
     public static void main(String[] args) {
         var random = new Random();
         BinaryTree<Integer> binaryTree = new BinaryTree<>();

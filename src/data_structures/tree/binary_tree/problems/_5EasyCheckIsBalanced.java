@@ -17,7 +17,7 @@ import static data_structures.tree.binary_tree.binary_tree_impl.BinaryTree.Node;
  *      and right height and take the max out of left and right. Add 1 to this max which represents the root and return
  *      back to recursion tree.
  */
-public class CheckIsBalanced {
+public class _5EasyCheckIsBalanced {
     // for input to generate random tree
     private static final Random random = new Random();
     private static boolean isBalanced = true;

@@ -24,7 +24,7 @@ import static data_structures.tree.binary_tree.binary_tree_impl.BinaryTree.Node;
  *
  */
 
-public class CheckSumInTree {
+public class _8EasyCheckSumInTree {
     public static void main(String[] args) {
         var random = new Random();
         var binaryTree = new BinaryTree<Integer>();

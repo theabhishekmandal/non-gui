@@ -10,8 +10,16 @@ import static data_structures.tree.binary_tree.binary_tree_impl.BinaryTree.Node;
 
 /**
  * Given the inOrder and postOrder traversals generate the binaryTree
+ * Approach using example
+ * inorder array = [4, 2, 3, 6, 1, 8, 7, 3]
+ * postorder array = [4, 6, 5, 2, 8, 7, 3, 1]
+ *
+ *  -   postOrder last element gives us the current root.
+ *  -   inorder gives the left and right children
+ *
+ *  Using above two conditions
  */
-public class CreateTreeUsingPostOrderAndInOrder {
+public class _13MediumCreateTreeUsingPostOrderAndInOrder {
     public static void main(String[] args) {
         var random = new Random();
         var binaryTree = new BinaryTree<Integer>();

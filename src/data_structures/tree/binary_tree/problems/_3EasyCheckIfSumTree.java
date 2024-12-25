@@ -23,7 +23,7 @@ import static data_structures.tree.binary_tree.binary_tree_impl.BinaryTree.Node;
  *  -   returning sum is necessary so as to check for above node whether they have equal sum with their parent or not
  *
  */
-public class CheckIfSumTree {
+public class _3EasyCheckIfSumTree {
     public static void main(String[] args) {
         final List<int[]> list = List.of(
                 new int[]{3, 1, 2},

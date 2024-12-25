@@ -12,9 +12,10 @@ import static data_structures.tree.binary_tree.binary_tree_impl.BinaryTree.Node;
  *
  * Approach:
  *  -   Use Inorder traversal to insert node in Dll using head and tail pointer
+ *  -   We have to use inorder traversal, because through this we will get leftmost node as the first element.
  */
 
-public class ConvertBinaryTreeToDll {
+public class _11EasyConvertBinaryTreeToDll {
     public static void main(String[] args) {
         var tree = getInput();
         System.out.println(tree.levelOrderPretty());

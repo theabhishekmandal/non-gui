@@ -27,7 +27,7 @@ import static data_structures.tree.binary_tree.binary_tree_impl.BinaryTree.Node;
  *  -   Get the left and right view of the list
  *  -   combine and merge them
  */
-public class BoundaryTraversal {
+public class _2MediumBoundaryTraversal {
     public static void main(String[] args) {
         final var tree = new BinaryTree<Integer>();
         IntStream.range(0, 9).forEach(tree::insertInBinaryTreeLevelOrder);

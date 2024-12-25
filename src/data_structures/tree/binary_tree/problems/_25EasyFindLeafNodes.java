@@ -17,7 +17,7 @@ import static data_structures.tree.binary_tree.binary_tree_impl.BinaryTree.Node;
  *      does not have the left and right child.
  */
 
-public class FindLeafNodes {
+public class _25EasyFindLeafNodes {
     public static void main(String[] args) {
         var random = new Random();
         var binaryTree = new BinaryTree<Integer>();

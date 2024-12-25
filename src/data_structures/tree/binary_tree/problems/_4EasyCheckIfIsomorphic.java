@@ -39,7 +39,7 @@ import static data_structures.tree.binary_tree.binary_tree_impl.BinaryTree.Node;
  *          -   if they are flipped, then check left node with right and vice versa.
  *          -   if they are not flipped, then check left node with left and similarly with right.
  */
-public class CheckIfIsomorphic {
+public class _4EasyCheckIfIsomorphic {
     public static void main(String[] args) {
         first();
     }

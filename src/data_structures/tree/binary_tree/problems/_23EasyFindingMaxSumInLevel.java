@@ -12,7 +12,7 @@ import static data_structures.tree.binary_tree.binary_tree_impl.BinaryTree.Node;
 /**
  * Find the maximum sum in a given level in a tree
  */
-public class FindingMaxSumInLevel {
+public class _23EasyFindingMaxSumInLevel {
     public static void main(String[] args) {
         var random = new Random();
         var binaryTree = new BinaryTree<Integer>();

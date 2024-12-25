@@ -13,7 +13,7 @@ import static data_structures.tree.binary_tree.binary_tree_impl.BinaryTree.Node;
  * Approach:
  *      Traverse in level order and whichever is the last node will be the deepest node in the tree
  */
-public class DeepestNodeInTree {
+public class _15EasyDeepestNodeInTree {
     public static void main(String[] args) {
         var random = new Random();
         var binaryTree = new BinaryTree<Integer>();

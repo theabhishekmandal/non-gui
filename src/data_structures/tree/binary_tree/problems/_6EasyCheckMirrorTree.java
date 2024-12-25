@@ -17,7 +17,7 @@ import java.util.Random;
  *     -    at last check whether their size are same or not because, while traversing there can be a possibility
  *          that one of the node is null, then it will exit out of the loop
  */
-public class CheckMirrorTree {
+public class _6EasyCheckMirrorTree {
     public static void main(String[] args) {
         var random = new Random();
         var binaryTree = new BinaryTree<Integer>();

@@ -28,7 +28,7 @@ import static data_structures.tree.binary_tree.binary_tree_impl.BinaryTree.Node;
  *      again calculating sum by excluding the node and then calculating the max sum between both of them.
  *  -   As we are using dp, we have to compute and store the maxSum of each node in the map.
  */
-public class LargestSumWithoutAdjacentNodes {
+public class _30MediumLargestSumWithoutAdjacentNodes {
 
     public static void main(String[] args) {
         var random = new Random();

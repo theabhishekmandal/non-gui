@@ -16,10 +16,10 @@ import static data_structures.tree.binary_tree.binary_tree_impl.BinaryTree.Node;
  *  -   pop the last node and make it as root node
  */
 
-public class ConstructBinaryTreeFromString {
+public class _9EasyConstructBinaryTreeFromString {
     public static void main(String[] args) {
         Stream.of("4(2(3)(1))(6(5))", "1(2)(3)")
-                .map(ConstructBinaryTreeFromString::getBinaryTreeFromString)
+                .map(_9EasyConstructBinaryTreeFromString::getBinaryTreeFromString)
                 .map(BinaryTree::levelOrderPretty)
                 .forEach(System.out::println);
     }

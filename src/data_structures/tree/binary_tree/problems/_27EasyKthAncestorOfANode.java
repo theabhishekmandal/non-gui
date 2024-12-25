@@ -13,7 +13,7 @@ import static data_structures.tree.binary_tree.binary_tree_impl.BinaryTree.Node;
  *  - Add all the path from root to that node, and then traverse from last to find the kth ancestor
  *
  */
-public class KthAncestorOfANode {
+public class _27EasyKthAncestorOfANode {
     public static void main(String[] args) {
         var random = new Random();
         var binaryTree = new BinaryTree<Integer>();

@@ -44,7 +44,7 @@ import static data_structures.tree.binary_tree.binary_tree_impl.BinaryTree.Node;
  *      has count greater than 1
  */
 
-public class DuplicateSubTree {
+public class _21EasyDuplicateSubTree {
     public static void main(String[] args) {
         Node<Integer> root = Node.of(1);
 

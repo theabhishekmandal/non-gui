@@ -15,7 +15,7 @@ import static data_structures.tree.binary_tree.binary_tree_impl.BinaryTree.Node;
  *                        DBE<-----A---->FC
  * We recursively follow the above steps to generate the tree
  */
-public class CreateTreeUsingPreOrderAndInOrder {
+public class _14MediumCreateTreeUsingPreOrderAndInOrder {
     public static void main(String[] args) {
         var in = new char[]{'D', 'B', 'E', 'A', 'F', 'C'};
         var pre = new char[]{'A', 'B', 'D', 'E', 'C', 'F'};

@@ -23,7 +23,7 @@ import static data_structures.tree.binary_tree.binary_tree_impl.BinaryTree.Node;
  *      left child = 2 * i + 1 and right child = 2 * i + 2;
  */
 
-public class ConvertBinaryTreeToBSTWithMinimumSwaps {
+public class _10MediumConvertBinaryTreeToBSTWithMinimumSwaps {
     public static void main(String[] args) {
         var binaryTree = new BinaryTree<Integer>();
         Stream.of(5, 6, 7, 8, 9, 10, 11).forEach(binaryTree::insertInBinaryTreeLevelOrder);
@@ -40,6 +40,15 @@ public class ConvertBinaryTreeToBSTWithMinimumSwaps {
         System.out.println("list before sorting\n" + inOrderList);
         inOrderList.sort(Comparator.comparingInt(Pair::getFirst));
         System.out.println("list after sorting\n" + inOrderList);
+
+        /*
+           list before sorting (original inorder list of binary tree) = [8, 6, 9, 5, 10, 7, 11]
+           list after sorting (sorted list gives inorder list of binary search tree) = [5, 6, 7, 8, 9, 10, 11]
+           now we have both inorder list, one is of binary tree and other is of binary search tree.
+           To count the minimum number of swaps we will convert second list to original list with original index
+           and count the swaps
+         */
+
         var swaps = 0;
         for (var i = 0; i < inOrderList.size();) {
             var pair = inOrderList.get(i);

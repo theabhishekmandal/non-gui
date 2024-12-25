@@ -11,7 +11,7 @@ import java.util.stream.IntStream;
  * Delete a given node from the tree.
 
  */
-public class DeleteNodeFromTree {
+public class _16EasyDeleteNodeFromTree {
     public static void main(String[] args) {
         var random = new Random();
         var binaryTree = new BinaryTree<Integer>();

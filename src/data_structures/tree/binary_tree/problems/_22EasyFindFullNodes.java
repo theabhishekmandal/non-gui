@@ -16,7 +16,7 @@ import static data_structures.tree.binary_tree.binary_tree_impl.BinaryTree.Node;
  *  -   To find a full node traverse in level order manner and count the nodes if the current node
  *      has both left and right child
  */
-public class FindFullNodes {
+public class _22EasyFindFullNodes {
     public static void main(String[] args) {
         var random = new Random();
         var binaryTree = new BinaryTree<Integer>();

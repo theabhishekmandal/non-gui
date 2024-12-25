@@ -28,7 +28,7 @@ import static data_structures.tree.binary_tree.binary_tree_impl.BinaryTree.Node;
  *      then number of edges will be 0. Also, this condition is also satisfied by empty root value.
  * */
 
-public class DiameterOfTree {
+public class _20EasyDiameterOfTree {
     private static int value;
 
     public static void main(String[] args) {

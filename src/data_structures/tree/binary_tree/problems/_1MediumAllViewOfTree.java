@@ -12,7 +12,7 @@ import static data_structures.tree.binary_tree.binary_tree_impl.BinaryTree.Node;
  * Given a binary tree print all the views of it.
  */
 
-public class AllViewOfTree {
+public class _1MediumAllViewOfTree {
     public static void main(String[] args) {
         final var tree = new BinaryTree<Integer>();
         IntStream.range(0, 9).forEach(tree::insertInBinaryTreeLevelOrder);
@@ -47,22 +47,32 @@ public class AllViewOfTree {
         final Deque<Node<T>> queue = new ArrayDeque<>();
         final List<T> ans = new ArrayList<>();
 
-        var leftView = true;
-        queue.add(root);
         queue.add(nullNode);
+        queue.add(root);
 
         while (!queue.isEmpty()) {
             final var curr = queue.poll();
+
+            // for every value node add the left and right childs
             if (curr != nullNode) {
-                if (leftView) {
-                    leftView = false;
-                    ans.add(curr.getData());
+                if (curr.getLeft() != null) {
+                    queue.add(curr.getLeft());
                 }
-                addToQueue(queue, curr, true);
-            } else {
+                if (curr.getRight() != null) {
+                    queue.add(curr.getRight());
+                }
+            }
+            // for every null node
+            else {
+
+                // for every null node, first element will give the leftmost child
                 if (!queue.isEmpty()) {
-                    leftView = true;
-                    queue.add(nullNode);
+
+                    Node<T> tNode = queue.peekFirst();
+                    if (tNode != nullNode) {
+                        ans.add(tNode.getData());
+                        queue.add(nullNode);
+                    }
                 }
             }
         }
@@ -95,6 +105,23 @@ public class AllViewOfTree {
      *
      *  Approach: Using reverse level order traversal, the first node that is added to queue, is one of the right node and
      *  will be added to final list
+     *  queue
+     *  [n, 1]
+     *  [1] -> print 1
+     *  [1, n] <- add nullNode to queue if queue contains non-null element
+     *  [n, 2, 3]
+     *  [2, 3] <- print 3
+     *  [2, 3, n] <- add nullNode
+     *  [3, n, 4, 5]
+     *  [n, 4, 5, 6, 7]
+     *  [4, 5, 6, 7] <- print 7
+     *  [4, 5, 6, 7, n] <- add nullNode
+     *  [5, 6, 7, n, 8]
+     *  [6, 7, n, 8]
+     *  [7, n, 8]
+     *  [n, 8]
+     *  [8] -> print 8
+     *  [n]
      */
     private static <T> List<T> getRightView(Node<T> root) {
         if (root == null) {
@@ -104,23 +131,32 @@ public class AllViewOfTree {
         final Node<T> nullNode = Node.of(null);
         final Deque<Node<T>> queue = new ArrayDeque<>();
         final List<T> ans = new ArrayList<>();
-
-        var rightView = true;
-        queue.add(root);
         queue.add(nullNode);
+        queue.add(root);
 
         while (!queue.isEmpty()) {
             final var curr = queue.poll();
+
+            // for every value node add the left and right childs
             if (curr != nullNode) {
-                if (rightView) {
-                    rightView = false;
-                    ans.add(curr.getData());
+                if (curr.getLeft() != null) {
+                    queue.add(curr.getLeft());
                 }
-                addToQueue(queue, curr, false);
-            } else {
+                if (curr.getRight() != null) {
+                    queue.add(curr.getRight());
+                }
+            }
+            // for every null node
+            else {
+
+                // for every null node, last element will give the rightMost child
                 if (!queue.isEmpty()) {
-                    rightView = true;
-                    queue.add(nullNode);
+
+                    Node<T> tNode = queue.peekLast();
+                    if (tNode != nullNode) {
+                        ans.add(tNode.getData());
+                        queue.add(nullNode);
+                    }
                 }
             }
         }
