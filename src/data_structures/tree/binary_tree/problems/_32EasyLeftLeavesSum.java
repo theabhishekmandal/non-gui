@@ -12,7 +12,7 @@ import static data_structures.tree.binary_tree.binary_tree_impl.BinaryTree.Node;
  * Given a binary tree, find the sum of the left leave nodes
  */
 
-public class LeftLeavesSum {
+public class _32EasyLeftLeavesSum {
     public static void main(String[] args) {
         var random = new Random();
         var binaryTree = new BinaryTree<Integer>();

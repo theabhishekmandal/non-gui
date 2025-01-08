@@ -15,7 +15,7 @@ import static data_structures.tree.binary_tree.binary_tree_impl.BinaryTree.Node;
  *      then distance = d1 + d2 where d1(is the distance from LCA to first node) and
  *      d2(is the distance from LCA to second node)
  */
-public class MinDistanceBetweenTwoNodes {
+public class _34MediumMinDistanceBetweenTwoNodes {
     public static void main(String[] args) {
         var random = new Random();
         var binaryTree = new BinaryTree<Integer>();

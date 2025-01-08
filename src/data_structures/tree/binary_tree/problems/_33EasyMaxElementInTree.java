@@ -14,7 +14,7 @@ import static data_structures.tree.binary_tree.binary_tree_impl.BinaryTree.Node;
  *      -   Find the max between left child, right child and the parent node
  *      -   Using post order traversal is the best option
  */
-public class MaxElementInTree {
+public class _33EasyMaxElementInTree {
     public static void main(String[] args) {
         var random = new Random();
         var binaryTree = new BinaryTree<Integer>();

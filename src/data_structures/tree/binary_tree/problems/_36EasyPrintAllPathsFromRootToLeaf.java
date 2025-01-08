@@ -16,7 +16,7 @@ import static data_structures.tree.binary_tree.binary_tree_impl.BinaryTree.Node;
  *  -   For Recursion, add the contents to the list
  */
 
-public class PrintAllPathsFromRootToLeaf {
+public class _36EasyPrintAllPathsFromRootToLeaf {
 
     public static void main(String[] args) {
         var random = new Random();

@@ -9,8 +9,13 @@ import static data_structures.tree.binary_tree.binary_tree_impl.BinaryTree.Node;
 
 /**
  * Give an algorithm for find LCA(Least Common Ancestor) of two nodes in a Binary Tree
+ * Least common ancestor meaning, given two nodes, find their ancestor.
  * Using recursion in O(n) is the faster way
  * Approach
+ *      -   Two values n, m can be in three places in a tree.
+ *          -   n is in left subtree, m is in right subTree, current node becomes the lca.
+ *          -   n, m are both in left subTree, left subtree root becomes the lca.
+ *          -   n, m are both in right subTree, right subtree root becomes the lca.
  *      -   Traverse the tree using post order recursion, we will set v1 or v2 if first or second matches the
  *          root
  *          -   In bottom up approach, if a node is matching one of the first and second values then return it,
@@ -30,7 +35,7 @@ import static data_structures.tree.binary_tree.binary_tree_impl.BinaryTree.Node;
  *       8   9
  *
  */
-public class LeastCommonAncestor {
+public class _31MediumLeastCommonAncestor {
     public static void main(String[] args) {
         var random = new Random();
         var binaryTree = new BinaryTree<Integer>();

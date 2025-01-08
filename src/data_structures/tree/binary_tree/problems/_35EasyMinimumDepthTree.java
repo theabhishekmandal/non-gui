@@ -26,7 +26,7 @@ import static data_structures.tree.binary_tree.binary_tree_impl.BinaryTree.Node;
  *      then return the counter
  */
 
-public class MinimumDepthTree {
+public class _35EasyMinimumDepthTree {
     public static void main(String[] args) {
         var random = new Random();
         var binaryTree = new BinaryTree<Integer>();
