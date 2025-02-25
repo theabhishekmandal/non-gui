@@ -15,7 +15,7 @@ import static data_structures.tree.binary_tree.binary_tree_impl.BinaryTree.Node;
  * -    Do DFS traversal and for each node, pass it as a string to the stack.
  * -    Later if the node to be found matches then return the full string.
  */
-public class PrintAncestorsOfNode {
+public class _37EasyPrintAncestorsOfNode {
     public static void main(String[] args) {
         var random = new Random();
         var binaryTree = new BinaryTree<Integer>();

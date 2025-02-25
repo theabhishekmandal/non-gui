@@ -19,7 +19,14 @@ import static data_structures.tree.binary_tree.binary_tree_impl.BinaryTree.Node;
  *  -   When leaf is encountered we have a full path from root to the leaf node.
  *  -   Now starting from leaf node value to root node value, add it to the sum and check whether it is equal to k
  *      or not, if it is equal then add it to the joiner.
- *  -   In the end remove the last node from the list, as it is already visited
+ *  -   Here permutation and combination is achieved by using, traversing from backend.
+ *  -   Also after reverse traversing we must remove the last index so that we can achieve necessary permutation and combination.*
+ *
+ *  Approach 2:
+ *      -   For every path visited, store the path from root.
+ *      -   calculate the sum, while traversing from the back. Reverse traversing is a must.
+ *          For example: a path has [1, 2, 3], [1, 2]. If we traverse from front we will not get the combination
+ *          sum of 2 and 3.
  *
  *  Eg:
  *             [1]
@@ -35,7 +42,7 @@ import static data_structures.tree.binary_tree.binary_tree_impl.BinaryTree.Node;
  * i = 0, sum += arr[i] = 6 - 1, and k == sum, so joiner = [[5], [-1, 1, 5]]
  *
  */
-public class PrintKSumPaths {
+public class _38MediumPrintKSumPaths {
 
     public static void main(String[] args) {
         var binaryTree = new BinaryTree<Integer>();
@@ -57,6 +64,10 @@ public class PrintKSumPaths {
 
         var k = 5;
         System.out.println(getAllKSumPaths(binaryTree, k));
+        System.out.println("\n\n");
+        System.out.println(getAllKSumPaths2(binaryTree, k));
+        System.out.println("\n\n");
+        System.out.println(getAllKSumPaths3(binaryTree, k));
     }
 
     private static String getAllKSumPaths(BinaryTree<Integer> binaryTree, int k) {
@@ -87,6 +98,74 @@ public class PrintKSumPaths {
         }
         return joiner.toString();
     }
+
+    /*
+      Using inOrder traversal, and this will not work
+   */
+    private static String getAllKSumPaths2(BinaryTree<Integer> binaryTree, int k) {
+        if (binaryTree == null || binaryTree.getRoot() == null) {
+            return "";
+        }
+        List<Integer> list = new ArrayList<>();
+        Deque<Node<Integer>> stack = new ArrayDeque<>();
+        var curr = binaryTree.getRoot();
+        var joiner = new StringJoiner("\n");
+        while (curr != null || !stack.isEmpty()) {
+            if (curr != null) {
+                list.add(curr.getData());
+                stack.push(curr);
+                curr = curr.getLeft();
+            } else {
+                curr = stack.pop();
+                calculateKSumPath(list, k, joiner);
+                curr = curr.getRight();
+            }
+        }
+        return joiner.toString();
+    }
+
+
+
+    // using preorder traversal and storing the paths
+    private static String getAllKSumPaths3(BinaryTree<Integer> binaryTree, int k) {
+        if (binaryTree == null || binaryTree.getRoot() == null) {
+            return "";
+        }
+
+        Deque<NodeWrapper<Integer>> stack = new ArrayDeque<>();
+        var joiner = new StringJoiner("\n");
+        stack.push(new NodeWrapper<>(binaryTree.getRoot(), new ArrayList<>()));
+
+        while (!stack.isEmpty()) {
+            var curr = stack.pop();
+            curr.paths().add(curr.node().getData());
+            getPaths(joiner, curr.paths(), k);
+
+            if (curr.node().getLeft() != null) {
+                stack.push(new NodeWrapper<>(curr.node().getLeft(), new ArrayList<>(curr.paths())));
+            }
+
+            if (curr.node().getRight() != null) {
+                stack.push(new NodeWrapper<>(curr.node().getRight(), new ArrayList<>(curr.paths())));
+            }
+        }
+        return joiner.toString();
+    }
+
+
+    private static void getPaths(StringJoiner joiner, List<Integer> paths, int k) {
+        int sum = 0;
+        for (int i = paths.size() - 1; i >= 0; i--) {
+            sum += paths.get(i);
+            if (sum == k) {
+                joiner.add(getString(paths, i));
+            }
+        }
+    }
+
+
+
+    record NodeWrapper<T>(Node<T> node, List<T> paths) {}
 
     /**
      * for every node value that is added into the list,

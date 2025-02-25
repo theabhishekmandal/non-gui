@@ -3,12 +3,14 @@ package data_structures.tree.binary_tree.problems;
 import data_structures.tree.binary_tree.binary_tree_impl.BinaryTree;
 import utility.StopWatch;
 
+import java.util.List;
 import java.util.Random;
+import java.util.stream.IntStream;
 
 import static data_structures.tree.binary_tree.binary_tree_impl.BinaryTree.Node;
 
 /**
- * Give an algorithm for find LCA(Least Common Ancestor) of two nodes in a Binary Tree
+ * Give an algorithm to find LCA(Least Common Ancestor) of two nodes(n, m) in a Binary Tree
  * Least common ancestor meaning, given two nodes, find their ancestor.
  * Using recursion in O(n) is the faster way
  * Approach
@@ -39,10 +41,40 @@ public class _31MediumLeastCommonAncestor {
     public static void main(String[] args) {
         var random = new Random();
         var binaryTree = new BinaryTree<Integer>();
-        int randomMaxElement = 20;
-        random.ints(20, 0, randomMaxElement).forEach(binaryTree::insertInBinaryTreeLevelOrder);
-        var first = random.nextInt(randomMaxElement);
-        var second = random.nextInt(randomMaxElement);
+        int size = 20;
+
+        IntStream.range(1, size).forEach(binaryTree::insertInBinaryTreeLevelOrder);
+        printLCASimple(binaryTree);
+//        printLCA(random, size, binaryTree);
+    }
+
+    private static void printLCASimple(BinaryTree<Integer> binaryTree) {
+
+        List<int[]> inputs = List.of(
+                // when they have same parent
+                new int[]{2, 3},
+
+                // when they have distant ancestor
+                new int[]{9, 10},
+
+                // when one is parent and other is child. this algo won't be able to handle this.
+                new int[]{1, 2}
+        );
+
+        System.out.println("binary Tree = " + binaryTree.levelOrder());
+        for (int[] input : inputs) {
+            var first = input[0];
+            var second = input[1];
+
+            System.out.println("\nfirst value = " + first + "\nsecond value = " + second);
+            var res = getLCASimple(binaryTree, input[0], input[1]);
+            System.out.println("found = " + res + "\n");
+        }
+    }
+
+    private static void printLCA(Random random, int size, BinaryTree<Integer> binaryTree) {
+        var first = random.nextInt(size);
+        var second = random.nextInt(size);
         System.out.println(binaryTree.levelOrder() + "\nfirst value = " + first + "\nsecond value = " + second);
 
         var stopWatch = new StopWatch();
@@ -55,6 +87,54 @@ public class _31MediumLeastCommonAncestor {
     }
 
 
+    // more simple approach
+    private static Integer getLCASimple(BinaryTree<Integer> binaryTree, int first, int second) {
+        if (binaryTree == null || binaryTree.getRoot() == null) {
+            return null;
+        }
+        v1 = false;
+        v2 = false;
+        Node<Integer> node = getAncestorSimple(binaryTree.getRoot(), first, second);
+        if (v1 && v2) {
+            return node.getData();
+        }
+        return null;
+    }
+
+    private static Node<Integer> getAncestorSimple(Node<Integer> node, int first, int second) {
+        if (node == null) {
+            return null;
+        }
+        if (node.getData() == first) {
+            v1 = true;
+            return node;
+        }
+
+        if (node.getData() == second) {
+            v2 = true;
+            return node;
+        }
+
+        var left = getAncestorSimple(node.getLeft(), first, second);
+        var right = getAncestorSimple(node.getRight(), first, second);
+
+        if (left != null && right != null) {
+            return node;
+        }
+
+        if (left != null) {
+            return left;
+        }
+
+        if (right != null) {
+            return right;
+        }
+
+        return null;
+    }
+
+
+    // this is the optimal approach.
     private static boolean v1;
     private static boolean v2;
 
