@@ -13,7 +13,7 @@ import static data_structures.tree.binary_tree.binary_tree_impl.BinaryTree.Node;
  * Approach
  *  -   Use top down/bottom up approach to find the sum of nodes
  */
-public class SumInTree {
+public class _43EasySumInTree {
     public static void main(String[] args) {
         var random = new Random();
         var binaryTree = new BinaryTree<Integer>();

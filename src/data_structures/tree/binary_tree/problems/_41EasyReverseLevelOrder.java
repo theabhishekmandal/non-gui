@@ -17,7 +17,7 @@ import static data_structures.tree.binary_tree.binary_tree_impl.BinaryTree.Node;
  *      in reverse order
  *  -   now add that queue in the finalDeque Deque
  */
-public class ReverseLevelOrder {
+public class _41EasyReverseLevelOrder {
     public static void main(String[] args) {
         var binaryTree = new BinaryTree<Integer>();
         var random = new Random();

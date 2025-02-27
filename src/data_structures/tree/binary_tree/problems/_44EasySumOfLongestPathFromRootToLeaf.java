@@ -28,7 +28,7 @@ import static data_structures.tree.binary_tree.binary_tree_impl.BinaryTree.Node;
  *          the sum.
  */
 
-public class SumOfLongestPathFromRootToLeaf {
+public class _44EasySumOfLongestPathFromRootToLeaf {
     public static void main(String[] args) {
         var random = new Random();
         var binaryTree = new BinaryTree<Integer>();

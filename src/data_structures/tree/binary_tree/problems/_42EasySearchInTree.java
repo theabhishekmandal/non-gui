@@ -3,7 +3,6 @@ package data_structures.tree.binary_tree.problems;
 import data_structures.tree.binary_tree.binary_tree_impl.BinaryTree;
 
 import java.util.ArrayDeque;
-import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Random;
 
@@ -14,7 +13,7 @@ import static data_structures.tree.binary_tree.binary_tree_impl.BinaryTree.Node;
  * Approach:
  *  -   Use top-down approach to find the first node with the matching value and then return
  */
-public class SearchInTree {
+public class _42EasySearchInTree {
     public static void main(String[] args) {
         var binaryTree = new BinaryTree<Integer>();
         var random = new Random();

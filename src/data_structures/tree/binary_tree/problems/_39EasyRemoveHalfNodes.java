@@ -38,7 +38,7 @@ import static data_structures.tree.binary_tree.binary_tree_impl.BinaryTree.Node;
  *  - do same case with right hand side
  */
 
-public class RemoveHalfNodes {
+public class _39EasyRemoveHalfNodes {
     private static final Random random = new Random();
 
     public static void main(String[] args) {

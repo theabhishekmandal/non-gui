@@ -73,7 +73,7 @@ import java.util.ArrayDeque;
  *
  */
 
-public class WidthOfBinaryTree {
+public class _47EasyWidthOfBinaryTree {
     static class TreeNode {
         int val;
         TreeNode left;

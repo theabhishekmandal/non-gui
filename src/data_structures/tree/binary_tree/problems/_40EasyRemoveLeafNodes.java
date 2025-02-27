@@ -35,7 +35,7 @@ import static data_structures.tree.binary_tree.binary_tree_impl.BinaryTree.Node;
  *
  */
 
-public class RemoveLeafNodes {
+public class _40EasyRemoveLeafNodes {
     private static final Random random = new Random();
 
     public static void main(String[] args) {

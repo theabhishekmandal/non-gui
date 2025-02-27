@@ -36,7 +36,7 @@ import static data_structures.tree.binary_tree.binary_tree_impl.BinaryTree.Node;
  *      -   See below with easy approach
  */
 
-public class TransformToSumTree {
+public class _46EasyTransformToSumTree {
     public static void main(String[] args) {
         var random = new Random();
         var binaryTree = new BinaryTree<Integer>();

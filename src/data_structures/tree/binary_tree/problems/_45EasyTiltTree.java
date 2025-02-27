@@ -43,7 +43,7 @@ import static data_structures.tree.binary_tree.binary_tree_impl.BinaryTree.Node;
  *      of all the child nodes.
  */
 
-public class TiltTree {
+public class _45EasyTiltTree {
 
     public static void main(String[] args) {
         var random = new Random();

@@ -27,7 +27,7 @@ import static data_structures.tree.binary_tree.binary_tree_impl.BinaryTree.Node;
  *          -   otherwise add nodes in front
  *      -   After every level add nodeList to finalList and change the revert the flag of leftToRight
  */
-public class ZigZagTraversal {
+public class _48EasyZigZagTraversal {
     public static void main(String[] args) throws IOException {
         var tree = new BinaryTree<Integer>();
         IntStream.range(1, 10).forEach(tree::insertInBinaryTreeLevelOrder);
@@ -35,7 +35,7 @@ public class ZigZagTraversal {
 
 
         List<Function<Node<Integer>, String>> listOfOperations = List.of(
-                ZigZagTraversal::printInZigZagPatternNew
+                _48EasyZigZagTraversal::printInZigZagPatternNew
         );
 
         var joiner = new StringJoiner("\n");
