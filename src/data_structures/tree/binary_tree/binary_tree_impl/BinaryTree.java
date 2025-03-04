@@ -395,10 +395,47 @@ public class BinaryTree<T> {
         if (this.root == null) {
             return EMPTY_BRACES;
         }
-        return PREFIX + levelOrderPrivate().stream()
+        return PREFIX + levelOrderPrivate2().stream()
                 .map(StringJoiner::toString)
                 .collect(Collectors.joining(", \n")) + SUFFIX;
     }
+
+    private List<StringJoiner> levelOrderPrivate2() {
+        if (this.root == null) {
+            return Collections.emptyList();
+        }
+
+        final Queue<Node<T>> nodeQueue = new ArrayDeque<>();
+        StringJoiner joiner;
+        final List<StringJoiner> finalList = new ArrayList<>();
+        final Node<T> emptyObject = Node.of(null);
+
+
+        nodeQueue.add(this.root);
+
+        while (!nodeQueue.isEmpty()) {
+            int size = nodeQueue.size();
+            joiner = createJoiner();
+            for (int i = 0; i < size; i++) {
+                var curr = nodeQueue.poll();
+                if (curr != null) {
+                    if (curr != emptyObject) {
+                        joiner.add(curr.toString());
+                        nodeQueue.add(Objects.requireNonNullElse(curr.left, emptyObject));
+                        nodeQueue.add(Objects.requireNonNullElse(curr.right, emptyObject));
+                    }
+                    else {
+                        joiner.add(STAR);
+                    }
+                }
+            }
+            finalList.add(joiner);
+        }
+        return finalList;
+    }
+
+
+    @Deprecated
     private List<StringJoiner> levelOrderPrivate() {
         if (this.root == null) {
             return Collections.emptyList();

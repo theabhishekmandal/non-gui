@@ -28,6 +28,6 @@ public class BinaryTreeImpl {
         System.out.println(postOrderRec);
 
         final String levelOrderIter = binaryTree.levelOrder();
-        System.out.println(levelOrderIter);
+        System.out.println("levelOrder \n" + levelOrderIter);
     }
 }
