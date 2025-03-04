@@ -9,7 +9,7 @@ public class MultiplyLargeNumbers {
 
         //input  two strings where the large numbers are stored in reverse
         Supplier<char[]> sup = () -> {
-            String k = String.valueOf(1 + random.nextInt(100));
+            String k = "999";
             System.out.println(k);
             return new StringBuilder(k).reverse().toString().toCharArray();
         };

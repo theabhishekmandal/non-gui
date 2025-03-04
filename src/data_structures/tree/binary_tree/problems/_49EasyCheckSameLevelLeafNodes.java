@@ -8,22 +8,28 @@ import static data_structures.tree.binary_tree.binary_tree_impl.BinaryTree.Node;
 
 /**
  * Given a binary tree check if all the leaves are at same level or not
- * Approach
+ * Approach Deprecated
  *  -   Traverse the tree in level order, if any leaf node is encountered then set true to leafLevelSwitch.
  *  -   When one level of tree is traversed then check if allLeavesAtSameLevel flag is true or not. If it is
  *      already true means that we have seen some leaves at previous level and we are seeing leaves again that means
  *      leaves are on different level so return false;
  *
- * Approach2
+ * Approach2 Deprecated
  *  - This approach is based on finding the first level in which leaf is found.
  *  - If another level of leaf is found which is different than previous leaf level, then it means there are leaves
  *    at different level.
  *
- * Approach3
+ * Approach3 Deprecated
  *  - In this approach we store all the levels in a set which leaf nodes are found, and if there are leaves at different
  *    level, then size of set will be greater than 1.
+ *
+ * Approach4 Preferred
+ * -  In this case we use double loop.
+ * -  One loop to traverse every level nodes which will be outer loop
+ * -  Second loop to traverse all the nodes on the same level.
+ * -  if leaf level changes then return false, otherwise return true
  */
-public class CheckSameLevelLeafNodes {
+public class _49EasyCheckSameLevelLeafNodes {
     public static void main(String[] args) {
 
         List<int[]> list = Arrays.asList(
@@ -40,11 +46,51 @@ public class CheckSameLevelLeafNodes {
             answer.add(binaryTree.levelOrderPretty())
                     .add(String.valueOf(checkSameLevelLeafNodes(binaryTree)))
                     .add(String.valueOf(checkSameLevelLeafNodes2(binaryTree)))
-                    .add(String.valueOf(checkSameLevelLeafNodes3(binaryTree)));
+                    .add(String.valueOf(checkSameLevelLeafNodes3(binaryTree)))
+                    .add(String.valueOf(checkSameLevelLeafNodes4(binaryTree)));
         }
         System.out.print(answer);
     }
 
+    private static boolean checkSameLevelLeafNodes4(BinaryTree<Integer> binaryTree) {
+        if (binaryTree == null || binaryTree.getRoot() == null) {
+            return false;
+        }
+
+        int leafLevel = -1;
+        int level = 0;
+        Deque<Node<Integer>> queue = new ArrayDeque<>();
+        queue.add(binaryTree.getRoot());
+
+        while (!queue.isEmpty()) {
+            int size = queue.size();
+            level++;
+
+            for (int i = 0; i < size; i++) {
+                var node = queue.poll();
+
+                assert node != null;
+                if (node.getLeft() == null && node.getRight() == null) {
+                    if (leafLevel == -1) {
+                        leafLevel = level;
+                    } else if (level != leafLevel) {
+                        return false;
+                    }
+                }
+
+                if (node.getLeft() != null) {
+                    queue.add(node.getLeft());
+                }
+
+                if (node.getRight() != null) {
+                    queue.add(node.getRight());
+                }
+            }
+        }
+        return true;
+    }
+
+    @Deprecated
     private static boolean checkSameLevelLeafNodes(BinaryTree<Integer> binaryTree) {
         if (binaryTree == null || binaryTree.getRoot() == null) {
             return false;
@@ -90,6 +136,7 @@ public class CheckSameLevelLeafNodes {
         return allLeavesAtSameLevel;
     }
 
+    @Deprecated
     private static boolean checkSameLevelLeafNodes2(BinaryTree<Integer> binaryTree) {
         if (binaryTree == null || binaryTree.getRoot() == null) {
             return false;
@@ -133,6 +180,7 @@ public class CheckSameLevelLeafNodes {
         return isAllLeavesAtSameLevel;
     }
 
+    @Deprecated
     private static boolean checkSameLevelLeafNodes3(BinaryTree<Integer> binaryTree) {
         if (binaryTree == null || binaryTree.getRoot() == null) {
             return false;
