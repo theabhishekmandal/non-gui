@@ -334,6 +334,39 @@ public class BinaryTree<T> {
         return joiner.toString();
     }
 
+    /*
+        this also works, without using double push.
+        here gist is pop the current node, if lastNode visited is the right child.
+     */
+    public String postOrder2() {
+        if (this.root == null) {
+            return EMPTY_BRACES;
+        }
+        final var joiner = createJoiner();
+        final Deque<Node<T>> stack = new ArrayDeque<>();
+        Node<T> lastVisited = null;
+
+        var curr = this.root;
+
+        while (curr != null || !stack.isEmpty()) {
+            if (curr != null) {
+                stack.push(curr);
+                curr = curr.left;
+            }
+            else {
+                var peekNode = stack.peek();
+                if (peekNode.right != null && peekNode.right != lastVisited) {
+                    curr = peekNode.right;
+                }
+                else {
+                    lastVisited = stack.pop();
+                    joiner.add(lastVisited.toString());
+                }
+            }
+        }
+        return joiner.toString();
+    }
+
     // This works also, but the above is much easier
     public String postOrderNew() {
         if (this.root == null) {
