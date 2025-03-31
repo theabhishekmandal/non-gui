@@ -8,7 +8,7 @@ import java.util.Arrays;
 /**
  * Deleting a node from BST, see the approach in BinarySearchTree.java
  */
-public class DeleteFromBst {
+public class _5MediumDeleteFromBst {
     public static void main(String[] args) {
         var bst = new BinarySearchTree<Integer>();
         var arr = new int[]{44, 17, 88, 32, 65, 97, 28, 54, 82, 29, 76, 80, 78};

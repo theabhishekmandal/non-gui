@@ -18,7 +18,7 @@ import static data_structures.tree.binary_search_tree.binary_search_tree_impl.Bi
  *  -   to find the k largest value traverse using the reverse inorder Traversal i.e instead of going to left first
  *      from current node, go to the right node. return the value of the node when counter == k
  */
-public class FindKSmallestOrKLargest {
+public class _8EasyFindKSmallestOrKLargest {
     public static void main(String[] args) {
         var random = new Random();
         var bst = new BinarySearchTree<Integer>();

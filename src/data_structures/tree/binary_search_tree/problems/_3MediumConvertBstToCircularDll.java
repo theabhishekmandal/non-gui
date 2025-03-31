@@ -18,7 +18,7 @@ import static data_structures.tree.binary_search_tree.binary_search_tree_impl.Bi
  *      the next pointer
  */
 
-public class ConvertBstToCircularDll {
+public class _3MediumConvertBstToCircularDll {
 
     public static void main(String[] args) {
         var bst = new BinarySearchTree<Integer>();

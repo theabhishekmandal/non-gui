@@ -290,6 +290,18 @@ public class BinarySearchTree<T extends Comparable<? super T>> {
         answer.add(node.toString());
     }
 
+    /*
+
+
+        Level Order traversal is same as the insertion above,
+        first process the l level elements and then l + 1 elements and so on
+
+        Approach
+                -   Using queue as ds because, traversing of all nodes at the same level are done first
+                -   At each level size of queue defines how many nodes are present.
+     */
+
+
     public String levelOrder() {
         if (this.root == null) {
             return EMPTY_BRACES;
@@ -297,13 +309,15 @@ public class BinarySearchTree<T extends Comparable<? super T>> {
         final Queue<Node<T>> queue = new ArrayDeque<>();
 
         queue.add(this.root);
-        queue.add(nullNode);
 
         final List<List<String>> finalList = new ArrayList<>();
-        final List<String> nodeList = new ArrayList<>();
+        List<String> nodeList;
+
         while (!queue.isEmpty()) {
-            final Node<T> curr = queue.poll();
-            if (curr != nullNode) {
+            int size = queue.size();
+            nodeList = new ArrayList<>();
+            for (int i = 0; i < size; i++) {
+                final Node<T> curr = queue.poll();
                 nodeList.add(curr.data.toString());
                 if (curr.left != null) {
                     queue.add(curr.left);
@@ -311,37 +325,12 @@ public class BinarySearchTree<T extends Comparable<? super T>> {
                 if (curr.right != null) {
                     queue.add(curr.right);
                 }
-            } else {
-                // creating new list because, if we clear nodeList then nodeList will be cleared
-                // from the final list
-                final List<String> tempList = new ArrayList<>(nodeList);
-                finalList.add(tempList);
-
-                // clearing the list for next level
-                nodeList.clear();
-                if (!queue.isEmpty()) {
-                    queue.add(nullNode);
-                }
             }
+            finalList.add(nodeList);
         }
         return PREFIX + finalList.stream()
                 .map(list -> PREFIX + String.join(DELIMITER, list) + SUFFIX)
                 .collect(Collectors.joining(DELIMITER + "\n")) + SUFFIX;
-    }
-
-
-    /*
-        Level Order traversal is same as the insertion above,
-        first process the l level elements and then l + 1 elements and so on
-
-        Approach
-                -   Using queue as ds because, traversing of all nodes at the same level are done first
-                -   Here after every level we are adding null, null is added to first process the nodes of level l
-                    and then go to level l + 1
-     */
-
-    public void deleteNodeFromTreeRecur(T data) {
-        this.root = delete(this.root, data);
     }
 
     /*
@@ -352,14 +341,17 @@ public class BinarySearchTree<T extends Comparable<? super T>> {
                 -   copy the child value to the node and then delete the child
             -   node to be deleted has both right as well left child
                 -   find the inorder successor of the node
-                    -   if inorder successor is present which is a left leaf node, then make the
-                        right child of the successor, left child of the parent
-                    -   if inorder successor is the immediate right child of the node(to be deleted), then
-                        make the right child of successor as right child of the parent
+                    -   if inorder successor is present which is a left leaf node,
+                        -   then copy value from leaf to root and delete the leaf.
+                    -   if inorder successor is the immediate right child of the node(to be deleted),
+                        -   then copy value from right child to root and delete right child
      */
+    public void deleteNodeFromTreeRecur(T data) {
+        this.root = delete(this.root, data);
+    }
 
     private Node<T> delete(Node<T> node, T data) {
-        if (this.root == null) {
+        if (node == null) {
             return null;
         }
 
@@ -417,6 +409,46 @@ public class BinarySearchTree<T extends Comparable<? super T>> {
             node.data = succ.data;
             return node;
         }
+    }
+
+
+    public void deleteFromTreeRecur(T data) {
+        this.root = deleteFromTree2(this.root, data);
+    }
+
+    private Node<T> deleteFromTree2(Node<T> node, T data) {
+        if (node == null) {
+            return null;
+        }
+
+        // first find where to go left or right
+        if (node.getData().compareTo(data) > 0) {
+            node.left = deleteFromTree2(node.left, data);
+        } else if (node.getData().compareTo(data) < 0) {
+            node.right = deleteFromTree2(node.right, data);
+        } else {
+            // if noChildren and one children
+            if (node.left == null) {
+                return node.right;
+            } else if (node.right == null) {
+                return node.left;
+            }
+
+            // if both children are present, then find inorder successor, otherwise use right child.
+            // it will be either replaced by left inorder successor or the right child(if there is no inorder successor)
+            node.data = getSuccessor(node.right);
+            // delete the successor
+            node.right = deleteFromTree2(node.right, node.data);
+        }
+        return node;
+    }
+
+
+    private T getSuccessor(Node<T> node) {
+        while (node.left != null) {
+            node = node.left;
+        }
+        return node.data;
     }
 
     public Node<T> deleteNodeFromTree(T data) {

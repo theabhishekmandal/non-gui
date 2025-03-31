@@ -14,7 +14,7 @@ import static data_structures.tree.binary_search_tree.binary_search_tree_impl.Bi
  *  Similarly, right most non-null leaf node has the maximum value,
  *  So, just traverse left and right for minimum and maximum value.
  */
-public class FindingMinMax {
+public class _6EasyFindingMinMax {
     public static void main(String[] args) {
         BinarySearchTree<Integer> bst = new BinarySearchTree<>();
         Random random = new Random();

@@ -16,7 +16,7 @@ import static data_structures.tree.binary_search_tree.binary_search_tree_impl.Bi
  *  -   add the found node value in the list
  */
 
-public class FindInRange {
+public class _7EasyFindInRange {
     public static void main(String[] args) {
         var random = new Random();
         var bst = new BinarySearchTree<Integer>();

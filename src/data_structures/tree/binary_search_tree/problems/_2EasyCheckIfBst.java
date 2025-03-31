@@ -15,7 +15,7 @@ import static data_structures.tree.binary_search_tree.binary_search_tree_impl.Bi
  *  -   then check whether each element is greater than the previous element.
  */
 
-public class CheckIfBst {
+public class _2EasyCheckIfBst {
     private static final Random random = new Random();
     public static void main(String[] args) {
         var t = 3;

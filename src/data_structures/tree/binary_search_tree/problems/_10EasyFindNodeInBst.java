@@ -13,7 +13,7 @@ import static data_structures.tree.binary_search_tree.binary_search_tree_impl.Bi
  *      Compare the value to be found with the tree's root, if it is smaller than it then search in the left
  *      subtree, if it is greater than search in the right subtree.
  */
-public class FindNodeInBst {
+public class _10EasyFindNodeInBst {
     public static void main(String[] args) {
         var bst = new BinarySearchTree<Integer>();
 

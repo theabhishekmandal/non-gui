@@ -23,7 +23,7 @@ import static data_structures.tree.binary_search_tree.binary_search_tree_impl.Bi
  *          -   otherwise return null
  */
 
-public class ShortestPathBetweenTwoNodes {
+public class _11MediumLCAInBst {
     public static void main(String[] args) {
         var bst = new BinarySearchTree<Integer>();
         var random = new Random();
@@ -60,6 +60,8 @@ public class ShortestPathBetweenTwoNodes {
             } else if (firstCompare > 0 && secondCompare > 0) {
                 temp = temp.getLeft();
             } else {
+                // split point, here current node can be the parent, as values to be searched are in left and right subtree
+                // if both value are found then current node becomes lca otherwise null.
                 bothExists = bothExists(temp, a, b);
                 break;
             }

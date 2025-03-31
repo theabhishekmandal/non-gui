@@ -42,7 +42,7 @@ import static data_structures.linked_list.node.DoublyLinkedList.Node;
  *
  */
 
-public class ConvertDllToBst {
+public class _4MediumConvertDllToBst {
     public static void main(String[] args) {
         var evenLengthList = new DoublyLinkedList<Integer>();
         var oddLengthList = new DoublyLinkedList<Integer>();

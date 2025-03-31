@@ -45,7 +45,7 @@ import static data_structures.tree.binary_search_tree.binary_search_tree_impl.Bi
  *
  */
 
-public class ContainsSameElements {
+public class _9EasyContainsSameElements {
     private static final Random random = new Random();
 
     public static void main(String[] args) {

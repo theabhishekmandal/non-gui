@@ -3,6 +3,7 @@ package data_structures.tree.binary_search_tree.binary_search_tree_impl;
 import java.util.Random;
 import java.util.StringJoiner;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 public class BinarySearchTreeImpl {
     public static void main(String[] args) {

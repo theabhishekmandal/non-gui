@@ -14,7 +14,7 @@ import java.util.Random;
  *  -   if a value is greater than or equal to current node go to right subtree.
  *
  */
-public class _29EasyInOrderSuccessor {
+public class _1EasyInOrderSuccessor {
     public static void main(String[] args) {
         var binaryTree = new BinarySearchTree<Integer>();
 
