@@ -39,33 +39,90 @@ public class BinarySearchTree<T extends Comparable<? super T>> {
         this.size = 0;
     }
 
-    public void insertInBst(@NotNull T data) {
+
+    /**
+     * binary tree insertion with parent
+     * @param data
+     */
+    public void insertInBst2(@NotNull T data) {
         if (this.root == null) {
             this.root = Node.of(data);
             this.size++;
             return;
         }
-        Node<T> prev;
+        Node<T> parent;
         Node<T> temp = this.root;
         final Node<T> newNode = Node.of(data);
         while (temp != null) {
-            prev = temp;
+            parent = temp;
             int compare = temp.compareTo(newNode);
             compare = (doReverse) ? -compare : compare;
             if (compare >= 1) {
                 temp = temp.left;
                 if (temp == null) {
-                    prev.left = newNode;
+                    parent.left = newNode;
                 }
             } else {
                 temp = temp.right;
                 if (temp == null) {
-                    prev.right = newNode;
+                    parent.right = newNode;
                 }
             }
         }
         this.size++;
     }
+
+    /**
+     * Binary Tree insertion without parent.
+     * @param data
+     */
+    public void insertInBst(@NotNull T data) {
+        if (data == null) {
+            return;
+        }
+        Node<T> newNode = Node.of(data);
+        if (this.root == null) {
+            this.root = newNode;
+            this.size++;
+            return;
+        }
+        var temp = this.root;
+        while (true) {
+            int compare = temp.compareTo(newNode);
+            compare = (doReverse) ? -compare : compare;
+            // if data is smaller than value, go to left side.
+            if (compare > 1) {
+                if (temp.left == null) {
+                    temp.left = newNode;
+                    break;
+                }
+                temp = temp.left;
+            }
+            // if data is greater than value, go to right side.
+            else if (compare < 1){
+                if (temp.right == null) {
+                    temp.right = newNode;
+                    break;
+                }
+                temp = temp.right;
+            }
+            // duplicates are not allowed in bst.
+            else {
+                break;
+            }
+        }
+        this.size++;
+    }
+    /*
+        arr = [10, 8, 11, 7, 9]
+        root = 10
+        curr = 10
+        curr.left == null
+        curr = 8
+        curr.right == null
+        curr.right = 11
+
+     */
 
     // Don't use this, it is slow
     /*
@@ -347,6 +404,37 @@ public class BinarySearchTree<T extends Comparable<? super T>> {
                         -   then copy value from right child to root and delete right child
      */
     public void deleteNodeFromTreeRecur(T data) {
+        this.root = deleteFromTree2(this.root, data);
+    }
+
+    private Node<T> deleteFromTree2(Node<T> node, T data) {
+        if (node == null) {
+            return null;
+        }
+
+        // first find where to go left or right
+        if (node.getData().compareTo(data) > 0) {
+            node.left = deleteFromTree2(node.left, data);
+        } else if (node.getData().compareTo(data) < 0) {
+            node.right = deleteFromTree2(node.right, data);
+        } else {
+            // if noChildren and one children
+            if (node.left == null) {
+                return node.right;
+            } else if (node.right == null) {
+                return node.left;
+            }
+
+            // if both children are present, then find inorder successor, otherwise use right child.
+            // it will be either replaced by left inorder successor or the right child(if there is no inorder successor)
+            node.data = getSuccessor(node.right);
+            // delete the successor
+            node.right = deleteFromTree2(node.right, node.data);
+        }
+        return node;
+    }
+
+    private void deleteFromTreeRecur(T data) {
         this.root = delete(this.root, data);
     }
 
@@ -409,38 +497,6 @@ public class BinarySearchTree<T extends Comparable<? super T>> {
             node.data = succ.data;
             return node;
         }
-    }
-
-
-    public void deleteFromTreeRecur(T data) {
-        this.root = deleteFromTree2(this.root, data);
-    }
-
-    private Node<T> deleteFromTree2(Node<T> node, T data) {
-        if (node == null) {
-            return null;
-        }
-
-        // first find where to go left or right
-        if (node.getData().compareTo(data) > 0) {
-            node.left = deleteFromTree2(node.left, data);
-        } else if (node.getData().compareTo(data) < 0) {
-            node.right = deleteFromTree2(node.right, data);
-        } else {
-            // if noChildren and one children
-            if (node.left == null) {
-                return node.right;
-            } else if (node.right == null) {
-                return node.left;
-            }
-
-            // if both children are present, then find inorder successor, otherwise use right child.
-            // it will be either replaced by left inorder successor or the right child(if there is no inorder successor)
-            node.data = getSuccessor(node.right);
-            // delete the successor
-            node.right = deleteFromTree2(node.right, node.data);
-        }
-        return node;
     }
 
 
