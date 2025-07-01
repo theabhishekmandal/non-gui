@@ -116,7 +116,7 @@ public class AVLTree<T extends Comparable<? super T>> {
                 }
             }
         }
-        else if (node.data.compareTo(data) < 1){
+        else if (node.data.compareTo(data) < 0){
             node.right = insert(node.right, data);
             if(getBalance(node) == BALANCE_FACTOR) {
                  if(getHeight(node.right.right) > getHeight(node.right.left)) {
@@ -169,17 +169,22 @@ public class AVLTree<T extends Comparable<? super T>> {
         while(curr != null) {
             previous = curr;
             balancingStack.push(curr);
-            if(curr.data.compareTo(data) >= 1) {
+            if(curr.data.compareTo(data) > 0) {
                 curr = curr.left;
                 if(curr == null) {
                     previous.left = newNode;
                 }
             }
-            else {
+            else if (curr.data.compareTo(data) < 0) {
                 curr = curr.right;
                 if(curr == null) {
                     previous.right = newNode;
                 }
+            }
+            // no need to insert duplicate node
+            else {
+                balancingStack.clear();
+                return;
             }
         }
         balanceTree(balancingStack);
