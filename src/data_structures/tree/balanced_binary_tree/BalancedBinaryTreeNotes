@@ -11,8 +11,10 @@ Problems With BinarySearch Trees
 
  -  Sometimes k is called the balance factor.
 
+ -  balanced factor K = hl - hr {-1, 0, 1}. Difference between height of left subtree and height of right subtree -1, 0 and 1.
 
- Full Balanced Binary Search Trees
+
+Full Balanced Binary Search Trees
 
     -   balance factor k is calculated as height of left subtree - height of right subtree
     -   In HB(k), if k = 0 (if balance factor is zero), then we call such binary search trees as full balanced binary search

@@ -10,6 +10,8 @@ Properties of Binary Search Trees
     -   The left subtree of a node contains only nodes with keys less than the nodes key.
     -   The right subtree of a node contains only nodes with keys greater than the nodes key.
     -   Both the left and right subtrees must also be binary search trees.
+    -   Height of binary tree can be log(n) or n(if it is a skew tree) where all elements are inserted in ascending order.
+        -   This becomes a disadvantage, for which Self balanced binary tree is introduced.
 
 
 Operations on Binary Search Trees

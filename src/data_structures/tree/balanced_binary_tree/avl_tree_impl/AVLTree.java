@@ -105,9 +105,9 @@ public class AVLTree<T extends Comparable<? super T>> {
             this.size++;
             return new Node<>(data);
         }
-        if(node.data.compareTo(data) >= 1) {
+        if(node.data.compareTo(data) > 0) {
             node.left = insert(node.left, data);
-            if(getBalance(node) == BALANCE_FACTOR) {
+            if(getBalance(node) == BALANCE_FACTOR) { // if node is imbalance then new node will be returned.
                 if(getHeight(node.left.left) > getHeight(node.left.right)) {
                     node = rightRotate(node);
                 }
@@ -116,16 +116,20 @@ public class AVLTree<T extends Comparable<? super T>> {
                 }
             }
         }
-        else {
+        else if (node.data.compareTo(data) < 1){
             node.right = insert(node.right, data);
             if(getBalance(node) == BALANCE_FACTOR) {
-                if(getHeight(node.right.right) > getHeight(node.right.left)) {
+                 if(getHeight(node.right.right) > getHeight(node.right.left)) {
                     node = leftRotate(node);
                 }
                 else {
                     node = rightLeftRotate(node);
                 }
             }
+        }
+        // should not insert duplicates.
+        else {
+            return node;
         }
         node.height = Math.max(getHeight(node.right), getHeight(node.left)) + 1;
         return node;
@@ -193,7 +197,7 @@ public class AVLTree<T extends Comparable<? super T>> {
             return null;
         }
 
-        Deque<Node<T>> stack = new ArrayDeque<>();
+        Deque<Node<T>> balancingStack = new ArrayDeque<>();
         Node<T> curr = this.root;
         Node<T> prev = null;
         while(curr != null) {
@@ -203,8 +207,8 @@ public class AVLTree<T extends Comparable<? super T>> {
                 break;
             }
             prev = curr;
-            // adding node visited in stack for balancing
-            stack.push(curr);
+            // adding node visited in balancingStack for balancing
+            balancingStack.push(curr);
             if(compare > 0) {
                 curr = curr.left;
             }
@@ -232,7 +236,7 @@ public class AVLTree<T extends Comparable<? super T>> {
             this.root = delete(this.root);
         }
         this.size--;
-        balanceTree(stack);
+        balanceTree(balancingStack);
         return nodeToBeDeleted;
     }
 
@@ -264,6 +268,8 @@ public class AVLTree<T extends Comparable<? super T>> {
                           89
      */
     private Node<T> delete(Node<T> node) {
+        // if any one of the child is present, then return the child as parent will be deleted
+        // and it will become the child of the ancestor.
         if(node.left == null) {
             var temp = node.right;
             node.right = null;

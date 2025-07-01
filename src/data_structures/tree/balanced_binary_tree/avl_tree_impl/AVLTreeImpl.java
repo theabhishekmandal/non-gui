@@ -1,16 +1,14 @@
 package data_structures.tree.balanced_binary_tree.avl_tree_impl;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class AVLTreeImpl {
     public static void main(String[] args) {
         Random random = new Random();
-        List<Integer> integerList = random.ints(0, 100000).limit(20).boxed().collect(Collectors.toList());
-//        integerList = Arrays.asList(4, 7, 6, 17, 11, 9, 14, 18, 1, 11, 6, 10, 1, 2, 16, 16, 2, 10, 3, 15);
+        List<Integer> integerList;
+//        integerList = random.ints(0, 100000).limit(20).boxed().collect(Collectors.toList());
+        integerList = Arrays.asList(10, 20, 30);
 //        integerList = Arrays.asList(3, 17, 18, 3, 12, 1, 3, 15, 12, 14, 12, 8 , 16, 19, 6, 2, 12, 8, 15, 19);
         StringBuilder br = new StringBuilder();
         System.out.println(integerList);
