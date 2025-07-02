@@ -5,7 +5,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class AVLTree<T extends Comparable<? super T>> {
+public class AVLTree<T extends Comparable<? super T>> implements IAVLTree<T>{
     public static class Node<T extends Comparable<? super T>> implements Comparable<Node<T>> {
         private T data;
         private int height;
@@ -85,14 +85,23 @@ public class AVLTree<T extends Comparable<? super T>> {
         this.size = 0;
     }
 
+    @Override
+    public void reset() {
+        this.root = null;
+        this.size = 0;
+    }
+
+    @Override
     public Node<T> getRoot() {
         return this.root;
     }
 
+    @Override
     public int getSize() {
         return this.size;
     }
 
+    @Override
     public void insert(T data) {
         this.root = insert(this.root, data);
     }
@@ -107,33 +116,51 @@ public class AVLTree<T extends Comparable<? super T>> {
         }
         if(node.data.compareTo(data) > 0) {
             node.left = insert(node.left, data);
-            if(getBalance(node) == BALANCE_FACTOR) { // if node is imbalance then new node will be returned.
-                if(getHeight(node.left.left) > getHeight(node.left.right)) {
-                    node = rightRotate(node);
-                }
-                else {
-                    node = leftRightRotate(node);
-                }
-            }
         }
         else if (node.data.compareTo(data) < 0){
             node.right = insert(node.right, data);
-            if(getBalance(node) == BALANCE_FACTOR) {
-                 if(getHeight(node.right.right) > getHeight(node.right.left)) {
-                    node = leftRotate(node);
-                }
-                else {
-                    node = rightLeftRotate(node);
-                }
-            }
         }
         // should not insert duplicates.
         else {
             return node;
         }
-        node.height = Math.max(getHeight(node.right), getHeight(node.left)) + 1;
+        // first calculate height then check balance. because after rotation this node may/may not change, so calculate height first.
+        node.height = calculateHeight(node);
+        node = checkBalanceAndRotate(node);
         return node;
     }
+
+    private Node<T> checkBalanceAndRotate(Node<T> node) {
+        Node<T> newNode = node;
+        // right side is heavy
+        if (getBalanceFactor(node) == BALANCE_FACTOR) {
+
+            // on right side what type of rotation we should do?
+            // for equal cases we should do simple rotation.
+            if(getHeight(node.right.right) >= getHeight(node.right.left)) {
+                newNode = leftRotate(node);
+            }
+            else {
+                newNode = rightLeftRotate(node);
+            }
+
+        }
+
+        // left side is heavy
+        else if (getBalanceFactor(node) == -BALANCE_FACTOR) {
+            // on left side what type of rotation we should do?
+            // for equal cases we should do simple rotation.
+            if(getHeight(node.left.left) >= getHeight(node.left.right)) {
+                newNode = rightRotate(node);
+            }
+            else {
+                newNode = leftRightRotate(node);
+            }
+        }
+
+        return newNode;
+    }
+
 
     /*
         - stack for storing current node and it's parent
@@ -154,11 +181,12 @@ public class AVLTree<T extends Comparable<? super T>> {
                                      6
 
      */
-    private Deque<Node<T>> balancingStack;
+
+    @Override
     public void insertNew(T data) {
+        Deque<Node<T>> balancingStack = new ArrayDeque<>();
         if(this.root == null) {
             this.root = new Node<>(data);
-            this.balancingStack = new ArrayDeque<>();
             this.size++;
             return;
         }
@@ -191,12 +219,65 @@ public class AVLTree<T extends Comparable<? super T>> {
         this.size++;
     }
 
+    private Node<T> nodeToBeDeleted;
+
+    @Override
+    public Node<T> delete(T data) {
+        nodeToBeDeleted = null;
+        this.root = this.delete(this.root, data);
+        return nodeToBeDeleted;
+    }
+
+
+    private Node<T> delete(Node<T> node, T data) {
+        if (node == null) {
+            return null;
+        }
+
+        var compare = node.data.compareTo(data);
+        if (compare > 0) {
+            node.left = delete(node.left, data);
+        } else if (compare < 0) {
+            node.right = delete(node.right, data);
+        } else {
+
+            nodeToBeDeleted = node;
+            // if current node is leaf node or having one child
+            if (node.left == null) {
+                return node.right;
+            } else if (node.right == null) {
+                return node.left;
+            } else {
+                // if current node has both left and right child.
+                var succ = getSuccessor(node.right);
+                node.data = succ.data;
+                node.right = delete(node.right, node.data);
+            }
+        }
+        node.height = calculateHeight(node);
+        node = checkBalanceAndRotate(node);
+        return node;
+    }
+
+    private int getBalanceFactor(Node<T> node) {
+        return getHeight(node.right) - getHeight(node.left);
+    }
+
+    private Node<T> getSuccessor(Node<T> node) {
+        while (node.left != null) {
+            node = node.left;
+        }
+        return node;
+    }
+
+
     /*
         -   To delete a node first find the appropriate node that is to be deleted
         -   deleting the node here means, we are replacing it's value with new appropriate value which is calculated below
         -   after node is deleted re balancing of tree is required
      */
 
+    @Override
     public Node<T> deleteNode(T data) {
         if(data == null) {
             return null;
@@ -327,24 +408,8 @@ public class AVLTree<T extends Comparable<? super T>> {
     private void balanceTree(Deque<Node<T>> stack) {
         while(!stack.isEmpty()) {
             var temp = stack.pop();
-            if(getBalance(temp) == BALANCE_FACTOR) {
-                if(getHeight(temp.right) >= getHeight(temp.left)) {
-                    if(getHeight(temp.right.right) > getHeight(temp.right.left)) {
-                        temp = leftRotate(temp);
-                    }
-                    else {
-                        temp = rightLeftRotate(temp);
-                    }
-                }
-                else {
-                    if(getHeight(temp.left.left) > getHeight(temp.left.right)) {
-                        temp = rightRotate(temp);
-                    }
-                    else {
-                        temp = leftRightRotate(temp);
-                    }
-                }
-
+            if(getBalanceAbs(temp) == BALANCE_FACTOR) {
+                temp = checkBalanceAndRotate(temp);
                 if(stack.isEmpty()) {
                     this.root = temp;
                 }
@@ -358,9 +423,7 @@ public class AVLTree<T extends Comparable<? super T>> {
                     }
                 }
             }
-            else {
-                temp.height = calculateHeight(temp);
-            }
+            temp.height = calculateHeight(temp);
         }
     }
 
@@ -425,7 +488,7 @@ public class AVLTree<T extends Comparable<? super T>> {
     }
 
     // balance is checked by taking the absolute of the left and right subtree
-    private int getBalance(Node<T> node) {
+    private int getBalanceAbs(Node<T> node) {
         return Math.abs(getHeight(node.left) - getHeight(node.right));
     }
 
@@ -434,6 +497,7 @@ public class AVLTree<T extends Comparable<? super T>> {
         return Math.max(getHeight(node.left), getHeight(node.right)) + 1;
     }
 
+    @Override
     public String inOrder() {
         if(this.root == null) {
             return "[]";
@@ -491,6 +555,7 @@ public class AVLTree<T extends Comparable<? super T>> {
         return finalAnswer;
     }
 
+    @Override
     public String levelOrder() {
         List<List<String>> finalAnswer = levelOrderPrivate();
         if(finalAnswer.isEmpty()) {
@@ -501,6 +566,7 @@ public class AVLTree<T extends Comparable<? super T>> {
                 .collect(Collectors.joining(", \n")) + "]";
     }
 
+    @Override
     public String levelOrderPretty() {
        List<List<String>> finalAnswer = levelOrderPrivate();
        if(finalAnswer.isEmpty()) {

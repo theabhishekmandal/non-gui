@@ -13,9 +13,15 @@ public class AVLTreeImpl {
         StringBuilder br = new StringBuilder();
         System.out.println(integerList);
 
-        var avl = new AVLTree<Integer>();
-        var avl2 = new AVLTree<Integer>();
+        IAVLTree<Integer> avl = new AVLTree<>();
+        IAVLTree<Integer> avl2 = new AVLTree<Integer>();
+//        demo(integerList, avl, avl2, br);
+        demo2(integerList, avl, avl2, br);
+    }
+
+    private static void demo(List<Integer> integerList, IAVLTree<Integer> avl, IAVLTree<Integer> avl2, StringBuilder br) {
         for(int i : integerList) {
+            System.out.println("inserting " + i);
             avl.insert(i);
             String inOrder1 = avl.inOrder();
             String levelOrder1 = avl.levelOrderPretty();
@@ -24,13 +30,12 @@ public class AVLTreeImpl {
             String inOrder2 = avl2.inOrder();
             String levelOrder2 = avl2.levelOrderPretty();
 
-            System.out.println("inserting " + i);
             System.out.println(levelOrder2);
             if(!inOrder1.equals(inOrder2)) {
-                br.append("\n").append(inOrder1).append("\n").append(inOrder2).append("\n");
+                br.append("\n something is different in inOrder").append(inOrder1).append("\n").append(inOrder2).append("\n");
             }
             if(!levelOrder1.equals(levelOrder2)) {
-                br.append(i).append("\n").append(levelOrder1).append("\n").append(levelOrder2);
+                br.append(i).append("\n something is different in level order").append(levelOrder1).append("\n").append(levelOrder2);
             }
         }
 
@@ -49,13 +54,47 @@ public class AVLTreeImpl {
         System.out.println("deletion list" + newList);
         for(int i : newList) {
             System.out.println("node to be deleted " + i);
-            System.out.println("tree \n" + avl2.levelOrderPretty());
-            avl2.deleteNode(i);
-            System.out.println("level order traversal\n" + avl2.levelOrderPretty());
-            System.out.println("inorder traversal\n" + avl2.inOrder());
+            System.out.println("tree 1 \n" + avl.levelOrderPretty());
+            System.out.println("tree 2 \n" + avl2.levelOrderPretty());
+            // input is such that their will be no rotation.
+            System.out.println("node to be deleted from tree 1 " + i  + " deletedValue = " + avl.delete(i));
+            System.out.println("node to be deleted from tree 2 " + i  + " deletedValue = " + avl2.deleteNode(i));
+
+            System.out.println("level order traversal tree 1\n" + avl.levelOrderPretty());
+            System.out.println("level order traversal tree 2\n" + avl2.levelOrderPretty());
+            System.out.println("inorder traversal tree 1\n" + avl.inOrder());
+            System.out.println("inorder traversal tree 2\n" + avl2.inOrder());
             System.out.println();
         }
 
         System.err.println(br.toString());
+    }
+
+    // this method is to be used for checking rotation while deleting
+    private static void demo2(List<Integer> integerList, IAVLTree<Integer> avl, IAVLTree<Integer> avl2, StringBuilder br) {
+        avl.reset();
+        avl2.reset();
+        for (int i : integerList) {
+            avl.insertNew(i);
+            avl2.insert(i);
+        }
+
+        // using sorted list to check balancing.
+        List<Integer> list = integerList.stream().sorted().toList();
+
+        for (int i : list) {
+            System.out.println("tree 1 \n" + avl.levelOrderPretty());
+            System.out.println("tree 2 \n" + avl2.levelOrderPretty());
+            // input is such that their will be no rotation.
+            System.out.println("node to be deleted from tree 1 " + i  + " deletedValue = " + avl.delete(i));
+            System.out.println("node to be deleted from tree 2 " + i  + " deletedValue = " + avl2.deleteNode(i));
+
+            System.out.println("level order traversal tree 1\n" + avl.levelOrderPretty());
+            System.out.println("level order traversal tree 2\n" + avl2.levelOrderPretty());
+            System.out.println("inorder traversal tree 1\n" + avl.inOrder());
+            System.out.println("inorder traversal tree 2\n" + avl2.inOrder());
+            System.out.println();
+        }
+
     }
 }
