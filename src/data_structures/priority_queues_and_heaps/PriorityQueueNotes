@@ -77,9 +77,16 @@ Comparing Implementations
 
 What is a Heap?
     -   A heap is a tree with some special properties
-    -   The special property is that it's value should be <= or >= to it's children, this is called heap property
+    -   The special property is that it's value should be <=(Min Heap) or >=(Max Heap) to it's children, this is called heap property
     -   A heap also has a property that all leaves should be at h or h - 1 levels, for some h > 0
-    -   That means heap should form complete binary tree.
+    -   It should be a complete binary tree.
+    -   Duplicates are allowed in Heap.
+    -   It should not be used for searching, but only to find the min/max element.
+    -   Height will always be log n.
+    -   Insertion should be always in the next free space to maintain the order of complete binary tree.
+    -   If there is precomputed array, then use buildHeap to build it which will have complexity O(logn)
+    -   If there is one by one insertion, then use single insert, total time taken will be O(n log n).
+    -   Deletion of min/max element will take O(log n).
         eg:         1
                    2  3
                  4   5
@@ -92,7 +99,7 @@ What is a Heap?
            1   2 4              6    17  14   13
 
 Types of Heaps?
-    -   Min heap: The value of a node must be less than or equal to the values of tis children
+    -   Min heap: The value of a node must be less than or equal to the values of its children
                              11
                          15       12
                       16    17  14    13
@@ -108,3 +115,36 @@ Binary Heaps
 
     -   Representing heaps
         -   Heaps can be represented using arrays
+
+
+
+Why we should use Binary Heap instead of other implementations?
+✅ Binary Heap
+Advantages:
+🟢 Efficient for priority queue operations (insert, peek, extractMin/extractMax).
+🟢 Simple to implement using arrays — no need for pointers or tree balancing.
+🟢 Good cache locality due to contiguous memory layout.
+🟢 Low constant factors — fewer comparisons than BSTs.
+🟢 Widely supported by standard libraries (Java, C++, Python).
+
+Disadvantages:
+🔴 No efficient search, update, or delete by arbitrary value (O(n)). Because it supports only the property
+    in Min/Max Heap, every node is smaller/greater than its child node, where the actual value will be is not sure. It does not follow
+    binary search tree property that left child is smaller and right child is bigger.
+🔴 Not suitable for maintaining sorted order or performing range queries.
+🔴 Only provides efficient access to either min or max, not both.
+
+✅ Balanced BST (e.g., AVL, Red-Black Tree)
+Advantages:
+
+🟢 Maintains full sorted order of elements.
+🟢 Allows efficient search, update, and deletion of any element (O(log n)).
+🟢 Supports access to both minimum and maximum elements.
+🟢 Suitable for range queries and k-th smallest/largest element lookups.
+🟢 In-order traversal is possible for sorted output.
+
+Disadvantages:
+
+🔴 More complex to implement — requires rotations, rebalancing, and pointers.
+🔴 Higher constant factors than heaps for basic priority queue operations.
+🔴 Poor cache locality due to non-contiguous memory (pointers).

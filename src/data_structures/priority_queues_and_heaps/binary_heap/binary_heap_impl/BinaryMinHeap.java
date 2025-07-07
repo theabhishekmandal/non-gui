@@ -3,40 +3,46 @@ package data_structures.priority_queues_and_heaps.binary_heap.binary_heap_impl;
 import java.util.Arrays;
 
 /**
- * Binary Min Heap implementation.
- * Operations performed are
- *  -   findMinimum
- *  -   deleteMinimum
- *  -   insertion
+ * 📦 Binary Min Heap implementation using an array.
  *
- *  findMinimum
- *      -   In Binary Min Heap the first element denotes the minimum element in heap
+ * A Binary Min Heap is a complete binary tree where the value of each node is
+ * less than or equal to the values of its children (min-heap property).
  *
- *  deleteMinimum
- *      -   As first element is the minimum element in the heap, to delete it first
- *          it is stored in a temporary variable
- *      -   Then the min element is replaced by the last element of the heap
- *      -   Then the count is decreased,
- *      -   But now, the heap does not follow the heap conditions i.e parent should
- *          be greater than the child, to avoid this we start doing heapify from the
- *          root i.e top to bottom heapify
+ * 🔹 Supported Operations:
+ * - getMinimum()      → Returns the smallest element (root) [O(1)]
+ * - deleteMin()       → Removes the root and rebalances heap [O(log n)]
+ * - insert(int data)  → Adds a new element and rebalances heap [O(log n)]
+ * - buildHeap(int[])  → Builds a heap from a given array in bottom-up manner [O(n)]
+ * - destroyHeap()     → Clears the heap memory [O(1)]
  *
- *  insertion
- *      -   A new element is inserted at the end
- *      -   But this may result in unbalanced heap, so heapify is done from the current
- *          element to the root element i.e bottom to top heapify
- *      -   In this type of bottom to top heapify we only take the path from the current inserted
- *          node till the root node, because only this path is unbalanced rest of the nodes are already
- *          balanced
- *      -   this takes O(n log n) time, log n time for insertion and there are n keys
+ * 🔁 Heapify Types:
+ * - Top-down heapify: Used in deleteMin() and buildHeap() → O(log n)
+ * - Bottom-up heapify: Used in insert() to restore min-heap property → O(log n)
  *
+ * ⚙️ Time Complexity Summary:
+ * ┌────────────────────────────┬────────────────┐
+ * │ Operation                  │ Time Complexity│
+ * ├────────────────────────────┼────────────────┤
+ * │ getMinimum()               │ O(1)           │
+ * │ deleteMin()                │ O(log n)       │
+ * │ insert(int data)           │ O(log n)       │
+ * │ buildHeap(int[] arr)       │ O(n)           │
+ * │ insert n elements (1-by-1) │ O(n log n)     │
+ * └────────────────────────────┴────────────────┘
  *
- *  creating heap from array
- *      -   If we have predefined set of keys for which a new heap is to be created then we
- *          can create the heap in O(n) time
- *      -   Inserting a single key at a time, takes O(log n) operations and inserting n keys
- *          takes O(n log n) time
+ * 📌 Notes:
+ * - Heaps are not suitable for arbitrary searches (O(n))
+ * - Use for efficient access to min element in priority queues
+ * - Array-based representation ensures good cache locality
+ *
+ * 📚 Applications:
+ * - Priority Queues
+ * - Dijkstra’s Algorithm
+ * - Prim’s Minimum Spanning Tree
+ * - Scheduling systems
+ * - Top-K problems
  */
+
 public class BinaryMinHeap {
     private int[] array;
     private int count;

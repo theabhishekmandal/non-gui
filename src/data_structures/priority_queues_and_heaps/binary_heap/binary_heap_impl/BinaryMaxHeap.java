@@ -3,40 +3,43 @@ package data_structures.priority_queues_and_heaps.binary_heap.binary_heap_impl;
 import java.util.Arrays;
 
 /**
- * Binary Max Heap implementation.
- * Operations performed are
- *  -   findMaximum
- *  -   deleteMaximum
- *  -   insertion
+ * 📦 Binary Max Heap implementation using array.
  *
- *  findMaximum
- *      -   In Binary Max Heap the first element denotes the maximum element in heap
+ * A Binary Max Heap is a complete binary tree where each node is greater than or equal to its children.
+ * This implementation supports the following operations:
  *
- *  deleteMaximum
- *      -   As first element is the maximum element in the heap, to delete it first
- *          it is stored in a temporary variable
- *      -   Then the max element is replaced by the last element of the heap
- *      -   Then the count is decreased,
- *      -   But now, the heap does not follow the heap conditions i.e parent should
- *          be greater than the child, to avoid this we start doing heapify from the
- *          root i.e top to bottom heapify
+ * 🔹 Operations:
+ *  - getMaximum()      : Returns the maximum element (at root) → O(1)
+ *  - deleteMax()       : Removes and returns the max element → O(log n)
+ *  - insert(int data)  : Inserts a new element while maintaining max heap property → O(log n)
+ *  - buildHeap(int[])  : Builds heap from existing array using bottom-up heapify → O(n)
+ *  - destroyHeap()     : Clears the heap → O(1)
  *
- *  insertion
- *      -   A new element is inserted at the end
- *      -   But this may result in unbalanced heap, so heapify is done from the current
- *          element to the root element i.e bottom to top heapify
- *      -   In this type of bottom to top heapify we only take the path from the current inserted
- *          node till the root node, because only this path is unbalanced rest of the nodes are already
- *          balanced
- *      -   this takes O(n log n) time, log n time for insertion and there are n keys
+ * 🔁 Heapify Notes:
+ *  - Top-down heapify (used in deleteMax and buildHeap) ensures heap property from root → O(log n)
+ *  - Bottom-up heapify (used in insert) restores heap from leaf to root → O(log n)
  *
+ * 📈 Time Complexity Summary:
+ * ┌────────────────────────────┬────────────────┐
+ * │ Operation                  │ Time Complexity│
+ * ├────────────────────────────┼────────────────┤
+ * │ getMaximum()               │ O(1)           │
+ * │ deleteMax()                │ O(log n)       │
+ * │ insert(int data)           │ O(log n)       │
+ * │ buildHeap(int[] arr)       │ O(n)           │
+ * │ insert n elements (1-by-1) │ O(n log n)     │
+ * └────────────────────────────┴────────────────┘
  *
- *  creating heap from array
- *      -   If we have predefined set of keys for which a new heap is to be created then we
- *          can create the heap in O(n) time
- *      -   Inserting a single key at a time, takes O(log n) operations and inserting n keys
- *          takes O(n log n) time
+ * 🔸 Note:
+ * - Use buildHeap() when inserting a predefined array → O(n)
+ * - For dynamic insertions, use insert() repeatedly → O(n log n) for n elements
+ *
+ * 🌳 Binary Heap is used in:
+ *  - Priority Queues
+ *  - Heap Sort
+ *  - Graph Algorithms (e.g., Dijkstra, Prim)
  */
+
 
 public class BinaryMaxHeap {
     private int[] array;
