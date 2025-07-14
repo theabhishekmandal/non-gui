@@ -122,8 +122,9 @@ public class BinaryMaxHeap {
             return -1;
         }
         int max = this.array[0];
-        this.array[0] = this.array[this.count  - 1];
+        this.array[0] = this.array[this.count - 1];
         this.count--;
+        // since only root is unbalanced we do heapify from root and not from last non-leaf node.
         heapify(0);
         return max;
     }
