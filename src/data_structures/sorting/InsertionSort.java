@@ -41,6 +41,13 @@ public class InsertionSort {
         System.out.println("Arrays after sorting " + Arrays.toString(arr));
     }
 
+    /*
+        Insertion sort is based on, find the position where the key should be added.
+        start with last element and compare, if key is smaller then copy the large value to end of array.
+        doing like this find the proper position for key.
+
+        For Sorting linked list, insertion sort is better.
+     */
     private static void sort(int[] arr) {
         for (int i = 1; i < arr.length; i++) {
             int j = i - 1;
