@@ -1,31 +1,26 @@
 package data_structures.disJoint_sets;
 
 /**
- * DisJoinSetFastFind (Quick Find approach):
+ * Implements the Quick Find approach for Disjoint Set (Union-Find).
  *
- * ✅ Advantages:
- * 1. Very Fast Find:
- *    - The find operation is O(1), as it directly accesses the set ID.
+ * <p><strong>Advantages:</strong></p>
+ * <ul>
+ *   <li><strong>Very Fast Find:</strong> The {@code find} operation is O(1), as it directly accesses the set ID.</li>
+ *   <li><strong>Simple Implementation:</strong> Easy to understand and implement.</li>
+ * </ul>
  *
- * 2. Simple Implementation:
- *    - Easy to understand and implement.
+ * <p><strong>Disadvantages:</strong></p>
+ * <ul>
+ *   <li><strong>Very Slow Union:</strong> The {@code union} operation takes O(N) time, since it may need to update all elements in a set.</li>
+ *   <li><strong>Inefficient for Large Datasets:</strong> The union operation becomes a bottleneck in large-scale scenarios.</li>
+ *   <li><strong>Not Suitable for Dynamic Connectivity Problems:</strong> Not scalable when many union operations are required.</li>
+ * </ul>
  *
- * ❌ Disadvantages:
- * 1. Very Slow Union:
- *    - Union takes O(N) time since it may need to update all elements in a set.
+ * <p><strong>Note:</strong> This is a classic implementation of the Quick Find algorithm.
+ * Use it only when the number of union operations is very small.</p>
  *
- * 2. Inefficient for Large Datasets:
- *    - The union operation becomes a bottleneck in large-scale scenarios.
- *
- * 3. Not Suitable for Dynamic Connectivity Problems:
- *    - Not scalable when many union operations are required.
- *
- * ⚠️ Note:
- * This is a classic implementation of the Quick Find algorithm.
- * Use it only when the number of union operations is very small.
- * Next Check DisJointSetFastUnion.java
+ * @see DisJointSetFastUnion
  */
-
 public class DisJoinSetFastFind implements IDisJointSet {
     private int[] setId; // Each index points to its set representative
 

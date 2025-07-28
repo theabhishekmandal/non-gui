@@ -156,13 +156,27 @@ import java.util.Random;
         }
         return null;
     }
+
+
+    @Override
+    public String toString() {
+        return this.head + "";
+    }
 }
 public class SkipListDemo{
     public static void main(String[] args) {
         SkipList<Integer, Integer> s = new SkipList<>();
         s.add(1, 2);
+        s.add(2, 2);
         s.add(3, 2);
-        s.add(1, 2);
+        s.add(4, 2);
+        s.add(5, 2);
+        s.add(6, 2);
+        s.add(7, 2);
+        s.add(8, 2);
+        s.add(9, 2);
+        s.add(10, 2);
+        System.out.println(s);
         System.out.println(s.get(1));
     }
 }

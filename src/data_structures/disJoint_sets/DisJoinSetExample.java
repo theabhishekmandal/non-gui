@@ -28,7 +28,7 @@ public class DisJoinSetExample {
                 "UnionByRankWithPathCompression"
         );
 
-        int size = 100_000_0; // adjust size as needed for benchmarking
+        int size = 100_000; // adjust size as needed for benchmarking
         int numUnions = 90_000;
         int numFinds = 10_000;
 
@@ -36,25 +36,41 @@ public class DisJoinSetExample {
             IDisJointSet ds = list.get(i);
             String name = names.get(i);
 
-            long startTime = System.nanoTime();
-
-            // 1. Make set
+            // 1. Make Set
+            long startMakeSet = System.nanoTime();
             ds.makeSet(size);
+            long endMakeSet = System.nanoTime();
 
-            // 2. Perform union operations (0-1, 1-2, ..., 89999-90000)
+            // 2. Union phase
+            long startUnion = System.nanoTime();
             for (int j = 0; j < numUnions; j++) {
                 ds.union(j, j + 1);
             }
+            long endUnion = System.nanoTime();
 
-            // 3. Perform some isConnected checks
+            // 3. First isConnected phase (may trigger path compression)
+            long startFirstFind = System.nanoTime();
             for (int j = 0; j < numFinds; j++) {
                 ds.isConnected(j, size - j - 1);
             }
+            long endFirstFind = System.nanoTime();
 
-            long endTime = System.nanoTime();
-            long durationMs = (endTime - startTime) / 1_000_000;
+            // 4. Second isConnected phase (reuses compression)
+            long startSecondFind = System.nanoTime();
+            for (int j = 0; j < numFinds; j++) {
+                ds.isConnected(j, size - j - 1);
+            }
+            long endSecondFind = System.nanoTime();
 
-            System.out.printf("%-35s took %5d ms%n", name, durationMs);
+            long msMakeSet      = (endMakeSet - startMakeSet) / 1_000_000;
+            long msUnion        = (endUnion - startUnion) / 1_000_000;
+            long msFirstFind    = (endFirstFind - startFirstFind) / 1_000_000;
+            long msSecondFind   = (endSecondFind - startSecondFind) / 1_000_000;
+            long total          = msMakeSet + msUnion + msFirstFind + msSecondFind;
+
+            System.out.printf("%-35s: MakeSet=%4dms, Union=%4dms, Find1=%4dms, Find2=%4dms, Total=%4dms%n",
+                    name, msMakeSet, msUnion, msFirstFind, msSecondFind, total);
         }
+
     }
 }

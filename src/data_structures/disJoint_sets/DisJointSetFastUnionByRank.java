@@ -1,34 +1,37 @@
 package data_structures.disJoint_sets;
 
 /**
- * DisJointSetFastUnionByRank:
+ * An implementation of the Disjoint Set (Union-Find) data structure using
+ * <strong>Union by Rank</strong> optimization.
  *
- * ✅ Advantages:
- * 1. Improved Efficiency:
- *    - Union by rank keeps the trees shallow, making operations faster.
- *    - Both union and find operations run in O(log N) time in the worst case.
+ * <p>This approach keeps the tree structures shallow by always attaching the
+ * smaller tree (in terms of rank) under the root of the larger one. This significantly
+ * reduces the height of the resulting tree and improves the efficiency of the
+ * {@code find()} and {@code union()} operations.</p>
  *
- * 2. Deterministic Balancing:
- *    - Smaller trees are attached under larger trees, avoiding skewed trees.
+ * <p>Although this implementation does not include path compression, it still performs
+ * reasonably well with worst-case time complexity of O(log N) per operation.
+ * When combined with path compression, the performance approaches O(α(N)) per operation,
+ * where α(N) is the inverse Ackermann function.</p>
  *
- * 3. Simplicity:
- *    - Rank is easy to maintain and reduces tree height effectively.
+ * <h2>Advantages ✅</h2>
+ * <ul>
+ *     <li><strong>Efficient:</strong> Keeps trees balanced, ensuring logarithmic time operations.</li>
+ *     <li><strong>Deterministic structure:</strong> Union decisions are made based on rank, not arbitrary.</li>
+ *     <li><strong>Low memory overhead:</strong> Requires only one additional integer array for ranks.</li>
+ *     <li><strong>Extensible:</strong> A good foundation to combine with path compression for even better performance.</li>
+ * </ul>
  *
- * 4. Good Base for Further Optimization:
- *    - Can be combined with Path Compression for near-constant time operations.
+ * <h2>Disadvantages ❌</h2>
+ * <ul>
+ *     <li><strong>No path compression:</strong> Still allows tree depth to grow (up to log N).</li>
+ *     <li><strong>Rank is approximate:</strong> Only estimates height; not the exact number of levels.</li>
+ *     <li><strong>More complex than naive versions:</strong> Slight increase in logic for union operations.</li>
+ * </ul>
  *
- * ❌ Disadvantages:
- * 1. No Path Compression:
- *    - Without it, find() can still be O(log N) in the worst case.
- *
- * 2. Rank is Approximate:
- *    - It does not store exact height, only an upper bound.
- *
- * 3. Slightly More Memory:
- *    - Requires an extra array (rank[]) along with parent[].
- *
- * 4. Slightly More Complex:
- *    - Compared to naive implementations, union by rank logic is more involved.
+ * @see DisJointSetFastUnionByRankWithPathCompression
+ * @see DisJoinSetFastFind
+ * @see DisJointSetFastUnion
  */
 public class DisJointSetFastUnionByRank implements IDisJointSet {
 

@@ -1,34 +1,33 @@
 package data_structures.disJoint_sets;
 
 /**
- * DisJointSetFastUnion:
+ * DisJointSetFastUnion (Quick Union approach):
  *
  * ✅ Advantages:
- * 1. Simpler & Faster Union:
- *    - Union operation is done in O(1) time, as it directly changes the parent.
- *
- * 2. Easy to Implement:
- *    - The logic is minimal and straightforward.
- *
- * 3. Reasonably Efficient:
- *    - Better than naive approaches like Quick-Find for union-heavy use cases.
+ * <ul>
+ *   <li><strong>1. Simpler & Faster Union:</strong>
+ *       Union operation is done in O(1) time, as it directly changes the parent.</li>
+ *   <li><strong>2. Easy to Implement:</strong>
+ *       The logic is minimal and straightforward.</li>
+ *   <li><strong>3. Reasonably Efficient:</strong>
+ *       Better than naive approaches like Quick-Find for union-heavy use cases.</li>
+ * </ul>
  *
  * ❌ Disadvantages:
- * 1. Unbalanced Trees:
- *    - No balancing (like by rank or size), which can lead to tall trees.
- *    - As a result, find() can degrade to O(N) in the worst case.
+ * <ul>
+ *   <li><strong>1. Unbalanced Trees:</strong>
+ *       No balancing (like by rank or size), which can lead to tall trees and degrade find to O(N).</li>
+ *   <li><strong>2. Slower Find:</strong>
+ *       As trees become deeper, the find operation becomes slower.</li>
+ *   <li><strong>3. No Path Compression:</strong>
+ *       Parent chains can become long over time, further degrading performance.</li>
+ * </ul>
  *
- * 2. Slower Find:
- *    - If tree becomes deep, find operations become inefficient.
- *
- * 3. No Path Compression:
- *    - Parent chain can become long over time, further slowing down find().
- *
- * ⚠️ Note:
- * This implementation is the base of Quick Union, but does not include balancing techniques like Union by Rank or Path Compression.
- * Next check DisjointSetFastUnionByRank.java
+ * ⚠️ <strong>Note:</strong>
+ * This is the base Quick Union algorithm.
+ * For improved performance, consider enhancements like Union by Rank or Path Compression,
+ * as implemented in {@link DisJointSetFastUnionByRank} or {@link DisJointSetFastUnionByRankWithPathCompression}.
  */
-
 public class DisJointSetFastUnion implements IDisJointSet {
 
     private int[] parent; // Array to store the parent of each element

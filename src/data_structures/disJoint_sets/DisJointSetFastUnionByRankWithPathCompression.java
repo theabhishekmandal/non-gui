@@ -1,31 +1,32 @@
 package data_structures.disJoint_sets;
 
+import java.util.ArrayDeque;
+import java.util.Deque;
+
 /**
  * DisJointSetFastUnionByRankWithPathCompression
- *
+ * <p>
  * This class implements the Disjoint Set (Union-Find) data structure using two key optimizations:
  * 1. Union by Rank: Ensures smaller (shallower) trees are attached under deeper trees to prevent height growth.
  * 2. Path Compression: Flattens the tree during find operations, pointing nodes directly to the root.
- *
+ * <p>
  * Together, these optimizations make both `find` and `union` operations extremely efficient, with
  * nearly constant amortized time complexity O(α(N)), where α is the inverse Ackermann function.
- *
+ * <p>
  * This implementation is well-suited for large-scale dynamic connectivity problems such as:
  * - Kruskal’s Minimum Spanning Tree algorithm
  * - Network connection queries
  * - Connected components in graphs
- *
+ * <p>
  * Pros:
  * - Very fast for large number of operations
  * - Keeps tree height minimal over time
- *
+ * <p>
  * Cons:
  * - Slightly more complex logic than simpler approaches (e.g., QuickFind)
  * - Uses additional space for the rank array
  */
-
 public class DisJointSetFastUnionByRankWithPathCompression implements IDisJointSet {
-
     private int[] parent; // Stores the parent of each element
     private int[] rank;   // Approximate height of the tree rooted at each node
 
@@ -47,10 +48,19 @@ public class DisJointSetFastUnionByRankWithPathCompression implements IDisJointS
     @Override
     public int find(int element) {
         // Path Compression: Flattens the tree structure by pointing the current node directly to its root
-        if (element != parent[element]) {
-            parent[element] = find(parent[element]);
+        int root = element;
+        while (root != parent[root]) {
+            root = parent[root];
         }
-        return parent[element];
+
+        // now we have the root; we will update the root in all the related elements
+        int next;
+        while (element != parent[element]) {
+            next = parent[element];
+            parent[element] = root;
+            element = next;
+        }
+        return root;
     }
 
     @Override
