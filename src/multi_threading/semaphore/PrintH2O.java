@@ -4,6 +4,10 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Semaphore;
 
+/*
+    Given a string of H and O, where for every O there would be 2 H. Print the combination of H2o
+    It can be in any format like: HHO, HOH, OHH
+ */
 public class PrintH2O {
     public static void main(String[] args) {
         Runnable hydrogen = () -> System.out.print("h");
