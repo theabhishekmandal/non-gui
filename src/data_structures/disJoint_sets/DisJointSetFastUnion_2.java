@@ -26,9 +26,33 @@ package data_structures.disJoint_sets;
  * ⚠️ <strong>Note:</strong>
  * This is the base Quick Union algorithm.
  * For improved performance, consider enhancements like Union by Rank or Path Compression,
- * as implemented in {@link DisJointSetFastUnionByRank} or {@link DisJointSetFastUnionByRankWithPathCompression}.
+ * as implemented in {@link DisJointSetFastUnionByRank_3} or {@link DisJointSetFastUnionByRankWithPathCompression_4}.
+ *
+ *
+ * Intuitive Analogy
+ * Think of people as teams.
+ *🟩 Quick-Find
+ *
+ * Each person has a team ID tag written on their shirt.
+ *
+ * find(person) → just read the tag → O(1)
+ *
+ * union(A, B) → you must reprint new tags for everyone in A’s team to match B’s → O(n)
+ *
+ * So: fast lookup, slow merge.
+ *
+ * 🟦 Quick-Union
+ *
+ * Each person points to a team leader (their parent).
+ *
+ * find(person) → follow the chain of leaders until the top boss → O(tree height)
+ *
+ * union(A, B) → just make one boss report to the other → O(1)
+ *
+ * So: fast merge, slower lookup (unless optimized).
+ *
  */
-public class DisJointSetFastUnion implements IDisJointSet {
+public class DisJointSetFastUnion_2 implements IDisJointSet {
 
     private int[] parent; // Array to store the parent of each element
 

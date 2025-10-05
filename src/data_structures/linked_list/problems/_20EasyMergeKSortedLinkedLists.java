@@ -2,10 +2,7 @@ package data_structures.linked_list.problems;
 
 import data_structures.linked_list.node.SinglyLinkedList;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 import static data_structures.linked_list.node.SinglyLinkedList.Node;
 
@@ -28,6 +25,18 @@ public class _20EasyMergeKSortedLinkedLists {
 
         System.out.println("array list after merging");
         list.forEach(System.out::println);
+
+
+
+        var lists = getSortedArrayOfLinkedList();
+        System.out.println("array list before merging");
+        lists.forEach(System.out::println);
+
+        System.out.println("\n merge lists" + solve2(lists) + "\n");
+
+        System.out.println("array list after merging");
+        lists.forEach(System.out::println);
+
     }
 
     private static <T extends Comparable<? super T>> SinglyLinkedList<T> solve(List<SinglyLinkedList<T>> lists) {
@@ -111,6 +120,57 @@ public class _20EasyMergeKSortedLinkedLists {
 
         return first;
     }
+
+    /**
+     * This method uses priority queue, also modifies the internal lists.
+     * Time complexity - n nodes, log k operation in insertion and deletion from queue so O (n log k)
+     * space complexity - O(k) because we have k lists.
+     */
+    private static <T extends Comparable<? super T>> SinglyLinkedList<T> solve2(List<SinglyLinkedList<T>> lists) {
+        if (lists == null) {
+            return null;
+        }
+        if (lists.size() == 1) {
+            return lists.get(0);
+        }
+
+        PriorityQueue<Node<T>> priorityQueue = new PriorityQueue<>(lists.size(), Comparator.comparing(Node::getData));
+
+        // first get the head nodes and add them in queue. each node will become the pointer to the next node
+        for (SinglyLinkedList<T> tSinglyLinkedList : lists) {
+            if (tSinglyLinkedList.getHead() != null) {
+                priorityQueue.add(tSinglyLinkedList.getHead());
+            }
+        }
+
+        SinglyLinkedList<T> newList = new SinglyLinkedList<>();
+        Node<T> root = null;
+        Node<T> tail = null;
+        int size = 0;
+        // each node adds the value in the priority queue.
+        while (!priorityQueue.isEmpty()) {
+            Node<T> curr = priorityQueue.poll();
+            size++;
+            if (root == null) {
+                root = curr;
+                tail = curr;
+            } else {
+                tail.setNext(curr);
+                tail = curr;
+            }
+            if (curr.getNext() != null) {
+                priorityQueue.add(curr.getNext());
+            }
+
+        }
+
+        newList.setHead(root);
+        newList.setTail(tail);
+        newList.setSize(size);
+        return newList;
+    }
+
+
 
     // method to generate sorted lists of single linked list
     private static List<SinglyLinkedList<Integer>> getSortedArrayOfLinkedList() {

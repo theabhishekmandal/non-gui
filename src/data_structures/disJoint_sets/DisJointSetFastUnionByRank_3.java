@@ -29,11 +29,11 @@ package data_structures.disJoint_sets;
  *     <li><strong>More complex than naive versions:</strong> Slight increase in logic for union operations.</li>
  * </ul>
  *
- * @see DisJointSetFastUnionByRankWithPathCompression
- * @see DisJoinSetFastFind
- * @see DisJointSetFastUnion
+ * @see DisJointSetFastUnionByRankWithPathCompression_4
+ * @see DisJoinSetFastFind_1
+ * @see DisJointSetFastUnion_2
  */
-public class DisJointSetFastUnionByRank implements IDisJointSet {
+public class DisJointSetFastUnionByRank_3 implements IDisJointSet {
 
     private int[] parent; // Stores the parent of each element
     private int[] rank;   // Approximate height of the tree rooted at each node

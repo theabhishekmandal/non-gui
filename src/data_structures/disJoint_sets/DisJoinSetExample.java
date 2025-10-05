@@ -1,15 +1,14 @@
 package data_structures.disJoint_sets;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class DisJoinSetExample {
     public static void main(String[] args) {
-        IDisJointSet disJointSetFastFind = new DisJoinSetFastFind();
-        IDisJointSet disJointSetFastUnion = new DisJointSetFastUnion();
-        IDisJointSet disJointSetFastUnionByRank = new DisJointSetFastUnionByRank();
-        IDisJointSet disJointSetFastUnionByRankWithPathCompression = new DisJointSetFastUnionByRankWithPathCompression();
+        IDisJointSet disJointSetFastFind = new DisJoinSetFastFind_1();
+        IDisJointSet disJointSetFastUnion = new DisJointSetFastUnion_2();
+        IDisJointSet disJointSetFastUnionByRank = new DisJointSetFastUnionByRank_3();
+        IDisJointSet disJointSetFastUnionByRankWithPathCompression = new DisJointSetFastUnionByRankWithPathCompression_4();
 
         List<IDisJointSet> list = new ArrayList<>(
                 List.of(

@@ -32,7 +32,7 @@ import java.util.*;
  *
  *
  */
-public class FindingNthHighestNumber {
+public class _3EasyFindingNthHighestNumber {
     public static void main(String[] args){
         int[] arr = new int[20];
         Random random = new Random();

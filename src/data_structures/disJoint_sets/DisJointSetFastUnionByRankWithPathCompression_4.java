@@ -1,8 +1,5 @@
 package data_structures.disJoint_sets;
 
-import java.util.ArrayDeque;
-import java.util.Deque;
-
 /**
  * DisJointSetFastUnionByRankWithPathCompression
  * <p>
@@ -26,7 +23,7 @@ import java.util.Deque;
  * - Slightly more complex logic than simpler approaches (e.g., QuickFind)
  * - Uses additional space for the rank array
  */
-public class DisJointSetFastUnionByRankWithPathCompression implements IDisJointSet {
+public class DisJointSetFastUnionByRankWithPathCompression_4 implements IDisJointSet {
     private int[] parent; // Stores the parent of each element
     private int[] rank;   // Approximate height of the tree rooted at each node
 

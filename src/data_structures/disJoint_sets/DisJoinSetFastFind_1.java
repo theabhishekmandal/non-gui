@@ -19,9 +19,9 @@ package data_structures.disJoint_sets;
  * <p><strong>Note:</strong> This is a classic implementation of the Quick Find algorithm.
  * Use it only when the number of union operations is very small.</p>
  *
- * @see DisJointSetFastUnion
+ * @see DisJointSetFastUnion_2
  */
-public class DisJoinSetFastFind implements IDisJointSet {
+public class DisJoinSetFastFind_1 implements IDisJointSet {
     private int[] setId; // Each index points to its set representative
 
     @Override

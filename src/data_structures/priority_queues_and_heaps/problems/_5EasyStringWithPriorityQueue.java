@@ -33,7 +33,7 @@ import java.util.PriorityQueue;
  *          -   Basically we are appending the letter decreasing the count and checking the priority, again.
  *
  */
-public class StringWithPriorityQueue {
+public class _5EasyStringWithPriorityQueue {
     public static void main(String[] args) {
         System.out.println(test("1AbcdAaab1"));
     }

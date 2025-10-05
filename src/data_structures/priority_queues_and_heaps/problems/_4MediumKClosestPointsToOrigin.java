@@ -52,7 +52,7 @@ import static java.util.AbstractMap.SimpleEntry;
  *
  *  -   Sorting approach can be used as shown in method kClosest2
  */
-public class KClosestPointsToOrigin {
+public class _4MediumKClosestPointsToOrigin {
 
     private static final Random random = new Random();
 
