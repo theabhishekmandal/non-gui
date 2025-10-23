@@ -84,47 +84,68 @@ public class GraphAdjacencyMatrix implements IGraph {
 
     @Override
     public void dfs() {
+        // Keeps track of whether each vertex has been visited
         boolean[] visited = new boolean[this.vertices];
+
+        // Stack is used to simulate recursion (LIFO structure)
         Deque<Integer> stack = new ArrayDeque<>();
+
+        // Used to store traversal order in a readable format
         StringJoiner path = new StringJoiner("--->");
 
-        // find first starting index from which we have to start doing dfs
+        // Find the first vertex with at least one outgoing edge (start point)
         int startIndex = getStartIndex();
 
+        // If graph has no edges or vertices, stop early
         if (startIndex == -1) {
             System.out.println("DFS for adjacency Matrix ----> " + path);
             return;
         }
 
-
+        // Step 1: Push the start vertex to the stack and mark it visited
         stack.push(startIndex);
         visited[startIndex] = true;
-        path.add(startIndex + "");
+        path.add(String.valueOf(startIndex));
 
+        // Step 2: Continue until all reachable vertices are explored
         while (!stack.isEmpty()) {
-            // can't replace peek with pop otherwise, we will not be able to access other neighbours.
+
+            // Use peek() instead of pop() → we still need this vertex
+            // to check other unvisited neighbors before removing it
             int vertex = stack.peek();
             int index = -1;
+
+            // Step 3: Find the first unvisited neighbor of the current vertex
             for (int j = 0; j < this.vertices; j++) {
+                // Check for an edge and if neighbor is not yet visited
                 if (adjMatrix[vertex][j] != 0 && !visited[j]) {
-                    index = j;
+                    index = j; // Found an unvisited neighbor
                     break;
                 }
             }
+
+            // Step 4: If no unvisited neighbor found → backtrack (pop from stack)
             if (index == -1) {
                 stack.pop();
-            } else {
-                path.add(index + "");
+            }
+            // Step 5: Otherwise, visit the neighbor and go deeper
+            else {
+                path.add(String.valueOf(index));
                 stack.push(index);
                 visited[index] = true;
             }
         }
 
-        System.out.println("DFS for adjacency Matrix " + path);
+        System.out.println("DFS for adjacency Matrix ----> " + path);
     }
 
+    /**
+     * Utility method to find the first vertex that has an outgoing edge.
+     * Used as the starting point for traversal.
+     */
     private int getStartIndex() {
         int startIndex = -1;
+
         for (int i = 0; i < this.vertices; i++) {
             for (int j = 0; j < this.vertices; j++) {
                 if (adjMatrix[i][j] != 0) {
@@ -136,37 +157,50 @@ public class GraphAdjacencyMatrix implements IGraph {
                 break;
             }
         }
+
         return startIndex;
     }
 
     @Override
     public void bfs() {
+        // Keeps track of whether each vertex has been visited
         boolean[] visited = new boolean[this.vertices];
+
+        // Queue is used for level-order traversal (FIFO structure)
         Deque<Integer> queue = new ArrayDeque<>();
+
+        // Used to store traversal order
         StringJoiner path = new StringJoiner("--->");
 
+        // Find the first vertex with outgoing edges to start BFS
         int startIndex = getStartIndex();
 
+        // If graph is empty, stop early
         if (startIndex == -1) {
             System.out.println("BFS for adjacency Matrix ----> " + path);
             return;
         }
 
+        // Step 1: Enqueue start vertex and mark it visited
         queue.offer(startIndex);
         visited[startIndex] = true;
-        path.add(startIndex + "");
+        path.add(String.valueOf(startIndex));
 
+        // Step 2: Continue until all reachable vertices are explored
         while (!queue.isEmpty()) {
+            // Remove vertex from front of queue
             int vertex = queue.poll();
+
+            // Step 3: Visit all unvisited neighbors of this vertex
             for (int i = 0; i < vertices; i++) {
                 if (adjMatrix[vertex][i] != 0 && !visited[i]) {
-                    path.add(i + "");
+                    path.add(String.valueOf(i));
                     queue.offer(i);
-                    visited[i] = true;
+                    visited[i] = true; // Mark as visited when enqueued
                 }
             }
         }
 
-        System.out.println("BFS for adjacency Matrix " + path);
+        System.out.println("BFS for adjacency Matrix ----> " + path);
     }
 }
