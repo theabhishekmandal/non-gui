@@ -1,7 +1,10 @@
 package data_structures.graph;
 
 import java.util.ArrayDeque;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Deque;
+import java.util.List;
 import java.util.StringJoiner;
 
 public class GraphAdjacencyMatrix implements IGraph {
@@ -31,6 +34,13 @@ public class GraphAdjacencyMatrix implements IGraph {
             return;
         }
 
+        // don't add edge b->a, if a->b exits if it is directed graph.
+        if (isDirected && hasEdge(dest, src)) {
+            System.out.println("Opposite directed edge already exists: " +
+                    "(" + dest + ", " + src + "); cannot add (" + src + ", " + dest + ")");
+            return;
+        }
+
         adjMatrix[src][dest] = 1;
 
         // For undirected graphs, add the reverse edge too
@@ -55,7 +65,7 @@ public class GraphAdjacencyMatrix implements IGraph {
         validateVertex(src);
         validateVertex(dest);
 
-        return adjMatrix[src][dest] == 1;
+        return adjMatrix[src][dest] != 0;
     }
 
     // Print the adjacency matrix
@@ -84,123 +94,164 @@ public class GraphAdjacencyMatrix implements IGraph {
 
     @Override
     public void dfs() {
-        // Keeps track of whether each vertex has been visited
         boolean[] visited = new boolean[this.vertices];
-
-        // Stack is used to simulate recursion (LIFO structure)
         Deque<Integer> stack = new ArrayDeque<>();
-
-        // Used to store traversal order in a readable format
         StringJoiner path = new StringJoiner("--->");
 
-        // Find the first vertex with at least one outgoing edge (start point)
-        int startIndex = getStartIndex();
+        // Start a DFS from every unvisited vertex so isolates and other components are included
+        for (int s = 0; s < vertices; s++) {
+            if (visited[s]) {
+                continue;
+            }
+            stack.push(s);
+            visited[s] = true;
+            path.add(String.valueOf(s));
 
-        // If graph has no edges or vertices, stop early
-        if (startIndex == -1) {
-            System.out.println("DFS for adjacency Matrix ----> " + path);
-            return;
-        }
-
-        // Step 1: Push the start vertex to the stack and mark it visited
-        stack.push(startIndex);
-        visited[startIndex] = true;
-        path.add(String.valueOf(startIndex));
-
-        // Step 2: Continue until all reachable vertices are explored
-        while (!stack.isEmpty()) {
-
-            // Use peek() instead of pop() → we still need this vertex
-            // to check other unvisited neighbors before removing it
-            int vertex = stack.peek();
-            int index = -1;
-
-            // Step 3: Find the first unvisited neighbor of the current vertex
-            for (int j = 0; j < this.vertices; j++) {
-                // Check for an edge and if neighbor is not yet visited
-                if (adjMatrix[vertex][j] != 0 && !visited[j]) {
-                    index = j; // Found an unvisited neighbor
-                    break;
+            while (!stack.isEmpty()) {
+                int vertex = stack.peek();
+                int index = -1;
+                for (int j = 0; j < vertices; j++) {
+                    if (adjMatrix[vertex][j] != 0 && !visited[j]) {
+                        index = j;
+                        break;
+                    }
                 }
-            }
-
-            // Step 4: If no unvisited neighbor found → backtrack (pop from stack)
-            if (index == -1) {
-                stack.pop();
-            }
-            // Step 5: Otherwise, visit the neighbor and go deeper
-            else {
-                path.add(String.valueOf(index));
-                stack.push(index);
-                visited[index] = true;
+                if (index == -1) {
+                    stack.pop();
+                } else {
+                    path.add(String.valueOf(index));
+                    stack.push(index);
+                    visited[index] = true;
+                }
             }
         }
 
         System.out.println("DFS for adjacency Matrix ----> " + path);
     }
 
-    /**
-     * Utility method to find the first vertex that has an outgoing edge.
-     * Used as the starting point for traversal.
-     */
-    private int getStartIndex() {
-        int startIndex = -1;
-
-        for (int i = 0; i < this.vertices; i++) {
-            for (int j = 0; j < this.vertices; j++) {
-                if (adjMatrix[i][j] != 0) {
-                    startIndex = i;
-                    break;
-                }
-            }
-            if (startIndex != -1) {
-                break;
-            }
-        }
-
-        return startIndex;
-    }
-
     @Override
     public void bfs() {
-        // Keeps track of whether each vertex has been visited
         boolean[] visited = new boolean[this.vertices];
-
-        // Queue is used for level-order traversal (FIFO structure)
         Deque<Integer> queue = new ArrayDeque<>();
-
-        // Used to store traversal order
         StringJoiner path = new StringJoiner("--->");
 
-        // Find the first vertex with outgoing edges to start BFS
-        int startIndex = getStartIndex();
+        // Start BFS from every unvisited vertex so isolates and other components are included
+        for (int s = 0; s < vertices; s++) {
+            if (visited[s]) {
+                continue;
+            }
+            queue.offer(s);
+            visited[s] = true;
+            path.add(String.valueOf(s));
 
-        // If graph is empty, stop early
-        if (startIndex == -1) {
-            System.out.println("BFS for adjacency Matrix ----> " + path);
-            return;
-        }
-
-        // Step 1: Enqueue start vertex and mark it visited
-        queue.offer(startIndex);
-        visited[startIndex] = true;
-        path.add(String.valueOf(startIndex));
-
-        // Step 2: Continue until all reachable vertices are explored
-        while (!queue.isEmpty()) {
-            // Remove vertex from front of queue
-            int vertex = queue.poll();
-
-            // Step 3: Visit all unvisited neighbors of this vertex
-            for (int i = 0; i < vertices; i++) {
-                if (adjMatrix[vertex][i] != 0 && !visited[i]) {
-                    path.add(String.valueOf(i));
-                    queue.offer(i);
-                    visited[i] = true; // Mark as visited when enqueued
+            while (!queue.isEmpty()) {
+                int vertex = queue.poll();
+                for (int i = 0; i < vertices; i++) {
+                    if (adjMatrix[vertex][i] != 0 && !visited[i]) {
+                        path.add(String.valueOf(i));
+                        queue.offer(i);
+                        visited[i] = true;
+                    }
                 }
             }
         }
 
         System.out.println("BFS for adjacency Matrix ----> " + path);
+    }
+
+    @Override
+    public List<Integer> getBfsTopologicalOrder() {
+        // DFS/BFS traversal: "Just visit everything"
+        // Topological sort: "Visit in a way that prerequisites come first"
+        if (!isDirected) {
+            return List.of();
+        }
+
+        int[] indegree = new int[vertices];
+        for (int i = 0; i < vertices; i++) {
+            for (int j = 0; j < vertices; j++) {
+                if (adjMatrix[i][j] != 0) {
+                    indegree[j]++;
+                }
+            }
+        }
+
+        // if there is a cycle then indegree will not be zero and hence topological order will be empty.
+        Deque<Integer> queue = new ArrayDeque<>();
+        for (int v = 0; v < vertices; v++) {
+            if (indegree[v] == 0) {
+                queue.offer(v);
+            }
+        }
+
+        List<Integer> order = new ArrayList<>();
+        while (!queue.isEmpty()) {
+            int u = queue.poll();
+            order.add(u);
+            for (int v = 0; v < vertices; v++) {
+                if (adjMatrix[u][v] != 0) {
+                    indegree[v]--;
+                    if (indegree[v] == 0) {
+                        queue.offer(v);
+                    }
+                }
+            }
+        }
+
+        // Fewer than V removals means a directed cycle (or inconsistent state)
+        if (order.size() != vertices) {
+            return List.of();
+        }
+        return List.copyOf(order);
+    }
+
+    @Override
+    public List<Integer> getDfsTopologicalOrder() {
+        // DFS/BFS traversal: "Just visit everything"
+        // Topological sort: "Visit in a way that prerequisites come first"
+        if (!isDirected) {
+            return List.of();
+        }
+
+        // 0 = unvisited, 1 = on DFS stack (back-edge => cycle), 2 = finished
+        int[] state = new int[vertices];
+        Deque<Integer> stack = new ArrayDeque<>();
+        List<Integer> postOrder = new ArrayList<>();
+
+        for (int s = 0; s < vertices; s++) {
+            if (state[s] != 0) {
+                continue;
+            }
+            state[s] = 1;
+            stack.push(s);
+            while (!stack.isEmpty()) {
+                int u = stack.peek();
+                int next = -1;
+                for (int v = 0; v < vertices; v++) {
+                    if (adjMatrix[u][v] == 0) {
+                        continue;
+                    }
+                    // if v is already on the dfs stack,
+                    if (state[v] == 1) {
+                        return List.of();
+                    }
+                    if (state[v] == 0) {
+                        next = v;
+                        break;
+                    }
+                }
+                if (next == -1) {
+                    stack.pop();
+                    state[u] = 2;
+                    postOrder.add(u);
+                } else {
+                    state[next] = 1;
+                    stack.push(next);
+                }
+            }
+        }
+
+        Collections.reverse(postOrder);
+        return List.copyOf(postOrder);
     }
 }

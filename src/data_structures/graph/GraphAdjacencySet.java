@@ -33,6 +33,11 @@ public class GraphAdjacencySet implements IGraph {
             return;
         }
 
+        if (isDirected && hasEdge(dest, src)) {
+            System.out.println("Opposite directed edge already exists: (" + dest + ", " + src + "); cannot add (" + src + ", " + dest + ")");
+            return;
+        }
+
         adjSet.get(src).add(dest);
 
         // For undirected graphs, add the reverse edge too
@@ -78,113 +83,179 @@ public class GraphAdjacencySet implements IGraph {
 
     @Override
     public void dfs() {
-        // Keeps track of whether a vertex has been visited
-        boolean[] visited = new boolean[this.vertices];
-
-        // Stack is used to simulate recursion in DFS (LIFO order)
+        boolean[] visited = new boolean[vertices];
         Deque<Integer> stack = new ArrayDeque<>();
-
-        // Used to store traversal order
         StringJoiner path = new StringJoiner("--->");
 
-        // Get the first vertex that has at least one outgoing edge
-        int startIndex = getStartIndex();
+        for (int s = 0; s < vertices; s++) {
+            if (visited[s]) {
+                continue;
+            }
+            stack.push(s);
+            visited[s] = true;
+            path.add(String.valueOf(s));
 
-        // If the graph is empty or has no edges, stop
-        if (startIndex == -1) {
-            System.out.println("DFS for adjacency Set ----> " + path);
-            return;
-        }
-
-        // Step 1: Push the starting vertex and mark as visited
-        stack.push(startIndex);
-        visited[startIndex] = true;
-        path.add(String.valueOf(startIndex));
-
-        // Step 2: Continue exploring until the stack is empty
-        while (!stack.isEmpty()) {
-            // Look at the top vertex (don’t remove yet)
-            int vertex = stack.peek();
-            int index = -1;
-
-            // Step 3: Find an unvisited neighbor
-            for (int neighbor : adjSet.get(vertex)) {
-                if (!visited[neighbor]) {
-                    index = neighbor; // Found one neighbor to go deeper
-                    break;
+            while (!stack.isEmpty()) {
+                int vertex = stack.peek();
+                int next = -1;
+                for (int v = 0; v < vertices; v++) {
+                    if (adjSet.get(vertex).contains(v) && !visited[v]) {
+                        next = v;
+                        break;
+                    }
                 }
-            }
-
-            // Step 4: If no unvisited neighbor → backtrack (pop stack)
-            if (index == -1) {
-                stack.pop();
-            }
-            // Step 5: Otherwise, visit the neighbor and continue deeper
-            else {
-                path.add(String.valueOf(index));
-                stack.push(index);
-                visited[index] = true;
+                if (next == -1) {
+                    stack.pop();
+                } else {
+                    path.add(String.valueOf(next));
+                    stack.push(next);
+                    visited[next] = true;
+                }
             }
         }
 
         System.out.println("DFS for adjacency Set ----> " + path);
     }
 
-    /**
-     * Utility method to find the first vertex that has outgoing edges.
-     * Used to determine where traversal starts.
-     */
-    private int getStartIndex() {
-        int startIndex = -1;
-        for (int vertex : this.adjSet.keySet()) {
-            if (!adjSet.get(vertex).isEmpty()) {
-                startIndex = vertex;
-                break;
-            }
-        }
-        return startIndex;
-    }
-
     @Override
     public void bfs() {
-        // Keeps track of whether each vertex has been visited
-        boolean[] visited = new boolean[this.vertices];
-
-        // Queue is used in BFS for level-order traversal (FIFO order)
+        boolean[] visited = new boolean[vertices];
         Deque<Integer> queue = new ArrayDeque<>();
-
-        // Used to store traversal order
         StringJoiner path = new StringJoiner("--->");
 
-        // Get the first vertex with outgoing edges to start BFS
-        int startIndex = getStartIndex();
+        for (int s = 0; s < vertices; s++) {
+            if (visited[s]) {
+                continue;
+            }
+            queue.offer(s);
+            visited[s] = true;
+            path.add(String.valueOf(s));
 
-        // If graph is empty or has no edges
-        if (startIndex == -1) {
-            System.out.println("BFS for adjacency Set ----> " + path);
-            return;
-        }
-
-        // Step 1: Enqueue starting vertex and mark as visited
-        queue.offer(startIndex);
-        visited[startIndex] = true;
-        path.add(String.valueOf(startIndex));
-
-        // Step 2: Continue exploring until queue is empty
-        while (!queue.isEmpty()) {
-            // Dequeue the front vertex
-            int vertex = queue.poll();
-
-            // Step 3: Visit all unvisited neighbors
-            for (int neighbor : adjSet.get(vertex)) {
-                if (!visited[neighbor]) {
-                    path.add(String.valueOf(neighbor));
-                    queue.offer(neighbor);
-                    visited[neighbor] = true;
+            while (!queue.isEmpty()) {
+                int vertex = queue.poll();
+                for (int v = 0; v < vertices; v++) {
+                    if (adjSet.get(vertex).contains(v) && !visited[v]) {
+                        path.add(String.valueOf(v));
+                        queue.offer(v);
+                        visited[v] = true;
+                    }
                 }
             }
         }
 
         System.out.println("BFS for adjacency Set ----> " + path);
+    }
+
+    @Override
+    public List<Integer> getBfsTopologicalOrder() {
+        /*
+            topological sort does not work if graph is not directed.
+            Perform cycle detection in that case return empty list.
+            It should also work for disconnected components.
+
+            For Bfs we have to compute indegree of each node i.e how many incoming edges are there in the node.
+            if indegree of a node is 0 in that case we can have BFS based Topological order.
+            subtract indegree of each node which is connected to the current node.
+
+            If indegree is zero add it to queue and process it.
+
+            Here directed cycle is detected with two cases
+            -   There can be cycle in every node, such that indegree of any node will not be zero. In that case
+                no iteration will be performed and we will return empty list.
+
+            -   There can be cycle in one of the node, in that case total vertices should be equal to list length.
+
+            -   It automatically works for disconnected graph because we are calculating indegree for every node.
+
+         */
+        if (!isDirected) {
+            return List.of();
+        }
+        int[] indegree = new int[vertices];
+        for (int i = 0; i < vertices; i++) {
+            for (int j : adjSet.get(i)) {
+                indegree[j]++;
+            }
+        }
+
+        Deque<Integer> queue = new ArrayDeque<>();
+        for (int i = 0; i < vertices; i++) {
+            if (indegree[i] == 0) {
+                queue.offer(i);
+            }
+        }
+
+        List<Integer> answer = new ArrayList<>();
+        while (!queue.isEmpty()) {
+            int vertex = queue.poll();
+            answer.add(vertex);
+            for (int j : adjSet.get(vertex)) {
+                indegree[j]--;
+                if (indegree[j] == 0) {
+                    queue.offer(j);
+                }
+            }
+        }
+
+        // if there can be cycle or inconsistent state then return empty.
+        if (answer.size() != vertices) {
+            return List.of();
+        }
+        return answer;
+    }
+
+    @Override
+    public List<Integer> getDfsTopologicalOrder() {
+        /*
+            topological sort does not work if the graph is not directed.
+            Perform cycle detection in that case return empty list.
+            It should also work for disconnected graph.
+
+            In Dfs based approach we will use stack.
+            Now a nodes is not traversed multiple times we use visited array. For this we will use new form of visited
+            array which is used. Purpose of this visited array.
+                -   A node is not traversed multiple times
+                -   For cycle detection. When putting a node in stack then it is having second state.
+
+            To handle disconnected graphs we have to check for every node.
+         */
+
+        if (!isDirected) {
+            return List.of();
+        }
+        Deque<Integer> stack = new ArrayDeque<>();
+        List<Integer> answer = new ArrayList<>();
+        int[] state = new int[vertices];
+        for (int i = 0; i < vertices; i++) {
+            if (state[i] == 2) {
+                continue;
+            }
+            stack.push(i);
+            state[i] = 1;
+            while (!stack.isEmpty()) {
+                int vertex = stack.peek();
+                int index = -1;
+                for (int j : adjSet.get(vertex)) {
+                    if (state[j] == 1) {
+                        return List.of();
+                    }
+                    if (state[j] == 0) {
+                        index = j;
+                        break;
+                    }
+                }
+
+                if (index == -1) {
+                    stack.pop();
+                    answer.add(vertex);
+                    state[vertex] = 2;
+                } else {
+                    stack.push(index);
+                    state[index] = 1;
+                }
+            }
+        }
+        Collections.reverse(answer);
+        return answer;
     }
 }

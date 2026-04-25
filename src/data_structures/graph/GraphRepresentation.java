@@ -50,8 +50,8 @@ import java.util.*;
 
 public class GraphRepresentation {
     public static void main(String[] args) {
-        IGraph graph = new GraphAdjacencyMatrix(5, false);
-        IGraph graphAdjacencySet = new GraphAdjacencySet(5, false);
+        IGraph graph = new GraphAdjacencyMatrix(5, true);
+        IGraph graphAdjacencySet = new GraphAdjacencySet(5, true);
 
         Random random = new Random();
         for (int i = 0; i < 10; i++) {
@@ -65,12 +65,15 @@ public class GraphRepresentation {
         graph.printGraph();
         graph.dfs();
         graph.bfs();
+        System.out.println(graph.getBfsTopologicalOrder());
+        System.out.println(graph.getDfsTopologicalOrder());
 
         System.out.println();
         graphAdjacencySet.printGraph();
         graphAdjacencySet.dfs();
         graphAdjacencySet.bfs();
-
+        System.out.println(graphAdjacencySet.getBfsTopologicalOrder());
+        System.out.println(graphAdjacencySet.getDfsTopologicalOrder());
 
     }
 }
