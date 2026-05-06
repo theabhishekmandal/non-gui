@@ -63,30 +63,16 @@ public class WeightedGraphAdjacencySet implements IWeightedGraph {
             return new int[]{};
         }
         int[] distance = new int[this.vertices];
-        int[] path = new int[this.vertices];
+        int[] parent = new int[this.vertices];
         /*
-            now currently reaching to every node is not possible except src node, so
-            we would initialize distance array with -1
-
-            now a current node will have multiple weighted edges to multiple vertices.
-            We would require a min priority queue which will hold the weightedEdge and vertex.
-            Shortest edge will be given priority.
-
-            src = {0, src} is added to queue where 0 signifies the distance to reach a current node from previous node.
-            now from each current vertex to next vertex, we will visit the node
-            and check if distance[currentNode] + weightedEdge < distance[nextNode] where distance[nextNode]
-            can have two possible values.
-                -   -1 - node was never visited so it was unreachable
-                -   positive number - it was visited from a different path which had different distance
-
-
+            Unvisited vertices use distance = Integer.MAX_VALUE. parent[v] = -1 until v is reached;
+            parent[src] stays -1.
          */
-
 
         PriorityQueue<int[]> priorityQueue = new PriorityQueue<>(Comparator.comparingInt(a -> a[0]));
         Arrays.fill(distance, Integer.MAX_VALUE);
+        Arrays.fill(parent, -1);
 
-        // starting with src
         distance[src] = 0;
         priorityQueue.add(new int[]{0, src});
 
@@ -95,19 +81,45 @@ public class WeightedGraphAdjacencySet implements IWeightedGraph {
             int distanceToReachCurrentVertex = pair[0];
             int currentVertex = pair[1];
 
-            for (WeightedEdge edgeWithNextVertex : adjSet.get(currentVertex)) {
+            // distanceToReachCurrentVertex is the distance stamped on this queue entry when it was enqueued; it can be stale
+            // if a shorter path to currentVertex was found later and distance[currentVertex] was lowered.
+            if (distanceToReachCurrentVertex > distance[currentVertex]) {
+                continue;
+            }
 
+            for (WeightedEdge edgeWithNextVertex : adjSet.get(currentVertex)) {
+                int next = edgeWithNextVertex.vertex;
                 int distanceToNextVertex = distanceToReachCurrentVertex + edgeWithNextVertex.weight;
 
-                if (distanceToNextVertex < distance[edgeWithNextVertex.vertex]) {
-                    distance[edgeWithNextVertex.vertex] = distanceToNextVertex;
-                    priorityQueue.add(new int[] {distanceToNextVertex, edgeWithNextVertex.vertex});
-                    path[edgeWithNextVertex.vertex] = currentVertex;
+                if (distanceToNextVertex < distance[next]) {
+                    distance[next] = distanceToNextVertex;
+                    parent[next] = currentVertex;
+                    priorityQueue.add(new int[]{distanceToNextVertex, next});
                 }
             }
         }
 
-        return path;
+        // no path exists
+        if (distance[dest] == Integer.MAX_VALUE) {
+            return new int[]{};
+        }
+
+
+        // backtracking from dest to src.
+        int[] temp = new int[vertices];
+        int len = 0;
+        for (int v = dest; v != -1; v = parent[v]) {
+            temp[len++] = v;
+            if (v == src) {
+                break;
+            }
+        }
+
+        int[] shortestPath = new int[len];
+        for (int i = 0; i < len; i++) {
+            shortestPath[i] = temp[len - 1 - i];
+        }
+        return shortestPath;
     }
 
     private boolean hasEdge(int dest, int src) {
