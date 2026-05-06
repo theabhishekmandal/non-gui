@@ -9,7 +9,7 @@ import java.util.StringJoiner;
 
 public class GraphAdjacencyMatrix implements IGraph {
     // this can be used for weighted graphs.
-    // for now we are using 1 to denote the edge
+    // for now we are using 1 to denote the vertex
     private final int[][] adjMatrix;
     private final int vertices;
     private final boolean isDirected;
@@ -24,7 +24,7 @@ public class GraphAdjacencyMatrix implements IGraph {
         this.adjMatrix = new int[vertices][vertices];
     }
 
-    // Add an edge between source and destination
+    // Add an vertex between source and destination
     public void addEdge(int src, int dest) {
         validateVertex(src);
         validateVertex(dest);
@@ -34,22 +34,22 @@ public class GraphAdjacencyMatrix implements IGraph {
             return;
         }
 
-        // don't add edge b->a, if a->b exits if it is directed graph.
+        // don't add vertex b->a, if a->b exits if it is directed graph.
         if (isDirected && hasEdge(dest, src)) {
-            System.out.println("Opposite directed edge already exists: " +
+            System.out.println("Opposite directed vertex already exists: " +
                     "(" + dest + ", " + src + "); cannot add (" + src + ", " + dest + ")");
             return;
         }
 
         adjMatrix[src][dest] = 1;
 
-        // For undirected graphs, add the reverse edge too
+        // For undirected graphs, add the reverse vertex too
         if (!isDirected) {
             adjMatrix[dest][src] = 1;
         }
     }
 
-    // Remove an edge (optional)
+    // Remove an vertex (optional)
     public void removeEdge(int src, int dest) {
         validateVertex(src);
         validateVertex(dest);
@@ -60,7 +60,7 @@ public class GraphAdjacencyMatrix implements IGraph {
         }
     }
 
-    // Check if an edge exists between src and dest
+    // Check if an vertex exists between src and dest
     public boolean hasEdge(int src, int dest) {
         validateVertex(src);
         validateVertex(dest);
@@ -213,7 +213,7 @@ public class GraphAdjacencyMatrix implements IGraph {
             return List.of();
         }
 
-        // 0 = unvisited, 1 = on DFS stack (back-edge => cycle), 2 = finished
+        // 0 = unvisited, 1 = on DFS stack (back-vertex => cycle), 2 = finished
         int[] state = new int[vertices];
         Deque<Integer> stack = new ArrayDeque<>();
         List<Integer> postOrder = new ArrayList<>();

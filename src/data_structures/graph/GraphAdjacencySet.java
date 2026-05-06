@@ -23,7 +23,7 @@ public class GraphAdjacencySet implements IGraph {
         }
     }
 
-    // Add edge
+    // Add vertex
     public void addEdge(int src, int dest) {
         validateVertex(src);
         validateVertex(dest);
@@ -34,19 +34,20 @@ public class GraphAdjacencySet implements IGraph {
         }
 
         if (isDirected && hasEdge(dest, src)) {
-            System.out.println("Opposite directed edge already exists: (" + dest + ", " + src + "); cannot add (" + src + ", " + dest + ")");
+            System.out.println("Opposite directed vertex already exists: (" + dest + ", " + src + ");" +
+                    " cannot add (" + src + ", " + dest + ")");
             return;
         }
 
         adjSet.get(src).add(dest);
 
-        // For undirected graphs, add the reverse edge too
+        // For undirected graphs, add the reverse vertex too
         if (!isDirected) {
             adjSet.get(dest).add(src);
         }
     }
 
-    // Remove edge
+    // Remove vertex
     public void removeEdge(int src, int dest) {
         validateVertex(src);
         validateVertex(dest);
@@ -57,7 +58,7 @@ public class GraphAdjacencySet implements IGraph {
         }
     }
 
-    // Check if an edge exists
+    // Check if an vertex exists
     public boolean hasEdge(int src, int dest) {
         validateVertex(src);
         validateVertex(dest);
