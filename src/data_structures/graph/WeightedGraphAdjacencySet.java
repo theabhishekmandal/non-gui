@@ -1,10 +1,12 @@
 package data_structures.graph;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.PriorityQueue;
 import java.util.Set;
@@ -225,8 +227,8 @@ public class WeightedGraphAdjacencySet implements IWeightedGraph {
         distance[src] = 0;
 
         /*
-            Traverse every edge for v-1 times. v-1 times because longest path within the graph can be of v-1 edges.
-            So v-1 times relaxation will update the optimal path.
+            If you suppose every vertex of node is connected to every vertex, then we have to relax only v-1 edges only.
+            So for every vertex we relax edges which will lead to optimal path.
 
          */
         for (int i = 0; i < vertices - 1; i++) {
@@ -284,6 +286,92 @@ public class WeightedGraphAdjacencySet implements IWeightedGraph {
         }
 
         return shortestPath;
+    }
+
+    @Override
+    public Object[] getMSTusingPrim() {
+        // prim algorithm is for unidirected graphs.
+        if (this.isDirected) {
+            return new Object[0];
+        }
+        boolean[] visited = new boolean[this.vertices];
+        PriorityQueue<int[]> priorityQueue = new PriorityQueue<>(Comparator.comparingInt(a -> a[0]));
+        priorityQueue.offer(new int[]{0, 0, -1});
+        int mstWeight = 0;
+        List<String> edges = new ArrayList<>();
+
+        while (!priorityQueue.isEmpty()) {
+            int[] pair = priorityQueue.poll();
+            int edgeWeight = pair[0];
+            int v = pair[1];
+            int parent = pair[2];
+
+            if (visited[v]) {
+                continue;
+            }
+
+            mstWeight += edgeWeight;
+            visited[v] = true;
+            if (parent != -1) {
+                edges.add(parent + "-->" + v);
+            }
+
+            for (WeightedEdge edge : adjSet.get(v)) {
+                if (!visited[edge.vertex]) {
+                    priorityQueue.offer(new int[]{edge.weight, edge.vertex, v});
+                    // we are not updating parent here, because we are not comparing the minimum edge
+                    // so a heavy edge may update light edge parent.
+
+                }
+            }
+        }
+
+
+        return new Object[]{mstWeight, edges};
+    }
+
+    @Override
+    public Object[] getMSTusingPrimDenseGraph() {
+        if (this.isDirected) {
+            return new Object[0];
+        }
+        int[] parent = new int[this.vertices];
+        boolean[] visited = new boolean[this.vertices];
+        int[] cost = new int[this.vertices];
+        List<String> edges = new ArrayList<>();
+        Arrays.fill(cost, Integer.MAX_VALUE);
+        Arrays.fill(parent, -1);
+
+        cost[0] = 0;
+        int mst = 0;
+
+        for (int i = 0; i < this.vertices; i++) {
+
+            int u = -1;
+            for (int v = 0; v < this.vertices; v++) {
+                if (!visited[v] && (u == -1 || cost[v] < cost[u])) {
+                    u = v;
+                }
+            }
+
+            // there is no check for if u == -1 after above loop, because after every iteration
+            //  there exists a vertex which is not visited because we are doing v-1 iterations.
+
+            visited[u] = true;
+            if (parent[u] != -1) {
+                edges.add(parent[u] + "-->" + u);
+            }
+            mst += cost[u];
+
+            for (WeightedEdge edge : adjSet.get(u)) {
+                if (!visited[edge.vertex] && edge.weight < cost[edge.vertex]) {
+                    parent[edge.vertex] = u;
+                    cost[edge.vertex] = edge.weight;
+                    // not marking visited here, because we have to pick an edge which has lower cost
+                }
+            }
+        }
+        return new Object[] {mst, edges};
     }
 
     private boolean hasEdge(int dest, int src, int weight) {
