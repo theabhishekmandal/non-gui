@@ -30,5 +30,12 @@ public class WeightedGraphImpl {
         System.out.println(Arrays.toString(weightedGraph.bellManFord(0, 1)));
 
 
+        weightedGraph = new WeightedGraphAdjacencySet(3, false);
+        weightedGraph.addEdge(0, 1, 1);
+        weightedGraph.addEdge(1, 2, -2);
+        weightedGraph.addEdge(2, 1, -2);
+        System.out.println(Arrays.deepToString(weightedGraph.getMSTusingPrim()));
+        System.out.println(Arrays.deepToString(weightedGraph.getMSTusingPrimDenseGraph()));
+        System.out.println(Arrays.deepToString(weightedGraph.getMSTusingKruskal()));
     }
 }

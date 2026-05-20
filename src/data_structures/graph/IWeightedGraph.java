@@ -7,4 +7,5 @@ public interface IWeightedGraph {
     int[] bellManFord(int src, int dest);
     Object[] getMSTusingPrim();
     Object[] getMSTusingPrimDenseGraph();
+    Object[] getMSTusingKruskal();
 }

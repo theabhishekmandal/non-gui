@@ -2,6 +2,7 @@ package data_structures.graph;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -10,13 +11,15 @@ import java.util.List;
 import java.util.Map;
 import java.util.PriorityQueue;
 import java.util.Set;
+import data_structures.disJoint_sets.DisJointSetFastUnionByRankWithPathCompression_4;
+import data_structures.disJoint_sets.IDisJointSet;
 
 public class WeightedGraphAdjacencySet implements IWeightedGraph {
     private final Map<Integer, Set<WeightedEdge>> adjSet;
     private final int vertices;
     private final boolean isDirected;
 
-    record WeightedEdge(int vertex, int weight){}
+    record WeightedEdge(int sourceVertex, int destinationVertex, int weight){}
 
     public WeightedGraphAdjacencySet(int vertices, boolean isDirected) {
         if (vertices <= 0) {
@@ -27,7 +30,7 @@ public class WeightedGraphAdjacencySet implements IWeightedGraph {
         this.isDirected = isDirected;
         this.adjSet = new HashMap<>();
 
-        // Initialize each vertex with an empty set
+        // Initialize each destinationVertex with an empty set
         for (int i = 0; i < vertices; i++) {
             adjSet.put(i, new HashSet<>());
         }
@@ -46,17 +49,17 @@ public class WeightedGraphAdjacencySet implements IWeightedGraph {
         /*
         Removing this so that we can add cycles.
         if (isDirected && hasEdge(dest, src, weight)) {
-            System.out.println("Opposite directed vertex already exists: (" + dest + ", " + src + ");" +
+            System.out.println("Opposite directed destinationVertex already exists: (" + dest + ", " + src + ");" +
                     " cannot add (" + src + ", " + dest + ")");
             return;
         }
          */
 
-        adjSet.computeIfAbsent(src, x -> new HashSet<>()).add(new WeightedEdge(dest, weight));
+        adjSet.computeIfAbsent(src, x -> new HashSet<>()).add(new WeightedEdge(src, dest, weight));
 
-        // For undirected graphs, add the reverse vertex too
+        // For undirected graphs, add the reverse destinationVertex too
         if (!isDirected) {
-            adjSet.computeIfAbsent(dest, x -> new HashSet<>()).add(new WeightedEdge(src, weight));
+            adjSet.computeIfAbsent(dest, x -> new HashSet<>()).add(new WeightedEdge(dest, src, weight));
         }
     }
 
@@ -64,13 +67,13 @@ public class WeightedGraphAdjacencySet implements IWeightedGraph {
     public int[] dijkstraShortestPath(int src, int dest) {
         /*
             Adaptive Dijkstra / repeated relaxation:
-            This method does not permanently finalize a vertex. If a later edge finds a shorter
-            distance to a vertex that was already pulled from the priority queue, that vertex is
+            This method does not permanently finalize a destinationVertex. If a later edge finds a shorter
+            distance to a destinationVertex that was already pulled from the priority queue, that destinationVertex is
             pushed again with the improved distance.
 
             That is why it can handle cases where a negative edge improves an earlier path, for
             example 0 -> 1 with cost 2 and 0 -> 2 -> 1 with cost -1. Classic Dijkstra would mark
-            vertex 1 as done too early and would not allow the later improvement.
+            destinationVertex 1 as done too early and would not allow the later improvement.
 
             This still should not be used when a negative cycle is reachable, because distances can
             keep improving forever.
@@ -100,7 +103,7 @@ public class WeightedGraphAdjacencySet implements IWeightedGraph {
             }
 
             for (WeightedEdge edgeWithNextVertex : adjSet.get(currentVertex)) {
-                int next = edgeWithNextVertex.vertex;
+                int next = edgeWithNextVertex.destinationVertex;
                 int distanceToNextVertex = distanceToReachCurrentVertex + edgeWithNextVertex.weight;
 
                 if (distanceToNextVertex < distance[next]) {
@@ -138,13 +141,13 @@ public class WeightedGraphAdjacencySet implements IWeightedGraph {
     public int[] classicDijkstraShortestPath(int src, int dest) {
         /*
             Classic Dijkstra:
-            This method works only when all edge weights are non-negative. Once the closest vertex
+            This method works only when all edge weights are non-negative. Once the closest destinationVertex
             is removed from the priority queue, it is marked visited/finalized and never improved
             again.
 
             It does not work correctly with negative edges because a shorter path to an already
-            finalized vertex may be discovered later, after this method has stopped accepting
-            improvements for that vertex.
+            finalized destinationVertex may be discovered later, after this method has stopped accepting
+            improvements for that destinationVertex.
          */
         if (!(adjSet.containsKey(src) && adjSet.containsKey(dest))) {
             return new int[]{};
@@ -175,7 +178,7 @@ public class WeightedGraphAdjacencySet implements IWeightedGraph {
             }
 
             for (WeightedEdge edgeWithNextVertex : adjSet.get(currentVertex)) {
-                int next = edgeWithNextVertex.vertex;
+                int next = edgeWithNextVertex.destinationVertex;
                 if (visited[next]) {
                     continue;
                 }
@@ -227,8 +230,8 @@ public class WeightedGraphAdjacencySet implements IWeightedGraph {
         distance[src] = 0;
 
         /*
-            If you suppose every vertex of node is connected to every vertex, then we have to relax only v-1 edges only.
-            So for every vertex we relax edges which will lead to optimal path.
+            If you suppose every destinationVertex of node is connected to every destinationVertex, then we have to relax only v-1 edges only.
+            So for every destinationVertex we relax edges which will lead to optimal path.
 
          */
         for (int i = 0; i < vertices - 1; i++) {
@@ -237,7 +240,7 @@ public class WeightedGraphAdjacencySet implements IWeightedGraph {
                 for (WeightedEdge edge : entrySet.getValue()) {
 
                     Integer u = entrySet.getKey();
-                    int v = edge.vertex;
+                    int v = edge.destinationVertex;
 
                     // to know which is the starting point because we are not starting from src node.
                     if (distance[u] != Integer.MAX_VALUE &&
@@ -257,7 +260,7 @@ public class WeightedGraphAdjacencySet implements IWeightedGraph {
             for (WeightedEdge edge : entrySet.getValue()) {
 
                 Integer u = entrySet.getKey();
-                int v = edge.vertex;
+                int v = edge.destinationVertex;
 
                 if (distance[u] != Integer.MAX_VALUE &&
                         distance[u] + edge.weight < distance[v]) {
@@ -317,8 +320,8 @@ public class WeightedGraphAdjacencySet implements IWeightedGraph {
             }
 
             for (WeightedEdge edge : adjSet.get(v)) {
-                if (!visited[edge.vertex]) {
-                    priorityQueue.offer(new int[]{edge.weight, edge.vertex, v});
+                if (!visited[edge.destinationVertex]) {
+                    priorityQueue.offer(new int[]{edge.weight, edge.destinationVertex, v});
                     // we are not updating parent here, because we are not comparing the minimum edge
                     // so a heavy edge may update light edge parent.
 
@@ -355,7 +358,7 @@ public class WeightedGraphAdjacencySet implements IWeightedGraph {
             }
 
             // there is no check for if u == -1 after above loop, because after every iteration
-            //  there exists a vertex which is not visited because we are doing v-1 iterations.
+            //  there exists a destinationVertex which is not visited because we are doing v-1 iterations.
 
             visited[u] = true;
             if (parent[u] != -1) {
@@ -364,9 +367,9 @@ public class WeightedGraphAdjacencySet implements IWeightedGraph {
             mst += cost[u];
 
             for (WeightedEdge edge : adjSet.get(u)) {
-                if (!visited[edge.vertex] && edge.weight < cost[edge.vertex]) {
-                    parent[edge.vertex] = u;
-                    cost[edge.vertex] = edge.weight;
+                if (!visited[edge.destinationVertex] && edge.weight < cost[edge.destinationVertex]) {
+                    parent[edge.destinationVertex] = u;
+                    cost[edge.destinationVertex] = edge.weight;
                     // not marking visited here, because we have to pick an edge which has lower cost
                 }
             }
@@ -374,8 +377,37 @@ public class WeightedGraphAdjacencySet implements IWeightedGraph {
         return new Object[] {mst, edges};
     }
 
+    // This cannot be used for dense graphs because edges will be equal to V2 so more running time.
+    @Override
+    public Object[] getMSTusingKruskal() {
+        if (isDirected) {
+            return new Object[0];
+        }
+        List<WeightedEdge> sortedList = adjSet.values().stream().flatMap(Collection::stream)
+                .sorted(Comparator.comparing(x -> x.weight)).toList();
+
+        IDisJointSet disJointSet = new DisJointSetFastUnionByRankWithPathCompression_4();
+        disJointSet.makeSet(this.vertices);
+
+        int mst = 0;
+        List<String> edges = new ArrayList<>();
+
+        for (WeightedEdge edge : sortedList) {
+
+            // why do we don't need any boolean flag to track ?
+            // if there is no cycle then we add to list.
+            if (disJointSet.find(edge.sourceVertex) != disJointSet.find(edge.destinationVertex)) {
+
+                disJointSet.union(edge.sourceVertex, edge.destinationVertex);
+                mst += edge.weight;
+                edges.add(edge.sourceVertex + "-->" + edge.destinationVertex);
+            }
+        }
+        return new Object[]{mst, edges};
+    }
+
     private boolean hasEdge(int dest, int src, int weight) {
-        return adjSet.getOrDefault(dest, Collections.emptySet()).stream().anyMatch(x -> x.vertex == src && x.weight == weight);
+        return adjSet.getOrDefault(dest, Collections.emptySet()).stream().anyMatch(x -> x.destinationVertex == src && x.weight == weight);
     }
 
     private void validateVertex(int v) {
