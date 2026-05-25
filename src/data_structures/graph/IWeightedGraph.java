@@ -5,7 +5,9 @@ public interface IWeightedGraph {
     int[] dijkstraShortestPath(int src, int dest);
     int[] classicDijkstraShortestPath(int src, int dest);
     int[] bellManFord(int src, int dest);
+    Object[] allPairShortestPath();
     Object[] getMSTusingPrim();
     Object[] getMSTusingPrimDenseGraph();
     Object[] getMSTusingKruskal();
+    int getVertexCutArticulationPoint();
 }

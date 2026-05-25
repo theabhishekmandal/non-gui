@@ -291,6 +291,86 @@ public class WeightedGraphAdjacencySet implements IWeightedGraph {
         return shortestPath;
     }
 
+    // it is good for positive cycles but not good for negative cycles.
+    @Override
+    public Object[] allPairShortestPath() {
+        if (this.isDirected) {
+            return new Object[0];
+        }
+
+        int[][] distance = new int[this.vertices][this.vertices];
+        int[][] next = new int[this.vertices][this.vertices];
+        for (int i = 0; i < this.vertices; i++) {
+            for (int j = 0; j < this.vertices; j++) {
+                if (i == j) {
+                    distance[i][j] = 0;
+                } else if (adjSet.containsKey(i)) {
+                    int minWeight = Integer.MAX_VALUE;
+                    for (WeightedEdge edge : adjSet.get(i)) {
+                        if (edge.destinationVertex == j) {
+                            minWeight = Math.min(minWeight, edge.weight);
+                        }
+                    }
+                    distance[i][j] = minWeight;
+                } else {
+                    distance[i][j] = Integer.MAX_VALUE;
+                }
+
+                // next[i][j] = first vertex after i on a shortest i -> j path (initially direct edge i -> j)
+                next[i][j] = j;
+            }
+        }
+
+        // k must be the outer loop: allow paths that use only intermediates {0, ..., k}
+        for (int k = 0; k < this.vertices; k++) {
+            for (int i = 0; i < this.vertices; i++) {
+                for (int j = 0; j < this.vertices; j++) {
+                    if (distance[i][k] == Integer.MAX_VALUE || distance[k][j] == Integer.MAX_VALUE) {
+                        continue;
+                    }
+                    long viaK = (long) distance[i][k] + distance[k][j];
+                    if (viaK < distance[i][j]) {
+                        distance[i][j] = (int) viaK;
+                        next[i][j] = next[i][k];
+                    }
+                }
+            }
+        }
+
+        for (int i = 0; i < this.vertices; i++) {
+            for (int j = 0; j < this.vertices; j++) {
+                if (distance[i][j] == Integer.MAX_VALUE) {
+                    next[i][j] = -1;
+                }
+            }
+        }
+
+        return new Object[]{distance, next};
+    }
+
+    /**
+     * Reconstructs a shortest path from {@code src} to {@code dest} using the {@code next} matrix
+     * produced by {@link #allPairShortestPath()}. Returns an empty array when no path exists.
+     */
+    public int[] reconstructShortestPath(int src, int dest, int[][] distance, int[][] next) {
+        if (distance[src][dest] == Integer.MAX_VALUE || next[src][dest] == -1) {
+            return new int[]{};
+        }
+
+        List<Integer> path = new ArrayList<>();
+        int current = src;
+        path.add(current);
+        while (current != dest) {
+            current = next[current][dest];
+            if (current == -1) {
+                return new int[]{};
+            }
+            path.add(current);
+        }
+
+        return path.stream().mapToInt(Integer::intValue).toArray();
+    }
+
     @Override
     public Object[] getMSTusingPrim() {
         // prim algorithm is for unidirected graphs.
@@ -394,7 +474,7 @@ public class WeightedGraphAdjacencySet implements IWeightedGraph {
 
         for (WeightedEdge edge : sortedList) {
 
-            // why do we don't need any boolean flag to track ?
+            // why do we don't need any boolean flag to track ? we can't visit single vertex twice as their find will give same root.
             // if there is no cycle then we add to list.
             if (disJointSet.find(edge.sourceVertex) != disJointSet.find(edge.destinationVertex)) {
 
@@ -406,8 +486,67 @@ public class WeightedGraphAdjacencySet implements IWeightedGraph {
         return new Object[]{mst, edges};
     }
 
+    @Override
+    public int getVertexCutArticulationPoint() {
+        if (isDirected) {
+            return -1;
+        }
+
+        int[] low = new int[this.vertices];
+        int[] disc = new int[this.vertices];
+        boolean[] visited = new boolean[this.vertices];
+        boolean[] articulationPoint = new boolean[this.vertices];
+        this.timer = 0;
+
+        for (int i = 0; i < vertices; i++) {
+            if (!visited[i]) {
+                dfs(i, -1, low, disc, visited, articulationPoint);
+            }
+        }
+        return 0;
+    }
+    private int timer = 0;
+
+    private void dfs(int u, int parent, int[] low, int[] disc, boolean[] visited, boolean[] articulationPoint) {
+        disc[u] = low[u] = timer++;
+        visited[u] = true;
+        int children = 0;
+
+        for (WeightedEdge edge : adjSet.get(u)) {
+            int v = edge.destinationVertex;
+            // v can be parent of u in case of unidirected graphs, in such cases we won't process, as we are looking for child nodes.
+            if (v == parent) {
+                continue;
+            }
+
+            if (!visited[v]) {
+                dfs(v, u, low, disc, visited, articulationPoint);
+                // after dfs we know how high v can escape upward with a backEdge, so it might help parent u.
+                low[u] = Math.min(low[u], low[v]);
+
+                // if child v cannot reach higher by escaping u then u is the articulation point.
+                if (parent != -1 && low[v] >= disc[u]) {
+                    articulationPoint[u] = true;
+                }
+                children++;
+            } else {
+                // using a back edge u-->v where v is the ancestor
+                // you can climb up so you have to use disc[v], you cannot use low[v].
+                low[u] = Math.min(low[u], disc[v]);
+            }
+        }
+
+        // root can be the articulation point.
+        if (parent == -1 && children > 1) {
+            articulationPoint[u] = true;
+        }
+    }
+
+
+
     private boolean hasEdge(int dest, int src, int weight) {
-        return adjSet.getOrDefault(dest, Collections.emptySet()).stream().anyMatch(x -> x.destinationVertex == src && x.weight == weight);
+        return adjSet.getOrDefault(dest, Collections.emptySet()).stream().anyMatch(x -> x.destinationVertex == src &&
+                x.weight == weight);
     }
 
     private void validateVertex(int v) {

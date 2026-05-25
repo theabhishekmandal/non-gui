@@ -88,6 +88,7 @@ public class GraphAdjacencySet implements IGraph {
         Deque<Integer> stack = new ArrayDeque<>();
         StringJoiner path = new StringJoiner("--->");
 
+        // Start a DFS from every unvisited vertex so isolates and other components are included
         for (int s = 0; s < vertices; s++) {
             if (visited[s]) {
                 continue;
