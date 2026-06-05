@@ -213,6 +213,9 @@ public class GraphAdjacencySet implements IGraph {
             Perform cycle detection in that case return empty list.
             It should also work for disconnected graph.
 
+            In the DFS-based topological sort, the main idea is:
+            A node is added to the ordering only after all its outgoing neighbors are processed.
+
             In Dfs based approach we will use stack.
             Now a nodes is not traversed multiple times we use visited array. For this we will use new form of visited
             array which is used. Purpose of this visited array.

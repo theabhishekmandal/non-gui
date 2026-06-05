@@ -14,6 +14,20 @@ import java.util.Set;
 import data_structures.disJoint_sets.DisJointSetFastUnionByRankWithPathCompression_4;
 import data_structures.disJoint_sets.IDisJointSet;
 
+/**
+ * Weighted graph stored as an adjacency set. Construct with {@code isDirected = true} for a directed
+ * graph or {@code false} for an undirected graph (each {@link #addEdge} is stored in both directions).
+ *
+ * <p>Method applicability:
+ * <ul>
+ *   <li><b>Directed and undirected:</b> {@link #addEdge}, {@link #dijkstraShortestPath},
+ *       {@link #classicDijkstraShortestPath}, {@link #bellManFord}, {@link #allPairShortestPath},
+ *       {@link #reconstructShortestPath}</li>
+ *   <li><b>Undirected only:</b> {@link #getMSTusingPrim}, {@link #getMSTusingPrimDenseGraph},
+ *       {@link #getMSTusingKruskal}, {@link #getVertexCutArticulationPoint} — return empty / {@code -1}
+ *       when {@code isDirected} is {@code true}</li>
+ * </ul>
+ */
 public class WeightedGraphAdjacencySet implements IWeightedGraph {
     private final Map<Integer, Set<WeightedEdge>> adjSet;
     private final int vertices;
@@ -30,10 +44,14 @@ public class WeightedGraphAdjacencySet implements IWeightedGraph {
         this.isDirected = isDirected;
         this.adjSet = new HashMap<>();
 
-        // Initialize each destinationVertex with an empty set
+        // Initialize each vertex with an empty set
         for (int i = 0; i < vertices; i++) {
             adjSet.put(i, new HashSet<>());
         }
+    }
+
+    public boolean isDirected() {
+        return isDirected;
     }
 
     @Override
@@ -66,6 +84,16 @@ public class WeightedGraphAdjacencySet implements IWeightedGraph {
     @Override
     public int[] dijkstraShortestPath(int src, int dest) {
         /*
+            Points to remember
+            -   it is vertex based approach and not edge based
+            -   We use min priorityQueue to pick least weighted vertex
+            -   continuous relaxation happens
+            -   will not work for negative cycle.
+
+
+            Directed and undirected. Uses outgoing edges from the adjacency set (both directions
+            when the graph is undirected).
+
             Adaptive Dijkstra / repeated relaxation:
             This method does not permanently finalize a destinationVertex. If a later edge finds a shorter
             distance to a destinationVertex that was already pulled from the priority queue, that destinationVertex is
@@ -140,6 +168,8 @@ public class WeightedGraphAdjacencySet implements IWeightedGraph {
     @Override
     public int[] classicDijkstraShortestPath(int src, int dest) {
         /*
+            Directed and undirected. Classic Dijkstra on outgoing adjacency edges.
+
             Classic Dijkstra:
             This method works only when all edge weights are non-negative. Once the closest destinationVertex
             is removed from the priority queue, it is marked visited/finalized and never improved
@@ -218,6 +248,15 @@ public class WeightedGraphAdjacencySet implements IWeightedGraph {
 
     @Override
     public int[] bellManFord(int src, int dest) {
+        /*
+            Points to Remember
+            -   it is edge based approach
+            -   Brute force approach rather than greedy.
+            -   not using priorityQueue, but using repetitive iteration to find minimum distance.
+
+            Directed and undirected. Relaxes every stored directed edge; undirected graphs store
+            both orientations via {@link #addEdge}.
+         */
 
         if (!(adjSet.containsKey(src) && adjSet.containsKey(dest))) {
             return new int[]{};
@@ -291,13 +330,9 @@ public class WeightedGraphAdjacencySet implements IWeightedGraph {
         return shortestPath;
     }
 
-    // it is good for positive cycles but not good for negative cycles.
+    // Floyd-Warshall: directed and undirected. Not for negative cycles.
     @Override
     public Object[] allPairShortestPath() {
-        if (this.isDirected) {
-            return new Object[0];
-        }
-
         int[][] distance = new int[this.vertices][this.vertices];
         int[][] next = new int[this.vertices][this.vertices];
         for (int i = 0; i < this.vertices; i++) {
@@ -316,6 +351,7 @@ public class WeightedGraphAdjacencySet implements IWeightedGraph {
                     distance[i][j] = Integer.MAX_VALUE;
                 }
 
+                // THIS is important for path reconstruction.
                 // next[i][j] = first vertex after i on a shortest i -> j path (initially direct edge i -> j)
                 next[i][j] = j;
             }
@@ -373,7 +409,7 @@ public class WeightedGraphAdjacencySet implements IWeightedGraph {
 
     @Override
     public Object[] getMSTusingPrim() {
-        // prim algorithm is for unidirected graphs.
+        // Prim: undirected only. Returns empty when the graph is directed.
         if (this.isDirected) {
             return new Object[0];
         }
@@ -386,22 +422,22 @@ public class WeightedGraphAdjacencySet implements IWeightedGraph {
         while (!priorityQueue.isEmpty()) {
             int[] pair = priorityQueue.poll();
             int edgeWeight = pair[0];
-            int v = pair[1];
+            int u = pair[1];
             int parent = pair[2];
 
-            if (visited[v]) {
+            if (visited[u]) {
                 continue;
             }
 
             mstWeight += edgeWeight;
-            visited[v] = true;
+            visited[u] = true;
             if (parent != -1) {
-                edges.add(parent + "-->" + v);
+                edges.add(parent + "-->" + u);
             }
 
-            for (WeightedEdge edge : adjSet.get(v)) {
+            for (WeightedEdge edge : adjSet.get(u)) {
                 if (!visited[edge.destinationVertex]) {
-                    priorityQueue.offer(new int[]{edge.weight, edge.destinationVertex, v});
+                    priorityQueue.offer(new int[]{edge.weight, edge.destinationVertex, u});
                     // we are not updating parent here, because we are not comparing the minimum edge
                     // so a heavy edge may update light edge parent.
 
@@ -415,6 +451,7 @@ public class WeightedGraphAdjacencySet implements IWeightedGraph {
 
     @Override
     public Object[] getMSTusingPrimDenseGraph() {
+        // Prim (dense): undirected only.
         if (this.isDirected) {
             return new Object[0];
         }
@@ -457,7 +494,7 @@ public class WeightedGraphAdjacencySet implements IWeightedGraph {
         return new Object[] {mst, edges};
     }
 
-    // This cannot be used for dense graphs because edges will be equal to V2 so more running time.
+    // Kruskal: undirected only. Not ideal for dense graphs (many edges to sort).
     @Override
     public Object[] getMSTusingKruskal() {
         if (isDirected) {
@@ -488,6 +525,7 @@ public class WeightedGraphAdjacencySet implements IWeightedGraph {
 
     @Override
     public int getVertexCutArticulationPoint() {
+        // Tarjan articulation points: undirected only. Returns -1 when directed or none found.
         if (isDirected) {
             return -1;
         }
@@ -503,7 +541,13 @@ public class WeightedGraphAdjacencySet implements IWeightedGraph {
                 dfs(i, -1, low, disc, visited, articulationPoint);
             }
         }
-        return 0;
+
+        for (int i = 0; i < vertices; i++) {
+            if (articulationPoint[i]) {
+                return i;
+            }
+        }
+        return -1;
     }
     private int timer = 0;
 

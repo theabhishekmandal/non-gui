@@ -39,7 +39,7 @@ public class WeightedGraphImpl {
         System.out.println(Arrays.deepToString(weightedGraph.getMSTusingKruskal()));
 
         /*
-            Floyd-Warshall (undirected only):
+            Floyd-Warshall (directed or undirected):
             0--1--1--2
             0--------4--------2
          */
