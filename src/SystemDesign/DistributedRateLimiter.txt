@@ -1,0 +1,438 @@
+Design a Distributed Rate limiter.
+
+
+Step 1 Requirements
+    -   Functional Requirements
+        -   Identify clients: The system must be able to uniquely identify users or clients making a request,
+            using methods such as user ID, IP address, or API key. Client identification is required so as to properly apply
+            rate limiting algorithms.
+        -   Limit requests based on rules: The system needs to enforce rate limits based on a set of configurable rules
+            (e.g., limiting a user to 100 requests per minute).
+        -   Return proper error responses: When a request is rejected, the system should return appropriate HTTP
+            status codes (specifically 429 Too Many Requests) and include useful headers (such as limit, remaining requests,
+            and reset time) so the client understands how to proceed.
+
+
+    -   Scale
+        -   100m DAU(Daily Active users)
+        -   1m rps
+
+
+    -   Non Functional Requirements
+        -   Availability >> consistency
+        -   Scalability to 1M clients
+        -   Low latency rate limits < 10 ms
+
+    -   Don't add every non functional requirements, because then you have to implement this
+    -   Start with the CAP theorem whether you require Consistency or Availability in case of network partition
+
+
+Step 2 Core Entities
+    -   Request
+    -   Client(IP, userId, apiKey)
+    -   Rules(100/s)
+
+
+    -   System Interface
+        isRequestAllowed(clientId, requestId) -> {passes: boolean, remaining: number, resetTime : timeStamp}
+
+
+Step3 High Level Design
+    -   Where would the rate limiter live in our architecture ?
+        -   should it live on each microService?
+            -   approach is fast.
+            -   downside is there is no global picture. lack of coordination.
+        -   should we make it as a service ?
+            -   Then each microService can directly talk to ratelimiter service and talk to it. It solves the global coordination problem.
+            -   downside is there is too much network calls which is an overHead plus it may affect our non-functional requirements
+                of low latency.
+        -   Ideally it should be added at the gateway, where we will keep our ratelimiter
+            -  Downside is lets say if there are premium users which can be dependent on business logic may reside in service layer.
+            -  We can still do it if the incoming request in gateway is having jwt encoded information about the premium user.
+    -   How should we identify clients ?
+        -   Why do we need this -> It can happen that authenticated users might get less rate limiting as well as with premium users.
+
+    -   Which algorithm to use?
+            1. Fixed Window Counter
+            2. Sliding Window Log
+            3. Sliding Window Counter
+            4. Token Bucket
+            5. Leaky Bucket
+
+
+        ================================================================================
+        1. Fixed Window Counter
+        ================================================================================
+
+        How it works:
+            - Divide time into fixed windows (e.g., 1 minute).
+            - Maintain one counter per window.
+            - Reset the counter when the window changes.
+
+        Stores:
+            - currentWindow
+            - counter
+
+        Pseudocode:
+            function isAllowed(clientId, limit, windowSize):
+                now = currentTime()
+                windowKey = floor(now / windowSize)
+
+                if client.windowKey != windowKey:
+                    client.windowKey = windowKey
+                    client.counter = 0
+
+                if client.counter < limit:
+                    client.counter += 1
+                    return ALLOWED
+                else:
+                    return REJECTED   // 429
+
+        Pros:
+            - Simple to implement
+            - O(1) time complexity
+            - Very low memory usage
+            - Easy to implement with Redis (INCR + EXPIRE)
+
+        Cons:
+            - Boundary problem
+            - Allows large bursts at window boundaries
+
+        Burst:
+            - Yes (Uncontrolled)
+
+        Best Use Cases:
+            - Simple APIs where occasional bursts are acceptable
+
+
+        ================================================================================
+        2. Sliding Window Log
+        ================================================================================
+
+        How it works:
+            - Store the timestamp of every request.
+            - Remove timestamps older than the window.
+            - Allow the request only if the number of timestamps is below the limit.
+
+        Stores:
+            - queue / list of request timestamps
+
+        Pseudocode:
+            function isAllowed(clientId, limit, windowSize):
+                now = currentTime()
+                timestamps = client.requestLog
+
+                // drop timestamps outside the rolling window
+                while timestamps is not empty AND timestamps.front() <= now - windowSize:
+                    timestamps.popFront()
+
+                if timestamps.size() < limit:
+                    timestamps.append(now)
+                    return ALLOWED
+                else:
+                    return REJECTED   // 429
+
+        Pros:
+            - Most accurate
+            - No boundary problem
+            - Enforces the exact rolling-window limit
+
+        Cons:
+            - High memory usage
+            - Memory grows with request volume
+
+        Burst:
+            - Initial burst up to the configured limit
+            - No additional burst until old requests expire
+
+        Best Use Cases:
+            - Login APIs
+            - OTP endpoints
+            - Password reset
+            - Security-sensitive APIs
+
+
+        ================================================================================
+        3. Sliding Window Counter
+        ================================================================================
+
+        How it works:
+            - Store the request count for the previous and current windows.
+            - Compute an estimated request count using:
+
+                effectiveCount = (previousWindowCount × weight) + currentWindowCount
+
+                where weight = (remaining time in previous window) / windowSize
+
+        Stores:
+            - previousWindowCount
+            - currentWindowCount
+            - currentWindowKey
+
+        Pseudocode:
+            function isAllowed(clientId, limit, windowSize):
+                now = currentTime()
+                windowKey = floor(now / windowSize)
+
+                if client.currentWindowKey != windowKey:
+                    client.previousWindowCount = client.currentWindowCount
+                    client.currentWindowCount = 0
+                    client.currentWindowKey = windowKey
+
+                elapsedInWindow = now % windowSize
+                weight = (windowSize - elapsedInWindow) / windowSize
+                effectiveCount = (client.previousWindowCount * weight) + client.currentWindowCount
+
+                if effectiveCount < limit:
+                    client.currentWindowCount += 1
+                    return ALLOWED
+                else:
+                    return REJECTED   // 429
+
+        Pros:
+            - Low memory usage
+            - Nearly eliminates the boundary problem
+            - Good balance between accuracy and efficiency
+
+        Cons:
+            - Approximation (not 100% accurate)
+
+        Burst:
+            - Small, smoothed bursts
+
+        Best Use Cases:
+            - API gateways
+            - High-throughput distributed systems
+
+
+        ================================================================================
+        4. Token Bucket
+        ================================================================================
+
+        How it works:
+            - Bucket has a fixed capacity.
+            - Tokens are added continuously at a fixed refill rate.
+            - Each request consumes one token.
+            - If no token is available, the request is rejected (or delayed).
+
+        Stores:
+            - tokens
+            - lastRefillTime
+
+        Key Configuration:
+            - Bucket Capacity → Maximum burst size
+            - Refill Rate → Long-term average request rate
+
+        Pseudocode:
+            function isAllowed(clientId, capacity, refillRate):
+                now = currentTime()
+                elapsed = now - client.lastRefillTime
+
+                // refill tokens based on time passed
+                client.tokens = min(capacity, client.tokens + elapsed * refillRate)
+                client.lastRefillTime = now
+
+                if client.tokens >= 1:
+                    client.tokens -= 1
+                    return ALLOWED
+                else:
+                    return REJECTED   // 429
+
+        Pros:
+            - O(1) time
+            - Constant memory
+            - Allows controlled bursts
+            - Smooth traffic handling
+            - Highly flexible
+
+        Cons:
+            - Slightly more complex
+            - Requires time calculations
+
+        Burst:
+            - Controlled
+            - Maximum burst = Bucket Capacity
+
+        Best Use Cases:
+            - Public REST APIs
+            - AWS API Gateway
+            - NGINX
+            - Cloudflare
+            - Kubernetes API Server
+
+
+        ================================================================================
+        5. Leaky Bucket
+        ================================================================================
+
+        How it works:
+            - Incoming requests are placed into a queue.
+            - Requests leave the queue at a constant processing rate.
+            - If the queue is full, new requests are dropped.
+
+        Stores:
+            - request queue
+            - lastLeakTime (or queue water level)
+
+        Pseudocode:
+            // Counter / water-level variant (common in practice)
+            function isAllowed(clientId, capacity, leakRate):
+                now = currentTime()
+                elapsed = now - client.lastLeakTime
+
+                // leak water from the bucket
+                client.water = max(0, client.water - elapsed * leakRate)
+                client.lastLeakTime = now
+
+                if client.water < capacity:
+                    client.water += 1
+                    return ALLOWED
+                else:
+                    return REJECTED   // queue full / drop
+
+            // Queue variant:
+            //   if queue.size() < capacity: enqueue(request) → ALLOWED (processed at leakRate)
+            //   else: REJECTED
+
+        Pros:
+            - Constant processing rate
+            - Smooth server load
+            - Prevents sudden traffic spikes
+
+        Cons:
+            - Increased latency due to queuing
+            - Queue overflow results in dropped requests
+
+        Burst:
+            - Incoming traffic: Yes (queued)
+            - Processing: No (constant output rate)
+
+        Best Use Cases:
+            - Traffic shaping
+            - Routers
+            - Network switches
+            - Streaming systems
+            - Message brokers
+
+
+    -   We will be using Token Bucket algorithm for our use case. The only problem is if we keep our rate limiter in
+        gateway, then there are multiple gateways and each gateway might have a rate limiter. Now how to share the
+        token information of each user among all the rate limiters.
+
+    -   This problem can be solved by keeping the tokens and last_refill_time information in redis which will be outside the gateway.
+
+
+        Architecture Diagram
+        --------------------
+
+                              ┌─────────────────┐
+                              │   ZooKeeper     │
+                              │ (dynamic rules) │
+                              └────────▲────────┘
+                                       │ watch / push rules
+                                       │
+        ┌────────┐     ┌───────────────┴───────────────┐
+        │ Client │────▶│          API Gateway          │
+        └────────┘     │      + Rate Limiter           │
+                       │     (Token Bucket logic)      │
+                       └───────────────┬───────────────┘
+                                       │
+                         token state (HMGET / HSET)
+                         shard by clientId
+                                       │
+               ┌───────────────────────┼───────────────────────┐
+               ▼                       ▼                       ▼
+        ┌─────────────┐         ┌─────────────┐         ┌─────────────┐
+        │ Redis Prim0 │         │ Redis Prim1 │   ...   │ Redis PrimN │
+        │  (shard 0)  │         │  (shard 1)  │         │  (shard N)  │
+        └──────┬──────┘         └──────┬──────┘         └──────┬──────┘
+               │ async                 │ async                 │ async
+               │ replicate             │ replicate             │ replicate
+               ▼                       ▼                       ▼
+        ┌─────────────┐         ┌─────────────┐         ┌─────────────┐
+        │ Redis Rep0  │         │ Redis Rep1  │   ...   │ Redis RepN  │
+        │  (replica)  │         │  (replica)  │         │  (replica)  │
+        └─────────────┘         └─────────────┘         └─────────────┘
+
+                       (if rate limit allows → forward)
+                                       │
+                                       ▼
+                              ┌─────────────────┐
+                              │  Microservice   │
+                              └─────────────────┘
+
+        Flow:
+          1. Client hits Gateway
+          2. Rate Limiter loads rules from ZooKeeper (in-memory, push on change)
+          3. Rate Limiter reads/updates token bucket in Redis primary (sharded by clientId)
+          4. Redis replicas keep async copy for failover
+          5. If allowed → forward to Microservice; else → 429
+
+
+        1.  Request come in
+        2.  Gateway fetches token and last_refill_time from redis
+            HMGET alice:bucket tokens last_refill_time.
+        3.  Update counts based on rate and last refill.
+        4.  Respond pass and fail based on if tokens > 0
+        5.  Update bucket status.
+        6.  In case of rate limit exceeded you must send httpStatus 429 too many requests. Plus three additional headers
+            X-RateLimit-Limit: The maximum number of requests allowed in the current rate-limiting window.
+            X-RateLimit-Remaining: How many requests are still available before you hit the limit.
+            X-RateLimit-Reset: When the rate limit resets, as Unix timestamp. Means when your quota is reset.
+            Retry after 60 secs
+
+
+
+    -   Non Functional Requirements
+        -   Scalability to 1 M
+            -   if we have single redis instance then it may handle 100k requests which is not feasible for 1M requests.
+            -   We can introduce sharding to place the data in one of the multiple instances. So for 10 redis instance will
+                be required to support 100k requests.
+            -   Now each redis cannot have the same data which will increase in size. Also to check up for a request we cannot
+                randomly check for each redis instance.
+            -   Then how to shard? We can use sharding on the basis of clientId and do consistent hashing.
+            -   Or we can use Redis cluster and it manages the sharding for you and it does it using hashSlots and not consistent hashing.
+
+        -   Availability and High Tolerance.
+            -   fail open
+                -   it happens when rate limiter is down and every requests should get through.
+                -   in this case our microservices may die because they would not be able to handle this much requests.
+
+            -   fail close
+                -   it is the opposite of rate limiter where every requests is blocked.
+                -   in this case our application will be unavailable which is also not good.
+
+
+            -   To make our system available we can have read replicas 1 or more than one. If one of the main shard goes down
+                then the replica will be made the new main shard. This comes inbuilt in redis cluster. We can enable async replication
+                instead of sync replication which will help us to reduce our latency.
+
+        -   latency less than 10 ms
+            -   Now for every rate limit check with redis will take a network round trip to redis. Now redis is fast in terms of sub milliseconds
+                But this network overhead can be of several milliseconds.
+            -   What we can do about this? We can establish a connection pool of persistent connections, it will eliminate TCP handshake overhead.
+
+
+
+        -   Dynamic Rule configurations
+            -   It can happen that when gateway was deployed it had static rules such as token refillRate and token count in bucket.
+                Now if we want to change this we have to redeploy gateway.
+            -   Approach 1.
+                -   We have a database where a microservice pushes the information related to rules, such as refill rate for premium
+                    users.
+                -   Now Gateway can pull from this database periodically(like after every 20s)and load rules dynamically.
+                -   Issue with this approach is network latency to get the rules from Database. Also burning Gateway cpu for this unnecessary task.
+
+
+                Approach 2
+                -   Pull from redis and get the rules.
+                -   This can also increase latency.
+
+
+                Approach 3(Best option)
+                -   Push based operation like zookeeper.
+                -   Rules are stored in zookeeper.
+                -   When gateway comes online, it can subscribe to zookeeper to watch for the changes.
+                -   Zookeeper will push the changes if there is any change in rules and gateway will update the rules in memory.
+                -   it is a good approach in a sense that gateway does not have to pull regularly. If there is any change in rules zookeeper
+                    will push the changes.
