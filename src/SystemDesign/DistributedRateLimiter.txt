@@ -78,6 +78,7 @@ Step3 High Level Design
                 now = currentTime()
                 windowKey = floor(now / windowSize)
 
+                //  For a given client, windowKey is calculated once and kept in memory.
                 if client.windowKey != windowKey:
                     client.windowKey = windowKey
                     client.counter = 0
@@ -120,6 +121,7 @@ Step3 High Level Design
         Pseudocode:
             function isAllowed(clientId, limit, windowSize):
                 now = currentTime()
+                // here we maintain timeStamps queue for every client.
                 timestamps = client.requestLog
 
                 // drop timestamps outside the rolling window
@@ -174,6 +176,7 @@ Step3 High Level Design
                 now = currentTime()
                 windowKey = floor(now / windowSize)
 
+                // currentWindowKey is required to store at which window client.currentWindowKey is changing.
                 if client.currentWindowKey != windowKey:
                     client.previousWindowCount = client.currentWindowCount
                     client.currentWindowCount = 0
@@ -318,6 +321,28 @@ Step3 High Level Design
     -   We will be using Token Bucket algorithm for our use case. The only problem is if we keep our rate limiter in
         gateway, then there are multiple gateways and each gateway might have a rate limiter. Now how to share the
         token information of each user among all the rate limiters.
+        -   Why Token Bucket?
+
+            Pros
+
+            - Constant memory
+            - O(1) time
+            - Supports controlled bursts
+            - Smooth traffic handling
+            - Widely used in production
+            - Easy to distribute using Redis
+
+            Compared to Leaky Bucket
+
+            Leaky Bucket
+                Smooth output
+                Adds queuing latency
+
+            Token Bucket
+                Immediate response
+                Better for REST APIs
+
+            Hence Token Bucket is preferred for API Gateways.
 
     -   This problem can be solved by keeping the tokens and last_refill_time information in redis which will be outside the gateway.
 
@@ -337,7 +362,7 @@ Step3 High Level Design
                        │     (Token Bucket logic)      │
                        └───────────────┬───────────────┘
                                        │
-                         token state (HMGET / HSET)
+                         token state (HMGET / HMSET)
                          shard by clientId
                                        │
                ┌───────────────────────┼───────────────────────┐
@@ -373,6 +398,7 @@ Step3 High Level Design
         2.  Gateway fetches token and last_refill_time from redis
             HMGET alice:bucket tokens last_refill_time.
         3.  Update counts based on rate and last refill.
+
         4.  Respond pass and fail based on if tokens > 0
         5.  Update bucket status.
         6.  In case of rate limit exceeded you must send httpStatus 429 too many requests. Plus three additional headers
@@ -436,3 +462,71 @@ Step3 High Level Design
                 -   Zookeeper will push the changes if there is any change in rules and gateway will update the rules in memory.
                 -   it is a good approach in a sense that gateway does not have to pull regularly. If there is any change in rules zookeeper
                     will push the changes.
+
+
+Few more Points
+Issue: Race Condition (Lost Update Problem)
+
+Suppose two Gateway instances receive requests for the same client simultaneously.
+
+Gateway A:
+    HMGET -> tokens = 5
+
+Gateway B:
+    HMGET -> tokens = 5
+
+Both gateways decide request is allowed.
+
+Gateway A:
+    HMSET -> tokens = 4
+
+Gateway B:
+    HMSET -> tokens = 4
+
+Expected:
+    tokens = 3
+
+Actual:
+    tokens = 4
+
+One token consumption is lost.
+
+Reason:
+    Read -> Calculate -> Write is not atomic.
+
+Solution:
+    Execute the entire token bucket logic inside Redis using a Lua Script.
+
+Benefits:
+    - Atomic execution
+    - Prevents race conditions
+    - Single network round trip
+    - Better performance
+
+
+Why Redis Transaction (MULTI/EXEC) is not sufficient?
+
+Our logic is
+
+HMGET
+↓
+Gateway calculates refill
+↓
+HMSET
+
+The calculation happens outside Redis.
+
+Even if HMSET is inside MULTI/EXEC,
+another gateway may read the old value before the update.
+
+Therefore MULTI/EXEC alone cannot solve the race condition.
+
+Lua Script is preferred because
+
+Read
+↓
+Calculate
+↓
+Update
+
+are executed together inside Redis atomically.
