@@ -1,0 +1,14 @@
+src/data_structures/graph/GraphAdjacencySet.java
+  h_a1913465ae69a5 96,104,112,116
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.23",
+  "base_commit_sha": "bfddb9c89b45633dd6c67a3242a4f96e382680c8",
+  "prompts": {},
+  "humans": {
+    "h_a1913465ae69a5": {
+      "author": "abhishekmandal <abhishek.mandal@telekom-digital.com>"
+    }
+  }
+}
