@@ -357,7 +357,26 @@ public class WeightedGraphAdjacencySet implements IWeightedGraph {
             }
         }
 
-        // k must be the outer loop: allow paths that use only intermediates {0, ..., k}
+        /*
+        IMPORTANT: k MUST be the outermost loop.
+
+        DP Invariant:
+        After completing iteration k, distance[i][j] stores the shortest path
+        from i to j using only intermediate vertices {0 ... k}.
+
+        Therefore, before moving to k + 1, EVERY (i, j) pair must first be
+        updated using the current intermediate vertex k.
+
+        If the loops were i -> j -> k, we would finish one (i, j) pair by trying
+        every possible intermediate vertex while other distance[][] entries were
+        still incomplete. This would use partially computed values and violate
+        the DP dependency.
+
+        Think of Floyd-Warshall as:
+            "Introduce one intermediate vertex k to the entire graph."
+        NOTE:
+            "Finish one (i, j) pair using every possible intermediate vertex."
+        */
         for (int k = 0; k < this.vertices; k++) {
             for (int i = 0; i < this.vertices; i++) {
                 for (int j = 0; j < this.vertices; j++) {
@@ -523,6 +542,11 @@ public class WeightedGraphAdjacencySet implements IWeightedGraph {
         return new Object[]{mst, edges};
     }
 
+    /*
+        An articulation point (also called a cut vertex or vertex cut) is a vertex whose removal disconnects the graph.
+
+        Think of it as a critical junction.
+     */
     @Override
     public int getVertexCutArticulationPoint() {
         // Tarjan articulation points: undirected only. Returns -1 when directed or none found.

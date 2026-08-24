@@ -1,0 +1,36 @@
+Design a parking lot system with the following requirements:
+
+Functional Requirements
+The parking lot has multiple floors.
+Each floor contains parking spots of different types:
+Bike
+Car
+Truck
+Vehicles can enter and exit the parking lot.
+When a vehicle enters:
+Find the nearest available parking spot of the appropriate type.
+
+Generate a parking ticket.
+When a vehicle exits:
+Calculate parking fees based on duration.
+
+Free the parking spot.
+Display board should show available spots on each floor.
+Support different pricing strategies:
+Hourly pricing
+Weekend pricing
+Event pricing
+Non-Functional Requirements
+Extensible for new vehicle types.
+Extensible for new pricing strategies.
+Thread-safe (multiple vehicles entering simultaneously).
+Follow SOLID principles.
+
+
+Design Questions Interviewer May Ask
+How would you efficiently find the nearest available spot?
+How would you make spot allocation thread-safe?
+Which design pattern would you use for pricing?
+How would you support EV charging spots?
+How would you support reserved/VIP parking?
+How would you avoid scanning all spots every time?
