@@ -1,0 +1,16 @@
+src/data_structures/graph/problems/_2MediumJumpGame5.java
+  h_a1913465ae69a5 1-99
+src/data_structures/graph/problems/_3MediumGraphValidTree.java
+  h_a1913465ae69a5 1-7
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.23",
+  "base_commit_sha": "756f54032424ea16b06837b4a157922695921236",
+  "prompts": {},
+  "humans": {
+    "h_a1913465ae69a5": {
+      "author": "abhishekmandal <abhishek.mandal@telekom-digital.com>"
+    }
+  }
+}
