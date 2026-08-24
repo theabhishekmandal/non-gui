@@ -1,0 +1,16 @@
+src/data_structures/graph/WeightedGraphAdjacencySet.java
+  h_a1913465ae69a5 360-379,545-549
+src/lowleveldesign/parkinglot/design2/designParkingLot.txt
+  h_a1913465ae69a5 1-36
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.23",
+  "base_commit_sha": "699f398d4a0c18231ea39d271343a20ba2623326",
+  "prompts": {},
+  "humans": {
+    "h_a1913465ae69a5": {
+      "author": "abhishekmandal <abhishek.mandal@telekom-digital.com>"
+    }
+  }
+}
