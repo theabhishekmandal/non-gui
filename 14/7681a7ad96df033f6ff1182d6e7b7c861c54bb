@@ -1,0 +1,14 @@
+src/miscellaneous/GenerateParenthesis.java
+  h_a1913465ae69a5 1-47
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.23",
+  "base_commit_sha": "147681a7ad96df033f6ff1182d6e7b7c861c54bb",
+  "prompts": {},
+  "humans": {
+    "h_a1913465ae69a5": {
+      "author": "abhishekmandal <abhishek.mandal@telekom-digital.com>"
+    }
+  }
+}
