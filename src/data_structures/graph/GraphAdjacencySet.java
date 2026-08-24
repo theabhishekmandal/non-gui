@@ -93,6 +93,7 @@ public class GraphAdjacencySet implements IGraph {
             if (visited[s]) {
                 continue;
             }
+            // Mark on push: stack only ever holds unvisited-at-push-time vertices
             stack.push(s);
             visited[s] = true;
             path.add(String.valueOf(s));
@@ -100,6 +101,7 @@ public class GraphAdjacencySet implements IGraph {
             while (!stack.isEmpty()) {
                 int vertex = stack.peek();
                 int next = -1;
+                // Push only one unvisited neighbour at a time (same order as recursive DFS)
                 for (int v = 0; v < vertices; v++) {
                     if (adjSet.get(vertex).contains(v) && !visited[v]) {
                         next = v;
@@ -107,11 +109,11 @@ public class GraphAdjacencySet implements IGraph {
                     }
                 }
                 if (next == -1) {
-                    stack.pop();
+                    stack.pop(); // backtrack: no more unvisited neighbours
                 } else {
-                    path.add(String.valueOf(next));
                     stack.push(next);
                     visited[next] = true;
+                    path.add(String.valueOf(next));
                 }
             }
         }
