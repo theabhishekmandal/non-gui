@@ -1,0 +1,14 @@
+src/SystemDesign/ImageSharingPlatform.txt
+  h_a1913465ae69a5 1-176
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "aee1893cda783bda1f312c6343db1bbd56afbcf5",
+  "prompts": {},
+  "humans": {
+    "h_a1913465ae69a5": {
+      "author": "abhishekmandal <abhishek.mandal@telekom-digital.com>"
+    }
+  }
+}
