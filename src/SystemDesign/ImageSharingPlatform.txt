@@ -1,0 +1,176 @@
+Functional Requirements:
+In Scope:
+    -   When user registers, they provide:
+        -   Mandatory: First name, Last Name email address, Password, Profile change
+        -   Optional:  age, location, interests etc.
+    -   Users can only share images.
+    -   Unidirectional relationship
+        -   User A follows User B
+        -   User B may/may not follow User A.
+    -   A User can:
+        -   Post an image
+        -   search other users by first name, last name or username.
+        -   View other user's public info and shared images.
+        -   Follow/Unfollow other users
+        -   See personalized timeline/newsfeed of the latest images, posted by people they follow
+            -   The images need to be sorted by recency in descending order.
+
+Out of Scope:
+    -   Other posts format like text, videos etc.
+
+
+
+Non-Functional Requirements:
+    -   Scalability
+        -   Billions of active users
+        -   Hundreds of million visits/day
+        -   Each user uploads ~1 image/day
+        -   Each image size ~2 MB.
+        -   Data processing volume ~1PB/day
+
+    -   Availability
+        -   99.99% uptime
+
+    -   Performance
+        -   Response time of <500 ms at 99pt
+        -   Timeline/Newsfeed load time < 1000ms at 99 percentile.
+
+
+System API based on Sequence Diagram
+get_homepage() -> Registration Page
+register_new_user(first_name, last_name, user_name, password...) -> [user_id, auth_token]
+login() -> auth_token
+post_image(user_id, image) -> Confirmation
+search_user(name/last_name/username) -> Page with Images
+follow_users(follower_user_id, target_user_id) -> Confirmation
+get_timeLine(user_id) -> Images of all users, followed by User B.
+
+
+get_homepage() -> Registration Page
+register_new_user(first_name, last_name, user_name, password...) -> [user_id, auth_token]
+
+    -   Define a Web Service
+        -   If user is a new user then we will send login/registration page as response of Web Service
+        -   If user is a existing user then we will send homepage as response of Web Service.
+        -   Now for both service we need another service called User Service.
+
+
+    -   Define a User Service
+        -   User Service will store info about the user in its own database.
+        -   Public Info -> It will all the info like user_id, username, first_name and last_name etc.
+            -   profile_image - we must not store it in database, as databases are not so good for storing binary objects.
+                              - Instead we can provide profile_image_url which will have a link for image located in an object store.
+        -   Private Info -> It can be private info such as phoneNumber, emailAddress, password.
+        -   Optional Information -> location, age etc.
+        -   Since the fields are dynamic it is better to use No-SQL document store.
+
+        -   Sequence flow when we Register a user
+            -   New user registration request will first go to Users service which in turn will store the image in the object store.
+            -   Object store will return the image url. Then User Service can add the new users in the document store.
+            -   It will return an user_id and an authentication token.
+
+login() -> auth_token
+        -   Sequence Flow when we try to log in.
+            -   When try to log in the User Service will try to check whether the given user exists or not using userName and password.
+        -   If user exists then it will return user_id and authentication token.
+
+post_image(user_id, image) -> Confirmation
+
+        -   For posting an image we need another service called as Posts service.
+        -   Define a Posts Service
+            -   It will have its own database.
+            -   Database having a table with the following schema
+                post_id     -   unique id of the post
+                user_id     -   which user posted the image.
+                post_url    -   location to the image of the post.
+                timestamp   -   when was the post added.
+                post_type   -   The type of post, as of now the type is image.
+
+            -   We can use no-sql or sql database. But, since the number of fields are limited then sql database is good.
+
+
+
+        -   Sequence flow when Posting
+            -   When an image is posted it goes through the Post service.
+            -   Post service will upload the image to object store where in return it will get back the url.
+            -   It will also add an entry to its database.
+            -   When the upload is successful the user will get a confirmation.
+
+search_user(name/last_name/username) -> Page with Images
+        -   We can directly send the request to User Service. But a dedicated Search Service is a better approach.
+        -   Define a Search Service
+            -   It will have its own No-SQL database which is highly optimized for text based searching
+            -   Now to keep User Service and Search Service database in sync we will use event driven architecture using the CQRS pattern.
+            -   What this pattern does is whenever a new user is added or existing is modified User Service will send an event using a broker.
+            -   Search Service will subscribe to those events, it will consume them and then will update its database.
+            -   now any search will go to search service where it will efficiently get back the data.
+
+
+
+follow_users(follower_user_id, target_user_id) -> Confirmation
+        -   Using the microservice architecture we could have another service called as Follower Service.
+        -   But this can easily be done in User service by using a simple mapping.
+        -   First create another collection called Followers Collection.
+            {"follower_user_id" : "user_a", "target_user_id" : "user_b"},
+            {"follower_user_id" : "user_a", "target_user_id" : "user_c"},
+            {"follower_user_id" : "user_c", "target_user_id" : "user_a"}
+
+        -   So when follow_user request goes to User service then it will update the Followers Collection if the entry is not present.
+
+
+get_timeLine(user_id) -> Images of all users, followed by User B.
+
+        -   If user A follows user B and user C. Then when user A logs in then he must see posts from both user B and user C.
+
+        -   First InEfficient way to do this.
+            -   AnyTime User A opens the homepage we can send a request to User Service to get all the users User A is following.
+            -   After getting the list we can send a second request to Post Service.
+            -   The Post Service then have to perform a complex sql query that gets all the posts of the target users User A is following.
+                -   Select user_id, post_url, timestamp from Posts where user_id IN ("target_user_1", "target_user_2", ...) ORDER BY timestamp DESC limit 30.
+
+            -   Now after getting the links of all the images at the client side then the request is sent again to Object store to get the actual images.
+            -   After getting the images it is then loaded in the browser.
+
+
+        -   Second way to do this
+            -   Define a TimeLine Service.
+                -   It will have timeline sorted list of Posts of each user.
+                -   UserId          TimeLine Sorted list of Posts
+                    user_a          ["post1 by user_b", "post2 by user_b", "post1 by user_c"...]
+                    user_b          [no posts since user b is following no one]
+                    user_c          ["post1 by user_a", "post2 by user_a"]
+
+                -   every entry will have the (image_url, user_id, timestamp)
+
+                -   Since we require a mapping we will keep highly performative in-memory key-value store.
+                -   We will also introduce a message broker to which TimeLine Service is subscribed to.
+                -   When a user post something then Post Service will send an event to the broker with (image_url, user_id, timestamp)
+                -   The TimeLine Service will consume that event asynchronously which means the user will not be impacted.
+                -   TimeLine Service will then get the followers of the user and will add an entry to each of its follower list.
+                -   Then entry will be added in front of the list which denotes the recent posts.
+                -   UserId          TimeLine - List of Posts
+                    follower_1      [new_post, post1, ..., ....]
+                    follower_2      [new_post, post2, ..., ....]
+
+                -   Also since number of recent posts in each user is constant, least recent will be popped up from the list.
+
+                -   Now when timeline service of a user is called we have all the list ready for the given user.
+                -   from the list we will get the image links at the client side.
+                -   then client can directly call the object store and display all the posts on the browser.
+
+
+        -   From requesting the user service to get the followers and from Post service to get all the follower's post using complex query
+            this is better approach of getting the already sorted list of descending posts of each follower.
+        -   Only drawback is each follower's post will not be seen immediately but eventually ----> Eventual Consistency is guaranteed.
+
+
+ Summary
+    -   Placed images in an Object Store, instead of the Database
+    -   Used CQRS pattern to separate:
+        -   Command -   User registration/Updates go to User Service.
+        -   Query   -   Search Operations go to the Search Service.
+    -   Used the CQRS + Materialized View Patterns to:
+        -   Avoids
+            -   Requests to User Service and Post Service
+            -   Complex SQL query
+        -   Provides a cached timeLine view for each user.
