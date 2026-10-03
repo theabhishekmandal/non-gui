@@ -1,0 +1,37 @@
+src/data_structures/priority_queues_and_heaps/problems/_6HardTrappingRainWater2.java
+  h_a1913465ae69a5 1-6,30-153
+  s_b32eef346d2f97::t_78df842bd0fd1b 7-29
+src/data_structures/graph/problems/_3MediumGraphValidTree.java
+  s_2a8aece6cfe1b2::t_47a1e1d7ce002a 6-40
+  h_a1913465ae69a5 3-5,41-48,51-65,67-111
+  h_a1913465ae69a5 66
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "2f93cc452a70aadbe6c412aa4bd128c57c9bb29a",
+  "prompts": {},
+  "humans": {
+    "h_a1913465ae69a5": {
+      "author": "abhishekmandal <abhishek.mandal@telekom-digital.com>"
+    }
+  },
+  "sessions": {
+    "s_2a8aece6cfe1b2": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "22c98180-c9d1-46bf-ba90-9dce0ee2e1f0",
+        "model": "auto-smart"
+      },
+      "human_author": "abhishekmandal <abhishek.mandal@telekom-digital.com>"
+    },
+    "s_b32eef346d2f97": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "b23b751e-44ff-4036-b82c-5b88ac623ab0",
+        "model": "auto-smart"
+      },
+      "human_author": "abhishekmandal <abhishek.mandal@telekom-digital.com>"
+    }
+  }
+}
