@@ -1,0 +1,16 @@
+src/data_structures/graph/problems/_4MediumNumberOfIslands.java
+  h_a1913465ae69a5 1-62
+src/data_structures/backTracking/_1HardNQueens.java
+  h_a1913465ae69a5 1-80
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "4b710f4d4972d503e1c8163c5e260a80b892daaf",
+  "prompts": {},
+  "humans": {
+    "h_a1913465ae69a5": {
+      "author": "abhishekmandal <abhishek.mandal@telekom-digital.com>"
+    }
+  }
+}
